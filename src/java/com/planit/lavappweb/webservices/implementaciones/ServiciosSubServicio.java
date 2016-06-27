@@ -8,6 +8,7 @@ package com.planit.lavappweb.webservices.implementaciones;
 import com.planit.lavappweb.modelos.Servicio_TO;
 import com.planit.lavappweb.modelos.SubServicio_TO;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarSubServicio_SP;
+import com.planit.lavappweb.webservices.clientes.ClienteConsultarSubServicios;
 import com.planit.lavappweb.webservices.clientes.ClienteEditarSubServicio;
 import com.planit.lavappweb.webservices.clientes.ClienteEliminarServicio;
 import com.planit.lavappweb.webservices.clientes.ClienteRegistarSubServicio;
@@ -28,7 +29,7 @@ public class ServiciosSubServicio {
 
     public List<SubServicio_TO> consultarSubServicios() {
         List<SubServicio_TO> subServicios = new ArrayList<>();
-        ClienteConsultarSubServicio_SP Cliente = new ClienteConsultarSubServicio_SP();
+        ClienteConsultarSubServicios Cliente = new ClienteConsultarSubServicios();
         List<LinkedHashMap> datos = Cliente.consultarSubServicios(List.class);
         for (int i = 0; i < datos.size(); i++) {
             LinkedHashMap map = (LinkedHashMap) datos.get(i).get("servicio");
