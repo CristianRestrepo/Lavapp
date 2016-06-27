@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"    
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+<!--    
+    se hara la logica para mostrar el contenido del pedido a llenar segun el paso 
+    en que vaya: ejemplo, cuando se esté definiendo las prendas se mostrará la 
+    etiqueta "<ui:include src="pasos/prendas.xhtml" />".
+-->   
+        
+    
+    <!--CONTENIDO DE PRENDAS-->
+        <ui:include src="pasos/prendas.xhtml" />
+    <!--CONTENIDO DE PRENDAS-->
+
+    <!--CONTENIDO DE TIEMPOS-->
+        <ui:include src="pasos/tiempos.xhtml"/>
+    <!--CONTENIDO DE TIEMPOS-->
+
+    <!--CONTENIDO DE LUGAR-->
+        <ui:include src="pasos/lugar.xhtml"/>
+    <!--CONTENIDO DE LUGAR-->
+
+    <!--CONTENIDO DE USUARIOS Y PAGO-->
+        <ui:include src="pasos/usuario-pago.xhtml"/>
+    <!--CONTENIDO DE USUARIOS Y PAGO-->
+
+</html>
+

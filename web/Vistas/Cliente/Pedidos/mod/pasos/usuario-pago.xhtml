@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <div style="display: none !important">
+
+        <section>
+            <div class="container ">
+                <div class="row"><!-- ROW PRINCIPAL -->
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  pos-form ">
+                        <div class="row ">
+
+                            <div class="col-xs-12 col-md-6"><!-- inicion / fin columnas -->
+                                <div>
+                                    <div class="title title-lv wow fadeInRight animated ">
+                                        <h2 class="txt-title-form">Detalles del Contacto</h2>							
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <form action="">
+                                                <div class="form-group">
+                                                    <label class="label-lv-2" for="">Nombres</label>
+                                                    <input type="text" class="form-control input-lg input-lg-lv" placeholder="Pepito"/>
+
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <form action="">
+                                                <div class="form-group">
+                                                    <label class="label-lv-2" for="">Apellidos</label>
+                                                    <input type="text" class="form-control input-lg input-lg-lv" placeholder=" Perez"/>
+
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+
+
+                                    <form action="">
+                                        <div class="form-group">
+                                            <label class="label-lv-2" for="">Tu Teléfono</label>
+                                            <input type="text" class="input-lg form-control input-lg-lv" placeholder="123 45 67"/>
+
+                                            <span class="help-block color-grey"><em>* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi praesentium autem qui</em></span>							
+                                        </div>
+                                    </form>
+
+                                    <form action="">
+                                        <div class="form-grup">
+                                            <label for="" class="label-lv-2">Tu Email</label>
+                                            <input type="text" class="form-control input-lg input-lg-lv" placeholder="ejmplo@gmail.com"/>
+                                            <span class="help-block color-grey"><em>* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi praesentium autem qui</em></span>	
+                                        </div>
+                                    </form>
+
+                                    <form action="">
+                                        <div class="form-grup">
+                                            <label for="" class="label-lv-2">Tu Contraseña</label>
+                                            <input type="pasword" class="form-control input-lg input-lg-lv" placeholder="ejmplo@gmail.com"/>
+                                            <span class="help-block color-grey"><em>* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi praesentium autem qui</em></span>	
+                                        </div>
+                                    </form>
+
+                                    <form action="">
+                                        <div class="form-grup">
+                                            <label for="" class="label-lv-2">Confirma la Contraseña</label>
+                                            <input type="text" class="form-control input-lg input-lg-lv" placeholder="ejmplo@gmail.com"/>
+                                            <span class="help-block color-grey"><em>* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi praesentium autem qui</em></span>	
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                            </div><!-- fin columnas -->
+
+                            <div class="col-xs-12 col-md-6"><!-- inicion / fin columnas -->
+                                <div class="bcg-color-pagos">						
+                                    <div class="title title-lv wow fadeInRight animated ">
+                                        <h2 class="txt-title-form">Detalles de Pago</h2>
+                                        <span class="span-pad">
+                                            <img src="./assets/images/fanq/amex.svg" alt="" class="img-franq-1"/>
+                                            <img src="./assets/images/fanq/mastercard.svg" alt="" class="img-franq-2"/>
+                                            <img src="./assets/images/fanq/visa.svg" alt="" class="img-franq-3"/>
+                                        </span>							
+                                    </div>
+
+                                    <button class="btn btn-primary"  type="button" data-toggle="collapse" data-target="#collapseVentana1" aria-expanded="false" aria-controls="collapseVentana1">	Pago con Tarjeta	
+                                    </button>
+                                    <button class="btn btn-primary"  type="button" data-toggle="collapse" data-target="#collapseVentana2" aria-expanded="false" aria-controls="collapseVentana2">Pago en Persona
+                                    </button>
+
+                                    <div class="collapse in" id="collapseVentana1">
+                                        <form action="">
+                                            <div class="form-group">
+                                                <label class="label-lv-2" for="">Número de Tarjeta</label>
+                                                <input type="text" class="input-lg form-control input-lg-lv"/>
+
+                                                <span class="help-block color-grey"><em>* inserte el numero de la tarjeta débito o crédito</em></span>		
+
+
+                                                <label class="label-lv-2" >Fecha de Expiración</label>
+                                                <div class="row">
+                                                    <div class="col-sm-12-col-xs-12">
+
+                                                        <div class="col-xs-4">													
+                                                            <input type="text" class="input-lg form-control input-lg-lv" placeholder="Año"/>
+
+                                                            <span class="help-block color-grey"><em>* inserte el numero de la tarjeta débito o crédito</em></span>	
+                                                        </div>
+                                                        <div class="col-xs-4">													
+                                                            <input type="text" class="input-lg form-control input-lg-lv" placeholder="Mes"/>
+
+                                                            <span class="help-block color-grey"><em>* inserte el numero de la tarjeta débito o crédito</em></span>	
+                                                        </div>
+                                                        <div class="col-xs-4">													
+                                                            <input type="text" class="input-lg form-control input-lg-lv" placeholder="Día"/>
+
+                                                            <span class="help-block color-grey"><em>* inserte el numero de la tarjeta débito o crédito</em></span>	
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <button class="btn btn-success active">
+                                                    <i class="fa fa-credit-card" aria-hiden="true"></i> Pagar
+                                                </button>
+
+
+                                            </div>
+                                        </form>			
+
+                                    </div>
+
+                                    <div class="collapse" id="collapseVentana2">
+                                        <h4 class="title-pago-efc">Pago de servicio en la entrega de la ropa</h4>
+                                        <p>el pago se hará al momento de entregar la ropa al asesor encargado de la zona segun la dirección del cliente.</p>
+
+                                        <form action="">
+                                            <div class="form-group">
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="optionsRadios" id="optionsRadios1"  value="" />
+                                                        Pago en efectivo
+                                                    </label>
+                                                </div>
+
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="optionsRadios" id="optionsRadios2"  value=""/>
+                                                        Pago con Datáfono
+                                                    </label>
+                                                </div>
+
+
+
+                                                <button class="btn btn-success active">
+                                                    <i class="fa fa-usd" aria-hiden="true"></i> Definir Pago
+                                                </button>
+
+
+                                            </div>
+                                        </form>		
+                                    </div>
+
+
+
+
+
+                                </div>
+
+                            </div><!-- fin columnas -->	
+
+                        </div>
+
+                    </div>
+                </div><!-- ROW PRINCIPAL -->
+            </div>
+
+        </section>
+    </div>
+
+</html>
+

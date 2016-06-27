@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="./../adminTemplate.xhtml">
+
+        <ui:define name="content"> 
+
+
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>Servicios LavApp <small> servicios de lavanderia a domicilio.</small></h3>
+                </div>
+
+                <div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                        <div class="input-group">
+                            <p:inputText type="text" class="form-control" placeholder="Buscar aquí..."/>
+                            <!--<input type="text" class="form-control" placeholder="Search for..."/>-->
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"> Ir !</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+                <!--<b:row>-->
+                <div class="col-md-6  col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title"><!-- CONTENIDO SUPERIOR DEL CONETENEDOR -->
+                            <h2>Registrar Informacion de Servicios</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>                                        
+                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div><!-- CONTENIDO SUPERIOR DEL CONETENEDOR -->
+                        <div class="x_content">
+                            
+                            <h:form id="formRegistroServicio" class="form-horizontal form-label-left input_mask">                  
+             
+                                <label class="control-label col-md-4 col-sm-4 col-xs-12">Nombre de Servicio</label>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    <p:inputText class="form-control" required="true" 
+                                                 placeholder="nombre del servicio..." type="text"
+                                                 id="txtNombreServicio" value="#{servicioCT.servicio.nombre}"></p:inputText>       
+                             
+                                </div>
+                                <br/>
+                                <div class="ln_solid-servicio "></div>
+                                <div class="col-xs-12">
+                                    <p:commandButton class="btn btn-primary btn-left" value="cancelar"/>
+                                    <p:commandButton class="btn btn-success btn-rigth" value="Registrar"
+                                                     type="submit" form=":formRegistroServicio" 
+                                                     update=":formRegistroServicio :formListaServicios"
+                                                     action="#{servicioCT.registrar()}"  />
+                                </div>
+                            </h:form>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title"><!-- ETIQUETAS DEL TITULOS DEL CONTENEDOR -->
+                            <h2>CRUD Servicios</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>                                        
+                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div><!-- ETIQUETAS DEL TITULOS DEL CONTENEDOR -->
+
+                        <div class="x_content">
+                            <h:form id="formListaServicios">
+
+                                <p:dataTable id="DTServicios" class="table-responsive table table-striped"
+                                             var="servicios" value="#{servicioCT.servicios}">
+                                    <p:column headerText="id">
+                                        <p:outputLabel value="#{servicios.idServicio}" />
+                                    </p:column>
+                                    <p:column headerText="Nombre Servicio">
+                                        <p:outputLabel value="#{servicios.nombre}" />
+                                    </p:column>
+
+                                </p:dataTable>
+
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+                <!--</b:row>-->
+            </div>
+        </ui:define>
+
+    </ui:composition>
+
+</html>
+

@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Login | LavApp</title>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />        
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <!--ARCHIVOS JS ALOJADOS EN LA CARPETA DASHBOARD-->
+        <h:outputStylesheet name="./dashboard/css/bootstrap.min.css"/>
+        <h:outputStylesheet name="./dashboard/css/font-awesome.min.css"/>
+        <h:outputStylesheet name="./dashboard/css/custom.min.css"/>
+
+        
+
+    </h:head>
+
+    <h:body class="login">
+        <div>
+            <a class="hiddenanchor" id="signup"></a>
+            <a class="hiddenanchor" id="signin"></a>
+
+            <div class="login_wrapper">
+                <div class="animate form login_form">
+                    <section class="login_content">
+                        <h:form id="formularioLogin">
+                            <p:growl autoUpdate="true" id="msg"/>
+                            <h1>Login Form</h1>
+
+                            <p:inputText type="text" value="#{sesionCT.usuario.email}" class="form-control" placeholder="Nombre de usuario" required="true"/>  
+                            <!--<input type="text" value="#{sesionCT.usuario.nombre}" class="form-control" placeholder="Username" required="" />-->
+
+                            <p:password value="#{sesionCT.usuario.contrasena}" class="form-control" placeholder="Contraseña" required="true"/>
+                            <!--<input type="password" value="#{sesionCT.usuario.contrasena}" class="form-control" placeholder="Password" required="" />-->
+
+
+                            <p:commandButton ajax="false" class="btn btn-default submit" value="Log in" action="#{sesionCT.iniciarSesion()}" update="formularioLogin"/>
+                            <!--<a class="btn btn-default submit" href="index.html">Log in</a>-->
+                            <a class="reset_pass" href="#">Lost your password?</a>
+
+
+                            <div class="clearfix"></div>
+
+                            <div class="separator">
+                                <p class="change_link">New to site?
+                                    <a href="#signup" class="to_register"> Create Account </a>
+                                </p>
+
+                                <div class="clearfix"></div>
+                                <br />
+
+                                <div>
+                                    <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
+                                    <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                                </div>
+                            </div>
+                        </h:form>
+                    </section>
+                </div>
+
+                <div id="register" class="animate form registration_form">
+                    <section class="login_content">
+                        <form>
+                            <h1>Create Account</h1>
+                            <div>
+                                <input type="text" class="form-control" placeholder="Username" required="" />
+                            </div>
+                            <div>
+                                <input type="email" value="#{sesionCT.usuario.email}" class="form-control" placeholder="Email" required="" />
+                            </div>
+                            <div>
+                                <input type="password" value="#{sesionCT.usuario.contrasena}" class="form-control" placeholder="Password" required="" />
+                            </div>
+                            <div>
+                                <a class="btn btn-default submit" href="index.html">Submit</a>
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                            <div class="separator">
+                                <p class="change_link">Already a member ?
+                                    <a href="#signin" class="to_register"> Log in </a>
+                                </p>
+
+                                <div class="clearfix"></div>
+                                <br />
+
+                                <div>
+                                    <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
+                                    <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+    </h:body>
+    <!--ARCHIVOS JS ALOJADOS EN LA CARPETA DASHBOARD-->
+        <h:outputScript name="./dashboard/js/jquery.min.js" />
+        <h:outputScript name="./dashboard/js/bootstrap.min.js" />
+        <h:outputScript name="./dashboard/js/fastclick.js" />
+        <h:outputScript name="./dashboard/js/nprogress.js" />
+        <h:outputScript name="./dashboard/js/custom.js"  />
+
+        <h:outputScript name="./dashboard/js/bootstrap-wysiwyg.min"  />
+        <h:outputScript name="./dashboard/js/jquery.hotkeys"  />
+</html>
+
