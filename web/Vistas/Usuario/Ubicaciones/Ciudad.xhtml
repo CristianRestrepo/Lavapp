@@ -59,7 +59,10 @@
                                     <h:form id="formularioListaCiudades">
                                         <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
                                         <div class="ln_solid"></div>
-                                        <p:dataTable style="width: 100%" var="ciudad" value="#{ciudadCT.ciudades}" class="table-responsive table table-striped">
+                                        <p:dataTable style="width: 100%" var="ciudad" value="#{ciudadCT.ciudades}" class="table-responsive table table-striped" rows="10"
+                                                 paginator="true"
+                                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15">
                                             <p:column headerText="Nombre">
                                                 <p:outputLabel value="#{ciudad.nombre}"/>     
                                             </p:column>
