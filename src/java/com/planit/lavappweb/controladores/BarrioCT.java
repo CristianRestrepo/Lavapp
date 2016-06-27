@@ -28,7 +28,7 @@ public class BarrioCT {
         barrio = new Barrio_TO();
         barrios = new ArrayList<>();
         servicios = new ServiciosBarrios();
-        nombreOperacion = "registrar";
+        nombreOperacion = "Registrar";
         operacion = 0;
     }
 

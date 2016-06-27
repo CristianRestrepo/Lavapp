@@ -10,12 +10,6 @@
 
         <ui:composition template="./../adminTemplate.xhtml">
             <ui:define name="content">
-                <div class="page-title">
-                    <div class="title_">
-                        <h3>Barrios Lavapp <small> servicios de lavanderia a domicilio.</small></h3>
-                    </div>                    
-                </div>                
-                <div class="clearfix"></div>
                 <div class="row">                    
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
                         <div class="x_panel">
@@ -37,25 +31,28 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label" for="SMLocalidad">Localidad<span class="required">*</span></label>
-                                        <p:selectOneMenu style="width: 100%" required="true" id="SMLocalidad" >
+                                        <h:selectOneMenu class="form-control" value="#{barrioCT.barrio.localidad}" style="width: 100%" required="true" id="SMLocalidad" >
+                                            <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
                                             <f:selectItems value="#{localidadCT.localidades}" var="localidad" itemLabel="#{localidad.nombre}" itemValue="#{localidad}"/>
-                                        </p:selectOneMenu>
+                                        </h:selectOneMenu>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label" for="SMEstrato">Estrato<span class="required">*</span></label>
-                                        <p:selectOneMenu style="width: 100%" required="true" id="SMEstrato" >
+                                        <h:selectOneMenu class="form-control" value="#{barrioCT.barrio.estrato}" style="width: 100%" required="true" id="SMEstrato" >
+                                            <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
                                             <f:selectItems value="#{estratoCT.estratos}" var="Estrato" itemLabel="#{Estrato.nombre}" itemValue="#{Estrato}"/>
-                                        </p:selectOneMenu>
+                                        </h:selectOneMenu>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label" for="SMZona">Zona<span class="required">*</span></label>
-                                        <p:selectOneMenu style="width: 100%" required="true" id="SMZona" >
+                                        <h:selectOneMenu class="form-control" value="#{barrioCT.barrio.zona}" style="width: 100%" required="true" id="SMZona" >
+                                            <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
                                             <f:selectItems value="#{zonaCT.zonas}" var="zona" itemLabel="#{zona.nombre}" itemValue="#{zona}"/>
-                                        </p:selectOneMenu>
+                                        </h:selectOneMenu>
                                     </div>
                                     <div class="ln_solid"></div>
                                     <p:commandButton value="Cancelar" immediate="true" process="@this" update=":formularioRegistro :formularioListaBarrios" action="#{barrioCT.cancelar()}" class="btn btn-primary"/>
-                                    <p:commandButton type="submit" form="formularioRegistro" update="formularioRegistro" action="#{barrioCT.metodo()}" value="#{barrioCT.nombreOperacion}" class="btn btn-success"/>
+                                    <p:commandButton type="submit" form="formularioRegistro" ajax="false" update="formularioRegistro" action="#{barrioCT.metodo()}" value="#{barrioCT.nombreOperacion}" class="btn btn-success"/>
                                 </h:form>
                             </div>
                         </div>
@@ -112,7 +109,6 @@
                         </div>
                     </div>
                 </div>
-
             </ui:define>
         </ui:composition>
     </body>
