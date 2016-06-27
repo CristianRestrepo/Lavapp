@@ -5,7 +5,6 @@
  */
 package com.planit.lavappweb.controladores;
 
-import static com.planit.lavappweb.metodos.Configuracion.operacion;
 import com.planit.lavappweb.modelos.Barrio_TO;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosBarrios;
 import java.util.ArrayList;
@@ -23,12 +22,14 @@ public class BarrioCT {
     private List<Barrio_TO> barrios;
     protected ServiciosBarrios servicios;
     private String nombreOperacion;
+    private int operacion; //Controla la operacion a ejecutar
 
     public BarrioCT() {
         barrio = new Barrio_TO();
         barrios = new ArrayList<>();
         servicios = new ServiciosBarrios();
         nombreOperacion = "registrar";
+        operacion = 0;
     }
 
     @PostConstruct

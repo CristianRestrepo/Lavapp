@@ -5,7 +5,6 @@
  */
 package com.planit.lavappweb.controladores;
 
-import static com.planit.lavappweb.metodos.Configuracion.operacion;
 import com.planit.lavappweb.modelos.Departamento_TO;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosDepartamento;
 import java.util.ArrayList;
@@ -25,12 +24,14 @@ public class DepartamentoCT {
 
     //Variables   
     private String nombreOperacion;
+    private int operacion;
 
     public DepartamentoCT() {
         departamento = new Departamento_TO();
         departamentos = new ArrayList<>();
         servicios = new ServiciosDepartamento();
         nombreOperacion = "Registrar";
+        operacion = 0;
     }
 
     @PostConstruct

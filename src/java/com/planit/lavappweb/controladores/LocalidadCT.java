@@ -5,7 +5,6 @@
  */
 package com.planit.lavappweb.controladores;
 
-import static com.planit.lavappweb.metodos.Configuracion.operacion;
 import com.planit.lavappweb.modelos.Localidad_TO;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosLocalidad;
 import java.util.ArrayList;
@@ -24,12 +23,14 @@ public class LocalidadCT {
     protected ServiciosLocalidad servicios;
     
     private String nombreOperacion;
+    private int operacion;
 
     public LocalidadCT() {
         localidad = new Localidad_TO();
         localidades = new ArrayList<>();
         servicios = new ServiciosLocalidad();
         nombreOperacion = "Registrar";
+        operacion = 0;
     }
 
     @PostConstruct

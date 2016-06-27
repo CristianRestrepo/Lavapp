@@ -5,7 +5,6 @@
  */
 package com.planit.lavappweb.controladores;
 
-import static com.planit.lavappweb.metodos.Configuracion.operacion;
 import com.planit.lavappweb.modelos.Zona_TO;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosZona;
 import java.util.ArrayList;
@@ -22,13 +21,17 @@ public class ZonaCT {
     private Zona_TO zona;
     private List<Zona_TO> zonas;
     protected ServiciosZona servicios;
+    
+    //Variables
     private String nombreOperacion;
-
+    private int operacion;
+    
     public ZonaCT() {
         zona = new Zona_TO();
         zonas = new ArrayList<>();
         nombreOperacion = "Registrar";
         servicios = new ServiciosZona();
+        operacion = 0;
     }
 
     @PostConstruct

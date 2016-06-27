@@ -5,7 +5,6 @@
  */
 package com.planit.lavappweb.controladores;
 
-import static com.planit.lavappweb.metodos.Configuracion.operacion;
 import com.planit.lavappweb.modelos.Estrato_TO;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosEstrato;
 import java.util.ArrayList;
@@ -22,13 +21,17 @@ public class EstratoCT {
     private Estrato_TO estrato;
     private List<Estrato_TO> estratos;
     protected ServiciosEstrato servicios;
+    
+    //variables
     private String nombreOperacion;
-
+    private int operacion;
+    
     public EstratoCT() {
         estrato = new Estrato_TO();
         estratos = new ArrayList<>();
         servicios = new ServiciosEstrato();
         nombreOperacion = "Registrar";
+        operacion = 0;
     }
 
     @PostConstruct

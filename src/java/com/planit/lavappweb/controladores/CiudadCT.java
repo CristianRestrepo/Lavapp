@@ -5,7 +5,7 @@
  */
 package com.planit.lavappweb.controladores;
 
-import static com.planit.lavappweb.metodos.Configuracion.operacion;
+
 import com.planit.lavappweb.modelos.Ciudad_TO;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosCiudad;
 import java.util.ArrayList;
@@ -25,12 +25,14 @@ public class CiudadCT {
     protected ServiciosCiudad servicios;
 
     private String nombreOperacion;
+    private int operacion; //Controla la operacion a ejecutar
 
     public CiudadCT() {
         ciudad = new Ciudad_TO();
         ciudades = new ArrayList<>();
         servicios = new ServiciosCiudad();
         nombreOperacion = "Registrar";
+        operacion = 0;
     }
 
     @PostConstruct

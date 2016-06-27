@@ -15,23 +15,28 @@ import javax.annotation.PostConstruct;
  *
  * @author Desarrollo_Planit
  */
-
 public class ServicioCT {
 
     private Servicio_TO servicio;
     private List<Servicio_TO> servicios;
-    private ServiciosServicios clienteServicio;
+    protected ServiciosServicios clienteServicio;
+
+    //Variables
+    private String nombreOperacion;
+    protected int operacion;
 
     public ServicioCT() {
         servicio = new Servicio_TO();
         servicios = new ArrayList<>();
         clienteServicio = new ServiciosServicios();
+
+        nombreOperacion = "Registrar";
+        operacion = 0;
     }
 
     @PostConstruct
     public void init() {
         servicios = clienteServicio.consultarServicios();
-
     }
 
     //Getter & Setter
@@ -51,21 +56,53 @@ public class ServicioCT {
         this.servicios = servicios;
     }
 
- 
-    //Metodos
-    public void consultar() {
-
+    public String getNombreOperacion() {
+        return nombreOperacion;
     }
 
-    public void registrar() {        
-        servicio = clienteServicio.registrarServicio( servicio.getNombre());        
+    public void setNombreOperacion(String nombreOperacion) {
+        this.nombreOperacion = nombreOperacion;
+    }
+
+    //Metodos   
+    public void registrar() {
+        servicio = clienteServicio.registrarServicio(servicio.getNombre());
+        servicios = clienteServicio.consultarServicios();
     }
 
     public void modificar() {
-
+        servicio = clienteServicio.editarServicio(servicio.getIdServicio(), servicio.getNombre());
+        servicios = clienteServicio.consultarServicios();
     }
 
     public void eliminar() {
+        servicio = clienteServicio.eliminarServicio(servicio.getIdServicio());
+        servicios = clienteServicio.consultarServicios();
+    }
+    
+    //Metodos Propios
+    public void metodo() {
+        if (operacion == 0) {
+            registrar();
+        } else if (operacion == 1) {
+            modificar();
+            //Reiniciamos banderas
+            nombreOperacion = "Registrar";
+            operacion = 0;
+        }
+    }
 
+    public void seleccionarCRUD(int i) {
+        operacion = i;
+        if (operacion == 1) {
+            nombreOperacion = "Modificar";
+        }
+    }
+
+    public void cancelar() {
+        servicio = new Servicio_TO();
+        servicios = clienteServicio.consultarServicios();
+        operacion = 0;
+        nombreOperacion = "Registrar";
     }
 }

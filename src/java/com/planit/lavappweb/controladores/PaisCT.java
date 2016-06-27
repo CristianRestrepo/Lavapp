@@ -5,7 +5,6 @@
  */
 package com.planit.lavappweb.controladores;
 
-import static com.planit.lavappweb.metodos.Configuracion.operacion;
 import com.planit.lavappweb.modelos.Pais_TO;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosPais;
 import java.util.ArrayList;
@@ -26,12 +25,14 @@ public class PaisCT {
 
     //Variables   
     private String nombreOperacion;
-
+    private int operacion;
+        
     public PaisCT() {
         pais = new Pais_TO();
         paises = new ArrayList<>();
         servicios = new ServiciosPais();
         nombreOperacion = "Registrar";
+        operacion = 0;
     }
 
     @PostConstruct

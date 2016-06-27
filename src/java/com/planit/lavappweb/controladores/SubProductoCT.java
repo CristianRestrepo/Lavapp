@@ -6,7 +6,7 @@
 package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.modelos.SubProducto_TO;
-import com.planit.lavappweb.webservices.implementaciones.ServicioSubProductos;
+import com.planit.lavappweb.webservices.implementaciones.ServiciosSubProductos;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,23 +16,28 @@ import javax.annotation.PostConstruct;
  *
  * @author Desarrollo_Planit
  */
-
-public class SubProductoCT implements Serializable{
+public class SubProductoCT implements Serializable {
 
     private SubProducto_TO subproducto;
     private List<SubProducto_TO> subproductos;
-    private ServicioSubProductos clienteSubProducto;
+    protected ServiciosSubProductos serviciosSubProducto;
 
+    //Variables    
+    private String nombreOperacion;
+    protected int operacion;
+    
     public SubProductoCT() {
         subproducto = new SubProducto_TO();
         subproductos = new ArrayList<>();
-        clienteSubProducto = new ServicioSubProductos();
+        serviciosSubProducto = new ServiciosSubProductos();
+        
+        operacion = 0;
+        nombreOperacion = "Registrar";
     }
 
     @PostConstruct
     public void init() {
-        
-        subproductos = clienteSubProducto.consultarSubProductos();
+        subproductos = serviciosSubProducto.consultarSubProductos();
     }
 
     //Getter & Setter
@@ -52,26 +57,54 @@ public class SubProductoCT implements Serializable{
         this.subproductos = subproductos;
     }
 
-    public ServicioSubProductos getClienteSubProducto() {
-        return clienteSubProducto;
+    public String getNombreOperacion() {
+        return nombreOperacion;
     }
 
-    public void setClienteSubProducto(ServicioSubProductos clienteSubProducto) {
-        this.clienteSubProducto = clienteSubProducto;
+    public void setNombreOperacion(String nombreOperacion) {
+        this.nombreOperacion = nombreOperacion;
     }
 
+    
     //Metodos
     public void registrar() {
-        try {
-            clienteSubProducto.registrarSubproductos(subproducto.getNombre(), subproducto.getDescripcion(), subproducto.getProducto().getIdProducto());
-        } catch (Exception e) {
-            throw e;
-        }
+        subproducto = serviciosSubProducto.registrarSubproducto(subproducto.getNombre(), subproducto.getDescripcion(), subproducto.getProducto().getIdProducto());
+        subproductos = serviciosSubProducto.consultarSubProductos();
     }
 
     public void modificar() {
+        subproducto = serviciosSubProducto.editarSubProducto(subproducto.getIdSubProducto(), subproducto.getNombre(), subproducto.getDescripcion(), subproducto.getProducto().getIdProducto());
+        subproductos = serviciosSubProducto.consultarSubProductos();
     }
 
     public void eliminar() {
+        subproducto = serviciosSubProducto.eliminarSubProducto(subproducto.getIdSubProducto());
+        subproductos = serviciosSubProducto.consultarSubProductos();
+    }
+    
+    //Metodos Propios
+    public void metodo() {
+        if (operacion == 0) {
+            registrar();
+        } else if (operacion == 1) {
+            modificar();
+            //Reiniciamos banderas
+            nombreOperacion = "Registrar";
+            operacion = 0;
+        }
+    }
+
+    public void seleccionarCRUD(int i) {
+        operacion = i;
+        if (operacion == 1) {
+            nombreOperacion = "Modificar";
+        }
+    }
+
+    public void cancelar() {
+        subproducto = new SubProducto_TO();
+        subproductos = serviciosSubProducto.consultarSubProductos();
+        operacion = 0;
+        nombreOperacion = "Registrar";
     }
 }

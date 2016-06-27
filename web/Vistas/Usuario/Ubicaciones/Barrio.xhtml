@@ -10,101 +10,110 @@
 
         <ui:composition template="./../adminTemplate.xhtml">
             <ui:define name="content">
-                <div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
-                            <div class="x_panel">
-                                <div class="x_title">
-                                    <h2>BARRIOS</h2>
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                        </li>                                        
-                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                        </li>
-                                    </ul>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="x_content">
-                                    <h:form id="formularioRegistro" class="form-horizontal"> 
-                                        <div class="form-group">
-                                            <label class="control-label" for="txtNombreBarrio">Nombre<span class="required">*</span></label>
-                                            <p:inputText class="form-control" value="#{barrioCT.barrio.nombre}" required="true" placeholder="Nombre del barrio" type="text" id="txtNombreBarrio"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label" for="SMLocalidad">Localidad<span class="required">*</span></label>
-                                            <p:selectOneMenu style="width: 100%" required="true" id="SMLocalidad" >
-                                                <f:selectItems value="#{localidadCT.localidades}" var="localidad" itemLabel="#{localidad.nombre}" itemValue="#{localidad}"/>
-                                            </p:selectOneMenu>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label" for="SMEstrato">Estrato<span class="required">*</span></label>
-                                            <p:selectOneMenu style="width: 100%" required="true" id="SMEstrato" >
-                                                <f:selectItems value="#{estratoCT.estratos}" var="Estrato" itemLabel="#{Estrato.nombre}" itemValue="#{Estrato}"/>
-                                            </p:selectOneMenu>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label" for="SMZona">Zona<span class="required">*</span></label>
-                                            <p:selectOneMenu style="width: 100%" required="true" id="SMZona" >
-                                                <f:selectItems value="#{zonaCT.zonas}" var="zona" itemLabel="#{zona.nombre}" itemValue="#{zona}"/>
-                                            </p:selectOneMenu>
-                                        </div>
-                                        <div class="ln_solid"></div>
-                                        <p:commandButton value="Cancelar" immediate="true" process="@this" update=":formularioRegistro :formularioListaBarrios" action="#{barrioCT.cancelar()}" class="btn btn-primary"/>
-                                        <p:commandButton type="submit" form="formularioRegistro" update="formularioRegistro" action="#{barrioCT.metodo()}" value="#{barrioCT.nombreOperacion}" class="btn btn-success"/>
-                                    </h:form>
-                                </div>
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3>Barrios Lavapp <small> servicios de lavanderia a domicilio.</small></h3>
+                    </div>                    
+                </div>
+
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>BARRIOS</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>                                        
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
                             </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pull-right form-group">
-                            <div class="x_panel">
-                                <div class="x_title">
-                                    <h2>LISTA DE BARRIOS</h2>
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                        </li>                                        
-                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                        </li>
-                                    </ul>
-                                    <div class="clearfix">                                       
+                            <div class="x_content">
+                                <h:form id="formularioRegistro" class="form-horizontal"> 
+                                    <div class="form-group">
+                                        <label class="control-label" for="txtNombreBarrio">Nombre<span class="required">*</span></label>
+                                        <p:inputText class="form-control" value="#{barrioCT.barrio.nombre}" required="true" placeholder="Nombre del barrio" type="text" id="txtNombreBarrio"/>
                                     </div>
-                                </div>
-                                <div class="x_content">
-                                    <h:form id="formularioListaBarrios">
-                                        <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
-                                        <div class="ln_solid"></div>
-                                        <p:dataTable style="width: 100%" var="barrio" value="#{barrioCT.barrios}" class="table-responsive table table-striped">
-                                            <p:column headerText="Nombre">
-                                                <p:outputLabel value="#{barrio.nombre}"/>         
-                                            </p:column>
-
-                                            <p:column headerText="Localidad">
-                                                <p:outputLabel value="#{barrio.localidad.nombre}"/>         
-                                            </p:column>
-
-                                            <p:column headerText="Estrato">
-                                                <p:outputLabel value="#{barrio.estrato.nombre}"/>         
-                                            </p:column>
-
-                                            <p:column  style="width: 60px" headerText="">
-                                                <p:commandLink style="color: white; width: 100%" process="@this" update=":formularioRegistro" action="#{barrioCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
-                                                    <f:setPropertyActionListener value="#{barrio}" target="#{barrioCT.barrio}"/>
-                                                    <i class="fa fa-pencil"/> 
-                                                </p:commandLink>
-                                            </p:column>
-
-                                            <p:column  style="width: 60px" headerText="">
-                                                <p:commandLink style="color: white; width: 100%" action="#{barrioCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
-                                                    <f:setPropertyActionListener value="#{barrio}" target="#{barrioCT.barrio}"/>
-                                                    <i class="fa fa-trash"/>                                                     
-                                                </p:commandLink>
-                                            </p:column>
-                                        </p:dataTable>
-                                    </h:form>
-                                </div>
+                                    <div class="form-group">
+                                        <label class="control-label" for="SMLocalidad">Localidad<span class="required">*</span></label>
+                                        <p:selectOneMenu style="width: 100%" required="true" id="SMLocalidad" >
+                                            <f:selectItems value="#{localidadCT.localidades}" var="localidad" itemLabel="#{localidad.nombre}" itemValue="#{localidad}"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label" for="SMEstrato">Estrato<span class="required">*</span></label>
+                                        <p:selectOneMenu style="width: 100%" required="true" id="SMEstrato" >
+                                            <f:selectItems value="#{estratoCT.estratos}" var="Estrato" itemLabel="#{Estrato.nombre}" itemValue="#{Estrato}"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label" for="SMZona">Zona<span class="required">*</span></label>
+                                        <p:selectOneMenu style="width: 100%" required="true" id="SMZona" >
+                                            <f:selectItems value="#{zonaCT.zonas}" var="zona" itemLabel="#{zona.nombre}" itemValue="#{zona}"/>
+                                        </p:selectOneMenu>
+                                    </div>
+                                    <div class="ln_solid"></div>
+                                    <p:commandButton value="Cancelar" immediate="true" process="@this" update=":formularioRegistro :formularioListaBarrios" action="#{barrioCT.cancelar()}" class="btn btn-primary"/>
+                                    <p:commandButton type="submit" form="formularioRegistro" update="formularioRegistro" action="#{barrioCT.metodo()}" value="#{barrioCT.nombreOperacion}" class="btn btn-success"/>
+                                </h:form>
                             </div>
                         </div>
                     </div>
-                </div>   
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pull-right form-group">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>LISTA DE BARRIOS</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>                                        
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix">                                       
+                                </div>
+                            </div>
+                            <div class="x_content">
+                                <h:form id="formularioListaBarrios">
+                                    <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
+                                    <div class="ln_solid"></div>
+                                    <p:dataTable style="width: 100%" var="barrio" value="#{barrioCT.barrios}" class="table-responsive table table-striped" rows="10"
+                                                 paginator="true"
+                                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15">
+                                        <p:column headerText="Nombre">
+                                            <p:outputLabel value="#{barrio.nombre}"/>         
+                                        </p:column>
+
+                                        <p:column headerText="Localidad">
+                                            <p:outputLabel value="#{barrio.localidad.nombre}"/>         
+                                        </p:column>
+
+                                        <p:column headerText="Estrato">
+                                            <p:outputLabel value="#{barrio.estrato.nombre}"/>         
+                                        </p:column>
+
+                                        <p:column  style="width: 60px" headerText="">
+                                            <p:commandLink style="color: white; width: 100%" process="@this" update=":formularioRegistro" action="#{barrioCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
+                                                <f:setPropertyActionListener value="#{barrio}" target="#{barrioCT.barrio}"/>
+                                                <i class="fa fa-pencil"/> 
+                                            </p:commandLink>
+                                        </p:column>
+
+                                        <p:column  style="width: 60px" headerText="">
+                                            <p:commandLink style="color: white; width: 100%" action="#{barrioCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
+                                                <f:setPropertyActionListener value="#{barrio}" target="#{barrioCT.barrio}"/>
+                                                <i class="fa fa-trash"/>                                                     
+                                            </p:commandLink>
+                                        </p:column>
+                                    </p:dataTable>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </ui:define>
         </ui:composition>
     </body>
