@@ -65,9 +65,9 @@
                                                  type="text" id="txtIDProd" value="#{subProductoCT.subproducto.producto.idProducto}"/>
                                 </div>
                                 <div class="ln_solid"></div>
-                                <p:commandButton value="Cancelar"  class="btn btn-primary"/>
+                                <p:commandButton value="Cancelar"  class="btn btn-primary" action="#{subProductoCT.cancelar()}"/>
                                 <p:commandButton type="submit" form=":formSubProd" update=":formSubProd :formListSubProduc " 
-                                                 action="#{subProductoCT.registrar()}"  value="Registrar" class="btn btn-success" ajax="false"/>
+                                                 action="#{subProductoCT.metodo()}"  value="#{subProductoCT.nombreOperacion}" class="btn btn-success" ajax="false"/>
                             </h:form>
                         </div>
                     </div>
@@ -102,10 +102,21 @@
 
                                     <p:column headerText="Descripcion">
                                         <p:outputLabel value="#{subProd.descripcion}"/>                                            
-
                                     </p:column>
 
+                                    <p:column style="width: 60px" headerText="">
+                                        <p:commandLink style="color: white; width: 100%" process="@this" update=":formSubProd" action="#{subProductoCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
+                                            <f:setPropertyActionListener value="#{subProd}" target="#{subProductoCT.subproducto}"/>
+                                            <i class="fa fa-pencil"/> 
+                                        </p:commandLink>
+                                    </p:column>
 
+                                    <p:column style="width: 60px" headerText="">
+                                        <p:commandLink style="color: white; width: 100%" action="#{subProductoCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
+                                            <f:setPropertyActionListener value="#{subProd}" target="#{subProductoCT.subproducto}"/>
+                                            <i class="fa fa-trash"/>                                                     
+                                        </p:commandLink>
+                                    </p:column>
 
                                 </p:dataTable>                                       
                             </h:form>

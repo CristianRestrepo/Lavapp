@@ -13,7 +13,7 @@
 
             <div class="page-title">
                 <div class="title_left">
-                    <h3>Servicios LavApp <small> servicios de lavanderia a domicilio.</small></h3>
+                    <h3>Productos LavApp <small> productos de lavanderia a domicilio.</small></h3>
                 </div>
 
                 <div class="title_right">
@@ -36,7 +36,7 @@
                 <div class="col-md-6  col-xs-12">
                     <div class="x_panel">
                         <div class="x_title"><!-- CONTENIDO SUPERIOR DEL CONETENEDOR -->
-                            <h2>Registrar Informacion de Servicios</h2>
+                            <h2>Registrar Informacion de Productos</h2>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>                                        
@@ -47,23 +47,41 @@
                         </div><!-- CONTENIDO SUPERIOR DEL CONETENEDOR -->
                         <div class="x_content">
 
-                            <h:form id="formRegistroServicio" class="form-horizontal form-label-left input_mask">                  
+                            <h:form id="formRegProductos" class="form-horizontal form-label-left input_mask">                  
 
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12">Nombre de Servicio</label>
+                                <label class="control-label col-md-4 col-sm-4 col-xs-12">Nombre de Producto</label>
                                 <div class="col-md-8 col-sm-8 col-xs-12">
                                     <p:inputText class="form-control" required="true" 
-                                                 placeholder="nombre del servicio..." type="text"
-                                                 id="txtNombreServicio" value="#{servicioCT.servicio.nombre}"></p:inputText>       
+                                                 placeholder="nombre del producto..." type="text"
+                                                 id="txtNombreProducto" value="#{productoCT.producto.nombre}"></p:inputText>       
 
                                 </div>
                                 <br/>
+                                <label class="control-label col-md-4 col-sm-4 col-xs-12">Descripcion de Producto</label>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    <p:inputTextarea class="form-control" required="true" 
+                                                 placeholder="Descripcion del producto..."
+                                                 id="txtDescProcucto" value="#{productoCT.producto.descripcion}"></p:inputTextarea>       
+
+                                </div>
+                                <br/>
+                                <br/>
+                                <label class="control-label col-md-4 col-sm-4 col-xs-12">ID del SubProducto</label>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    <p:inputText class="form-control" required="true" 
+                                                 placeholder="nombre del producto..." type="text"
+                                                 id="IDProducto" value="#{productoCT.producto.subServicio.idSubServicio}"></p:inputText>       
+                                                  <!--A FUTURO SE DEBE COLOCAR UN SELECT CON EL ID DEL SUBSERVICIO-->
+                                </div>
+                                <br/>
                                 <div class="ln_solid-servicio "></div>
+                                <br/>
                                 <div class="col-xs-12">
-                                    <p:commandButton class="btn btn-primary btn-left" value="cancelar"/>
-                                    <p:commandButton class="btn btn-success btn-rigth" value="Registrar"
-                                                     type="submit" form=":formRegistroServicio" 
-                                                     update=":formRegistroServicio :formListaServicios"
-                                                     action="#{servicioCT.registrar()}"  />
+                                    <p:commandButton class="btn btn-primary btn-left" value="cancelar" action="#{productoCT.cancelar()}"/>
+                                    <p:commandButton class="btn btn-success btn-rigth" value="#{productoCT.nombreOperacion}"
+                                                     type="submit" form=":formRegProductos" 
+                                                     update=":formRegProductos :formListaProductos"
+                                                     action="#{productoCT.metodo()}"  ajax="false" />
                                 </div>
                             </h:form>
 
@@ -74,7 +92,7 @@
                 <div class="col-md-6 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title"><!-- ETIQUETAS DEL TITULOS DEL CONTENEDOR -->
-                            <h2>CRUD Servicios</h2>
+                            <h2>CRUD Productos</h2>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>                                        
@@ -85,15 +103,32 @@
                         </div><!-- ETIQUETAS DEL TITULOS DEL CONTENEDOR -->
 
                         <div class="x_content">
-                            <h:form id="formListaServicios">
+                            <h:form id="formListaProductos">
 
                                 <p:dataTable id="DTServicios" class="table-responsive table table-striped"
-                                             var="servicios" value="#{servicioCT.servicios}">
+                                             var="produc" value="#{productoCT.productos}">
                                     <p:column headerText="id">
-                                        <p:outputLabel value="#{servicios.idServicio}" />
+                                        <p:outputLabel value="#{produc.idProducto}" />
                                     </p:column>
-                                    <p:column headerText="Nombre Servicio">
-                                        <p:outputLabel value="#{servicios.nombre}" />
+                                    <p:column headerText="Nombre Productos">
+                                        <p:outputLabel value="#{produc.nombre}" />
+                                    </p:column>
+                                    <p:column headerText="Descripcion Productos">
+                                        <p:outputLabel value="#{produc.descripcion}" />
+                                    </p:column>
+                                    
+                                    <p:column style="width: 60px" headerText="">
+                                        <p:commandLink style="color: white; width: 100%" process="@this" update=":formRegProductos" action="#{productoCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
+                                            <f:setPropertyActionListener value="#{produc}" target="#{productoCT.producto}"/>
+                                            <i class="fa fa-pencil"/> 
+                                        </p:commandLink>
+                                    </p:column>
+
+                                    <p:column style="width: 60px" headerText="">
+                                        <p:commandLink style="color: white; width: 100%" action="#{productoCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
+                                            <f:setPropertyActionListener value="#{produc}" target="#{productoCT.producto}"/>
+                                            <i class="fa fa-trash"/>                                                     
+                                        </p:commandLink>
                                     </p:column>
 
                                 </p:dataTable>

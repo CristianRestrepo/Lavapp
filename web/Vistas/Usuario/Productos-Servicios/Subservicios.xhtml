@@ -72,7 +72,9 @@
 
                                 <div class="col-xs-12">
                                     <p:commandButton class="btn btn-primary btn-left" value="cancelar" action="#{subServicioCT.cancelar()}"/>
-                                    <p:commandButton type="submit" form="formRegisSubServ"  update=":formRegisSubServ :formListaSubServ" action="#{subServicioCT.metodo()}"  value="#{subServicioCT.nombreOperacion}" class="btn btn-success btn-rigth"  />
+                                    <p:commandButton type="submit" form="formRegisSubServ"  update=":formRegisSubServ :formListaSubServ" 
+                                                     action="#{subServicioCT.metodo()}"  value="#{subServicioCT.nombreOperacion}" 
+                                                     class="btn btn-success btn-rigth"  />
                                 </div>
                             </h:form>
                         </div>
