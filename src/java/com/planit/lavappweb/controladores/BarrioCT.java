@@ -7,6 +7,9 @@ package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.modelos.Barrio_TO;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosBarrios;
+import com.planit.lavappweb.webservices.implementaciones.ServiciosEstrato;
+import com.planit.lavappweb.webservices.implementaciones.ServiciosLocalidad;
+import com.planit.lavappweb.webservices.implementaciones.ServiciosZona;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -64,6 +67,12 @@ public class BarrioCT {
 
     //Metodos    
     public void registrar() {
+        ServiciosLocalidad Sl = new ServiciosLocalidad();
+        ServiciosZona Sz = new  ServiciosZona();
+        ServiciosEstrato Se = new ServiciosEstrato();
+        
+        
+       
         barrio = servicios.registrarBarrio(barrio.getNombre(), 
                 barrio.getLocalidad().getIdLocalidad(), 
                 barrio.getZona().getIdZona(), 

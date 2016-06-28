@@ -12,8 +12,7 @@ import javax.ws.rs.core.Form;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
 /**
- * Jersey REST client generated for REST resource:application%20(2)
- * [consultarDepartamento]<br>
+ * Jersey REST client generated for REST resource:we [consultarDepartamento]<br>
  * USAGE:
  * <pre>
  *        ClienteConsultarDepartamento client = new ClienteConsultarDepartamento();
@@ -37,11 +36,12 @@ public class ClienteConsultarDepartamento {
     /**
      * @param responseType Class representing the response
      * @param idDepartamento query parameter
+     * @param nombre query parameter
      * @return response object (instance of responseType class)
      */
-    public <T> T consultarDepartamento(Class<T> responseType, String idDepartamento) throws ClientErrorException {
-        String[] queryParamNames = new String[]{"idDepartamento"};
-        String[] queryParamValues = new String[]{idDepartamento};
+    public <T> T consultarDepartamento(Class<T> responseType, String idDepartamento, String nombre) throws ClientErrorException {
+        String[] queryParamNames = new String[]{"idDepartamento", "nombre"};
+        String[] queryParamValues = new String[]{idDepartamento, nombre};
         ;
         javax.ws.rs.core.Form form = getQueryOrFormParams(queryParamNames, queryParamValues);
         javax.ws.rs.core.MultivaluedMap<String, String> map = form.asMap();

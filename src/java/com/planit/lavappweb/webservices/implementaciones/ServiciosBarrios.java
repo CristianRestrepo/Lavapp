@@ -36,9 +36,9 @@ public class ServiciosBarrios {
         return cliente.eliminarBarrio(Barrio_TO.class, "" + idBarrios);
     }
 
-    public Barrio_TO consultarBarrio(int idBarrios) {
+    public Barrio_TO consultarBarrio(int idBarrios, String nombre) {
         ClienteConsultarBarrio cliente = new ClienteConsultarBarrio();
-        return cliente.consultarBarrio(Barrio_TO.class, "" + idBarrios);
+        return cliente.consultarBarrio(Barrio_TO.class, "" + idBarrios, nombre);
     }
 
     public List<Barrio_TO> consultarBarrios() {
@@ -56,8 +56,8 @@ public class ServiciosBarrios {
             LinkedHashMap estrato = (LinkedHashMap) datos.get(i).get("estrato");
             barrios.add(new Barrio_TO((int) datos.get(i).get("idBarrios"),
                     (String) datos.get(i).get("nombre"),
-                    sl.consultarLocalidad((int) localidad.get("idLocalidad")),
-                    sz.consultarZona((int) zona.get("idZona")), 
+                    sl.consultarLocalidad((int) localidad.get("idLocalidad"), ""),
+                    sz.consultarZona((int) zona.get("idZona"), ""), 
                     se.consultarEstrato((int) estrato.get("idEstrato"))));
         }
         return barrios;

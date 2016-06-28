@@ -31,7 +31,7 @@ public class ServiciosDepartamento {
         ServiciosPais serviciosPais = new ServiciosPais();
         for (int i = 0; i < datos.size(); i++) {
             LinkedHashMap map = (LinkedHashMap) datos.get(i).get("pais");
-            pais = serviciosPais.consultarPais((int) map.get("idPais"));
+            pais = serviciosPais.consultarPais((int) map.get("idPais"), "");
             departamentos.add(new Departamento_TO((int) datos.get(i).get("idDepartamento"),
                     (String) datos.get(i).get("nombre"), pais));
         }
@@ -55,8 +55,8 @@ public class ServiciosDepartamento {
         return cliente.eliminarDepartamento(Departamento_TO.class, "" + idDepartamento);
     }
     
-    public Departamento_TO consultarDepartamento(int idDepartemento) {
+    public Departamento_TO consultarDepartamento(int idDepartemento, String nombre) {
         ClienteConsultarDepartamento cliente = new ClienteConsultarDepartamento();
-        return cliente.consultarDepartamento(Departamento_TO.class, "" + idDepartemento);
+        return cliente.consultarDepartamento(Departamento_TO.class, "" + idDepartemento, nombre);
     }
 }

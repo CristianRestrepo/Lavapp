@@ -38,9 +38,9 @@ public class ServiciosPais {
         return cliente.eliminarPais(Pais_TO.class, "" + idPais);
     }
 
-    public Pais_TO consultarPais(int idPais) {
+    public Pais_TO consultarPais(int idPais, String nombre) {
         ClienteConsultarPais cliente = new ClienteConsultarPais();
-        return cliente.consultarPais(Pais_TO.class, "" + idPais);
+        return cliente.consultarPais(Pais_TO.class, "" + idPais, nombre);
     }
 
     public List<Pais_TO> consultarPaises() {

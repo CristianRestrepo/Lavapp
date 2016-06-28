@@ -31,9 +31,9 @@ public class ServiciosZona {
         return zonas;
     }
 
-    public Zona_TO consultarZona(int idZona) {
+    public Zona_TO consultarZona(int idZona, String nombre) {
         ClienteConsultarZona cliente = new ClienteConsultarZona();
-        return cliente.consultarZona(Zona_TO.class, "" + idZona);
+        return cliente.consultarZona(Zona_TO.class, "" + idZona, nombre);
     }
 
     public Zona_TO registrarZona(String nombre, String descripcion) {

@@ -30,15 +30,15 @@ public class ServiciosCiudad {
 
         for (int i = 0; i < datos.size(); i++) {
             LinkedHashMap map = (LinkedHashMap) datos.get(i).get("departamento");
-            Departamento_TO departamento = servDepartamento.consultarDepartamento((int) map.get("idDepartamento"));
+            Departamento_TO departamento = servDepartamento.consultarDepartamento((int) map.get("idDepartamento"), "");
             ciudades.add(new Ciudad_TO((int) datos.get(i).get("idCiudad"), (String) datos.get(i).get("nombre"), departamento));
         }
         return ciudades;
     }
     
-    public Ciudad_TO consultarCiudad(int idCiudad){
+    public Ciudad_TO consultarCiudad(int idCiudad, String nombre){
         ClienteConsultarCiudad cliente = new ClienteConsultarCiudad();
-        return cliente.consultarCiudad(Ciudad_TO.class, "" + idCiudad);
+        return cliente.consultarCiudad(Ciudad_TO.class, "" + idCiudad, nombre);
     }
 
     public Ciudad_TO registrarCiudad(String nombre, int idDepartamento) {

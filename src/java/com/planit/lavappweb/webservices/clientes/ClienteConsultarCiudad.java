@@ -36,11 +36,12 @@ public class ClienteConsultarCiudad {
     /**
      * @param responseType Class representing the response
      * @param idCiudad query parameter
+     * @param nombre query parameter
      * @return response object (instance of responseType class)
      */
-    public <T> T consultarCiudad(Class<T> responseType, String idCiudad) throws ClientErrorException {
-        String[] queryParamNames = new String[]{"idCiudad"};
-        String[] queryParamValues = new String[]{idCiudad};
+    public <T> T consultarCiudad(Class<T> responseType, String idCiudad, String nombre) throws ClientErrorException {
+        String[] queryParamNames = new String[]{"idCiudad", "nombre"};
+        String[] queryParamValues = new String[]{idCiudad, nombre};
         ;
         javax.ws.rs.core.Form form = getQueryOrFormParams(queryParamNames, queryParamValues);
         javax.ws.rs.core.MultivaluedMap<String, String> map = form.asMap();

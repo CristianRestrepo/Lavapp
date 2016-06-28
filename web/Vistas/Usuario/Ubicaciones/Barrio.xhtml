@@ -31,23 +31,23 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label" for="SMLocalidad">Localidad<span class="required">*</span></label>
-                                        <h:selectOneMenu class="form-control" value="#{barrioCT.barrio.localidad}" style="width: 100%" required="true" id="SMLocalidad" >
+                                        <h:selectOneMenu class="form-control" value="#{barrioCT.barrio.localidad.nombre}"  style="width: 100%" required="true" id="SMLocalidad" >
                                             <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
-                                            <f:selectItems value="#{localidadCT.localidades}" var="localidad" itemLabel="#{localidad.nombre}" itemValue="#{localidad}"/>
+                                            <f:selectItems value="#{localidadCT.localidades}" var="localidad" itemLabel="#{localidad.nombre}" itemValue="#{localidad.nombre}"/>
                                         </h:selectOneMenu>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label" for="SMEstrato">Estrato<span class="required">*</span></label>
-                                        <h:selectOneMenu class="form-control" value="#{barrioCT.barrio.estrato}" style="width: 100%" required="true" id="SMEstrato" >
+                                        <h:selectOneMenu class="form-control" value="#{barrioCT.barrio.estrato.nombre}" style="width: 100%" required="true" id="SMEstrato" >
                                             <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
-                                            <f:selectItems value="#{estratoCT.estratos}" var="Estrato" itemLabel="#{Estrato.nombre}" itemValue="#{Estrato}"/>
+                                            <f:selectItems value="#{estratoCT.estratos}" var="Estrato" itemLabel="#{Estrato.nombre}" itemValue="#{Estrato.nombre}"/>
                                         </h:selectOneMenu>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label" for="SMZona">Zona<span class="required">*</span></label>
-                                        <h:selectOneMenu class="form-control" value="#{barrioCT.barrio.zona}" style="width: 100%" required="true" id="SMZona" >
+                                        <h:selectOneMenu class="form-control" value="#{barrioCT.barrio.zona.nombre}" style="width: 100%" required="true" id="SMZona" >
                                             <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
-                                            <f:selectItems value="#{zonaCT.zonas}" var="zona" itemLabel="#{zona.nombre}" itemValue="#{zona}"/>
+                                            <f:selectItems value="#{zonaCT.zonas}" var="zona" itemLabel="#{zona.nombre}" itemValue="#{zona.nombre}"/>
                                         </h:selectOneMenu>
                                     </div>
                                     <div class="ln_solid"></div>
