@@ -37,13 +37,13 @@ public class ClienteRegistrarSubProducto {
     /**
      * @param responseType Class representing the response
      * @param nombre query parameter
-     * @param desc query parameter
-     * @param idProduc query parameter
+     * @param descripcion query parameter
+     * @param idProducto query parameter
      * @return response object (instance of responseType class)
      */
-    public <T> T registrarSubProducto(Class<T> responseType, String nombre, String desc, String idProduc) throws ClientErrorException {
-        String[] queryParamNames = new String[]{"nombre", "desc", "idProduc"};
-        String[] queryParamValues = new String[]{nombre, desc, idProduc};
+    public <T> T registrarSubProducto(Class<T> responseType, String nombre, String descripcion, String idProducto) throws ClientErrorException {
+        String[] queryParamNames = new String[]{"nombre", "descripcion", "idProducto"};
+        String[] queryParamValues = new String[]{nombre, descripcion, idProducto};
         ;
         javax.ws.rs.core.Form form = getQueryOrFormParams(queryParamNames, queryParamValues);
         javax.ws.rs.core.MultivaluedMap<String, String> map = form.asMap();
