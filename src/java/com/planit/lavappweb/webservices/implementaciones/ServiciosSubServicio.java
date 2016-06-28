@@ -11,6 +11,7 @@ import com.planit.lavappweb.webservices.clientes.ClienteConsultarSubServicio_SP;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarSubServicios;
 import com.planit.lavappweb.webservices.clientes.ClienteEditarSubServicio;
 import com.planit.lavappweb.webservices.clientes.ClienteEliminarServicio;
+import com.planit.lavappweb.webservices.clientes.ClienteEliminarSubServicio;
 import com.planit.lavappweb.webservices.clientes.ClienteRegistarSubServicio;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -50,7 +51,8 @@ public class ServiciosSubServicio {
     }
 
     public SubServicio_TO eliminarSubServicio(int idSubServicio) {
-        ClienteEliminarServicio cliente = new ClienteEliminarServicio();
-        return cliente.eliminarServicio(SubServicio_TO.class, "" + idSubServicio);
+        ClienteEliminarSubServicio cliente = new ClienteEliminarSubServicio();
+        return cliente.eliminarSubServicio(SubServicio_TO.class, "" + idSubServicio);
+                
     }
 }

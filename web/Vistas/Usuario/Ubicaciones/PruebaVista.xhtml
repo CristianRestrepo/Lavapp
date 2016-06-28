@@ -9,11 +9,11 @@
     <body>
         <ui:composition template="./../adminTemplate.xhtml">
             <ui:define name="content">
-                <h:form>
+                <h:form class="form-group" >
                     <label class="control-label" for="SMDepartamento">Departamento<span class="required">*</span></label>
-                    <p:selectOneMenu style="width: 100%" value="#{ciudadCT.ciudad.departamento}" id="SMDepartamento" >
+                    <h:selectOneMenu style="width: 100%" value="#{ciudadCT.ciudad.departamento}" id="SMDepartamento" class="form-control" >
                         <f:selectItems value="#{departamentoCT.departamentos}" var="departamento" itemLabel="#{departamento.nombre}" itemValue="#{departamento}"/>
-                    </p:selectOneMenu>
+                    </h:selectOneMenu>
                     <p:inputText placeholder="prueba"/>
                 </h:form>
             </ui:define>

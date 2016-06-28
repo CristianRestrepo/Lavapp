@@ -15,14 +15,14 @@
             <h:form>                
                 <label class="control-label" for="SMDepartamento">Departamento<span class="required">*</span></label>
                 <p:selectOneMenu style="width: 100%" value="#{ciudadCT.ciudad.departamento}" required="true" id="SMDepartamento" >
-                    <f:selectItems value="#{departamentoCT.departamentos}" var="departamento" itemLabel="#{departamento.nombre}" itemValue="#{departamento}"/>
+                    <f:selectItems value="#{departamentoCT.departamentos}" var="departamento" itemLabel="#{departamento.nombre}" itemValue="#{departamento}"  />
                 </p:selectOneMenu>
             </h:form>
         </div>
     </h:body>
     <!--ARCHIVOS JS ALOJADOS EN LA CARPETA DASHBOARD-->       
-    <h:outputScript name="./dashboard/js/jquery.min.js" />
-<!--    <h:outputScript name="./dashboard/js/bootstrap.min.js" />
-    <h:outputScript name="./dashboard/js/custom.js"  />-->
+    <!--<h:outputScript name="./dashboard/js/jquery.min.js" />-->
+    <h:outputScript name="./dashboard/js/bootstrap.min.js" />
+    <h:outputScript name="./dashboard/js/custom.js"  />
 </html>
 

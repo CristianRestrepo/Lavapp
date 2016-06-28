@@ -46,27 +46,27 @@
                             <div class="clearfix"></div>
                         </div><!-- CONTENIDO SUPERIOR DEL CONETENEDOR -->
                         <div class="x_content">
-                            
+
                             <h:form id="formRegistroServicio" class="form-horizontal form-label-left input_mask">                  
-             
+
                                 <label class="control-label col-md-4 col-sm-4 col-xs-12">Nombre de Servicio</label>
                                 <div class="col-md-8 col-sm-8 col-xs-12">
                                     <p:inputText class="form-control" required="true" 
                                                  placeholder="nombre del servicio..." type="text"
                                                  id="txtNombreServicio" value="#{servicioCT.servicio.nombre}"></p:inputText>       
-                             
+
                                 </div>
                                 <br/>
                                 <div class="ln_solid-servicio "></div>
                                 <div class="col-xs-12">
-                                    <p:commandButton class="btn btn-primary btn-left" value="cancelar"/>
-                                    <p:commandButton class="btn btn-success btn-rigth" value="Registrar"
+                                    <p:commandButton class="btn btn-primary btn-left" value="cancelar" action="#{servicioCT.cancelar()}"/>
+                                    <p:commandButton class="btn btn-success btn-rigth" value="#{servicioCT.nombreOperacion}"
                                                      type="submit" form=":formRegistroServicio" 
                                                      update=":formRegistroServicio :formListaServicios"
-                                                     action="#{servicioCT.registrar()}"  />
+                                                     action="#{servicioCT.metodo()}"  />
                                 </div>
                             </h:form>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -95,6 +95,20 @@
                                     <p:column headerText="Nombre Servicio">
                                         <p:outputLabel value="#{servicios.nombre}" />
                                     </p:column>
+                                    
+                                    <p:column style="width: 60px" headerText="">
+                                        <p:commandLink style="color: white; width: 100%" process="@this" update=":formRegistroServicio" action="#{servicioCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
+                                            <f:setPropertyActionListener value="#{servicios}" target="#{servicioCT.servicio}"/>
+                                            <i class="fa fa-pencil"/> 
+                                        </p:commandLink>
+                                    </p:column>
+
+                                    <p:column style="width: 60px" headerText="">
+                                        <p:commandLink style="color: white; width: 100%" action="#{servicioCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
+                                            <f:setPropertyActionListener value="#{servicios}" target="#{servicioCT.servicio}"/>
+                                            <i class="fa fa-trash"/>                                                     
+                                        </p:commandLink>
+                                    </p:column>
 
                                 </p:dataTable>
 
@@ -110,3 +124,4 @@
 
 </html>
 
+    
