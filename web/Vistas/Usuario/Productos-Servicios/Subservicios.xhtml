@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"   
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="./../adminTemplate.xhtml">
 
@@ -70,9 +71,8 @@
                                 </div>
 
                                 <div class="col-xs-12">
-                                    <p:commandButton class="btn btn-primary btn-left" value="cancelar"/>
-                                    <p:commandButton type="submit" form="formRegisSubServ"  update=":formRegisSubServ 
-                                                     :formListaSubServ" action="#{subServicioCT.registrar()}"  value="Registrar" class="btn btn-success btn-rigth"  ajax="false"/>
+                                    <p:commandButton class="btn btn-primary btn-left" value="cancelar" action="#{subServicioCT.cancelar()}"/>
+                                    <p:commandButton type="submit" form="formRegisSubServ"  update=":formRegisSubServ :formListaSubServ" action="#{subServicioCT.metodo()}"  value="#{subServicioCT.nombreOperacion}" class="btn btn-success btn-rigth"  />
                                 </div>
                             </h:form>
                         </div>
@@ -105,6 +105,20 @@
                                     </p:column>
                                     <p:column headerText="Nombre Servicio Asociado">
                                         <p:outputLabel value="#{subServ.servicio.idServicio}" />
+                                    </p:column>
+                                    
+                                     <p:column style="width: 60px" headerText="">
+                                         <p:commandLink style="color: white; width: 100%" process="@this" update=":formRegisSubServ" action="#{subServicioCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
+                                             <f:setPropertyActionListener value="#{subServ}" target="#{subServicioCT.subServicio}"/>
+                                            <i class="fa fa-pencil"/> 
+                                        </p:commandLink>
+                                    </p:column>
+
+                                    <p:column style="width: 60px" headerText="">
+                                        <p:commandLink style="color: white; width: 100%" action="#{subServicioCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
+                                            <f:setPropertyActionListener value="#{subServ}" target="#{subServicioCT.subServicio}"/>
+                                            <i class="fa fa-trash"/>                                                     
+                                        </p:commandLink>
                                     </p:column>
 
                                 </p:dataTable>
