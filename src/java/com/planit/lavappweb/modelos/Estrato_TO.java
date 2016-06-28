@@ -32,6 +32,7 @@ public class Estrato_TO {
 
     //Constructores
     public Estrato_TO() {
+        idEstrato = 0;
     }
 
     public Estrato_TO(int idEstrato) {

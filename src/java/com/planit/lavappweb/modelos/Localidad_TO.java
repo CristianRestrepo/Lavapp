@@ -39,6 +39,7 @@ public class Localidad_TO {
     //Constructores
 
     public Localidad_TO() {
+        idLocalidad = 0;
         ciudad = new Ciudad_TO();
     }
 

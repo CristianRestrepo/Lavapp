@@ -6,6 +6,7 @@
 package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.modelos.Localidad_TO;
+import com.planit.lavappweb.webservices.implementaciones.ServiciosCiudad;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosLocalidad;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +16,12 @@ import javax.annotation.PostConstruct;
  *
  * @author Desarrollo_Planit
  */
-
 public class LocalidadCT {
 
     private Localidad_TO localidad;
     private List<Localidad_TO> localidades;
     protected ServiciosLocalidad servicios;
-    
+
     private String nombreOperacion;
     private int operacion;
 
@@ -61,16 +61,21 @@ public class LocalidadCT {
 
     public void setNombreOperacion(String nombreOperacion) {
         this.nombreOperacion = nombreOperacion;
-    }    
-    
+    }
 
     //CRUD
     public void registrar() {
+        ServiciosCiudad sc = new ServiciosCiudad();
+        localidad.setCiudad(sc.consultarCiudad(localidad.getCiudad().getIdCiudad(), localidad.getCiudad().getNombre()));
+
         localidad = servicios.registrarLocalidad(localidad.getNombre(), localidad.getCiudad().getIdCiudad());
         localidades = servicios.consultarLocalidades();
     }
 
     public void modificar() {
+        ServiciosCiudad sc = new ServiciosCiudad();
+        localidad.setCiudad(sc.consultarCiudad(localidad.getCiudad().getIdCiudad(), localidad.getCiudad().getNombre()));
+
         localidad = servicios.editarLocalidad(localidad.getIdLocalidad(), localidad.getNombre(), localidad.getCiudad().getIdCiudad());
         localidades = servicios.consultarLocalidades();
     }
@@ -79,7 +84,7 @@ public class LocalidadCT {
         localidad = servicios.eliminarLocalidad(localidad.getIdLocalidad());
         localidades = servicios.consultarLocalidades();
     }
-    
+
     //Metodos
     //Metodos Propios
     public void metodo() {
@@ -89,18 +94,18 @@ public class LocalidadCT {
             modificar();
             //Reiniciamos banderas
             nombreOperacion = "Registrar";
-            operacion  = 0;
+            operacion = 0;
         }
     }
 
     public void seleccionarCRUD(int i) {
         operacion = i;
-        if (operacion == 1) {            
+        if (operacion == 1) {
             nombreOperacion = "Modificar";
         }
     }
-    
-    public void cancelar(){
+
+    public void cancelar() {
         localidad = new Localidad_TO();
         localidades = servicios.consultarLocalidades();
         operacion = 0;

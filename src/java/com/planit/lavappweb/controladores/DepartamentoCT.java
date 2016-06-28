@@ -7,6 +7,7 @@ package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.modelos.Departamento_TO;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosDepartamento;
+import com.planit.lavappweb.webservices.implementaciones.ServiciosPais;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -66,11 +67,18 @@ public class DepartamentoCT {
 
     //CRUD    
     public void registrar() {
+        ServiciosPais sp = new ServiciosPais();
+        departamento.setPais(sp.consultarPais(departamento.getPais().getIdPais(), departamento.getPais().getNombre()));
+        
         departamento = servicios.registrarDepartamento(departamento.getNombre(), departamento.getPais().getIdPais());
         departamentos = servicios.consultarDepartamentos();
     }
 
     public void modificar() {
+        ServiciosPais sp = new ServiciosPais();
+        departamento.setPais(sp.consultarPais(departamento.getPais().getIdPais(), departamento.getPais().getNombre()));
+        
+        
         departamento = servicios.editarDepartamento(departamento.getIdDepartamento(), departamento.getNombre(), departamento.getPais().getIdPais());
         departamentos = servicios.consultarDepartamentos();
     }

@@ -31,9 +31,10 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label" for="SMDepartamento">Departamento<span class="required">*</span></label>
-                                            <p:selectOneMenu style="width: 100%" value="#{ciudadCT.ciudad.departamento}" required="true" id="SMDepartamento" >
-                                                <f:selectItems value="#{departamentoCT.departamentos}" var="departamento" itemLabel="#{departamento.nombre}" itemValue="#{departamento}"/>
-                                            </p:selectOneMenu>
+                                            <h:selectOneMenu class="form-control" style="width: 100%" value="#{ciudadCT.ciudad.departamento.nombre}" required="true" id="SMDepartamento" >
+                                                <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
+                                                <f:selectItems value="#{departamentoCT.departamentos}" var="departamento" itemLabel="#{departamento.nombre}" itemValue="#{departamento.nombre}"/>
+                                            </h:selectOneMenu>
                                         </div>
                                         <div class="ln_solid"></div>
                                         <p:commandButton value="Cancelar"  update=":formularioRegistro :formularioListaCiudades" immediate="true" process="@this" action="#{ciudadCT.cancelar()}"  class="btn btn-primary"/>

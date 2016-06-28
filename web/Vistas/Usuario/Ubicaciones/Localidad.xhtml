@@ -32,13 +32,14 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label" for="SMCiudad">Ciudad<span class="required">*</span></label>
-                                            <p:selectOneMenu style="width: 100%" required="true" id="SMCiudad" value="#{localidadCT.localidad.ciudad}">
-                                                <f:selectItems value="#{ciudadCT.ciudades}" var="ciudad" itemLabel="#{ciudad.nombre}" itemValue="#{ciudad}"/>
-                                            </p:selectOneMenu>
+                                            <h:selectOneMenu style="width: 100%" class="form-control" required="true" id="SMCiudad" value="#{localidadCT.localidad.ciudad.nombre}">
+                                                <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
+                                                <f:selectItems value="#{ciudadCT.ciudades}" var="ciudad" itemLabel="#{ciudad.nombre}" itemValue="#{ciudad.nombre}"/>
+                                            </h:selectOneMenu>
                                         </div>
                                         <div class="ln_solid"></div>
                                         <p:commandButton value="Cancelar" action="#{localidadCT.cancelar()}" update=":formularioRegistro :formularioListaLocalidades" immediate="true" process="@this" class="btn btn-primary"/>
-                                        <p:commandButton type="submit" form="formularioRegistro" update="formularioRegistro" value="#{localidadCT.nombreOperacion}" action="#{localidadCT.metodo()}" class="btn btn-success"/>
+                                        <p:commandButton type="submit" ajax="false" form="formularioRegistro" update=":formularioRegistro :formularioListaLocalidades:DTLocalidades" value="#{localidadCT.nombreOperacion}" action="#{localidadCT.metodo()}" class="btn btn-success"/>
                                     </h:form>
                                 </div>
                             </div>
@@ -60,7 +61,7 @@
                                     <h:form id="formularioListaLocalidades">
                                         <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
                                         <div class="ln_solid"></div>
-                                        <p:dataTable style="width: 100%" var="localidad" value="#{localidadCT.localidades}" class="table-responsive table table-striped" rows="10"
+                                        <p:dataTable id="DTLocalidades" style="width: 100%" var="localidad" value="#{localidadCT.localidades}" class="table-responsive table table-striped" rows="10"
                                                  paginator="true"
                                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                  rowsPerPageTemplate="5,10,15">

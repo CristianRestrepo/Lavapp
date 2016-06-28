@@ -39,6 +39,7 @@ public class Zona_TO {
     //Constructores
 
     public Zona_TO() {
+        idZona = 0;
     }
 
     public Zona_TO(int idZona) {

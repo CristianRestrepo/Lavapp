@@ -8,6 +8,7 @@ package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.modelos.Ciudad_TO;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosCiudad;
+import com.planit.lavappweb.webservices.implementaciones.ServiciosDepartamento;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class CiudadCT {
     protected ServiciosCiudad servicios;
 
     private String nombreOperacion;
-    private int operacion; //Controla la operacion a ejecutar
+    protected int operacion; //Controla la operacion a ejecutar
 
     public CiudadCT() {
         ciudad = new Ciudad_TO();
@@ -67,11 +68,15 @@ public class CiudadCT {
 
     //CRUD   
     public void registrar() {
+        ServiciosDepartamento sd = new ServiciosDepartamento();
+        ciudad.setDepartamento(sd.consultarDepartamento(ciudad.getDepartamento().getIdDepartamento(), ciudad.getDepartamento().getNombre()));
         ciudad = servicios.registrarCiudad(ciudad.getNombre(), ciudad.getDepartamento().getIdDepartamento());
         ciudades = servicios.consultarCiudades();
     }
 
     public void modificar() {
+         ServiciosDepartamento sd = new ServiciosDepartamento();
+        ciudad.setDepartamento(sd.consultarDepartamento(ciudad.getDepartamento().getIdDepartamento(), ciudad.getDepartamento().getNombre()));
         ciudad = servicios.editarCiudad(ciudad.getIdCiudad(), ciudad.getNombre(), ciudad.getDepartamento().getIdDepartamento());
         ciudades = servicios.consultarCiudades();
     }

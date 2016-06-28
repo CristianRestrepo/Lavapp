@@ -18,7 +18,6 @@ import javax.annotation.PostConstruct;
  *
  * @author Desarrollo_Planit
  */
-
 public class BarrioCT {
 
     private Barrio_TO barrio;
@@ -68,23 +67,34 @@ public class BarrioCT {
     //Metodos    
     public void registrar() {
         ServiciosLocalidad Sl = new ServiciosLocalidad();
-        ServiciosZona Sz = new  ServiciosZona();
+        ServiciosZona Sz = new ServiciosZona();
         ServiciosEstrato Se = new ServiciosEstrato();
-        
-        
-       
-        barrio = servicios.registrarBarrio(barrio.getNombre(), 
-                barrio.getLocalidad().getIdLocalidad(), 
-                barrio.getZona().getIdZona(), 
+
+        barrio.setEstrato(Se.consultarEstrato(barrio.getEstrato().getIdEstrato(), barrio.getEstrato().getNombre()));
+        barrio.setLocalidad(Sl.consultarLocalidad(barrio.getLocalidad().getIdLocalidad(), barrio.getLocalidad().getNombre()));
+        barrio.setZona(Sz.consultarZona(barrio.getZona().getIdZona(), barrio.getZona().getNombre()));
+
+        barrio = servicios.registrarBarrio(barrio.getNombre(),
+                barrio.getLocalidad().getIdLocalidad(),
+                barrio.getZona().getIdZona(),
                 barrio.getEstrato().getIdEstrato());
         barrios = servicios.consultarBarrios();
     }
 
     public void modificar() {
+
+        ServiciosLocalidad Sl = new ServiciosLocalidad();
+        ServiciosZona Sz = new ServiciosZona();
+        ServiciosEstrato Se = new ServiciosEstrato();
+
+        barrio.setEstrato(Se.consultarEstrato(barrio.getEstrato().getIdEstrato(), barrio.getEstrato().getNombre()));
+        barrio.setLocalidad(Sl.consultarLocalidad(barrio.getLocalidad().getIdLocalidad(), barrio.getLocalidad().getNombre()));
+        barrio.setZona(Sz.consultarZona(barrio.getZona().getIdZona(), barrio.getZona().getNombre()));
+
         barrio = servicios.editarBarrio(barrio.getIdBarrios(),
                 barrio.getNombre(),
-                barrio.getLocalidad().getIdLocalidad(), 
-                barrio.getZona().getIdZona(), 
+                barrio.getLocalidad().getIdLocalidad(),
+                barrio.getZona().getIdZona(),
                 barrio.getEstrato().getIdEstrato());
         barrios = servicios.consultarBarrios();
     }
@@ -112,8 +122,8 @@ public class BarrioCT {
             nombreOperacion = "Modificar";
         }
     }
-    
-    public void cancelar(){
+
+    public void cancelar() {
         barrio = new Barrio_TO();
         barrios = servicios.consultarBarrios();
         operacion = 0;

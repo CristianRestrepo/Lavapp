@@ -31,13 +31,14 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label" for="SMPais">Pais<span class="required">*</span></label>
-                                            <p:selectOneMenu style="width: 100%">
-                                                <f:selectItems value="#{paisCT.paises}" var="pais" itemLabel="#{pais.nombre}" itemValue="#{pais}"/> 
-                                            </p:selectOneMenu>
+                                            <h:selectOneMenu  class="form-control" value="#{departamentoCT.departamento.pais.nombre}" style="width: 100%">
+                                                <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
+                                                <f:selectItems value="#{paisCT.paises}" var="pais" itemLabel="#{pais.nombre}" itemValue="#{pais.nombre}"/> 
+                                            </h:selectOneMenu>
                                         </div>
                                         <div class="ln_solid"></div>
                                         <p:commandButton immediate="true" process="@this" update=":formularioRegistro :formularioListaDepartamentos" action="#{departamentoCT.cancelar()}" value="Cancelar" class="btn btn-primary"/>
-                                        <p:commandButton type="submit" ajax="false" update=":formularioRegistro :formularioListaDepartamentos:DTDepartamentos" value="#{departamentoCT.nombreOperacion}" action="#{departamentoCT.metodo()}" class="btn btn-success"/>
+                                        <p:commandButton type="submit" update=":formularioRegistro :formularioListaDepartamentos:DTDepartamentos" value="#{departamentoCT.nombreOperacion}" action="#{departamentoCT.metodo()}" class="btn btn-success"/>
                                     </h:form>
                                 </div>
                             </div>

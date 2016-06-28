@@ -46,8 +46,8 @@ public class ServiciosEstrato {
         return estratos;
     }
 
-    public Estrato_TO consultarEstrato(int idEstrato) {
+    public Estrato_TO consultarEstrato(int idEstrato, String nombre) {
         ClienteConsultarEstrato cliente = new ClienteConsultarEstrato();
-        return cliente.consultarEstrato(Estrato_TO.class, "" + idEstrato);
+        return cliente.consultarEstrato(Estrato_TO.class, "" + idEstrato, nombre);
    }
 }

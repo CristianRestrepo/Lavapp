@@ -58,7 +58,7 @@ public class ServiciosBarrios {
                     (String) datos.get(i).get("nombre"),
                     sl.consultarLocalidad((int) localidad.get("idLocalidad"), ""),
                     sz.consultarZona((int) zona.get("idZona"), ""), 
-                    se.consultarEstrato((int) estrato.get("idEstrato"))));
+                    se.consultarEstrato((int) estrato.get("idEstrato"), "")));
         }
         return barrios;
     }

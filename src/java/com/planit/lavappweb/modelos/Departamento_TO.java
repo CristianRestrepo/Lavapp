@@ -38,6 +38,7 @@ public class Departamento_TO {
 
     //Constructores
     public Departamento_TO() {
+        idDepartamento = 0;
         pais = new Pais_TO();
     }
 

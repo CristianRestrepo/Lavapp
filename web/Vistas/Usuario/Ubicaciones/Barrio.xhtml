@@ -52,7 +52,7 @@
                                     </div>
                                     <div class="ln_solid"></div>
                                     <p:commandButton value="Cancelar" immediate="true" process="@this" update=":formularioRegistro :formularioListaBarrios" action="#{barrioCT.cancelar()}" class="btn btn-primary"/>
-                                    <p:commandButton type="submit" form="formularioRegistro" ajax="false" update="formularioRegistro" action="#{barrioCT.metodo()}" value="#{barrioCT.nombreOperacion}" class="btn btn-success"/>
+                                    <p:commandButton type="submit" form="formularioRegistro" update="formularioRegistro" action="#{barrioCT.metodo()}" value="#{barrioCT.nombreOperacion}" class="btn btn-success"/>
                                 </h:form>
                             </div>
                         </div>
