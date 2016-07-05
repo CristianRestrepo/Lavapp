@@ -5,12 +5,21 @@
  */
 package com.planit.lavappweb.controladores;
 
+import com.planit.lavappweb.metodos.Upload;
 import com.planit.lavappweb.modelos.Producto_TO;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosProducto;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import org.primefaces.event.FileUploadEvent;
+import static com.planit.lavappweb.metodos.Upload.getMapPathFotosProducto;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import org.apache.commons.io.IOUtils;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -26,6 +35,11 @@ public class ProductoCT implements Serializable {
     private String nombreOperacion;
     protected int operacion;
 
+    /**
+     * Relacion con clases
+     */
+    private Upload archivo_CT;
+
     public ProductoCT() {
         producto = new Producto_TO();
         productos = new ArrayList<>();
@@ -33,6 +47,7 @@ public class ProductoCT implements Serializable {
 
         nombreOperacion = "Registrar";
         operacion = 0;
+        archivo_CT = new Upload();
     }
 
     @PostConstruct
@@ -65,6 +80,22 @@ public class ProductoCT implements Serializable {
         this.nombreOperacion = nombreOperacion;
     }
 
+    public ServiciosProducto getServiciosProducto() {
+        return serviciosProducto;
+    }
+
+    public void setServiciosProducto(ServiciosProducto serviciosProducto) {
+        this.serviciosProducto = serviciosProducto;
+    }
+
+    public Upload getArchivo_CT() {
+        return archivo_CT;
+    }
+
+    public void setArchivo_CT(Upload archivo_CT) {
+        this.archivo_CT = archivo_CT;
+    }
+
     //Metodos
     public void registrar() {
         producto = serviciosProducto.registrarProducto(producto.getNombre(), producto.getDescripcion(), producto.getSubServicio().getIdSubServicio());
@@ -80,8 +111,8 @@ public class ProductoCT implements Serializable {
         producto = serviciosProducto.eliminar(producto.getIdProducto());
         productos = serviciosProducto.consultarProductos();
     }
-    
-     //Metodos Propios
+
+    //Metodos Propios
     public void metodo() {
         if (operacion == 0) {
             registrar();
@@ -105,5 +136,23 @@ public class ProductoCT implements Serializable {
         productos = serviciosProducto.consultarProductos();
         operacion = 0;
         nombreOperacion = "Registrar";
+    }
+
+    public void uploadFoto(FileUploadEvent e) throws IOException {
+        try {
+            UploadedFile fotoSubida = e.getFile();
+            String destino;
+
+            HashMap<String, String> map = getMapPathFotosProducto();
+            destino = map.get("path");
+
+            if (null != fotoSubida) {
+                archivo_CT.uploadFile(IOUtils.toByteArray(fotoSubida.getInputstream()), fotoSubida.getFileName(), destino);
+                producto.setRutaImagen(map.get("url") + fotoSubida.getFileName());
+            }
+            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Su foto (" + fotoSubida.getFileName() + ")  se ha guardado con exito.", ""));
+        } catch (Exception ex) {
+            throw ex;
+        }
     }
 }

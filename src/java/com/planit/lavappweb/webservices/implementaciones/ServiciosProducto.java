@@ -38,7 +38,11 @@ public class ServiciosProducto {
         for (int i = 0; i < datos.size(); i++) {
             LinkedHashMap map = (LinkedHashMap) datos.get(i).get("subServicio");
             SubServicio_TO subServicio = new SubServicio_TO((int) map.get("idSubServicio"));
-            productos.add(new Producto_TO((int) datos.get(i).get("idProducto"), (String) datos.get(i).get("nombre"), (String) datos.get(i).get("descripcion"), subServicio));
+            productos.add(new Producto_TO((int) datos.get(i).get("idProducto"),
+                    (String) datos.get(i).get("nombre"),
+                    (String) datos.get(i).get("descripcion"),
+                    subServicio,
+                    (String) datos.get(i).get("rutaImagen")));
         }
         return productos;
     }

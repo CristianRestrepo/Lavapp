@@ -47,7 +47,8 @@
                         </div><!-- CONTENIDO SUPERIOR DEL CONETENEDOR -->
                         <div class="x_content">
 
-                            <h:form id="formRegProductos" class="form-horizontal form-label-left input_mask">                  
+                            <h:form id="formRegProductos" class="form-horizontal form-label-left input_mask" 
+                                    enctype="multipart/form-data">                  
 
                                 <label class="control-label col-md-4 col-sm-4 col-xs-12">Nombre de Producto</label>
                                 <div class="col-md-8 col-sm-8 col-xs-12">
@@ -62,6 +63,8 @@
                                     <p:inputTextarea class="form-control" required="true" 
                                                  placeholder="Descripcion del producto..."
                                                  id="txtDescProcucto" value="#{productoCT.producto.descripcion}"></p:inputTextarea>       
+                                                 
+                                               
 
                                 </div>
                                 <br/>
@@ -74,6 +77,13 @@
                                                   <!--A FUTURO SE DEBE COLOCAR UN SELECT CON EL ID DEL SUBSERVICIO-->
                                 </div>
                                 <br/>
+                                <label class="control-label col-md-4 col-sm-4 col-xs-12">Seleccionar Imagen del Producto:</label>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+<!--                                    <p:fileUpload id="fileIdPhoto" fileUploadListener="#{productoCT.uploadFoto}" mode="advanced" dragDropSupport="false"
+                                                          process="@this" uploadLabel="Subir Fotografía" cancelLabel="Cancelar" update=":formRegProductos" sizeLimit="10000000" allowTypes="/(\.|\/)(jpg|jpeg|png)$/"  />-->
+                                    
+                                    <input name="imagen" type="file" value="#{productoCT.uploadFoto}"  update=":formRegProductos" />
+                                </div>
                                 <div class="ln_solid-servicio "></div>
                                 <br/>
                                 <div class="col-xs-12">
