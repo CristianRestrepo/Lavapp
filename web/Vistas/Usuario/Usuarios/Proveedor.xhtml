@@ -1,17 +1,273 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body>
-
         <ui:composition template="./../adminTemplate.xhtml">
-
             <ui:define name="content">
-                content
+                <div class="row">
+                    <h:form id="formularioProveedor">
+                        <c:choose>
+                            <c:when test="${proveedorCT.operacion == 0}">
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+                                    <div class="x_panel">
+                                        <div class="x_title">
+                                            <h2>DATOS DE USUARIO</h2>
+                                            <ul class="nav navbar-right panel_toolbox">
+                                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                                </li>                                        
+                                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                                </li>
+                                            </ul>
+                                            <div class="clearfix">                                       
+                                            </div>
+                                        </div>
+                                        <div class="x_content">
+                                            <div class="form-group">
+                                                <label class="control-label" for="txtNombreUsuario">Nombre<span class="required">*</span></label>
+                                                <p:inputText class="form-control" value="#{proveedorCT.proveedor.usuario.nombre}" required="true" placeholder="Nombres del usuario" type="text" id="txtNombreUsuario"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label" for="txtApellidoUsuario">Apellido<span class="required">*</span></label>
+                                                <p:inputText class="form-control" value="#{proveedorCT.proveedor.usuario.apellido}" required="true" placeholder="Apellidos del usuario" type="text" id="txtApellidoUsuario"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label" for="txtidentificacion">identificacion<span class="required">*</span></label>
+                                                <p:inputText class="form-control" value="#{proveedorCT.proveedor.usuario.identificacion}" required="true" placeholder="identificacion" type="text" id="txtIdentificacion"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label" for="SMGenero">Genero<span class="required">*</span></label>
+                                                <h:selectOneMenu class="form-control" value="#{proveedorCT.proveedor.usuario.genero}" required="true" id="SMGenero">
+                                                    <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
+                                                    <f:selectItem itemLabel="Masculino" itemValue="M"/>
+                                                    <f:selectItem itemLabel="Femenino" itemValue="F"/>
+                                                </h:selectOneMenu>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label" for="txtEmail">Email<span class="required">*</span></label>
+                                                <p:inputText class="form-control" value="#{proveedorCT.proveedor.usuario.email}" required="true" placeholder="Email" type="text" id="txtEmail"/>
+                                            </div>                                    
+                                            <div class="form-group">
+                                                <label class="control-label" for="txtMovil">Movil<span class="required">*</span></label>
+                                                <p:inputText class="form-control" value="#{proveedorCT.proveedor.usuario.movil}" required="true" placeholder="Telefono movil" type="text" id="txtMovil"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+                                    <div class="x_panel">
+                                        <div class="x_title">
+                                            <h2>DATOS DE LA PLANTA</h2>
+                                            <ul class="nav navbar-right panel_toolbox">
+                                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                                </li>                                        
+                                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                                </li>
+                                            </ul>
+                                            <div class="clearfix">                                       
+                                            </div>
+                                        </div>
+                                        <div class="x_content">
+                                            <div class="form-group">
+                                                <label class="control-label" for="txtRazonSocial">Razon social<span class="required">*</span></label>
+                                                <p:inputText class="form-control" value="#{proveedorCT.proveedor.razonSocial}" required="true" placeholder="Razon social" type="text" id="txtRazonSocial"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label" for="txtNit">NIT<span class="required">*</span></label>
+                                                <p:inputText class="form-control" value="#{proveedorCT.proveedor.nit}" required="true" placeholder="NIT" type="text" id="txtNit"/>
+                                            </div>                                    
+                                            <div class="form-group">
+                                                <label class="control-label" for="txtTelefonoProveedor">Telefono<span class="required">*</span></label>
+                                                <p:inputText class="form-control" value="#{proveedorCT.proveedor.telefono}" required="true" placeholder="Telefono" type="text" id="txtTelefonoProveedor"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label" for="txtCupo">Cupo<span class="required">*</span></label>
+                                                <p:inputText class="form-control" value="#{proveedorCT.proveedor.cupo}" required="true" placeholder="Cupo maximo de prendas" type="text" id="txtCupo"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label" for="SMCiudad">Ciudad<span class="required">*</span></label>
+                                                <h:selectOneMenu value="#{proveedorCT.proveedor.usuario.ciudad.nombre}" class="form-control" id="SMCiudad">
+                                                    <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{ciudadCT.ciudades}" var="ciudad" itemLabel="#{ciudad.nombre}" itemValue="#{ciudad.nombre}"/>
+                                                </h:selectOneMenu>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label" for="SMBarrio">Barrio<span class="required">*</span></label>
+                                                <h:selectOneMenu value="#{proveedorCT.proveedor.usuario.barrio.nombre}" class="form-control" id="SMBarrio">
+                                                    <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{barrioCT.barrios}" var="barrio" itemLabel="#{barrio.nombre}" itemValue="#{barrio.nombre}"/>
+                                                </h:selectOneMenu>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label" for="txtDireccionProveedor">Direccion<span class="required">*</span></label>
+                                                <p:inputText class="form-control" value="#{proveedorCT.proveedor.direccion}" required="true" placeholder="Direccion de la planta" type="text" id="txtDireccionProveedor"/>
+                                            </div>                                 
+                                            <div class="ln_solid"></div>
+                                            <p:commandButton  value="Cancelar" immediate="true" process="@this" update=":formularioProveedor" action="#{proveedorCT.cancelar()}" class="btn btn-primary"/>
+                                            <p:commandButton  type="submit" update=":formularioProveedor" ajax="false" action="#{proveedorCT.metodo()}" value="#{proveedorCT.nombreOperacion}" class="btn btn-success"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:when>
+                            <c:when test="${proveedorCT.operacion == 1}">
+                                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+                                    <div class="x_panel">
+                                        <div class="x_title">
+                                            <h2>DATOS DE USUARIO</h2>
+                                            <ul class="nav navbar-right panel_toolbox">
+                                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                                </li>                                        
+                                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                                </li>
+                                            </ul>
+                                            <div class="clearfix">                                       
+                                            </div>
+                                        </div>
+                                        <div class="x_content">
+                                            <div class="form-group">
+                                                <label class="control-label" for="txtNombreUsuario">Nombre<span class="required">*</span></label>
+                                                <p:inputText class="form-control" value="#{proveedorCT.proveedor.usuario.nombre}" required="true" placeholder="Nombres del usuario" type="text" id="txtNombreUsuario"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label" for="txtApellidoUsuario">Apellido<span class="required">*</span></label>
+                                                <p:inputText class="form-control" value="#{proveedorCT.proveedor.usuario.apellido}" required="true" placeholder="Apellidos del usuario" type="text" id="txtApellidoUsuario"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label" for="txtidentificacion">identificacion<span class="required">*</span></label>
+                                                <p:inputText class="form-control" value="#{proveedorCT.proveedor.usuario.identificacion}" required="true" placeholder="identificacion" type="text" id="txtIdentificacion"/>
+                                            </div>                                                                                                                        
+                                            <div class="form-group">
+                                                <label class="control-label" for="txtMovil">Movil<span class="required">*</span></label>
+                                                <p:inputText class="form-control" value="#{proveedorCT.proveedor.usuario.movil}" required="true" placeholder="Telefono movil" type="text" id="txtMovil"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+                                    <div class="x_panel">
+                                        <div class="x_title">
+                                            <h2>DATOS DE LA PLANTA</h2>
+                                            <ul class="nav navbar-right panel_toolbox">
+                                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                                </li>                                        
+                                                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                                </li>
+                                            </ul>
+                                            <div class="clearfix">                                       
+                                            </div>
+                                        </div>
+                                        <div class="x_content">
+                                            <div class="form-group">
+                                                <label class="control-label" for="txtRazonSocial">Razon social<span class="required">*</span></label>
+                                                <p:inputText class="form-control" value="#{proveedorCT.proveedor.razonSocial}" required="true" placeholder="Razon social" type="text" id="txtRazonSocial"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label" for="txtNit">NIT<span class="required">*</span></label>
+                                                <p:inputText class="form-control" value="#{proveedorCT.proveedor.nit}" required="true" placeholder="NIT" type="text" id="txtNit"/>
+                                            </div>                                    
+                                            <div class="form-group">
+                                                <label class="control-label" for="txtTelefonoProveedor">Telefono<span class="required">*</span></label>
+                                                <p:inputText class="form-control" value="#{proveedorCT.proveedor.telefono}" required="true" placeholder="Telefono" type="text" id="txtTelefonoProveedor"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label" for="txtCupo">Cupo<span class="required">*</span></label>
+                                                <p:inputText class="form-control" value="#{proveedorCT.proveedor.cupo}" required="true" placeholder="Cupo maximo de prendas" type="text" id="txtCupo"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label" for="SMCiudad">Ciudad<span class="required">*</span></label>
+                                                <h:selectOneMenu value="#{proveedorCT.proveedor.usuario.ciudad.nombre}" class="form-control" id="SMCiudad">
+                                                    <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{ciudadCT.ciudades}" var="ciudad" itemLabel="#{ciudad.nombre}" itemValue="#{ciudad.nombre}"/>
+                                                </h:selectOneMenu>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label" for="SMBarrio">Barrio<span class="required">*</span></label>
+                                                <h:selectOneMenu value="#{proveedorCT.proveedor.usuario.barrio.nombre}" class="form-control" id="SMBarrio">
+                                                    <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{barrioCT.barrios}" var="barrio" itemLabel="#{barrio.nombre}" itemValue="#{barrio.nombre}"/>
+                                                </h:selectOneMenu>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label" for="txtDireccionProveedor">Direccion<span class="required">*</span></label>
+                                                <p:inputText class="form-control" value="#{proveedorCT.proveedor.direccion}" required="true" placeholder="Direccion de la planta" type="text" id="txtDireccionProveedor"/>
+                                            </div>                                 
+                                            <div class="ln_solid"></div>
+                                            <p:commandButton  value="Cancelar" immediate="true" process="@this" update=":formularioProveedor" action="#{proveedorCT.cancelar()}" class="btn btn-primary"/>
+                                            <p:commandButton  type="submit" update=":formularioProveedor" action="#{proveedorCT.metodo()}" value="#{proveedorCT.nombreOperacion}" class="btn btn-success"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:when>
+                        </c:choose>
+                    </h:form>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>LISTA DE PROVEEDORES</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>                                        
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix">                                       
+                                </div>
+                            </div>
+                            <div class="x_content">
+                                <h:form id="formularioListaProveedores">
+                                    <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
+                                    <div class="ln_solid"></div>
+                                    <p:dataTable style="width: 100%" var="Proveedor" value="#{proveedorCT.proveedores}" class="table-responsive table table-striped" rows="10"
+                                                 paginator="true"
+                                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15">
+                                        <p:column headerText="Razon Social">
+                                            <p:outputLabel value="#{Proveedor.razonSocial}" />         
+                                        </p:column>
+
+                                        <p:column headerText="NIT">
+                                            <p:outputLabel value="#{Proveedor.nit}"/>         
+                                        </p:column>
+
+                                        <p:column headerText="Telefono">
+                                            <p:outputLabel value="#{Proveedor.telefono}"/>         
+                                        </p:column>
+
+                                        <p:column headerText="Nombre Representante">
+                                            <p:outputLabel value="#{Proveedor.usuario.nombre}"/>         
+                                        </p:column>
+
+                                        <p:column headerText="Apellido Representante">
+                                            <p:outputLabel value="#{Proveedor.usuario.apellido}"/>         
+                                        </p:column>
+
+                                        <p:column  style="width: 60px" headerText="">
+                                            <p:commandLink style="color: white; width: 100%" process="@this" update=":formularioProveedor" action="#{proveedorCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
+                                                <f:setPropertyActionListener value="#{Proveedor}" target="#{proveedorCT.proveedor}"/>
+                                                <i class="fa fa-pencil"/> 
+                                            </p:commandLink>
+                                        </p:column>
+
+                                        <p:column  style="width: 60px" headerText="">
+                                            <p:commandLink style="color: white; width: 100%" action="#{proveedorCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
+                                                <f:setPropertyActionListener value="#{Proveedor}" target="#{proveedorCT.proveedor}"/>
+                                                <i class="fa fa-trash"/>                                                     
+                                            </p:commandLink>
+                                        </p:column>
+                                    </p:dataTable>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
             </ui:define>
-
         </ui:composition>
-
     </body>
 </html>

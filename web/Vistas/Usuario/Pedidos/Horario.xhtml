@@ -1,14 +1,53 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
         <ui:composition template="./../adminTemplate.xhtml">
 
             <ui:define name="content">
-                
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>HORARIO</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>                                        
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <h:form id="formularioRegistro" class="form-horizontal form-label-left input_mask">
+                                    <div class="form-group">
+                                        <label class="control-label" for="txtHoraInicio">Hora inicio<span class="required">*</span></label>
+                                        <p:calendar style="width: 100%" placeholder="Hora inicio" id="txtHoraInicio" mode="inline"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label" for="txtHoraFinal">Hora final<span class="required">*</span></label>
+                                        <p:calendar style="width: 100%" placeholder="Hora final" id="txtHoraFinal" mode="inline"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label" for="txtJornadas">Jornada<span class="required">*</span></label>
+                                        <h:selectOneMenu style="width: 100%" id="DTJornadas">
+                                            <f:selectItem itemLabel="Seleccione"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                    <div class="ln_solid"></div>
+                                    <p:commandButton value="Cancelar" update=":formularioRegistro"  class="btn btn-primary"/>
+                                    <p:commandButton type="submit" update=":formularioRegistro" value="Registrar" class="btn btn-success"/>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </ui:define>
 
         </ui:composition>

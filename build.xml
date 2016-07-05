@@ -72,4 +72,9 @@
 <xjc destdir="src/java" encoding="${source.encoding}" package="lavapp.we.xsd0" schema="src/java/META-INF/xsd0.xsd" target="2.1"/>
 </target>
 
+<!--Target required for SAAS(REST) services: data types generation-->
+<target depends="saas-init-xjc" name="saas.xjc.lavapp.application">
+<xjc destdir="src/java" encoding="${source.encoding}" package="lavapp.application.xsd0" schema="C:/Users/CristianCamilo/AppData/Roaming/NetBeans/8.0.2/config/WebServices/application/application.wadl/xsd0.xsd" target="2.1"/>
+</target>
+
 </project>

@@ -68,6 +68,8 @@ public class Proveedor_TO {
 
     //Constructores
     public Proveedor_TO() {
+        usuario = new Usuario_TO();
+        zona = new Zona_TO();
     }
 
     public Proveedor_TO(int idProveedor) {

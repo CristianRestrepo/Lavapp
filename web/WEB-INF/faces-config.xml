@@ -51,6 +51,11 @@
             <to-view-id>/Vistas/Usuario/Ubicaciones/Estrato.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>Proveedor</from-outcome>
+            <to-view-id>/Vistas/Usuario/Usuarios/Proveedor.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
     </navigation-rule>
     
     <!--Managed Beans-->
@@ -157,6 +162,11 @@
     <managed-bean>
         <managed-bean-name>usuarioCT</managed-bean-name>
         <managed-bean-class>com.planit.lavappweb.controladores.UsuarioCT</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>proveedorCT</managed-bean-name>
+        <managed-bean-class>com.planit.lavappweb.controladores.ProveedorCT</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
 </faces-config>

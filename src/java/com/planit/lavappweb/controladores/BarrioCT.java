@@ -24,7 +24,7 @@ public class BarrioCT {
     private List<Barrio_TO> barrios;
     protected ServiciosBarrios servicios;
     private String nombreOperacion;
-    private int operacion; //Controla la operacion a ejecutar
+    protected int operacion; //Controla la operacion a ejecutar
 
     public BarrioCT() {
         barrio = new Barrio_TO();
