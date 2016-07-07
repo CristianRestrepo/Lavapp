@@ -21,7 +21,7 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
  *        client.close();
  * </pre>
  *
- * @author SISTEMAS
+ * @author Desarrollo_Planit
  */
 public class ClienteRegistrarProducto {
     private WebTarget webTarget;
@@ -29,7 +29,6 @@ public class ClienteRegistrarProducto {
     private static final String BASE_URI = "http://localhost:8084/LavappService/webresources/";
 
     public ClienteRegistrarProducto() {
-//        client = javax.ws.rs.client.ClientBuilder.newClient();
         client = ResteasyClientBuilder.newBuilder().build();
         webTarget = client.target(BASE_URI).path("registrarProducto");
     }
@@ -37,13 +36,14 @@ public class ClienteRegistrarProducto {
     /**
      * @param responseType Class representing the response
      * @param nombre query parameter
-     * @param desc query parameter
-     * @param idSubservicio query parameter
+     * @param descripcion query parameter
+     * @param idSubServicio query parameter
+     * @param rutaImagen query parameter
      * @return response object (instance of responseType class)
      */
-    public <T> T registrarProducto(Class<T> responseType, String nombre, String desc, String idSubservicio) throws ClientErrorException {
-        String[] queryParamNames = new String[]{"nombre", "desc", "idSubservicio"};
-        String[] queryParamValues = new String[]{nombre, desc, idSubservicio};
+    public <T> T registrarProducto(Class<T> responseType, String nombre, String descripcion, String idSubServicio, String rutaImagen) throws ClientErrorException {
+        String[] queryParamNames = new String[]{"nombre", "descripcion", "idSubServicio", "rutaImagen"};
+        String[] queryParamValues = new String[]{nombre, descripcion, idSubServicio, rutaImagen};
         ;
         javax.ws.rs.core.Form form = getQueryOrFormParams(queryParamNames, queryParamValues);
         javax.ws.rs.core.MultivaluedMap<String, String> map = form.asMap();

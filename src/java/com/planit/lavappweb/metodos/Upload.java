@@ -51,7 +51,7 @@ public class Upload {
     public static HashMap<String, String> getMapPathFotosProducto() {
         try {
             HashMap<String, String> map = new HashMap<>();
-            String path = getPathFotosPrductos();
+            String path = getPathFotosProductos();
             map.put("path", path);
             map.put("url", "/resources/images/upload/Productos/");
             return map;
@@ -66,7 +66,7 @@ public class Upload {
      * METODOS CON LAS RUTAS DE IMAGENES =======================================
      * *
      */
-    public static String getPathFotosPrductos() {
+    public static String getPathFotosProductos() {
         try {
             String path = getPath() + "/resources/images/upload/Productos/";
             return path;

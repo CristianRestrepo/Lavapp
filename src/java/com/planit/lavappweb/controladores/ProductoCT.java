@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import org.primefaces.event.FileUploadEvent;
 import static com.planit.lavappweb.metodos.Upload.getMapPathFotosProducto;
+import com.planit.lavappweb.webservices.implementaciones.ServiciosSubServicio;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.apache.commons.io.IOUtils;
@@ -25,15 +25,17 @@ import org.primefaces.model.UploadedFile;
  *
  * @author Desarrollo_Planit
  */
-public class ProductoCT implements Serializable {
+public class ProductoCT {
 
     private Producto_TO producto;
     private List<Producto_TO> productos;
     protected ServiciosProducto serviciosProducto;
+    private UploadedFile file;
 
     //Variables
     private String nombreOperacion;
     protected int operacion;
+    private String imagen;
 
     /**
      * Relacion con clases
@@ -44,10 +46,10 @@ public class ProductoCT implements Serializable {
         producto = new Producto_TO();
         productos = new ArrayList<>();
         serviciosProducto = new ServiciosProducto();
-
         nombreOperacion = "Registrar";
         operacion = 0;
-        archivo_CT = new Upload();
+        archivo_CT = new Upload();        
+        imagen = "";        
     }
 
     @PostConstruct
@@ -96,14 +98,36 @@ public class ProductoCT implements Serializable {
         this.archivo_CT = archivo_CT;
     }
 
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+    
+    
+
     //Metodos
     public void registrar() {
-        producto = serviciosProducto.registrarProducto(producto.getNombre(), producto.getDescripcion(), producto.getSubServicio().getIdSubServicio());
+        ServiciosSubServicio ss = new ServiciosSubServicio();
+        producto.setSubServicio(ss.consultarSubServicio(producto.getSubServicio().getIdSubServicio(), producto.getSubServicio().getNombre()));
+        producto = serviciosProducto.registrarProducto(producto.getNombre(), producto.getDescripcion(), producto.getSubServicio().getIdSubServicio(), producto.getRutaImagen());
         productos = serviciosProducto.consultarProductos();
     }
 
     public void modificar() {
-        producto = serviciosProducto.modificarProducto(producto.getIdProducto(), producto.getNombre(), producto.getDescripcion(), producto.getSubServicio().getIdSubServicio());
+        ServiciosSubServicio ss = new ServiciosSubServicio();
+        producto.setSubServicio(ss.consultarSubServicio(0, producto.getSubServicio().getNombre()));
+        producto = serviciosProducto.modificarProducto(producto.getIdProducto(), producto.getNombre(), producto.getDescripcion(), producto.getSubServicio().getIdSubServicio(), producto.getRutaImagen());
         productos = serviciosProducto.consultarProductos();
     }
 
@@ -113,22 +137,35 @@ public class ProductoCT implements Serializable {
     }
 
     //Metodos Propios
-    public void metodo() {
-        if (operacion == 0) {
+    public void metodo() throws IOException {
+         if (operacion == 0) {
+            if (file != null) {
+                uploadFoto();
+            }
             registrar();
         } else if (operacion == 1) {
+            if (file != null) {
+                uploadFoto();
+            }            
             modificar();
             //Reiniciamos banderas
             nombreOperacion = "Registrar";
             operacion = 0;
         }
+        file = null;
     }
 
     public void seleccionarCRUD(int i) {
         operacion = i;
         if (operacion == 1) {
             nombreOperacion = "Modificar";
+            if(!producto.getRutaImagen().equalsIgnoreCase("null")){
+                imagen = "El producto ya tiene imagen asignada";
+            }else{
+                imagen = "El producto no tiene imagen asignada";
+            }
         }
+        file = null;
     }
 
     public void cancelar() {
@@ -136,22 +173,22 @@ public class ProductoCT implements Serializable {
         productos = serviciosProducto.consultarProductos();
         operacion = 0;
         nombreOperacion = "Registrar";
+        imagen = "";
+        file = null;
     }
 
-    public void uploadFoto(FileUploadEvent e) throws IOException {
+    public void uploadFoto() throws IOException {
         try {
-            UploadedFile fotoSubida = e.getFile();
             String destino;
-
             HashMap<String, String> map = getMapPathFotosProducto();
             destino = map.get("path");
 
-            if (null != fotoSubida) {
-                archivo_CT.uploadFile(IOUtils.toByteArray(fotoSubida.getInputstream()), fotoSubida.getFileName(), destino);
-                producto.setRutaImagen(map.get("url") + fotoSubida.getFileName());
+            if (null != file) {
+                archivo_CT.uploadFile(IOUtils.toByteArray(file.getInputstream()), file.getFileName(), destino);
+                producto.setRutaImagen(map.get("url") + file.getFileName());
             }
-            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Su foto (" + fotoSubida.getFileName() + ")  se ha guardado con exito.", ""));
-        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Su foto (" + file.getFileName() + ")  se ha guardado con exito.", ""));
+        } catch (IOException ex) {
             throw ex;
         }
     }

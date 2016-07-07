@@ -14,19 +14,7 @@
             <div class="page-title">
                 <div class="title_left">
                     <h3>Servicios LavApp <small> servicios de lavanderia a domicilio.</small></h3>
-                </div>
-
-                <div class="title_right">
-                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                        <div class="input-group">
-                            <p:inputText type="text" class="form-control" placeholder="Buscar aquí..."/>
-                            <!--<input type="text" class="form-control" placeholder="Search for..."/>-->
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"> Ir !</button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+                </div>                
             </div>
 
             <div class="clearfix"></div>
@@ -47,24 +35,21 @@
                         </div><!-- CONTENIDO SUPERIOR DEL CONETENEDOR -->
                         <div class="x_content">
 
-                            <h:form id="formRegistroServicio" class="form-horizontal form-label-left input_mask">                  
-
-                                <label class="control-label col-md-4 col-sm-4 col-xs-12">Nombre de Servicio</label>
-                                <div class="col-md-8 col-sm-8 col-xs-12">
+                            <h:form id="formRegistroServicio" class="form-horizontal form-label-left input_mask">                 
+                               
+                                <div class="form-group">
+                                     <label class="control-label">Nombre de Servicio</label>
                                     <p:inputText class="form-control" required="true" 
                                                  placeholder="nombre del servicio..." type="text"
                                                  id="txtNombreServicio" value="#{servicioCT.servicio.nombre}"></p:inputText>       
-
                                 </div>
-                                <br/>
-                                <div class="ln_solid-servicio "></div>
-                                <div class="col-xs-12">
-                                    <p:commandButton class="btn btn-primary btn-left" value="cancelar" action="#{servicioCT.cancelar()}"/>
-                                    <p:commandButton class="btn btn-success btn-rigth" value="#{servicioCT.nombreOperacion}"
-                                                     type="submit" form=":formRegistroServicio" 
-                                                     update=":formRegistroServicio :formListaServicios"
-                                                     action="#{servicioCT.metodo()}"  />
-                                </div>
+                                
+                                <div class="ln_solid"></div>                                
+                                <p:commandButton class="btn btn-primary "  update=":formRegistroServicio :formListaServicios" value="cancelar" action="#{servicioCT.cancelar()}"/>
+                                <p:commandButton class="btn btn-success " value="#{servicioCT.nombreOperacion}"
+                                                 type="submit" form=":formRegistroServicio" 
+                                                 update=":formRegistroServicio :formListaServicios"
+                                                 action="#{servicioCT.metodo()}"  />                               
                             </h:form>
 
                         </div>
@@ -86,16 +71,20 @@
 
                         <div class="x_content">
                             <h:form id="formListaServicios">
-
+                                 <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
+                                <div class="ln_solid"></div>
                                 <p:dataTable id="DTServicios" class="table-responsive table table-striped"
-                                             var="servicios" value="#{servicioCT.servicios}">
-                                    <p:column headerText="id">
+                                             var="servicios" value="#{servicioCT.servicios}" rows="10"
+                                                 paginator="true"
+                                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15">
+                                    <p:column headerText="ID">
                                         <p:outputLabel value="#{servicios.idServicio}" />
                                     </p:column>
                                     <p:column headerText="Nombre Servicio">
                                         <p:outputLabel value="#{servicios.nombre}" />
                                     </p:column>
-                                    
+
                                     <p:column style="width: 60px" headerText="">
                                         <p:commandLink style="color: white; width: 100%" process="@this" update=":formRegistroServicio" action="#{servicioCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
                                             <f:setPropertyActionListener value="#{servicios}" target="#{servicioCT.servicio}"/>
@@ -124,4 +113,3 @@
 
 </html>
 
-    

@@ -33,8 +33,8 @@
                                             <p:inputText class="form-control" value="#{zonaCT.zona.nombre}" required="true" requiredMessage="Ingrese nombre" placeholder="Nombre de la zona" type="text" id="txtNombreCiudad"/>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label" for="txtDescripcion">Descripcion<span class="required">*</span></label>
-                                            <p:inputTextarea rows="3" value="#{zonaCT.zona.descripcion}" class="form-control " requiredMessage="Ingrese descripcion" required="true" placeholder="Descripcion" id="txtDescripcion"/>
+                                            <label class="control-label" for="txtDescripcion">Descripcion</label>
+                                            <h:inputTextarea rows="3" value="#{zonaCT.zona.descripcion}" class="form-control " id="txtDescripcion"/>
                                         </div>
                                         <div class="ln_solid"></div>
                                         <p:commandButton value="Cancelar" update=":formularioRegistro :formularioListaZonas" action="#{zonaCT.cancelar()}" immediate="true" process="@this" class="btn btn-primary"/>

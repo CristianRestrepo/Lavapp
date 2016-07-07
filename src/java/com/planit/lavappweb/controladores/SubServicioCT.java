@@ -6,6 +6,7 @@
 package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.modelos.SubServicio_TO;
+import com.planit.lavappweb.webservices.implementaciones.ServiciosServicios;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosSubServicio;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class SubServicioCT implements Serializable {
 
     public SubServicioCT() {
         subServicio = new SubServicio_TO();
-        subServicios = new ArrayList<SubServicio_TO>();
+        subServicios = new ArrayList<>();
         serviceSubServicio = new ServiciosSubServicio();
         nombreOperacion = "Registrar";
         operacion = 0;
@@ -67,11 +68,15 @@ public class SubServicioCT implements Serializable {
 
     //Metodos
     public void registrar() {
+        ServiciosServicios ss = new ServiciosServicios();
+        subServicio.setServicio(ss.consultarServicio(subServicio.getServicio().getIdServicio(), subServicio.getServicio().getNombre()));
         subServicio = serviceSubServicio.registrarSubServicio(subServicio.getNombre(), subServicio.getServicio().getIdServicio());
         subServicios = serviceSubServicio.consultarSubServicios();
     }
 
     public void modificar() {
+        ServiciosServicios ss = new ServiciosServicios();
+        subServicio.setServicio(ss.consultarServicio(0, subServicio.getServicio().getNombre()));
         subServicio = serviceSubServicio.editarSubServicio(subServicio.getIdSubServicio(), subServicio.getNombre(), subServicio.getServicio().getIdServicio());
         subServicios = serviceSubServicio.consultarSubServicios();
     }

@@ -21,23 +21,15 @@ import java.util.List;
  */
 public class ServiciosProducto {
 
-//    public List<Producto_TO> consultarProductos() {
-//        List<Producto_TO> listModelo = new ArrayList<>();
-//        ClienteConsultarProductos clienteProd = new ClienteConsultarProductos();
-//        try {
-//            listModelo = clienteProd.consultarProductos(List.class);
-//        } catch (Exception e) {
-//            throw e;
-//        }
-//        return listModelo;
-//    }
     public List<Producto_TO> consultarProductos() {
         ClienteConsultarProductos cliente = new ClienteConsultarProductos();
         List<LinkedHashMap> datos = cliente.consultarProductos(List.class);
         List<Producto_TO> productos = new ArrayList<>();
+        ServiciosSubServicio ss = new ServiciosSubServicio();
+                
         for (int i = 0; i < datos.size(); i++) {
             LinkedHashMap map = (LinkedHashMap) datos.get(i).get("subServicio");
-            SubServicio_TO subServicio = new SubServicio_TO((int) map.get("idSubServicio"));
+            SubServicio_TO subServicio = ss.consultarSubServicio((int) map.get("idSubServicio"), (String) map.get("nombre"));
             productos.add(new Producto_TO((int) datos.get(i).get("idProducto"),
                     (String) datos.get(i).get("nombre"),
                     (String) datos.get(i).get("descripcion"),
@@ -47,14 +39,14 @@ public class ServiciosProducto {
         return productos;
     }
 
-    public Producto_TO registrarProducto(String nombre, String desc, int idSubServi) {
+    public Producto_TO registrarProducto(String nombre, String descripcion, int idSubServicio, String rutaImagen) {
         ClienteRegistrarProducto cliente = new ClienteRegistrarProducto();
-        return cliente.registrarProducto(Producto_TO.class, nombre, desc, "" + idSubServi);
+        return cliente.registrarProducto(Producto_TO.class, nombre, descripcion, "" + idSubServicio, rutaImagen);
     }
 
-    public Producto_TO modificarProducto(int idProducto, String nombre, String descripcion, int idSubServicio) {
+    public Producto_TO modificarProducto(int idProducto, String nombre, String descripcion, int idSubServicio, String rutaImagen) {
         ClienteEditarProducto cliente = new ClienteEditarProducto();
-        return cliente.modificarProducto(Producto_TO.class, "" + idProducto, nombre, descripcion, "" + idSubServicio);
+        return cliente.modificarProducto(Producto_TO.class, "" + idProducto, nombre, descripcion, "" + idSubServicio, rutaImagen);
     }
 
     public Producto_TO eliminar(int idProducto) {

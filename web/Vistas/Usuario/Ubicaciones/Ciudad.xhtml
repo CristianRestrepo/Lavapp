@@ -38,7 +38,7 @@
                                         </div>
                                         <div class="ln_solid"></div>
                                         <p:commandButton value="Cancelar"  update=":formularioRegistro :formularioListaCiudades" immediate="true" process="@this" action="#{ciudadCT.cancelar()}"  class="btn btn-primary"/>
-                                        <p:commandButton type="submit" action="#{ciudadCT.metodo()}" form="formularioRegistro" update="formularioRegistro" value="#{ciudadCT.nombreOperacion}" class="btn btn-success"/>
+                                        <p:commandButton type="submit" action="#{ciudadCT.metodo()}" form="formularioRegistro" update=":formularioRegistro :formularioListaCiudades" value="#{ciudadCT.nombreOperacion}" class="btn btn-success"/>
                                     </h:form>
                                 </div>
                             </div>

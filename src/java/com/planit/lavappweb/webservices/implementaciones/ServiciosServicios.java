@@ -6,6 +6,7 @@
 package com.planit.lavappweb.webservices.implementaciones;
 
 import com.planit.lavappweb.modelos.Servicio_TO;
+import com.planit.lavappweb.webservices.clientes.ClienteConsultarServicio;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarServicios;
 import com.planit.lavappweb.webservices.clientes.ClienteEditarServicio;
 import com.planit.lavappweb.webservices.clientes.ClienteEliminarServicio;
@@ -28,6 +29,11 @@ public class ServiciosServicios {
             servicios.add(new Servicio_TO((int) datos.get(i).get("idServicio"), (String) datos.get(i).get("nombre")));
         }
         return servicios;
+    }
+    
+    public Servicio_TO consultarServicio(int idServicio, String nombre){
+        ClienteConsultarServicio cliente = new ClienteConsultarServicio();
+        return cliente.consultarServicio(Servicio_TO.class, "" + idServicio, nombre);
     }
 
     public Servicio_TO registrarServicio(String nombre) {

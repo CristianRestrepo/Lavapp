@@ -166,15 +166,20 @@
                                                 </li>
                                                 <li><a><i class="fa fa-users"></i> Usuarios <span class="fa fa-chevron-down"></span></a>
                                                     <ul class="nav child_menu">
-                                                        <li>
-                                                            <h:link outcome="#{barrioCT.modificar()}" >general form</h:link>                                                        
-                                                        </li>                                                        
+                                                        <li><h:link outcome="Rol">Roles</h:link></li>
+                                                        <li><h:link outcome="Asesor">Asesores</h:link></li>
+                                                    </ul>
+                                                </li>
+                                                <li><a><i class="fa fa-check-square-o"></i> Servicios <span class="fa fa-chevron-down"></span></a>
+                                                    <ul class="nav child_menu">
+                                                        <li><h:link outcome="Servicio">Servicios</h:link></li>
+                                                        <li><h:link outcome="SubServicio">SubServicios</h:link></li>
                                                     </ul>
                                                 </li>
                                                 <li><a><i class="fa fa-female"></i> Ropa - Prendas <span class="fa fa-chevron-down"></span></a>
                                                     <ul class="nav child_menu">
-                                                        <li><a href="general_elements.html">Categoria de Prendas</a></li>
-                                                        <li><a href="media_gallery.html">Sub-prendas</a></li>                                                        
+                                                        <li><h:link outcome="Producto">Categorias prendas</h:link></li>
+                                                        <li><h:link outcome="SubProducto">Prendas</h:link></li>
                                                     </ul>
                                                 </li>
                                                 <li><a><i class="fa fa-map-marker"></i> Lugares <span class="fa fa-chevron-down"></span></a>
@@ -189,16 +194,20 @@
                                                 </li>
                                                 <li><a><i class="fa fa-clock-o"></i> Tiempos - Horarios <span class="fa fa-chevron-down"></span></a>
                                                     <ul class="nav child_menu">
-                                                        <li><a href="chartjs.html">Jornadas</a></li>
-                                                        <li><a href="chartjs2.html">Horarios</a></li>                                                        
+                                                        <li><h:link outcome="Jornada">Jornadas</h:link></li>                                                       
+                                                        <li><h:link outcome="Horario">Horarios</h:link></li>
                                                     </ul>
                                                 </li>
-                                                <li><a><i class="fa fa-clipboard"></i>Pedidos </a>                                                  
+                                                <li><a><i class="fa fa-clipboard"></i> Pedidos <span class="fa fa-chevron-down"></span></a> 
+                                                    <ul class="nav child_menu">
+                                                        <li><h:link outcome="Pedido">Pedidos</h:link></li>
+                                                        <li><h:link outcome="Historico">Historico</h:link></li>
+                                                        <li><h:link outcome="Calificacion">Calificacion</h:link></li>
+                                                    </ul>
                                                 </li>
                                                 <li><a><i class="fa fa-user-plus"></i>Proveedores<span class="fa fa-chevron-down"></span></a>
                                                     <ul class="nav child_menu">
-                                                        <li><a href="fixed_sidebar.html">lorem</a></li>
-                                                        <li><a href="fixed_footer.html">lorem</a></li>
+                                                        <li><h:link outcome="Proveedor">Proveedor</h:link></li>
                                                     </ul>
                                                 </li>
                                                 <li><a><i class="fa fa-ticket"></i>Descuentos <span class="fa fa-chevron-down"></span></a>

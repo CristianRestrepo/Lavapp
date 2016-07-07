@@ -56,8 +56,67 @@
             <to-view-id>/Vistas/Usuario/Usuarios/Proveedor.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
-    </navigation-rule>
-    
+        <navigation-case>
+            <from-outcome>Asesor</from-outcome>
+            <to-view-id>/Vistas/Usuario/Usuarios/Asesor.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>Rol</from-outcome>
+            <to-view-id>/Vistas/Usuario/Usuarios/Rol.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>Producto</from-outcome>
+            <to-view-id>/Vistas/Usuario/Productos-Servicios/Productos.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>SubProducto</from-outcome>
+            <to-view-id>/Vistas/Usuario/Productos-Servicios/SubProductos.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>Servicio</from-outcome>
+            <to-view-id>/Vistas/Usuario/Productos-Servicios/Servicio.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>SubServicio</from-outcome>
+            <to-view-id>/Vistas/Usuario/Productos-Servicios/Subservicios.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>Calificacion</from-outcome>
+            <to-view-id>/Vistas/Usuario/Pedidos/Calificacion.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>Facturas</from-outcome>
+            <to-view-id>/Vistas/Usuario/Pedidos/Facturas.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>Historico</from-outcome>
+            <to-view-id>/Vistas/Usuario/Pedidos/Historico.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>Horario</from-outcome>
+            <to-view-id>/Vistas/Usuario/Pedidos/Horario.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>Jornada</from-outcome>
+            <to-view-id>/Vistas/Usuario/Pedidos/Jornada.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>Pedido</from-outcome>
+            <to-view-id>/Vistas/Usuario/Pedidos/Pedido.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>    
     <!--Managed Beans-->
     <managed-bean>
         <managed-bean-name>pedidoCT</managed-bean-name>
