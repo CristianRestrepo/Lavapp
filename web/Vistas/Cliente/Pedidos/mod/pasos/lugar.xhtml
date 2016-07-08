@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <div style="display: block">
         <section>
@@ -14,70 +15,49 @@
                         <div class="row  ">
 
                             <div class="col-xs-12 col-md-6">
-                                <form action="">
-                                    <div class="form-group">
-                                        <label class="label-lv" for="">Localidades</label>
-                                        <select class="form-control input-lg input-lg-lv">
-                                            <option>Punte Aranda</option>
-                                            <option>Engativa</option>
-                                            <option>Fontibon</option>
-                                            <option>Suba</option>
-                                            <option>Bosa</option>
-                                        </select>								
-                                    </div>
-                                </form>
-
+                                <div class="form-group">
+                                    <label class="label-lv" for="">Localidades</label>
+                                    <h:selectOneMenu class="form-control input-lg input-lg-lv">
+                                        <f:selectItem itemLabel="Localidad" noSelectionOption="true"/>
+                                        <f:selectItems value="#{localidadCT.localidades}" var="localidad" itemLabel="#{localidad.nombre}" itemValue="#{localidad.nombre}"/>
+                                    </h:selectOneMenu>                                       							
+                                </div>                                
                             </div>
                             <div class="col-xs-12 col-md-6">
-                                <form action="">
-                                    <div class="form-group">
-                                        <label class="label-lv" for="">Barrios</label>
-                                        <select class="form-control  input-lg input-lg-lv">
-                                            <option>Alcalá</option>
-                                            <option>Tejar</option>
-                                            <option>Galán</option>
-                                            <option>El prado</option>
-                                            <option>Unicentro</option>
-                                        </select>							
-                                    </div>
-                                </form>
+                                <div class="form-group">
+                                    <label class="label-lv" for="">Barrios</label>
+                                    <h:selectOneMenu class="form-control input-lg input-lg-lv">
+                                        <f:selectItem itemLabel="Barrios" noSelectionOption="true"/>
+                                        <f:selectItems value="#{barrioCT.barrios}" var="barrio" itemLabel="#{barrio.nombre}" itemValue="#{barrio.nombre}"/>
+                                    </h:selectOneMenu> 						
+                                </div>
                             </div>
 
                             <div class="col-xs-12 col-md-6">
-                                <form action="">
-                                    <div class="form-group">
-                                        <label class="label-lv" for="">Dirección de residencia # 1</label>
-                                        <input type="text" title="" placeholder="Dirección #1" class="form-control input-lg input-lg-lv"/>				
-                                            <span class="help-block"><em>* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi praesentium autem qui</em></span>	
-                                    </div>
-                                </form>						
+                                <div class="form-group">
+                                    <label class="label-lv" for="">Dirección de residencia  1</label>
+                                    <p:inputText type="text" title="" placeholder="Dirección 1" class="form-control input-lg input-lg-lv"/>				
+                                    <span class="help-block"><em>* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi praesentium autem qui</em></span>	
+                                </div>
                             </div>
 
                             <div class="col-xs-12 col-md-6">
-                                <form action="">
-                                    <div class="form-group">
-                                        <label class="label-lv" for="">Dirección de residencia # 2</label>
-                                        <input type="text" title="" placeholder="Dirección #2" class="form-control input-lg input-lg-lv" />				
-                                            <span class="help-block"><em>* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium eligendi labore</em></span>			
-                                    </div>
-                                </form>
+                                <div class="form-group">
+                                    <label class="label-lv" for="">Dirección de residencia  2</label>
+                                    <p:inputText type="text" title="" placeholder="Dirección 2" class="form-control input-lg input-lg-lv" />				
+                                    <span class="help-block"><em>* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium eligendi labore</em></span>			
+                                </div>
                             </div>
 
                             <div class="col-xs-12 col-md-12">
-                                <form action="">
-                                    <div class="form-group">
-                                        <label class="label-lv" for="">Recomendaciones y Comentarios</label>
-                                        <textarea type="text" title="" rows="3" placeholder="Recomendaciones y comentarios" class="form-control input-lg-lv"></textarea>				
-                                        <span class="help-block"><em>* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium eligendi labore.</em></span>			
-                                    </div>
-                                </form>
+                                <div class="form-group">
+                                    <label class="label-lv" for="">Recomendaciones y Comentarios</label>
+                                    <h:inputTextarea  title="" rows="3" class="form-control input-lg-lv"/>				
+                                    <span class="help-block"><em>* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium eligendi labore.</em></span>			
+                                </div>
                             </div>
-
-
                         </div>
                     </div>
-
-
                 </div>		
             </div>
 

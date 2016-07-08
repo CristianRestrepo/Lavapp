@@ -73,7 +73,7 @@ public class Upload {
     public static HashMap<String, String> getMapPathFotosSubProducto() {
         try {
             HashMap<String, String> map = new HashMap<>();
-            String path = getPathFotosProductos();
+            String path = getPathFotosSubProductos();
             map.put("path", path);
             map.put("url", "/resources/images/upload/SubProductos/");
             return map;
