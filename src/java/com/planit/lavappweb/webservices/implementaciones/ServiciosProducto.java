@@ -7,6 +7,7 @@ package com.planit.lavappweb.webservices.implementaciones;
 
 import com.planit.lavappweb.modelos.Producto_TO;
 import com.planit.lavappweb.modelos.SubServicio_TO;
+import com.planit.lavappweb.webservices.clientes.ClienteConsultarProducto;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarProductos;
 import com.planit.lavappweb.webservices.clientes.ClienteEditarProducto;
 import com.planit.lavappweb.webservices.clientes.ClienteEliminarProducto;
@@ -21,6 +22,11 @@ import java.util.List;
  */
 public class ServiciosProducto {
 
+    public Producto_TO consultarProducto(int idProducto, String nombre){
+        ClienteConsultarProducto cliente = new ClienteConsultarProducto();
+        return cliente.consultarProducto(Producto_TO.class, "" + idProducto, nombre);
+    }
+    
     public List<Producto_TO> consultarProductos() {
         ClienteConsultarProductos cliente = new ClienteConsultarProductos();
         List<LinkedHashMap> datos = cliente.consultarProductos(List.class);

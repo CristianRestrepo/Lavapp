@@ -11,11 +11,12 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
+
 /**
- * Jersey REST client generated for REST resource:we [modificarSubProductos]<br>
+ * Jersey REST client generated for REST resource:we [consultarProducto]<br>
  * USAGE:
  * <pre>
- *        ClienteEditarSubProducto client = new ClienteEditarSubProducto();
+ *        ClienteConsultarProducto client = new ClienteConsultarProducto();
  *        Object response = client.XXX(...);
  *        // do whatever with response
  *        client.close();
@@ -23,28 +24,25 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
  *
  * @author Desarrollo_Planit
  */
-public class ClienteEditarSubProducto {
+public class ClienteConsultarProducto {
     private WebTarget webTarget;
     private Client client;
     private static final String BASE_URI = "http://localhost:8084/LavappService/webresources/";
 
-    public ClienteEditarSubProducto() {
+    public ClienteConsultarProducto() {
         client = ResteasyClientBuilder.newBuilder().build();
-        webTarget = client.target(BASE_URI).path("modificarSubProductos");
+        webTarget = client.target(BASE_URI).path("consultarProducto");
     }
 
     /**
      * @param responseType Class representing the response
-     * @param idSubProductos query parameter
-     * @param nombre query parameter
-     * @param desc query parameter
      * @param idProducto query parameter
-     * @param rutaImagen query parameter
+     * @param nombre query parameter
      * @return response object (instance of responseType class)
      */
-    public <T> T modificarSubProductos(Class<T> responseType, String idSubProductos, String nombre, String desc, String idProducto, String rutaImagen) throws ClientErrorException {
-        String[] queryParamNames = new String[]{"idSubProductos", "nombre", "desc", "idProducto", "rutaImagen"};
-        String[] queryParamValues = new String[]{idSubProductos, nombre, desc, idProducto, rutaImagen};
+    public <T> T consultarProducto(Class<T> responseType, String idProducto, String nombre) throws ClientErrorException {
+        String[] queryParamNames = new String[]{"idProducto", "nombre"};
+        String[] queryParamValues = new String[]{idProducto, nombre};
         ;
         javax.ws.rs.core.Form form = getQueryOrFormParams(queryParamNames, queryParamValues);
         javax.ws.rs.core.MultivaluedMap<String, String> map = form.asMap();

@@ -61,14 +61,31 @@ public class Upload {
         return null;
     }
 
-    /**
-     *
-     * METODOS CON LAS RUTAS DE IMAGENES =======================================
-     * *
-     */
     public static String getPathFotosProductos() {
         try {
             String path = getPath() + "/resources/images/upload/Productos/";
+            return path;
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    public static HashMap<String, String> getMapPathFotosSubProducto() {
+        try {
+            HashMap<String, String> map = new HashMap<>();
+            String path = getPathFotosProductos();
+            map.put("path", path);
+            map.put("url", "/resources/images/upload/SubProductos/");
+            return map;
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return null;
+    }
+
+    public static String getPathFotosSubProductos() {
+        try {
+            String path = getPath() + "/resources/images/upload/SubProductos/";
             return path;
         } catch (Exception e) {
             throw e;

@@ -9,7 +9,6 @@ import com.planit.lavappweb.metodos.Upload;
 import com.planit.lavappweb.modelos.Producto_TO;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosProducto;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -112,10 +111,8 @@ public class ProductoCT {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
-    }
+    }  
     
-    
-
     //Metodos
     public void registrar() {
         ServiciosSubServicio ss = new ServiciosSubServicio();
@@ -139,18 +136,19 @@ public class ProductoCT {
     //Metodos Propios
     public void metodo() throws IOException {
          if (operacion == 0) {
-            if (file != null) {
+            if (!file.getFileName().isEmpty()) {
                 uploadFoto();
             }
             registrar();
         } else if (operacion == 1) {
-            if (file != null) {
+            if (!file.getFileName().isEmpty()) {
                 uploadFoto();
             }            
             modificar();
             //Reiniciamos banderas
             nombreOperacion = "Registrar";
             operacion = 0;
+            imagen = "";
         }
         file = null;
     }
