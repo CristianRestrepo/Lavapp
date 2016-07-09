@@ -31,10 +31,10 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label" for="SMLocalidad">Localidad<span class="required">*</span></label>
-                                        <h:selectOneMenu class="form-control" value="#{barrioCT.barrio.localidad.nombre}"  style="width: 100%" required="true" id="SMLocalidad" >
+                                        <p:selectOneMenu class="form-control" value="#{barrioCT.barrio.localidad.nombre}"  style="width: 100%" required="true" id="SMLocalidad" >
                                             <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
                                             <f:selectItems value="#{localidadCT.localidades}" var="localidad" itemLabel="#{localidad.nombre}" itemValue="#{localidad.nombre}"/>
-                                        </h:selectOneMenu>
+                                        </p:selectOneMenu>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label" for="SMEstrato">Estrato<span class="required">*</span></label>
@@ -52,7 +52,7 @@
                                     </div>
                                     <div class="ln_solid"></div>
                                     <p:commandButton value="Cancelar" immediate="true" process="@this" update=":formularioRegistro :formularioListaBarrios" action="#{barrioCT.cancelar()}" class="btn btn-primary"/>
-                                    <p:commandButton type="submit" form="formularioRegistro" update=":formularioRegistro :formularioListaBarrios" action="#{barrioCT.metodo()}" value="#{barrioCT.nombreOperacion}" class="btn btn-success"/>
+                                    <p:commandButton type="submit"  update=":formularioRegistro :formularioListaBarrios" action="#{barrioCT.metodo()}" value="#{barrioCT.nombreOperacion}" class="btn btn-success"/>
                                 </h:form>
                             </div>
                         </div>

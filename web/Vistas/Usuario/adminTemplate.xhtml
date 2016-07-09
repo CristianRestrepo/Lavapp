@@ -3,7 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      >
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -14,249 +16,309 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
         <!--ARCHIVOS JS ALOJADOS EN LA CARPETA DASHBOARD-->
-        <h:outputStylesheet name="./dashboard/css/bootstrap.min.css"/>
-        <h:outputStylesheet name="./dashboard/css/font-awesome.min.css"/>
-        <h:outputStylesheet name="./dashboard/css/custom.css"/>
+        <h:outputStylesheet name="./dashboard/css/default.css"/>
+        <h:outputStylesheet name="./dashboard/css/cssLayout.css"/>
+        <h:outputStylesheet name="./dashboard/bootstrap/css/bootstrap.css"/>
+        <h:outputStylesheet name="./dashboard/adminLT/css/AdminLTE.css"/>
+        <h:outputStylesheet name="./dashboard/adminLT/css/skins/_all-skins.css"/>
+        <h:outputStylesheet name="./dashboard/adminLT/css/bootstrap3-wysihtml5.css"/>
 
         <title>Dashboard | LavApp</title>
     </h:head>
 
-    <body class="nav-md">
+    <body class="hold-transition skin-blue sidebar-mini">
 
-        <div class="container body">
-            <!--<b:container class=" body">-->
+        <div class="wrapper">
+            <div>
+                <header class="main-header">
+                    <a class="logo">
+                        <div class="logo-mini">
+                            <img class="navbar-brand " style=" margin-left: -13px" src="../../../resources/images/logo-sms-mini.png" />
+                        </div>                  
+                        <div class="logo-lg">                            
+                            <img class="navbar-brand logo-men-1" src="../../../resources/images/logo-DASH.png" />
+                        </div>                  
+                    </a>
 
-            <div class="main_container">
+                    <!-- Logo -->
+                    <!-- Header Navbar: style can be found in header.less -->
+                    <nav class="navbar navbar-static-top" role="navigation">
+                        <!-- Sidebar toggle button-->
+                        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                            <span class="sr-only">Toggle navigation</span>
+                        </a>
 
-                <div id="top_1">
-                    <!--<ui:insert name="top">Top</ui:insert>-->
-                    <!--MENU SUPERIOR-->   
-                    <div class="top_nav">
-                        <div class="nav_menu">
-                            <nav class="" role="navigation">
-                                <div class="nav toggle">
-                                    <a id="menu_toggle" ><i class="fa fa-bars"></i></a>
-                                </div>
+                        <div class="navbar-custom-menu">
+                            <ul class="nav navbar-nav">
 
-                                <ul class="nav navbar-nav navbar-right">
-                                    <li class="">
-                                        <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                            <img src="images/img.jpg" alt=""/>John Doe
-                                            <span class=" fa fa-angle-down"></span>
-                                        </a>
-
-                                        <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                            <li><a href="javascript:;"> Profile</a></li>
-                                            <li>
-                                                <a href="javascript:;">
-                                                    <span class="badge bg-red pull-right">50%</span>
-                                                    <span>Settings</span>
-                                                </a>
-                                            </li>
-                                            <li><a href="javascript:;">Help</a></li>
-                                            <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
-                                        </ul>
-                                    </li>
-
-                                    <li role="presentation" class="dropdown">
-                                        <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                                            <i class="fa fa-envelope-o"></i>
-                                            <span class="badge bg-green">6</span>
-                                        </a>
-                                        <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                                            <li>
-                                                <a>
-                                                    <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                                    <span>
-                                                        <span>John Smith</span>
-                                                        <span class="time">3 mins ago</span>
-                                                    </span>
-                                                    <span class="message">
-                                                        Film festivals used to be do-or-die moments for movie makers. They were where...
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a>
-                                                    <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                                    <span>
-                                                        <span>John Smith</span>
-                                                        <span class="time">3 mins ago</span>
-                                                    </span>
-                                                    <span class="message">
-                                                        Film festivals used to be do-or-die moments for movie makers. They were where...
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a>
-                                                    <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                                    <span>
-                                                        <span>John Smith</span>
-                                                        <span class="time">3 mins ago</span>
-                                                    </span>
-                                                    <span class="message">
-                                                        Film festivals used to be do-or-die moments for movie makers. They were where...
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a>
-                                                    <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                                    <span>
-                                                        <span>John Smith</span>
-                                                        <span class="time">3 mins ago</span>
-                                                    </span>
-                                                    <span class="message">
-                                                        Film festivals used to be do-or-die moments for movie makers. They were where...
-                                                    </span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <div class="text-center">
-                                                    <a>
-                                                        <strong>See All Alerts</strong>
-                                                        <i class="fa fa-angle-right"></i>
-                                                    </a>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>           
-                    <!--MENU SUPERIOR-->
-                </div>
-                <div>
-                    <div id="left-dash">
-
-                        <!--MENU LATERAL-->
-                        <div class="col-md-3 left_col">
-                            <div class="left_col scroll-view">
-                                <div class="navbar nav_title" style="border: 0;">
-                                    <a href="index.html" class="site_title">
-                                        <div  id="img-logo-dash" class="img-responsive img-logo" ></div> 
+                                <!-- User Account: style can be found in dropdown.less -->
+                                <li class="dropdown user user-menu">
+                                    <a href="#" class="dropdown-toggle nav-sms" data-toggle="dropdown">
+                                        <p:graphicImage value="#{sesionActivaBean.usuario.usuarioFotoRuta}" 
+                                                        class="user-image img-circle center-block img-responsive" alt="User Image"/>
+                                        <span class="hidden-xs">#{sesionActivaBean.usuario.usuarioNombre}</span>
                                     </a>
-                                </div>
+                                    <ul class="dropdown-menu">
+                                        <!-- User image -->
+                                        <li class="user-header">
+                                            <p:graphicImage value="#{sesionActivaBean.usuario.usuarioFotoRuta}" class="img-circle center-block img-responsive" alt="User Image"/>
+                                            <p>#{sesionActivaBean.usuario.usuarioNombre}<br/>
+                                                <small>#{sesionActivaBean.usuario.smsRol.rolNombre}</small>
+                                            </p>
 
-                                <div class="clearfix"></div>
+                                        </li>
 
-                                <!-- menu profile quick info -->
-                                <div class="profile">
-                                    <div class="profile_pic">
-                                        <img src="images/img.jpg" alt="..." class="img-circle profile_img"/>
+                                        <!-- Menu Footer-->
+                                        <li class="user-footer">
+                                            <div class="pull-left">
+                                                <h:form>
+                                                    <p:commandButton value="Editar Perfil" process="@this" ajax="false" immediate="true" action="#{usuarioBean.ir_editarPerfil()}" class="btn btn-default btn-block "/>
+                                                </h:form>
+                                            </div>
+                                            <div class="pull-right">
+                                                <h:form>
+                                                    <p:commandButton value="Cerrar Sesion" immediate="true" action="#{sesionActivaBean.cerrarSession()}" class="btn btn-default btn-block "/>
+                                                </h:form> 
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </header>
+            </div>
+
+            <b:container fluid="true" class="adminLTE-espacioFrontal">
+                <div>
+                    <div id="left-99">
+                        <!-- Left side column. contains the logo and sidebar -->
+                        <aside class="main-sidebar">
+                            <h:form>
+                                <!-- sidebar: style can be found in sidebar.less -->
+                                <section class="sidebar">
+                                    <!-- Sidebar user panel -->
+                                    <div class="user-panel padding-panel">
+                                        <div class="pull-left image">
+                                            <p:graphicImage value="#{sesionActivaBean.usuario.usuarioFotoRuta}" class="img-circle center-block img-responsive" alt="User Image"/>
+                                        </div>
+                                        <div class="pull-left info">
+                                            <div class="cont-description">
+                                                <p class="text-capitalize text-center " style="font-weight: 600;">#{sesionActivaBean.usuario.usuarioNombre}</p>
+                                                <p class="text-capitalize text-center ">#{sesionActivaBean.usuario.smsRol.rolNombre}</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="profile_info">
-                                        <span>Bienvenido,</span>
-                                        <h2>Pepito Perez</h2>
-                                    </div>
-                                </div>
-                                <!-- /menu profile quick info -->
 
-                                <br />
+                                    <!-- sidebar menu: : style can be found in sidebar.less -->
+                                    <ul class="sidebar-menu">
+                                        <li class="header">Menú Principal</li>
+                                        <li>
+                                            <h:link >
+                                                <i class="fa fa-dashboard"></i> <span>Inicio</span>
+                                            </h:link>
+                                        </li> 
 
-                                <!-- sidebar menu -->
-                                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                                    <h:form>
-                                        <div class="menu_section">
-                                            <h3>General</h3>
-                                            <ul class="nav side-menu">
-                                                <li><a><i class="fa fa-dashboard"></i> Inicio </a>                                                
+                                        <li class="treeview">
+                                            <a href="#">
+                                                <i class="fa fa-users"></i>
+                                                <span>Usuarios </span><i class="fa fa-angle-left pull-right"></i>
+                                            </a>
+                                            <ul class="treeview-menu">
+                                                <li class="active">
+                                                    <h:link outcome="Rol">                                                            
+                                                        <i class="fa fa-circle-o"></i> Roles
+                                                    </h:link>
                                                 </li>
-                                                <li><a><i class="fa fa-users"></i> Usuarios <span class="fa fa-chevron-down"></span></a>
-                                                    <ul class="nav child_menu">
-                                                        <li><h:link outcome="Rol">Roles</h:link></li>
-                                                        <li><h:link outcome="Asesor">Asesores</h:link></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a><i class="fa fa-check-square-o"></i> Servicios <span class="fa fa-chevron-down"></span></a>
-                                                    <ul class="nav child_menu">
-                                                        <li><h:link outcome="Servicio">Servicios</h:link></li>
-                                                        <li><h:link outcome="SubServicio">SubServicios</h:link></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a><i class="fa fa-female"></i> Ropa - Prendas <span class="fa fa-chevron-down"></span></a>
-                                                    <ul class="nav child_menu">
-                                                        <li><h:link outcome="Producto">Categorias prendas</h:link></li>
-                                                        <li><h:link outcome="SubProducto">Prendas</h:link></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a><i class="fa fa-map-marker"></i> Lugares <span class="fa fa-chevron-down"></span></a>
-                                                    <ul class="nav child_menu">
-                                                        <li><h:link outcome="Departamento">Departamento</h:link></li>
-                                                        <li><h:link outcome="Ciudad">Ciudad</h:link></li>
-                                                        <li><h:link outcome="Localidad">Localidad</h:link></li>
-                                                        <li><h:link outcome="Barrio">Barrio</h:link></li>
-                                                        <li><h:link outcome="Estrato">Estrato</h:link></li>
-                                                        <li><h:link outcome="Zona">Zona</h:link></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a><i class="fa fa-clock-o"></i> Tiempos - Horarios <span class="fa fa-chevron-down"></span></a>
-                                                    <ul class="nav child_menu">
-                                                        <li><h:link outcome="Jornada">Jornadas</h:link></li>                                                       
-                                                        <li><h:link outcome="Horario">Horarios</h:link></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a><i class="fa fa-clipboard"></i> Pedidos <span class="fa fa-chevron-down"></span></a> 
-                                                    <ul class="nav child_menu">
-                                                        <li><h:link outcome="Pedido">Pedidos</h:link></li>
-                                                        <li><h:link outcome="Historico">Historico</h:link></li>
-                                                        <li><h:link outcome="Calificacion">Calificacion</h:link></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a><i class="fa fa-user-plus"></i>Proveedores<span class="fa fa-chevron-down"></span></a>
-                                                    <ul class="nav child_menu">
-                                                        <li><h:link outcome="Proveedor">Proveedor</h:link></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a><i class="fa fa-ticket"></i>Descuentos <span class="fa fa-chevron-down"></span></a>
-                                                    <ul class="nav child_menu">
-                                                        <li><a href="fixed_sidebar.html">lorem</a></li>
-                                                        <li><a href="fixed_footer.html">lorem</a></li>
-                                                    </ul>
+
+                                                <li>
+                                                    <h:link outcome="Asesor">
+                                                        <i class="fa fa-circle-o"></i> Asesores
+                                                    </h:link>
                                                 </li>
                                             </ul>
-                                        </div>
+                                        </li>
 
-                                    </h:form>    
-                                </div>
-                                <!-- /sidebar menu -->
+                                        <li class="treeview">
+                                            <a href="#">
+                                                <i class="fa fa-check-square-o"></i>
+                                                <span>Servicios</span><i class="fa fa-angle-left pull-right"></i>
+                                            </a>
+                                            <ul class="treeview-menu">
+
+                                                <li class="active">
+                                                    <h:link outcome="Servicio">                                                            
+                                                        <i class="fa fa-circle-o"></i> Servicios
+                                                    </h:link>
+                                                </li>
 
 
-                            </div>
-                        </div>
-                        <!--MENU LATERAL-->
+                                                <li>
+                                                    <h:link outcome="SubServicio">
+                                                        <i class="fa fa-circle-o"></i> SubServicios
+                                                    </h:link>
+
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="treeview">
+                                            <a href="#">
+                                                <i class="fa fa-female"></i>
+                                                <span>Ropa - Prendas</span><i class="fa fa-angle-left pull-right"></i>
+                                            </a>
+                                            <ul class="treeview-menu">
+
+                                                <li class="active">
+                                                    <h:link outcome="Producto">
+                                                        <i class="fa fa-circle-o"></i>Categorias prendas
+                                                    </h:link>
+                                                </li>
+
+                                                <li>
+                                                    <h:link outcome="SubProducto">
+                                                        <i class="fa fa-circle-o"></i>Prendasz
+                                                    </h:link>
+                                                </li>
+
+                                            </ul>
+                                        </li>
+
+                                        <li class="treeview">
+                                            <a href="#">
+                                                <i class="fa fa-map-marker"></i>
+                                                <span>Lugares</span><i class="fa fa-angle-left pull-right"></i>
+                                            </a>
+                                            <ul class="treeview-menu">
+                                                <li>
+                                                    <h:link outcome="Departamento">
+                                                        <i class="fa fa-circle-o"></i> <span>Departamento</span> 
+                                                    </h:link>
+                                                </li>
+                                                <li>
+                                                    <h:link outcome="Ciudad">
+                                                        <i class="fa fa-circle-o"></i> Ciudad
+                                                    </h:link>
+                                                </li>
+                                                <li>
+                                                    <h:link outcome="Localidad">
+                                                        <i class="fa fa-circle-o"></i> Localidad
+                                                    </h:link>
+                                                </li>
+                                                <li>
+                                                    <h:link outcome="Barrio">
+                                                        <i class="fa fa-circle-o"></i> Barrio
+                                                    </h:link>
+                                                </li>
+                                                <li>
+                                                    <h:link outcome="Estrato">
+                                                        <i class="fa fa-circle-o"></i> Estrato
+                                                    </h:link>
+                                                </li>
+                                                <li>
+                                                    <h:link outcome="Zona">
+                                                        <i class="fa fa-circle-o"></i> Zona
+                                                    </h:link>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="treeview">
+                                            <a href="#">
+                                                <i class="fa fa-clock-o"></i>
+                                                <span>Tiempos - Horarios</span><i class="fa fa-angle-left pull-right"></i>
+                                            </a>
+                                            <ul class="treeview-menu">
+                                                <li class="active">
+                                                    <h:link outcome="Jornada">
+                                                        <i class="fa fa-circle-o"></i> Jornadas
+                                                    </h:link>
+                                                </li>
+                                                <li>
+                                                    <h:link outcome="Horario">
+                                                        <i class="fa fa-circle-o"></i> Horarios
+                                                    </h:link>
+                                                </li>
+
+                                            </ul>
+                                        </li>
+
+                                        <li class="treeview">
+                                            <a href="#">
+                                                <i class="fa fa-clipboard"></i>
+                                                <span>Pedidos</span><i class="fa fa-angle-left pull-right"></i>
+                                            </a>
+                                            <ul class="treeview-menu">
+                                                <li class="active">
+                                                    <h:link outcome="Pedido">
+                                                        <i class="fa fa-circle-o"></i> Pedidos
+                                                    </h:link>
+                                                </li>
+                                                <li>
+                                                    <h:link outcome="Historico">
+                                                        <i class="fa fa-circle-o"></i> Historico
+                                                    </h:link>
+                                                </li>
+                                                <li>
+                                                    <h:link outcome="Calificacion">
+                                                        <i class="fa fa-circle-o"></i> Calificacion
+                                                    </h:link>
+                                                </li>
+
+                                            </ul>
+                                        </li> 
+
+                                        <li class="treeview">
+                                            <a href="#">
+                                                <i class="fa fa-user-plus"></i>
+                                                <span>Proveedores </span><i class="fa fa-angle-left pull-right"></i>
+                                            </a>
+                                            <ul class="treeview-menu">
+                                                <li class="active">
+                                                    <h:link outcome="Proveedor">
+                                                        <i class="fa fa-circle-o"></i> Proveedores
+                                                    </h:link>
+                                                </li>
+
+                                            </ul>
+                                        </li> 
+
+                                    </ul>
+                                </section>
+                                <!-- /.sidebar -->
+                            </h:form>
+                        </aside>
                     </div>
-                    <div id="content" class="left_content">
-                        <div class="right_col" role="main">                            
-                            <ui:insert name="content">Content</ui:insert>                                                    
-                        </div>
+                    <div id="content-123" class="content-wrapper min-alto"  >                        
+                        <ui:insert name="content">                             
+                        </ui:insert>    
                     </div>
                 </div>
-                <div id="bottom">
-                    <!--<ui:insert name="bottom">Bottom</ui:insert>-->
-                    <!--FOOTER-->
-                    <footer>
-                        <div class="pull-right">
-                            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
-                        </div>
-                        <div class="clearfix"></div>
-                    </footer>
-                    <!--FOOTER-->
-                </div><!--botom-->
-            </div>     
-            <!--</b:container>-->  
-        </div>
+            </b:container>
+
+        </div>    
+        <div id="bottom">
+            <!--<ui:insert name="bottom">Bottom</ui:insert>-->
+            <!--FOOTER-->
+            <footer class="main-footer" style="left: 15px; position: relative; top: 10px;">
+                <p>
+                    <span class="copy-r"> Copyright © 2016 | Realizado por <a href="http://www.planit.com.co/">Planit SAS</a>.</span> Todos los derechos reservados.
+                </p>
+            </footer>
+            <!--FOOTER-->
+        </div><!--botom-->
+
+        <!--</b:container>-->  
+
 
     </body>
 
     <!--ARCHIVOS JS ALOJADOS EN LA CARPETA DASHBOARD-->       
-    <h:outputScript name="./dashboard/js/jquery.min.js" />
     <h:outputScript name="./dashboard/js/bootstrap.min.js" />
-    <h:outputScript name="./dashboard/js/custom.js"  />
+    <h:outputScript name="./dashboard/js/bootstrap3-wysihtml5.all.min.js" />
+    <h:outputScript name="./dashboard/js/app.js"  />
     <!--<h:outputScript name="./dashboard/js/custom.min.js"  />-->
 
 
 </html>
+
