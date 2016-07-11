@@ -1,125 +1,147 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"   
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
 
     <ui:composition template="./../adminTemplate.xhtml">
 
         <ui:define name="content">
 
-            <div class="page-title">
-                <div class="title_left">
-                    <h3>SubServicios LavApp <small> SubServicios de lavanderia a domicilio.</small></h3>
-                </div>               
-            </div>
+           
+<!--        ====================================================================
+            NUEVA PLANTILLA 
+            ====================================================================-->
 
-            <div class="clearfix"></div>
-
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
-                    <div class="x_panel">
-                        <div class="x_title">
-                            <h2>SubProductos</h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                </li>                                        
-                                <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                </li>
-                            </ul>
-                            <div class="clearfix"></div>
+            <b:container fluid="true">
+                <b:row>
+                    <b:column col-lg="12">
+                        <div>
+                            <h3>SubProductos LavApp <small> Subproductos de lavanderia a domicilio.</small></h3>                            
                         </div>
-                        <div class="x_content">
-                            <h:form id="formSubProd" enctype="multipart/form-data" class="form-horizontal form-label-left input_mask">
-                                <p:growl autoUpdate="true"/>                                
-                                <div class="form-group">
-                                    <label class="control-label" for="txtNombreSubProd">Nombre<span 
-                                            class="required">*</span></label>
-                                    <p:inputText class="form-control " required="true" placeholder="Nombre del subproducto" type="text" id="txtNombreSubProd" value="#{subProductoCT.subproducto.nombre}"/>
-                                </div>
 
-                                <div class="form-group">
-                                    <label class="control-label" for="txtAreaDec">Descripcion</label>
-                                    <h:inputTextarea class="form-control" id="txtAreaDec" value="#{subProductoCT.subproducto.descripcion}"/>
-                                </div>
+                    </b:column>
 
-                                <div class="form-group">
-                                    <label class="control-label" for="txtIDProd">Id Producto<span class="required">*</span></label>
-                                    <h:selectOneMenu class="form-control" id="SMProductos" value="#{subProductoCT.subproducto.producto.nombre}">
-                                        <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
-                                        <f:selectItems value="#{productoCT.productos}" var="producto" itemLabel="#{producto.nombre}" itemValue="#{producto.nombre}"/>
-                                    </h:selectOneMenu>
-                                </div>
+                    <h:form id="formSubProd" enctype="multipart/form-data" >                         
+                        <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                            <p:messages id="messages" closable="true"/>
+                        </b:column>
 
-                                <div class="ln_solid"></div>
-                                <div class="form-group">
-                                    <p:outputLabel value="#{subProductoCT.imagen}"/>
+                        <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
+                            <div class="box box-info">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-globe"/>
+                                    <h4 class="box-title">Datos del SubProducto</h4>
+                                </div> 
+                                <div class="box-body">
+                                    <div class="table-responsive">
+                                        <h:panelGrid id="SubProductos" columns="1" style="width: 100%">  
+
+                                            <b:inputText id="txtNombreSubProd" placeholder="Nombre del SubProducto..." 
+                                                         required="true" requiredMessage="Ingrese nombre del SubProducto"  
+                                                         value="#{subProductoCT.subproducto.nombre}" span="12" />    <br/>
+
+                                            <p:message for="formSubProd"/>
+
+                                            <b:inputTextarea  placeholder="Descripcion del SubProducto..." rows="3"
+                                                              required="true" requiredMessage="Ingrese descripcion del SubProducto"  
+                                                              value="#{subProductoCT.subproducto.descripcion}" id="txtAreaDec" />  <br/>
+
+                                            <b:selectOneMenu id="SMProductos" value="#{subProductoCT.subproducto.producto.nombre}" style="width: 100%" required="true" >
+                                                <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
+                                                <f:selectItems value="#{productoCT.productos}" var="producto" itemLabel="#{producto.nombre}" itemValue="#{producto.nombre}"/>
+                                            </b:selectOneMenu>
+
+
+                                            <label class="">Seleccionar Imagen del Producto:</label><br/>
+
+                                            <p:fileUpload id="SArchivo" value="#{subProductoCT.file}" mode="simple" label="Seleccione archivo" skinSimple="true"/>
+
+                                        </h:panelGrid>
+                                    </div>
+                                    <div class="box box-footer">
+                                        <h:panelGrid width="100%" columns="2">
+                                            <p:commandButton id="SubProdCancelar"  process="@this" 
+                                                             immediate="true" class="btn btn-primary" 
+                                                             update=":formSubProd :formListSubProduc "
+                                                             action="#{subProductoCT.cancelar()}"
+                                                             value="Cancelar" ajax="false"/>
+
+                                            <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" 
+                                                             update=":formSubProd :formListSubProduc " 
+                                                             action="#{subProductoCT.metodo()}"  value="#{subProductoCT.nombreOperacion}"
+                                                             class="btn btn-success"  type="submit" ajax="false"/>                                       
+                                        </h:panelGrid>
+                                        <script type="text/javascript">
+                                            function start() {
+                                                PF('statusDialog').show();
+                                            }
+                                            function stop() {
+                                                PF('statusDialog').hide();
+                                            }
+                                        </script>
+                                        <p:dialog  modal="true" widgetVar="statusDialog" header="Cargando" draggable="false" closable="false" resizable="false">
+                                            <p:graphicImage width="100%" class="progress-bar-aqua" />
+                                        </p:dialog>
+
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label">Seleccionar Imagen del Producto:</label><br/>
-                                    <p:fileUpload id="SArchivo" value="#{subProductoCT.file}" mode="simple" label="Seleccione archivo" skinSimple="true"/>
-                                </div>
-                                 
-                                <div class="ln_solid"></div>
-                                <p:commandButton value="Cancelar" immediate="true" process="@this" class="btn btn-primary" update=":formSubProd :formListSubProduc " action="#{subProductoCT.cancelar()}"/>
-                                <p:commandButton type="submit" form=":formSubProd" update=":formSubProd :formListSubProduc " 
-                                                 action="#{subProductoCT.metodo()}"  value="#{subProductoCT.nombreOperacion}" class="btn btn-success" ajax="false"/>
-                            </h:form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pull-right form-group">
-                    <div class="x_panel">
-                        <div class="x_title">
-                            <h2>LISTA DE SUBPRODUCTOS</h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                </li>                                        
-                                <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                </li>
-                            </ul>
-                            <div class="clearfix">                                       
                             </div>
-                        </div>
-                        <div class="x_content">
-                            <h:form id="formListSubProduc" class="form-horizontal">
-                                <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
-                                <div class="ln_solid"></div>
-                                <p:dataTable id="DTSubProductos" var="subProd" value="#{subProductoCT.subproductos}" class="table-responsive table table-striped">
-                                    <p:column headerText="Nombre">
-                                        <p:outputLabel value="#{subProd.nombre}"/>                                               
-                                    </p:column>
+                        </b:column>                        
+                    </h:form>
 
-                                    <p:column headerText="Descripcion">
-                                        <p:outputLabel value="#{subProd.descripcion}"/>                                            
-                                    </p:column>
+                    <h:form id="formListSubProduc">
+                        <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12">
+                            <div class="box box-info">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-list-alt"/>
+                                    <h4 class="box-title">Lista de Productos</h4>
+                                </div> 
+                                <div class="box-body">
+                                    <b:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></b:inputText>
+                                    <div class="ln_solid"></div>
+                                    <p:dataTable id="DTSubProductos" var="subProd" value="#{subProductoCT.subproductos}" class="table-responsive table table-striped">
+                                        <p:column headerText="Nombre">
+                                            <p:outputLabel value="#{subProd.nombre}"/>                                               
+                                        </p:column>
 
-                                    <p:column headerText="Categoria Producto">
-                                        <p:outputLabel value="#{subProd.producto.nombre}"/>                                            
-                                    </p:column>
+                                        <p:column headerText="Descripcion">
+                                            <p:outputLabel value="#{subProd.descripcion}"/>                                            
+                                        </p:column>
 
-                                    <p:column style="width: 60px" headerText="">
-                                        <p:commandLink style="color: white; width: 100%" process="@this" update=":formSubProd" action="#{subProductoCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
-                                            <f:setPropertyActionListener value="#{subProd}" target="#{subProductoCT.subproducto}"/>
-                                            <i class="fa fa-pencil"/> 
-                                        </p:commandLink>
-                                    </p:column>
+                                        <p:column headerText="Categoria Producto">
+                                            <p:outputLabel value="#{subProd.producto.nombre}"/>                                            
+                                        </p:column>
 
-                                    <p:column style="width: 60px" headerText="">
-                                        <p:commandLink style="color: white; width: 100%" action="#{subProductoCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
-                                            <f:setPropertyActionListener value="#{subProd}" target="#{subProductoCT.subproducto}"/>
-                                            <i class="fa fa-trash"/>                                                     
-                                        </p:commandLink>
-                                    </p:column>
-                                </p:dataTable>                                       
-                            </h:form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                                        <p:column style="width: 60px" headerText="">
+                                            <p:commandLink style="color: white; width: 100%" process="@this" update=":formSubProd" action="#{subProductoCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
+                                                <f:setPropertyActionListener value="#{subProd}" target="#{subProductoCT.subproducto}"/>
+                                                <i class="fa fa-pencil"/> 
+                                            </p:commandLink>
+                                        </p:column>
+
+                                        <p:column style="width: 60px" headerText="">
+                                            <p:commandLink style="color: white; width: 100%" action="#{subProductoCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
+                                                <f:setPropertyActionListener value="#{subProd}" target="#{subProductoCT.subproducto}"/>
+                                                <i class="fa fa-trash"/>                                                     
+                                            </p:commandLink>
+                                        </p:column>
+                                    </p:dataTable>  
+
+                                </div>                                   
+                            </div>
+                        </b:column>
+                    </h:form>
+
+
+
+
+                </b:row>
+            </b:container>
         </ui:define>
 
     </ui:composition>

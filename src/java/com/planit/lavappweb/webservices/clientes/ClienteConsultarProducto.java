@@ -11,7 +11,6 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
-
 /**
  * Jersey REST client generated for REST resource:we [consultarProducto]<br>
  * USAGE:
@@ -22,7 +21,7 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
  *        client.close();
  * </pre>
  *
- * @author Desarrollo_Planit
+ * @author SISTEMAS
  */
 public class ClienteConsultarProducto {
     private WebTarget webTarget;
@@ -30,6 +29,7 @@ public class ClienteConsultarProducto {
     private static final String BASE_URI = "http://localhost:8084/LavappService/webresources/";
 
     public ClienteConsultarProducto() {
+//        client = javax.ws.rs.client.ClientBuilder.newClient();
         client = ResteasyClientBuilder.newBuilder().build();
         webTarget = client.target(BASE_URI).path("consultarProducto");
     }

@@ -2,97 +2,132 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <body>
-        <ui:composition template="./../adminTemplate.xhtml">
-            <ui:define name="content">
-                <div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                            <div  class="x_panel">
-                                <div class="x_title">
-                                    <h2>DEPARTAMENTOS</h2>
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                        </li>                                        
-                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                        </li>
-                                    </ul>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="x_content">
-                                    <h:form id="formularioRegistro" > 
-                                        <div class="form-group">
-                                            <label class="control-label" for="txtNombreDepartamento">Nombre<span class="required">*</span></label>
-                                            <p:inputText class="form-control " required="true" placeholder="Nombre del departamento" type="text" id="txtNombreDepartamento" value="#{departamentoCT.departamento.nombre}"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label" for="SMPais">Pais<span class="required">*</span></label>
-                                            <h:selectOneMenu  class="form-control" value="#{departamentoCT.departamento.pais.nombre}" style="width: 100%">
+
+    <ui:composition template="./../adminTemplate.xhtml">
+        <ui:define name="content">
+
+            <b:container fluid="true">
+                <b:row>
+                    <b:column col-lg="12">
+                        <div>
+                            <h3>Barrios <small> localizacion y nombre de los barrios por Ciudad.</small></h3>                            
+                        </div>
+
+                    </b:column>
+
+                    <h:form id="formularioRegistro" enctype="multipart/form-data" >                         
+                        <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                            <p:messages id="messages" closable="true"/>
+                        </b:column>
+
+                        <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
+                            <div class="box box-info">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-globe"/>
+                                    <h4 class="box-title">Datos del Barrio</h4>
+                                </div> 
+                                <div class="box-body">
+                                    <div class="table-responsive">
+                                        <h:panelGrid id="SubProductos" columns="1" style="width: 100%">  
+
+                                            <b:inputText id="txtNombreDepartamento" placeholder="Nombre del Departamento..." 
+                                                         required="true" requiredMessage="Ingrese nombre del Departamento"  
+                                                         value="#{departamentoCT.departamento.nombre}" span="12" />    <br/>
+
+                                            <p:message for="formularioRegistro"/>
+                                        
+                                            <b:selectOneMenu id="SMLocalidad" value="#{departamentoCT.departamento.pais.nombre}" style="width: 100%" required="true" >
                                                 <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
                                                 <f:selectItems value="#{paisCT.paises}" var="pais" itemLabel="#{pais.nombre}" itemValue="#{pais.nombre}"/> 
-                                            </h:selectOneMenu>
-                                        </div>
-                                        <div class="ln_solid"></div>
-                                        <p:commandButton immediate="true" process="@this" update=":formularioRegistro :formularioListaDepartamentos" action="#{departamentoCT.cancelar()}" value="Cancelar" class="btn btn-primary"/>
-                                        <p:commandButton type="submit" update=":formularioRegistro :formularioListaDepartamentos:DTDepartamentos" value="#{departamentoCT.nombreOperacion}" action="#{departamentoCT.metodo()}" class="btn btn-success"/>
-                                    </h:form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pull-right form-group">
-                            <div class="x_panel">
-                                <div class="x_title">
-                                    <h2>LISTA DE DEPARTAMENTOS</h2>
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                        </li>                                        
-                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                        </li>
-                                    </ul>
-                                    <div class="clearfix">                                       
+                                            </b:selectOneMenu>
+
+                                        </h:panelGrid>
+                                    </div>
+                                    <div class="box box-footer">
+                                        <h:panelGrid width="100%" columns="2">
+                                            <p:commandButton id="DeptCancelar"  process="@this" 
+                                                             immediate="true" class="btn btn-primary" 
+                                                             update=":formularioRegistro :formularioListaDepartamentos"
+                                                             action="#{departamentoCT.cancelar()}"
+                                                             value="Cancelar" />
+
+                                            <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" 
+                                                             update=":formularioRegistro :formularioListaDepartamentos:DTDepartamentos"
+                                                             value="#{departamentoCT.nombreOperacion}" action="#{departamentoCT.metodo()}"
+                                                             class="btn btn-success"  type="submit" />                                       
+                                        </h:panelGrid>
+                                        <script type="text/javascript">
+                                            function start() {
+                                                PF('statusDialog').show();
+                                            }
+                                            function stop() {
+                                                PF('statusDialog').hide();
+                                            }
+                                        </script>
+                                        <p:dialog  modal="true" widgetVar="statusDialog" header="Cargando" draggable="false" closable="false" resizable="false">
+                                            <p:graphicImage width="100%" class="progress-bar-aqua" />
+                                        </p:dialog>
+
                                     </div>
                                 </div>
-                                <div class="x_content">
-                                    <h:form id="formularioListaDepartamentos">
-                                        <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
-                                        <div class="ln_solid"></div>
-                                        <p:dataTable id="DTDepartamentos" style="width: 100%" var="departamento" value="#{departamentoCT.departamentos}" class="table-responsive table table-striped" rows="10"
+                            </div>
+                        </b:column>                        
+                    </h:form>
+
+                    <h:form id="formularioListaDepartamentos">
+                        <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12">
+                            <div class="box box-info">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-list-alt"/>
+                                    <h4 class="box-title">Lista de Departamentos</h4>
+                                </div> 
+                                <div class="box-body">
+                                    <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
+                                    <div class="ln_solid"></div>
+                                    <p:dataTable id="DTDepartamentos" style="width: 100%" var="departamento" value="#{departamentoCT.departamentos}" class="table-responsive table table-striped" rows="10"
                                                  paginator="true"
                                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                  rowsPerPageTemplate="5,10,15">
-                                            <p:column headerText="Nombre">
-                                                <p:outputLabel value="#{departamento.nombre}"/>  
-                                            </p:column>
+                                        <p:column headerText="Nombre">
+                                            <p:outputLabel value="#{departamento.nombre}"/>  
+                                        </p:column>
 
-                                            <p:column headerText="Pais">
-                                                <p:outputLabel value="#{departamento.pais.nombre}"/>  
-                                            </p:column>
+                                        <p:column headerText="Pais">
+                                            <p:outputLabel value="#{departamento.pais.nombre}"/>  
+                                        </p:column>
 
-                                            <p:column style="width: 60px" headerText="">
-                                                <p:commandLink style="color: white; width: 100%" process="@this" update=":formularioRegistro" action="#{departamentoCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
-                                                    <f:setPropertyActionListener value="#{departamento}" target="#{departamentoCT.departamento}"/>
-                                                    <i class="fa fa-pencil"/> 
-                                                </p:commandLink>
-                                            </p:column>
+                                        <p:column style="width: 60px" headerText="">
+                                            <p:commandLink style="color: white; width: 100%" process="@this" update=":formularioRegistro" action="#{departamentoCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
+                                                <f:setPropertyActionListener value="#{departamento}" target="#{departamentoCT.departamento}"/>
+                                                <i class="fa fa-pencil"/> 
+                                            </p:commandLink>
+                                        </p:column>
 
-                                            <p:column style="width: 60px" headerText="">
-                                                <p:commandLink style="color: white; width: 100%" action="#{departamentoCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
-                                                    <f:setPropertyActionListener value="#{departamento}" target="#{departamentoCT.departamento}"/>
-                                                    <i class="fa fa-trash"/>                                                     
-                                                </p:commandLink>
-                                            </p:column>
-                                        </p:dataTable>
-                                    </h:form>
-                                </div>
+                                        <p:column style="width: 60px" headerText="">
+                                            <p:commandLink style="color: white; width: 100%" action="#{departamentoCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
+                                                <f:setPropertyActionListener value="#{departamento}" target="#{departamentoCT.departamento}"/>
+                                                <i class="fa fa-trash"/>                                                     
+                                            </p:commandLink>
+                                        </p:column>
+                                    </p:dataTable>  
+
+                                </div>                                   
                             </div>
-                        </div>
-                    </div>
-                </div>       
-            </ui:define>
-        </ui:composition>
-    </body>
+                        </b:column>
+                    </h:form>
+
+
+
+
+                </b:row>
+            </b:container>
+
+        </ui:define>
+    </ui:composition>
+
 </html>

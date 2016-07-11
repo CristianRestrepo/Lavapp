@@ -63,12 +63,12 @@
                                                              immediate="true" class="btn btn-primary" 
                                                              update=":formularioRegistroProd :formularioListaProductos" 
                                                              action="#{productoCT.cancelar()}"
-                                                             value="Cancelar" />
+                                                             value="Cancelar" ajax="false"/>
 
                                             <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" 
                                                              update=":formularioRegistroProd :formularioListaProductos" 
                                                              action="#{productoCT.metodo()}" value="#{productoCT.nombreOperacion}" 
-                                                             class="btn btn-success"  type="submit"/>                                       
+                                                             class="btn btn-success"  type="submit" ajax="false"/>                                       
                                         </h:panelGrid>
                                         <script type="text/javascript">
                                             function start() {

@@ -21,7 +21,7 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
  *        client.close();
  * </pre>
  *
- * @author Desarrollo_Planit
+ * @author SISTEMAS
  */
 public class ClienteEditarProducto {
     private WebTarget webTarget;
@@ -29,6 +29,7 @@ public class ClienteEditarProducto {
     private static final String BASE_URI = "http://localhost:8084/LavappService/webresources/";
 
     public ClienteEditarProducto() {
+//        client = javax.ws.rs.client.ClientBuilder.newClient();
         client = ResteasyClientBuilder.newBuilder().build();
         webTarget = client.target(BASE_URI).path("modificarProducto");
     }

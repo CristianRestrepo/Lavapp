@@ -1,115 +1,140 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"   
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="./../adminTemplate.xhtml">
 
         <ui:define name="content">
 
-            <div class="page-title">
-                <div class="title_left">
-                    <h3>Subservicios LavApp</h3>
-                </div>                
-            </div>
+            
 
-            <div class="clearfix"></div>
+<!--        =============================================
+            NUEVO TEMPLATE
+            =============================================-->
 
-            <div class="row">
-                <!--<b:row>-->
 
-                <div class="col-md-6  col-xs-12">
-                    <div class="x_panel">
-                        <div class="x_title">
-                            <h2>SUBSERVICIOS</h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                </li>                              
-                                <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                </li>
-                            </ul>
-                            <div class="clearfix"></div>
+            <b:container fluid="true">
+                <b:row>
+                    <b:column col-lg="12">
+                        <div>
+                            <h3>SubServicios LavApp <small> Subservicios de lavanderia a domicilio.</small></h3>                            
                         </div>
-                        <div class="x_content">
-                            <h:form id="formRegisSubServ" class="form-horizontal form-group input_mask">
-                                <div class="form-group">
-                                    <label class="control-label" for="txtNombreSubServicio">Nombre<span class="required">*</span></label>
-                                    <p:inputText class="form-control " required="true" value="#{subServicioCT.subServicio.nombre}" placeholder="Nombre del servicio" type="text" id="txtNombreSubServicio" />
+
+                    </b:column>
+
+                    <h:form id="formRegisSubServ"> 
+                        <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                            <p:messages id="messages" closable="true"/>
+                        </b:column>
+
+                        <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
+                            <div class="box box-info">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-globe"/>
+                                    <h4 class="box-title">Datos del servicio</h4>
+                                </div> 
+                                <div class="box-body">
+                                    <div class="table-responsive">
+                                        <h:panelGrid id="PPais" columns="1" style="width: 100%">                                          
+                                            <b:inputText id="txtNombreSubServicio" placeholder="nombre del Subservicio..." 
+                                                         required="true" requiredMessage="Ingrese nombre del Subservicio"  
+                                                         value="#{subServicioCT.subServicio.nombre}" span="12" />  
+
+                                            <b:selectOneMenu id="DTSubServ" value="#{subServicioCT.subServicio.servicio.nombre}">
+                                                <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
+                                                <f:selectItems value="#{servicioCT.servicios}" var="servicio" itemLabel="#{servicio.nombre}" itemValue="#{servicio.nombre}"/>
+                                            </b:selectOneMenu>
+
+
+                                            <p:message for="formRegisSubServ"/>
+                                        </h:panelGrid>
+                                    </div>
+                                    <h:panelGrid width="100%" columns="2">
+                                        <p:commandButton id="SCancelar"  process="@this" 
+                                                         immediate="true" class="btn btn-primary" 
+                                                         update=":formRegisSubServ :formListaSubServ"
+                                                         action="#{subServicioCT.cancelar()}" 
+                                                         value="Cancelar" />
+
+                                        <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" 
+                                                         class="btn btn-success" 
+                                                         action="#{subServicioCT.metodo()}"
+                                                         type="submit"
+                                                         update=":formRegisSubServ :formListaSubServ" 
+                                                         value="#{subServicioCT.nombreOperacion}"  />                                       
+                                    </h:panelGrid>
+                                    <script type="text/javascript">
+                                        function start() {
+                                            PF('statusDialog').show();
+                                        }
+                                        function stop() {
+                                            PF('statusDialog').hide();
+                                        }
+                                    </script>
+                                    <p:dialog modal="true" widgetVar="statusDialog" header="Cargando" draggable="false" closable="false" resizable="false">
+                                        <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif" />
+                                    </p:dialog>
                                 </div>
+                            </div>
+                        </b:column>                        
+                    </h:form>
 
-                                <div class="form-group">
-                                    <label class="control-label" for="DTServicios">Categoria del servicio<span class="required">*</span></label>
-                                    <h:selectOneMenu class="form-control" style="width: 100%" id="DTServicios" value="#{subServicioCT.subServicio.servicio.nombre}">
-                                        <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
-                                        <f:selectItems value="#{servicioCT.servicios}" var="servicio" itemLabel="#{servicio.nombre}" itemValue="#{servicio.nombre}"/>
-                                    </h:selectOneMenu>
-                                </div>
-                                <div class="ln_solid"></div>
-                                <p:commandButton class="btn btn-primary" update=":formRegisSubServ :formListaSubServ" value="cancelar" action="#{subServicioCT.cancelar()}"/>
-                                <p:commandButton type="submit" form="formRegisSubServ"  update=":formRegisSubServ :formListaSubServ" 
-                                                 action="#{subServicioCT.metodo()}"  value="#{subServicioCT.nombreOperacion}" 
-                                                 class="btn btn-success"  />
-
-                            </h:form>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6  col-xs-12">
-                    <div class="x_panel">
-                        <div class="x_title"><!-- ETIQUETAS DEL TITULOS DEL CONTENEDOR -->
-                            <h2>LISTA SUBSERVICIOS</h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                </li>                                        
-                                <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                </li>
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div><!-- ETIQUETAS DEL TITULOS DEL CONTENEDOR -->
-
-                        <div class="x_content">
-                            <h:form id="formListaSubServ">
-                                <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
-                                <div class="ln_solid"></div>
-                                <p:dataTable id="DTSubServ" class="table-responsive table table-striped"
-                                             var="subServ" value="#{subServicioCT.subServicios}" rows="10"
+                    <h:form id="formListaSubServ">
+                        <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12">
+                            <div class="box box-info">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-list-alt"/>
+                                    <h4 class="box-title">Lista de SubServicios</h4>
+                                </div> 
+                                <div class="box-body">
+                                    <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
+                                    <div class="ln_solid"></div>
+                                    <p:dataTable id="DTSubServ" class="table-responsive table table-striped"
+                                                 var="subServ" value="#{subServicioCT.subServicios}" rows="10"
                                                  paginator="true"
                                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                  rowsPerPageTemplate="5,10,15">
-                                    <p:column headerText="ID">
-                                        <p:outputLabel value="#{subServ.idSubServicio}" />
-                                    </p:column>
-                                    <p:column headerText="Nombre">
-                                        <p:outputLabel value="#{subServ.nombre}" />
-                                    </p:column>
-                                    <p:column headerText="Categoria">
-                                        <p:outputLabel value="#{subServ.servicio.nombre}" />
-                                    </p:column>
+                                        <p:column headerText="ID">
+                                            <p:outputLabel value="#{subServ.idSubServicio}" />
+                                        </p:column>
+                                        <p:column headerText="Nombre">
+                                            <p:outputLabel value="#{subServ.nombre}" />
+                                        </p:column>
+                                        <p:column headerText="Categoria">
+                                            <p:outputLabel value="#{subServ.servicio.nombre}" />
+                                        </p:column>
 
-                                    <p:column style="width: 60px" headerText="">
-                                        <p:commandLink style="color: white; width: 100%" process="@this" update=":formRegisSubServ" action="#{subServicioCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
-                                            <f:setPropertyActionListener value="#{subServ}" target="#{subServicioCT.subServicio}"/>
-                                            <i class="fa fa-pencil"/> 
-                                        </p:commandLink>
-                                    </p:column>
+                                        <p:column style="width: 60px" headerText="">
+                                            <p:commandLink style="color: white; width: 100%" process="@this" update=":formRegisSubServ" action="#{subServicioCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
+                                                <f:setPropertyActionListener value="#{subServ}" target="#{subServicioCT.subServicio}"/>
+                                                <i class="fa fa-pencil"/> 
+                                            </p:commandLink>
+                                        </p:column>
 
-                                    <p:column style="width: 60px" headerText="">
-                                        <p:commandLink style="color: white; width: 100%" action="#{subServicioCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
-                                            <f:setPropertyActionListener value="#{subServ}" target="#{subServicioCT.subServicio}"/>
-                                            <i class="fa fa-trash"/>                                                     
-                                        </p:commandLink>
-                                    </p:column>
-                                </p:dataTable>
-                            </h:form>
-                        </div>
-                    </div>
-                </div>
-                <!--</b:row>-->
-            </div>
+                                        <p:column style="width: 60px" headerText="">
+                                            <p:commandLink style="color: white; width: 100%" action="#{subServicioCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
+                                                <f:setPropertyActionListener value="#{subServ}" target="#{subServicioCT.subServicio}"/>
+                                                <i class="fa fa-trash"/>                                                     
+                                            </p:commandLink>
+                                        </p:column>
+                                    </p:dataTable> 
+
+                                </div>                                   
+                            </div>
+                        </b:column>
+                    </h:form>
+
+
+
+
+                </b:row>
+            </b:container>
+
 
         </ui:define>
 
