@@ -143,12 +143,12 @@
                                             <p:commandButton id="ZonaCancelar"  process="@this" 
                                                              immediate="true" class="btn btn-primary" 
                                                              update=":formularioRegistro :formularioListaZonas"  
-                                                             action="#{productoCT.cancelar()}"
+                                                             action="#{zonaCT.cancelar()}"
                                                              value="Cancelar" ajax="false"/>
 
                                             <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" 
-                                                             update=":formularioRegistroProd :formularioListaProductos" 
-                                                             action="#{productoCT.metodo()}" value="#{productoCT.nombreOperacion}" 
+                                                             update=":formularioRegistro :formularioListaZonas"
+                                                             action="#{zonaCT.metodo()}" value="#{zonaCT.nombreOperacion}" 
                                                              class="btn btn-success"  type="submit" ajax="false"/>                                       
                                         </h:panelGrid>
                                         <script type="text/javascript">
