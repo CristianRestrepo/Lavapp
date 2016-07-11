@@ -2,99 +2,229 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <body>
 
-        <ui:composition template="./../adminTemplate.xhtml">
+    <ui:composition template="./../adminTemplate.xhtml">
 
-            <ui:define name="content">
-                <div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
-                            <div class="x_panel">
-                                <div class="x_title">
-                                    <h2>ZONAS</h2>
-                                    <ul class   ="nav navbar-right panel_toolbox">
-                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                        </li>                                        
-                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                        </li>
-                                    </ul>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="x_content">
-                                    <h:form id="formularioRegistro" class="form-horizontal"> 
-                                        <p:growl id="msg" autoUpdate="true" life="2500"/>
-                                        <div class="form-group">
-                                            <label class="control-label" for="txtNombreCiudad">Nombre<span class="required">*</span></label>
-                                            <p:inputText class="form-control" value="#{zonaCT.zona.nombre}" required="true" requiredMessage="Ingrese nombre" placeholder="Nombre de la zona" type="text" id="txtNombreCiudad"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label" for="txtDescripcion">Descripcion</label>
-                                            <h:inputTextarea rows="3" value="#{zonaCT.zona.descripcion}" class="form-control " id="txtDescripcion"/>
-                                        </div>
-                                        <div class="ln_solid"></div>
-                                        <p:commandButton value="Cancelar" update=":formularioRegistro :formularioListaZonas" action="#{zonaCT.cancelar()}" immediate="true" process="@this" class="btn btn-primary"/>
-                                        <p:commandButton type="submit" form="formularioRegistro" update=":formularioRegistro :formularioListaZonas" action="#{zonaCT.metodo()}" value="#{zonaCT.nombreOperacion}" class="btn btn-success"/>
-                                    </h:form>
-                                </div>
+        <ui:define name="content">
+            <div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>ZONAS</h2>
+                                <ul class   ="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>                                        
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
                             </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pull-right form-group">
-                            <div class="x_panel">
-                                <div class="x_title">
-                                    <h2>LISTA DE ZONAS</h2>
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                        </li>                                        
-                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                        </li>
-                                    </ul>
-                                    <div class="clearfix">                                       
+                            <div class="x_content">
+                                <h:form id="formularioRegistro" class="form-horizontal"> 
+                                    <p:growl id="msg" autoUpdate="true" life="2500"/>
+                                    <div class="form-group">
+                                        <label class="control-label" for="txtNombreCiudad">Nombre<span class="required">*</span></label>
+                                        <p:inputText class="form-control" value="#{zonaCT.zona.nombre}" required="true" requiredMessage="Ingrese nombre" placeholder="Nombre de la zona" type="text" id="txtNombreCiudad"/>
                                     </div>
-                                </div>
-                                <div class="x_content">
-                                    <h:form id="formularioListaZonas">
-                                        <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
-                                        <div class="ln_solid"></div>
-                                        <p:dataTable style="width: 100%" var="zona" value="#{zonaCT.zonas}" class="table-responsive table table-striped" rows="10"
-                                                 paginator="true"
-                                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                 rowsPerPageTemplate="5,10,15">
-                                            <p:column headerText="Nombre">
-                                                <p:outputLabel value="#{zona.nombre}"/>
-                                            </p:column>
-
-                                            <p:column headerText="Descripcion">
-                                                <p:outputLabel value="#{zona.descripcion}"/>
-                                            </p:column>
-                                            
-                                            <p:column style="width: 60px" headerText="">
-                                                <p:commandLink style="color: white; width: 100%" process="@this" update=":formularioRegistro" action="#{zonaCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
-                                                    <f:setPropertyActionListener value="#{zona}" target="#{zonaCT.zona}"/>
-                                                    <i class="fa fa-pencil"/> 
-                                                </p:commandLink>
-                                            </p:column>
-
-                                            <p:column style="width: 60px" headerText="">
-                                               <p:commandLink style="color: white; width: 100%" action="#{zonaCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
-                                                   <f:setPropertyActionListener value="#{zona}" target="#{zonaCT.zona}"/>
-                                                    <i class="fa fa-trash"/>                                                     
-                                                </p:commandLink>
-                                            </p:column>
-                                        </p:dataTable>
-                                    </h:form>
-                                </div>
+                                    <div class="form-group">
+                                        <label class="control-label" for="txtDescripcion">Descripcion</label>
+                                        <h:inputTextarea rows="3" value="#{zonaCT.zona.descripcion}" 
+                                                         class="form-control " id="txtDescripcion"/>
+                                    </div>
+                                    <div class="ln_solid"></div>
+                                    <p:commandButton value="Cancelar" update=":formularioRegistro :formularioListaZonas" 
+                                                     action="#{zonaCT.cancelar()}" immediate="true" process="@this"
+                                                     class="btn btn-primary"/>
+                                    <p:commandButton type="submit" form="formularioRegistro" 
+                                                     update=":formularioRegistro :formularioListaZonas" 
+                                                     action="#{zonaCT.metodo()}" value="#{zonaCT.nombreOperacion}" 
+                                                     class="btn btn-success"/>
+                                </h:form>
                             </div>
                         </div>
                     </div>
-                </div>   
-            </ui:define>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pull-right form-group">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>LISTA DE ZONAS</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>                                        
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix">                                       
+                                </div>
+                            </div>
+                            <div class="x_content">
+                                <h:form id="formularioListaZonas">
+                                    <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
+                                    <div class="ln_solid"></div>
+                                    <p:dataTable style="width: 100%" var="zona" value="#{zonaCT.zonas}" class="table-responsive table table-striped" rows="10"
+                                                 paginator="true"
+                                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15">
+                                        <p:column headerText="Nombre">
+                                            <p:outputLabel value="#{zona.nombre}"/>
+                                        </p:column>
 
-        </ui:composition>
+                                        <p:column headerText="Descripcion">
+                                            <p:outputLabel value="#{zona.descripcion}"/>
+                                        </p:column>
 
-    </body>
+                                        <p:column style="width: 60px" headerText="">
+                                            <p:commandLink style="color: white; width: 100%" process="@this" update=":formularioRegistro" action="#{zonaCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
+                                                <f:setPropertyActionListener value="#{zona}" target="#{zonaCT.zona}"/>
+                                                <i class="fa fa-pencil"/> 
+                                            </p:commandLink>
+                                        </p:column>
+
+                                        <p:column style="width: 60px" headerText="">
+                                            <p:commandLink style="color: white; width: 100%" action="#{zonaCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
+                                                <f:setPropertyActionListener value="#{zona}" target="#{zonaCT.zona}"/>
+                                                <i class="fa fa-trash"/>                                                     
+                                            </p:commandLink>
+                                        </p:column>
+                                    </p:dataTable>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+
+            ===============================================================
+            NUEVA PLANTILLA
+            ===============================================================
+
+            <b:container fluid="true">
+                <b:row>
+                    <b:column col-lg="12">
+                        <div>
+                            <h3>Productos LavApp <small> productos de lavanderia a domicilio.</small></h3>                            
+                        </div>
+
+                    </b:column>
+
+                    <h:form id="formularioRegistroProd" enctype="multipart/form-data" >                         
+                        <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                            <p:messages id="messages" closable="true"/>
+                        </b:column>
+                        <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
+                            <div class="box box-info">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-globe"/>
+                                    <h4 class="box-title">Datos del Producto</h4>
+                                </div> 
+                                <div class="box-body">
+                                    <div class="table-responsive">
+                                        <h:panelGrid id="Productos" columns="1" style="width: 100%">                                          
+                                            <b:inputText id="txtNombreZona" placeholder="Nombre de la Zona..." 
+                                                         required="true" requiredMessage="Ingrese nombre de la Zona"  
+                                                         value="#{zonaCT.zona.nombre}" span="12" />    <br/>
+
+
+                                            <b:inputTextarea  placeholder="Descripcion de la Zona..." rows="3"
+                                                              required="true" requiredMessage="Ingrese descripcion de la Zona"  
+                                                              value="#{zonaCT.zona.descripcion}" id="txtAreaDescZona" />  <br/>
+
+                                            <p:message for="formularioRegistroProd"/>
+                                            
+                                        </h:panelGrid>
+                                    </div>
+                                    <div class="box box-footer">
+                                        <h:panelGrid width="100%" columns="2">
+                                            <p:commandButton id="ZonaCancelar"  process="@this" 
+                                                             immediate="true" class="btn btn-primary" 
+                                                             update=":formularioRegistro :formularioListaZonas"  
+                                                             action="#{productoCT.cancelar()}"
+                                                             value="Cancelar" ajax="false"/>
+
+                                            <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" 
+                                                             update=":formularioRegistroProd :formularioListaProductos" 
+                                                             action="#{productoCT.metodo()}" value="#{productoCT.nombreOperacion}" 
+                                                             class="btn btn-success"  type="submit" ajax="false"/>                                       
+                                        </h:panelGrid>
+                                        <script type="text/javascript">
+                                            function start() {
+                                                PF('statusDialog').show();
+                                            }
+                                            function stop() {
+                                                PF('statusDialog').hide();
+                                            }
+                                        </script>
+                                        <p:dialog  modal="true" widgetVar="statusDialog" header="Cargando" draggable="false" closable="false" resizable="false">
+                                            <p:graphicImage width="100%" class="progress-bar-aqua" />
+                                        </p:dialog>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </b:column>                        
+                    </h:form>
+
+                    <h:form id="formularioListaProductos">
+                        <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12">
+                            <div class="box box-info">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-list-alt"/>
+                                    <h4 class="box-title">Lista de Productos</h4>
+                                </div> 
+                                <div class="box-body">
+                                    <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
+                                    <div class="ln_solid"></div>
+                                    <p:dataTable id="DTProductos" style="width: 100%" var="producto" value="#{productoCT.productos}" class="table-responsive table table-striped" rows="10"
+                                                 paginator="true"
+                                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15">
+
+                                        <p:column headerText="Nombre">
+                                            <p:outputLabel value="#{producto.nombre}"/>         
+                                        </p:column>
+
+                                        <p:column headerText="Descripcion">
+                                            <p:outputLabel value="#{producto.descripcion}"/>         
+                                        </p:column>
+
+                                        <p:column headerText="SubServicio">
+                                            <p:outputLabel value="#{producto.subServicio.nombre}"/>         
+                                        </p:column>
+
+                                        <p:column  style="width: 60px" headerText="">
+                                            <p:commandLink style="color: white; width: 100%" process="@this" update=":formularioRegistroProd" action="#{productoCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
+                                                <f:setPropertyActionListener value="#{producto}" target="#{productoCT.producto}"/>
+                                                <i class="fa fa-pencil"/> 
+                                            </p:commandLink>
+                                        </p:column>
+
+                                        <p:column  style="width: 60px" headerText="">
+                                            <p:commandLink style="color: white; width: 100%" action="#{productoCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
+                                                <f:setPropertyActionListener value="#{producto}" target="#{productoCT.producto}"/>
+                                                <i class="fa fa-trash"/>                                                     
+                                            </p:commandLink>
+                                        </p:column>
+                                    </p:dataTable>
+
+                                </div>                                   
+                            </div>
+                        </b:column>
+                    </h:form>
+
+
+
+
+                </b:row>
+            </b:container>
+
+
+        </ui:define>
+
+    </ui:composition>
+
 </html>
