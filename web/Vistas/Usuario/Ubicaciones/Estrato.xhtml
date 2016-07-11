@@ -2,84 +2,123 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <body>
-        <ui:composition template="./../adminTemplate.xhtml">
-            <ui:define name="content">
-                <div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
-                            <div class="x_panel">
-                                <div class="x_title">
-                                    <h2>ESTRATOS</h2>
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                        </li>                                        
-                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                        </li>
-                                    </ul>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="x_content">
-                                    <h:form id="formularioRegistro" class="form-horizontal"> 
-                                        <label class="control-label" for="txtEstrato">Nombre<span class="required">*</span></label>
-                                        <p:inputText class="form-control" required="true" placeholder="Nombre del pais" type="text" id="txtEstrato" value="#{estratoCT.estrato.nombre}"/>
-                                        <div class="ln_solid"></div>
-                                        <p:commandButton value="Cancelar"  update=":formularioRegistro :formularioListaEstratos" immediate="true" process="@this" action="#{estratoCT.cancelar()}" class="btn btn-primary"/>
-                                        <p:commandButton type="submit" form="formularioRegistro" update=":formularioRegistro :formularioListaEstratos:DTEstratos" action="#{estratoCT.metodo()}" value="#{estratoCT.nombreOperacion}" class="btn btn-success"/>
-                                    </h:form>
-                                </div>
-                            </div>
+    <ui:composition template="./../adminTemplate.xhtml">
+        <ui:define name="content">
+
+
+
+            <!--        =========================================
+                        NUEVA PLANTILLA
+                        =========================================-->
+
+            <b:container fluid="true">
+                <b:row>
+                    <b:column col-lg="12">
+                        <div>
+                            <h3>Estratos LavApp <small> Estratos de la ciudad.</small></h3>                            
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pull-right form-group">
-                            <div class="x_panel">
-                                <div class="x_title">
-                                    <h2>LISTA DE ESTRATOS</h2>
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                        </li>                                        
-                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                        </li>
-                                    </ul>
-                                    <div class="clearfix">                                       
+
+                    </b:column>
+
+                    <h:form id="formularioRegistro"  >                         
+                        <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                            <p:messages id="messages" closable="true"/>
+                        </b:column>
+                        <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
+                            <div class="box box-info">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-globe"/>
+                                    <h4 class="box-title">Datos del Estrato</h4>
+                                </div> 
+                                <div class="box-body">
+                                    <div class="table-responsive">
+                                        <h:panelGrid id="Productos" columns="1" style="width: 100%">                                          
+                                            <b:inputText id="txtNombreEst" placeholder="Nombre del Estrato..." 
+                                                         required="true" requiredMessage="Ingrese nombre del Estrato"  
+                                                         value="#{estratoCT.estrato.nombre}" span="12" />    <br/>
+
+                                            <p:message for="formularioRegistro"/>
+
+                                        </h:panelGrid>
+                                    </div>
+                                    <div class="box box-footer">
+                                        <h:panelGrid width="100%" columns="2">
+                                            <p:commandButton id="EstCancelar"  process="@this" 
+                                                             immediate="true" class="btn btn-primary" 
+                                                             update=":formularioRegistro :formularioListaEstratos" 
+                                                             action="#{estratoCT.cancelar()}"
+                                                             value="Cancelar" ajax="false"/>
+
+                                            <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" 
+                                                             update=":formularioRegistro :formularioListaEstratos:DTEstratos" 
+                                                             action="#{estratoCT.metodo()}" value="#{estratoCT.nombreOperacion}" 
+                                                             class="btn btn-success"  type="submit" ajax="false"/>                                       
+                                        </h:panelGrid>
+                                        <script type="text/javascript">
+                                            function start() {
+                                                PF('statusDialog').show();
+                                            }
+                                            function stop() {
+                                                PF('statusDialog').hide();
+                                            }
+                                        </script>
+                                        <p:dialog  modal="true" widgetVar="statusDialog" header="Cargando" draggable="false" closable="false" resizable="false">
+                                            <p:graphicImage width="100%" class="progress-bar-aqua" />
+                                        </p:dialog>
+
                                     </div>
                                 </div>
-                                <div class="x_content">
-                                    <h:form id="formularioListaEstratos">
-                                        <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
-                                        <div class="ln_solid"></div>
-                                        <p:dataTable id="DTEstratos" style="width: 100%" var="estrato" value="#{estratoCT.estratos}" class="table-responsive table table-striped" rows="10"
+                            </div>
+                        </b:column>                        
+                    </h:form>
+
+                    <h:form id="formularioListaEstratos">
+                        <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12">
+                            <div class="box box-info">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-list-alt"/>
+                                    <h4 class="box-title">Lista de Estratos</h4>
+                                </div> 
+                                <div class="box-body">
+                                    <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
+                                    <div class="ln_solid"></div>
+                                    <p:dataTable id="DTEstratos" style="width: 100%" var="estrato" value="#{estratoCT.estratos}" class="table-responsive table table-striped" rows="10"
                                                  paginator="true"
                                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                  rowsPerPageTemplate="5,10,15">
-                                            <p:column headerText="Nombre">
-                                                <p:outputLabel value="#{estrato.nombre}"/>
-                                            </p:column>
+                                        <p:column headerText="Nombre">
+                                            <p:outputLabel value="#{estrato.nombre}"/>
+                                        </p:column>
 
-                                            <p:column style="width: 60px" headerText="">
-                                                <p:commandLink style="color: white; width: 100%" process="@this" update=":formularioRegistro" action="#{estratoCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
-                                                    <f:setPropertyActionListener value="#{estrato}" target="#{estratoCT.estrato}"/>
-                                                    <i class="fa fa-pencil"/> 
-                                                </p:commandLink>
-                                            </p:column>
+                                        <p:column style="width: 60px" headerText="">
+                                            <p:commandLink style="color: white; width: 100%" process="@this" update=":formularioRegistro" action="#{estratoCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
+                                                <f:setPropertyActionListener value="#{estrato}" target="#{estratoCT.estrato}"/>
+                                                <i class="fa fa-pencil"/> 
+                                            </p:commandLink>
+                                        </p:column>
 
-                                            <p:column style="width: 60px" headerText="">
-                                                <p:commandLink style="color: white; width: 100%" action="#{estratoCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
-                                                    <f:setPropertyActionListener value="#{estrato}" target="#{estratoCT.estrato}"/>
-                                                    <i class="fa fa-trash"/>                                                     
-                                                </p:commandLink>
-                                            </p:column>
-                                        </p:dataTable>
-                                    </h:form>
-                                </div>
+                                        <p:column style="width: 60px" headerText="">
+                                            <p:commandLink style="color: white; width: 100%" action="#{estratoCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
+                                                <f:setPropertyActionListener value="#{estrato}" target="#{estratoCT.estrato}"/>
+                                                <i class="fa fa-trash"/>                                                     
+                                            </p:commandLink>
+                                        </p:column>
+                                    </p:dataTable>
+
+                                </div>                                   
                             </div>
-                        </div>
-                    </div>
-                </div>               
-            </ui:define>
-        </ui:composition>
-    </body>
+                        </b:column>
+                    </h:form>
+                </b:row>
+            </b:container>
+
+
+        </ui:define>
+    </ui:composition>
+
 </html>

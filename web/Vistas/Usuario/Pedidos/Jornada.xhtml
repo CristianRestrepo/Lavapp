@@ -2,85 +2,127 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
-    <body>
+    <ui:composition template="./../adminTemplate.xhtml">
+        <ui:define name="content">
 
-        <ui:composition template="./../adminTemplate.xhtml">
-            <ui:define name="content">
-                <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
-                            <div class="x_panel">
-                                <div class="x_title">
-                                    <h2>JORNADA</h2>
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                        </li>                                        
-                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                        </li>
-                                    </ul>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="x_content">
-                                    <h:form id="formularioRegistro" class="form-horizontal form-label-left input_mask">
-                                        <div class="form-group">
-                                            <label class="control-label" for="txtNombreJornada">Nombre<span class="required">*</span></label>
-                                            <p:inputText class="form-control " required="true" value="#{jornadaCT.jornada.nombre}" placeholder="Nombre jornada" type="text" id="txtNombreJornada" />
-                                        </div>
-                                        <div class="ln_solid"></div>
-                                        <p:commandButton value="Cancelar" update=":formularioRegistro :formularioListaJornadas" action="#{jornadaCT.cancelar()}" class="btn btn-primary"/>
-                                        <p:commandButton type="submit" update=":formularioRegistro :formularioListaJornadas:DTJornadas" action="#{jornadaCT.metodo()}" value="#{jornadaCT.nombreOperacion}" class="btn btn-success"/>
-                                    </h:form>
-                                </div>
-                            </div>
+
+            <!--        ====================================
+                        NUEVO TENPLATE
+                        ====================================-->
+
+            <b:container fluid="true">
+                <b:row>
+                    <b:column col-lg="12">
+                        <div>
+                            <h3>Jornadas </h3>                            
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pull-right form-group">
-                            <div class="x_panel">
-                                <div class="x_title">
-                                    <h2>LISTA DE PAISES</h2>
-                                    <ul class="nav navbar-right panel_toolbox">
-                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                        </li>                                        
-                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                        </li>
-                                    </ul>
-                                    <div class="clearfix">                                       
+
+                    </b:column>
+
+                    <h:form id="formularioRegistro" enctype="multipart/form-data" >                         
+                        <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                            <p:messages id="messages" closable="true"/>
+                        </b:column>
+
+                        <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
+                            <div class="box box-info">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-globe"/>
+                                    <h4 class="box-title">Datos de las Jornadas</h4>
+                                </div> 
+                                <div class="box-body">
+                                    <div class="table-responsive">
+                                        <h:panelGrid id="SubProductos" columns="1" style="width: 100%">  
+
+                                            <b:inputText id="txtNombreJornada" placeholder="Nombre de la Jornada..." 
+                                                         required="true" requiredMessage="Ingrese nombre de la Jornada"  
+                                                         value="#{jornadaCT.jornada.nombre}" span="12" />    <br/>
+
+                                            <p:message for="formularioRegistro"/>
+
+                                        </h:panelGrid>
+                                    </div>
+                                    <div class="box box-footer">
+                                        <h:panelGrid width="100%" columns="2">
+                                            <p:commandButton id="PaisCancelar"  process="@this" 
+                                                             immediate="true" class="btn btn-primary" 
+                                                             update=":formularioRegistro :formularioListaJornadas" 
+                                                             action="#{jornadaCT.cancelar()}"
+                                                             value="Cancelar" ajax="false" />
+
+                                            <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" 
+                                                             update=":formularioRegistro :formularioListaJornadas:DTJornadas" 
+                                                             action="#{jornadaCT.metodo()}" value="#{jornadaCT.nombreOperacion}" 
+                                                             class="btn btn-success"  type="submit" ajax="false" />                                       
+                                        </h:panelGrid>
+                                        <script type="text/javascript">
+                                            function start() {
+                                                PF('statusDialog').show();
+                                            }
+                                            function stop() {
+                                                PF('statusDialog').hide();
+                                            }
+                                        </script>
+                                        <p:dialog  modal="true" widgetVar="statusDialog" header="Cargando" draggable="false" closable="false" resizable="false">
+                                            <p:graphicImage width="100%" class="progress-bar-aqua" />
+                                        </p:dialog>
+
                                     </div>
                                 </div>
-                                <div class="x_content">
-                                    <h:form id="formularioListaJornadas" class="form-horizontal">
-                                        <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
-                                        <div class="ln_solid"></div>
-                                        <p:dataTable id="DTJornadas" style="width: 100%" var="jornada" value="#{jornadaCT.jornadas}" class="table-responsive table table-striped" rows="10"
+                            </div>
+                        </b:column>                        
+                    </h:form>
+
+                    <h:form id="formularioListaJornadas">
+                        <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12">
+                            <div class="box box-info">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-list-alt"/>
+                                    <h4 class="box-title">Lista de Jornadas</h4>
+                                </div> 
+                                <div class="box-body">
+                                    <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
+                                    <div class="ln_solid"></div>
+                                    <p:dataTable id="DTJornadas" style="width: 100%" var="jornada" value="#{jornadaCT.jornadas}" class="table-responsive table table-striped" rows="10"
                                                  paginator="true"
                                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                  rowsPerPageTemplate="5,10,15">
-                                            <p:column headerText="Nombre">
-                                                <p:outputLabel value="#{jornada.nombre}"/>                                               
-                                            </p:column>
+                                        <p:column headerText="Nombre">
+                                            <p:outputLabel value="#{jornada.nombre}"/>                                               
+                                        </p:column>
 
-                                            <p:column style="width: 60px" headerText="">
-                                                <p:commandLink style="color: white; width: 100%" process="@this" update=":formularioRegistro" action="#{jornadaCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
-                                                    <f:setPropertyActionListener value="#{jornada}" target="#{jornadaCT.jornada}"/>
-                                                    <i class="fa fa-pencil"/> 
-                                                </p:commandLink>
-                                            </p:column>
+                                        <p:column style="width: 60px" headerText="">
+                                            <p:commandLink style="color: white; width: 100%" process="@this" update=":formularioRegistro" action="#{jornadaCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
+                                                <f:setPropertyActionListener value="#{jornada}" target="#{jornadaCT.jornada}"/>
+                                                <i class="fa fa-pencil"/> 
+                                            </p:commandLink>
+                                        </p:column>
 
-                                            <p:column style="width: 60px" headerText="">
-                                                <p:commandLink style="color: white; width: 100%" action="#{jornadaCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
-                                                    <f:setPropertyActionListener value="#{jornada}" target="#{jornadaCT.jornada}"/>
-                                                    <i class="fa fa-trash"/>                                                     
-                                                </p:commandLink>
-                                            </p:column>
-                                        </p:dataTable>                                       
-                                    </h:form>
-                                </div>
+                                        <p:column style="width: 60px" headerText="">
+                                            <p:commandLink style="color: white; width: 100%" action="#{jornadaCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
+                                                <f:setPropertyActionListener value="#{jornada}" target="#{jornadaCT.jornada}"/>
+                                                <i class="fa fa-trash"/>                                                     
+                                            </p:commandLink>
+                                        </p:column>
+                                    </p:dataTable> 
+
+                                </div>                                   
                             </div>
-                        </div>
-                    </div>
-            </ui:define>
-        </ui:composition>
-    </body>
+                        </b:column>
+                    </h:form>
+
+
+
+
+                </b:row>
+            </b:container>
+
+        </ui:define>
+    </ui:composition>
+
 </html>
