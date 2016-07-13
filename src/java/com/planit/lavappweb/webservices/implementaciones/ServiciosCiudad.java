@@ -35,8 +35,8 @@ public class ServiciosCiudad {
         }
         return ciudades;
     }
-    
-    public Ciudad_TO consultarCiudad(int idCiudad, String nombre){
+
+    public Ciudad_TO consultarCiudad(int idCiudad, String nombre) {
         ClienteConsultarCiudad cliente = new ClienteConsultarCiudad();
         return cliente.consultarCiudad(Ciudad_TO.class, "" + idCiudad, nombre);
     }
@@ -45,12 +45,12 @@ public class ServiciosCiudad {
         ClienteRegistrarCiudad cliente = new ClienteRegistrarCiudad();
         return cliente.registrarCiudad(Ciudad_TO.class, nombre, "" + idDepartamento);
     }
-    
+
     public Ciudad_TO editarCiudad(int idCiudad, String nombre, int idDepartamento) {
         ClienteEditarCiudad cliente = new ClienteEditarCiudad();
         return cliente.editarCiudad(Ciudad_TO.class, "" + idCiudad, nombre, "" + idDepartamento);
     }
-    
+
     public Ciudad_TO eliminarCiudad(int idCiudad) {
         ClienteEliminarCiudad cliente = new ClienteEliminarCiudad();
         return cliente.eliminarCiudad(Ciudad_TO.class, "" + idCiudad);
