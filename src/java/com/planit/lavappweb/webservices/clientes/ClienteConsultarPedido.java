@@ -12,7 +12,8 @@ import javax.ws.rs.core.Form;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
 /**
- * Jersey REST client generated for REST resource:we [consultarPedido]<br>
+ * Jersey REST client generated for REST resource:we
+ * [consultarPedidosCliente]<br>
  * USAGE:
  * <pre>
  *        ClienteConsultarPedido client = new ClienteConsultarPedido();
@@ -24,6 +25,7 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
  * @author SISTEMAS
  */
 public class ClienteConsultarPedido {
+
     private WebTarget webTarget;
     private Client client;
     private static final String BASE_URI = "http://localhost:8084/LavappService/webresources/";
@@ -31,20 +33,17 @@ public class ClienteConsultarPedido {
     public ClienteConsultarPedido() {
 //        client = javax.ws.rs.client.ClientBuilder.newClient();
         client = ResteasyClientBuilder.newBuilder().build();
-        webTarget = client.target(BASE_URI).path("consultarPedido");
+        webTarget = client.target(BASE_URI).path("consultarPedidosCliente");
     }
 
     /**
      * @param responseType Class representing the response
      * @param idUsuario query parameter
-     * @param fechaInicio query parameter
-     * @param idHorario query parameter
-     * @param idHorario query parameter
      * @return response object (instance of responseType class)
      */
-    public <T> T consultarPedido(Class<T> responseType, String idUsuario, String fechaInicio, String idHorarioI, String idHorarioF) throws ClientErrorException {
-        String[] queryParamNames = new String[]{"idUsuario", "fechaInicio", "idHorario", "idHorario"};
-        String[] queryParamValues = new String[]{idUsuario, fechaInicio, idHorarioI, idHorarioF};
+    public <T> T consultarPedidosCliente(Class<T> responseType, String idUsuario) throws ClientErrorException {
+        String[] queryParamNames = new String[]{"idUsuario"};
+        String[] queryParamValues = new String[]{idUsuario};
         ;
         javax.ws.rs.core.Form form = getQueryOrFormParams(queryParamNames, queryParamValues);
         javax.ws.rs.core.MultivaluedMap<String, String> map = form.asMap();
@@ -69,5 +68,5 @@ public class ClienteConsultarPedido {
     public void close() {
         client.close();
     }
-    
+
 }

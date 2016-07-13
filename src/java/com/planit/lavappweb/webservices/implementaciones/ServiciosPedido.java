@@ -100,19 +100,16 @@ public class ServiciosPedido {
                 } catch (Exception e) {
                     throw e;
                 }
-
             } catch (Exception ex) {
                 throw ex;
             }
-
         }
-
         return pedidos;
     }
 
-    public Pedido_TO consultarPedido(int idUsuario, String fechaInicio, int idHorarioIn, int idHorarioFin) {
+     public Pedido_TO consultarPedido(int idUsuario) {
         ClienteConsultarPedido clienteModelo = new ClienteConsultarPedido();
-        return clienteModelo.consultarPedido(Pedido_TO.class, "" + idUsuario, fechaInicio, "" + idHorarioIn, "" + idHorarioFin);
+        return clienteModelo.consultarPedidosCliente(Pedido_TO.class, "" + idUsuario);
     }
 
 }

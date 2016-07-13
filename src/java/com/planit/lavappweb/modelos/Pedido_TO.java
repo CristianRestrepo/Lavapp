@@ -39,6 +39,12 @@ public class Pedido_TO {
 
     /**
      *
+     * Columna fechaInicio
+     */
+    private String fechaInicioString;
+
+    /**
+     *
      * Columna horaInicio_idHorario
      */
     private Horario_TO horaInicio;
@@ -73,6 +79,17 @@ public class Pedido_TO {
     public Pedido_TO(Usuario_TO usuario, Date fechaInicio, Horario_TO horaInicio, Horario_TO horaFinal, Estado_TO estado, Proveedor_TO proveedor) {
         this.usuario = usuario;
         this.fechaInicio = fechaInicio;
+        this.horaInicio = horaInicio;
+        this.horaFinal = horaFinal;
+        this.estado = estado;
+        this.proveedor = proveedor;
+    }
+
+//  CONSTRUCTOR CON FECHAINICO TIPO STRING
+    public Pedido_TO(int idPedido, Usuario_TO usuario, String fechaInicioString, Horario_TO horaInicio, Horario_TO horaFinal, Estado_TO estado, Proveedor_TO proveedor) {
+        this.idPedido = idPedido;
+        this.usuario = usuario;
+        this.fechaInicioString = fechaInicioString;
         this.horaInicio = horaInicio;
         this.horaFinal = horaFinal;
         this.estado = estado;
@@ -146,9 +163,17 @@ public class Pedido_TO {
         this.proveedor = proveedor;
     }
 
+    public String getFechaInicioString() {
+        return fechaInicioString;
+    }
+
+    public void setFechaInicioString(String fechaInicioString) {
+        this.fechaInicioString = fechaInicioString;
+    }
+
     @Override
     public String toString() {
-        return "Pedido_TO{" + "idPedido=" + idPedido + ", usuario=" + usuario + ", fechaInicio=" + fechaInicio + ", HoraInicio=" + horaInicio + ", HoraFinal=" + horaFinal + ", Estado=" + estado + ", Proveedor=" + proveedor + '}';
+        return "Pedido_TO{" + "idPedido=" + idPedido + ", usuario=" + usuario + ", fechaInicio=" + fechaInicio + ", fechaInicioString=" + fechaInicioString + ", horaInicio=" + horaInicio + ", horaFinal=" + horaFinal + ", estado=" + estado + ", proveedor=" + proveedor + '}';
     }
 
 }

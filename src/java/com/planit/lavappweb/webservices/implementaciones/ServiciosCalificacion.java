@@ -49,12 +49,13 @@ public class ServiciosCalificacion {
         List<LinkedHashMap> datos = clienteModelo.consultarCalificaciones(List.class);
         List<Calificacion_TO> calificaciones = new ArrayList<>();
         ServiciosPedido servicioPedido = new ServiciosPedido();
+        Pedido_TO pedidoModelo = new Pedido_TO();
 
         //INSERCION DE DATOS EN LISTA DE CALIFICACIONES
         try {
             for (int i = 0; i < datos.size(); i++) {
                 LinkedHashMap map = (LinkedHashMap) datos.get(i).get("pedido");
-                Pedido_TO pedidoModelo = servicioPedido.consultarPedido((int) map.get("idPedido"), "", 0, 0);
+                pedidoModelo = servicioPedido.consultarPedido((int) map.get("idUsuario"));
 
                 try {
                     calificaciones.add(new Calificacion_TO((int) datos.get(i).get("idCalificacion"),

@@ -44,6 +44,7 @@ public class Calificacion_TO {
 
     //Constructores
     public Calificacion_TO() {
+        pedido = new Pedido_TO();
     }
 
     public Calificacion_TO(int calificacion, String observacion, Pedido_TO pedido) {

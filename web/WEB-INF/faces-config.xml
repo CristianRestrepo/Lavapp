@@ -228,4 +228,9 @@
         <managed-bean-class>com.planit.lavappweb.controladores.ProveedorCT</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>calificacionCT</managed-bean-name>
+        <managed-bean-class>com.planit.lavappweb.controladores.CalificacionCT</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
 </faces-config>
