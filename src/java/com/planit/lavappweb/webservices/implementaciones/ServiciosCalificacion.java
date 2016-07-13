@@ -27,38 +27,52 @@ public class ServiciosCalificacion {
 
         return clieModelo.registrarCalificacion(Calificacion_TO.class, "" + calificacion, observacion, "" + idPedido);
     }
-    
-    public Calificacion_TO modificarCalificacion(int idCalificacion, int calificacion, String observacion, int idPedido){
-        
+
+    public Calificacion_TO modificarCalificacion(int idCalificacion, int calificacion, String observacion, int idPedido) {
+
         ClienteModificarCalificaion clienModelo = new ClienteModificarCalificaion();
-        
-        return clienModelo.modificarCalificacion(Calificacion_TO.class, ""+idCalificacion, ""+calificacion, observacion, ""+idPedido);
-        
+
+        return clienModelo.modificarCalificacion(Calificacion_TO.class, "" + idCalificacion, "" + calificacion, observacion, "" + idPedido);
+
     }
-    
-    public Calificacion_TO eliminarCalificacion(int idCalificacion){
-        
+
+    public Calificacion_TO eliminarCalificacion(int idCalificacion) {
+
         ClienteEliminarCalificacion clieModelo = new ClienteEliminarCalificacion();
-        
-        return clieModelo.eliminarCalificacion(Calificacion_TO.class, ""+idCalificacion);
+
+        return clieModelo.eliminarCalificacion(Calificacion_TO.class, "" + idCalificacion);
     }
-    
-    public List<Calificacion_TO> consultarCalificaciones(){
-        
+
+    public List<Calificacion_TO> consultarCalificaciones() {
+
         ClienteConsultarCalificaciones clienteModelo = new ClienteConsultarCalificaciones();
         List<LinkedHashMap> datos = clienteModelo.consultarCalificaciones(List.class);
         List<Calificacion_TO> calificaciones = new ArrayList<>();
         ServiciosPedido servicioPedido = new ServiciosPedido();
-        
+
         //INSERCION DE DATOS EN LISTA DE CALIFICACIONES
-        
-        for (int i = 0; i < datos.size(); i++) {
-            LinkedHashMap map = (LinkedHashMap) datos.get(i).get("pedido");
-            Pedido_TO pedidoModelo = servicioPedido.
-            
+        try {
+            for (int i = 0; i < datos.size(); i++) {
+                LinkedHashMap map = (LinkedHashMap) datos.get(i).get("pedido");
+                Pedido_TO pedidoModelo = servicioPedido.consultarPedido((int) map.get("idPedido"), "", 0, 0);
+
+                try {
+                    calificaciones.add(new Calificacion_TO((int) datos.get(i).get("idCalificacion"),
+                            (int) datos.get(i).get("calificacion"),
+                            (String) datos.get(i).get("observacion"),
+                            pedidoModelo));
+
+                } catch (Exception e) {
+                    System.out.println("Error en incesrcion de lista Calificaciones: " + e.getMessage());
+                }
+            }
+
+        } catch (Exception ex) {
+            System.out.println("Error en el cico FOR : " + ex.getMessage());
+            throw ex;
         }
-        
+
+        return calificaciones;
     }
-    
 
 }
