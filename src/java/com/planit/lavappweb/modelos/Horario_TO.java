@@ -42,21 +42,32 @@ public class Horario_TO {
      */
     private Jornada_TO jornada;
 
+    private String horario;
+
     //Constructores
     public Horario_TO() {
+        jornada = new Jornada_TO();
     }
 
     //Constructor General
-
     public Horario_TO(int idHorario) {
         this.idHorario = idHorario;
+        
     }
-            
-    public Horario_TO(int idHorario, String horaInicio, String horaFinal, Jornada_TO jornada) {
+
+    public Horario_TO(int idHorario, String horaInicio, String horaFinal, Jornada_TO jornada, String horario) {
         this.idHorario = idHorario;
         this.horaInicio = horaInicio;
         this.horaFinal = horaFinal;
         this.jornada = jornada;
+        this.horario = horario;
+    }
+
+    public Horario_TO(String horaInicio, String horaFinal, Jornada_TO jornada, String horario) {
+        this.horaInicio = horaInicio;
+        this.horaFinal = horaFinal;
+        this.jornada = jornada;
+        this.horario = horario;
     }
 
     //Getter and Setter
@@ -92,9 +103,17 @@ public class Horario_TO {
         this.jornada = jornada;
     }
 
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+
     @Override
     public String toString() {
-        return "Horario_TO{" + "idHorario=" + idHorario + ", horaInicio=" + horaInicio + ", horaFinal=" + horaFinal + ", jornada=" + jornada + '}';
+        return "Horario_TO{" + "idHorario=" + idHorario + ", horaInicio=" + horaInicio + ", horaFinal=" + horaFinal + ", jornada=" + jornada + ", horario = " + horario + '}';
     }
 
 }

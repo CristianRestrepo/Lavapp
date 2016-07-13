@@ -12,8 +12,7 @@ import javax.ws.rs.core.Form;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
 /**
- * Jersey REST client generated for REST resource:application
- * [consultarJornada]<br>
+ * Jersey REST client generated for REST resource:we [consultarJornada]<br>
  * USAGE:
  * <pre>
  *        ClienteConsultarJornada client = new ClienteConsultarJornada();

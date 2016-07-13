@@ -9,13 +9,13 @@
         <ui:composition template="./../clienteTemplate.xhtml">
 
             <ui:define name="content">
-                
+
                 <!--DEFINICION DEL BANNER-->
                 <ui:include src="mod/banner.xhtml" />              
-                
+
                 <!--DEFINICION DE CATEGORIA DE PRENDAS-->
-                <ui:include src="mod/pasos/lugar.xhtml" />
-                
+                <ui:include src="mod/pasos/tiempos.xhtml" />
+
                 <!--DEFINICION DE BOTONES NEXT Y BACK-->
                 <ui:include src="mod/botones.xhtml"/>
 
@@ -24,4 +24,7 @@
         </ui:composition>
 
     </h:body>
+    
+    <h:outputScript name="./js/moment-with-locales.min.js"  />
+    <h:outputScript name="./js/bootstrap-datetimepicker.min.js"/>
 </html>

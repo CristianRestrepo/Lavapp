@@ -5,7 +5,10 @@
  */
 package com.planit.lavappweb.modelos;
 
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlRootElement;
+
+
 
 /**
  *
@@ -16,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Planit
  */
 @XmlRootElement
-public class Jornada_TO {
+public class Jornada_TO implements Serializable{
 
     /**
      *

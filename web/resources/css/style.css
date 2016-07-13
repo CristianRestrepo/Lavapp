@@ -2130,6 +2130,14 @@ div #l-1{
     box-shadow: 4px 3px 9px 0px rgba(172, 172, 172, 0.52);
 }
 
+.recomendaciones{
+    background-color: rgba(98, 108, 118, 0.66);
+    padding: 0px 31px;
+    border-radius: 7px;
+    padding-bottom: 26px;
+    box-shadow: 4px 3px 9px 0px rgba(172, 172, 172, 0.52);
+}
+
 .help-block {
     color: #FFFFFF !important;
         font-size: .9em;

@@ -12,43 +12,111 @@
             <ui:define name="content">
                 <b:container fluid="true">
                     <b:row>
-                        <b:column col-lg="6" col-md="6" col-sm="12" col-xs="12" class="espacio-arriba">
+                        <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12" class="espacio-arriba">
                             <div class="box box-success">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-clock-o "/>
                                     <h4 class="box-title">HORARIO</h4>
                                 </div>
-                                <h:form id="formularioRegistro" class="">
+                                <h:form id="formularioRegistro" class="form-horizontal">
                                     <div class="box-body">
-                                        <label class="control-label" for="txtHoraInicio">Hora inicio<span class="required">*</span></label>
-                                        <b:dateTimePicker show-date="false" show-time="true"/>  
+                                        <label class="control-label">Hora inicio<span class="required">*</span></label>
+                                        <h:panelGrid columns="5" width="100%">
+                                            <h:selectOneMenu value="#{horarioCT.horainicio}" class="form-control">
+                                                <f:selectItems value="#{horarioCT.horas}"/>
+                                            </h:selectOneMenu>
 
-                                        <label class="control-label" for="txtHoraFinal">Hora final<span class="required">*</span></label>
-                                        <b:dateTimePicker show-date="false" show-time="true"/>                                        
+                                            <label>:</label>
+                                            
+                                            <h:selectOneMenu value="#{horarioCT.minutoinicio}" class="form-control">
+                                                <f:selectItems value="#{horarioCT.minutos}"/>
+                                            </h:selectOneMenu>
 
-                                        <label class="control-label" for="txtJornadas">Jornada<span class="required">*</span></label>
-                                        <h:selectOneMenu class="form-control" style="width: 100%" id="DTJornadas">
-                                            <f:selectItem itemLabel="Seleccione"/>
+                                            <label>:</label>
+                                            
+                                            <h:selectOneMenu value="#{horarioCT.segundoinicio}" class="form-control">
+                                                <f:selectItems value="#{horarioCT.segundos}"/>
+                                            </h:selectOneMenu>
+                                        </h:panelGrid>
+                                        
+                                        <label class="control-label">Hora Final<span class="required">*</span></label>
+                                        <h:panelGrid columns="5" width="100%">
+                                            <h:selectOneMenu value="#{horarioCT.horafinal}" class="form-control">
+                                                <f:selectItems value="#{horarioCT.horas}"/>
+                                            </h:selectOneMenu>
+
+                                            <label>:</label>
+                                            
+                                            <h:selectOneMenu value="#{horarioCT.minutofinal}" class="form-control">
+                                                <f:selectItems value="#{horarioCT.minutos}"/>
+                                            </h:selectOneMenu>
+
+                                            <label>:</label>
+                                            
+                                            <h:selectOneMenu value="#{horarioCT.segundofinal}" class="form-control">
+                                                <f:selectItems value="#{horarioCT.segundos}"/>
+                                            </h:selectOneMenu>
+                                        </h:panelGrid>
+                                       
+                                        <label class="control-label" for="DTJornadas">Jornada<span class="required">*</span></label>
+                                        <h:selectOneMenu class="form-control" style="width: 100%" id="DTJornadas" value="#{horarioCT.horario.jornada.nombre}">
+                                            <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
+                                            <f:selectItems value="#{jornadaCT.jornadas}" var="jornada" itemLabel="#{jornada.nombre}" itemValue="#{jornada.nombre}"/>
                                         </h:selectOneMenu>
                                     </div>
                                     <div class="box-footer" align="right">
                                         <h:panelGrid columns="2">
-                                            <p:commandButton value="Cancelar" update=":formularioRegistro"  class="btn btn-danger"/>
-                                            <p:commandButton type="submit" update=":formularioRegistro" value="Registrar" class="btn btn-info"/>
+                                            <p:commandButton value="Cancelar" immediate="true" process="@this" action="#{horarioCT.cancelar()}" update=":formularioRegistro :formularioListaHorarios"  class="btn btn-danger"/>
+                                            <p:commandButton form="formularioRegistro" type="submit" update=":formularioRegistro :formularioListaHorarios" action="#{horarioCT.metodo()}" value="#{horarioCT.nombreOperacion}" class="btn btn-info"/>
                                         </h:panelGrid>
                                     </div>
                                 </h:form>
                             </div>
                         </b:column>
 
-                        <b:column col-lg="6" col-md="6" col-sm="12" col-xs="12" class="espacio-arriba">
+                        <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12" class="espacio-arriba">
+                            <div class="box box-info">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-th-list"/>
+                                    <h4 class="box-title">LISTA BARRIOS</h4> 
+                                </div>
+                                <div class="box-body">
+                                    <h:form id="formularioListaHorarios">
+                                        <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
+                                        <br/>
+                                        <p:dataTable id="DTHorarios" emptyMessage="Horarios no registrados" style="width: 100%" var="horario" value="#{horarioCT.horarios}" class="table-responsive table table-striped" rows="10"
+                                                     paginator="true"
+                                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                     rowsPerPageTemplate="5,10,15">
+                                            <p:column headerText="Horario">
+                                                <p:outputLabel value="#{horario.horario}"/>  
+                                            </p:column>
+                                            
+                                            <p:column headerText="Jornada">
+                                                <p:outputLabel value="#{horario.jornada.nombre}"/>  
+                                            </p:column>
 
+                                            <p:column style="width: 60px" headerText="">
+                                                <p:commandLink style="color: white; width: 100%" process="@this" update=":formularioRegistro" action="#{horarioCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
+                                                    <f:setPropertyActionListener value="#{horario}" target="#{horarioCT.horario}"/>
+                                                    <i class="fa fa-pencil"/> 
+                                                </p:commandLink>
+                                            </p:column>
+
+                                            <p:column style="width: 60px" headerText="">
+                                                <p:commandLink style="color: white; width: 100%" action="#{horarioCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
+                                                    <f:setPropertyActionListener value="#{horario}" target="#{horarioCT.horario}"/>
+                                                    <i class="fa fa-trash"/>                                                     
+                                                </p:commandLink>
+                                            </p:column>
+                                        </p:dataTable> 
+                                    </h:form>
+                                </div>                                
+                            </div>
                         </b:column>
-
+                    </b:row>
                 </b:container>
             </ui:define>
-
         </ui:composition>
-
     </body>
 </html>
