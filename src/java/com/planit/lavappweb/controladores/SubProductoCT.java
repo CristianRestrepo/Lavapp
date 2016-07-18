@@ -6,6 +6,7 @@
 package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.metodos.Upload;
+import com.planit.lavappweb.modelos.SubProductoCosto_TO;
 import com.planit.lavappweb.modelos.SubProducto_TO;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosProducto;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosSubProductos;
@@ -28,6 +29,8 @@ public class SubProductoCT implements Serializable {
 
     private SubProducto_TO subproducto;
     private List<SubProducto_TO> subproductos;
+    private List<SubProducto_TO> subProductosClasificados;
+    private List<SubProductoCosto_TO> subProductosConCosto;
     protected ServiciosSubProductos serviciosSubProducto;
     private UploadedFile file;
     protected Upload ControladorArchivos;
@@ -40,6 +43,8 @@ public class SubProductoCT implements Serializable {
         subproducto = new SubProducto_TO();
         subproductos = new ArrayList<>();
         serviciosSubProducto = new ServiciosSubProductos();
+        subProductosClasificados = new ArrayList<>();
+        subProductosConCosto = new ArrayList<>();
         imagen = "";
         operacion = 0;
         nombreOperacion = "Registrar";
@@ -49,6 +54,7 @@ public class SubProductoCT implements Serializable {
     @PostConstruct
     public void init() {
         subproductos = serviciosSubProducto.consultarSubProductos();
+        
     }
 
     //Getter & Setter
@@ -91,7 +97,16 @@ public class SubProductoCT implements Serializable {
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }   
+
+    public List<SubProducto_TO> getSubProductosClasificados() {
+        return subProductosClasificados;
+    }
+
+    public void setSubProductosClasificados(List<SubProducto_TO> subProductosClasificados) {
+        this.subProductosClasificados = subProductosClasificados;
+    }
        
+    
     
 
     //Metodos
@@ -112,6 +127,12 @@ public class SubProductoCT implements Serializable {
     public void eliminar() {
         subproducto = serviciosSubProducto.eliminarSubProducto(subproducto.getIdSubProducto());
         subproductos = serviciosSubProducto.consultarSubProductos();
+    }
+    
+    public void consultarProductosSegunProducto(int idProducto){
+        subProductosClasificados = new ArrayList<>();
+        subProductosClasificados = serviciosSubProducto.consultarSubProductosSegunProducto(idProducto);
+        subProductosConCosto = serviciosSubProducto.consultarSubProductosConCostoSegunProducto(idProducto);
     }
 
     //Metodos Propios

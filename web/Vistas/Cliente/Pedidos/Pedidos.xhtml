@@ -2,29 +2,73 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"    
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
     <h:body>
-
         <ui:composition template="./../clienteTemplate.xhtml">
-
             <ui:define name="content">
 
                 <!--DEFINICION DEL BANNER-->
-                <ui:include src="mod/banner.xhtml" />              
+                <!-- banner start -->
+                <section class="heigth-section">
+                    <!--CON EL BANNER, SE VA A REUTILIZAR CODIGO CON JLTS
+                    COLOCANDO LOS NOMBRES SEGUN LA EDSCRIPCION Y UN ID-->
+                    <div class="container-fluid heigth-section" >
+                        <div class="row heigth-section" >
+                            <div class="col-med-12">
+                                <div class="banner-section">                       
+                                    <!-- particles.js container --> 
+                                    <div id="particles-js"></div>             
+                                    <!-- particles.js lib - https://github.com/VincentGarreau/particles.js --> 
+                                    <!--  <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>  -->
+                                    <h:outputScript name="./../../js/particles.js" />
+                                </div>
+                                <div class="col-sm-6 col-xs-12 banner-first">   
+                                    <div class="dec-title">
+                                        <i class="fa fa-5x fa-check-square-o cent" aria-hidden="true"></i>
+                                        <h2 class="title-banner">Define las Prendas</h2>
+                                    </div>
+                                </div>          
+                                <div class="col-sm-4 banner-sec">   
+                                    <h3 class="ti-bann-desc">Escoje las prendas que desees</h3>
+                                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur natus eaque illo alias omnis, hic velit.</p>
+                                </div> 
+                                <div class="col-sm-2">   
+                                </div> 
+                            </div>
+                        </div>
+                    </div>                  
+                </section>
+                <!-- BANNER END -->             
+                <!-- CONTENIDO -->
 
-                <!--DEFINICION DE CATEGORIA DE PRENDAS-->
-                <ui:include src="mod/pasos/tiempos.xhtml" />
+                <ui:include id="contenido" src="#{pedidoCT.flujoPedido()}" />
 
-                <!--DEFINICION DE BOTONES NEXT Y BACK-->
-                <ui:include src="mod/botones.xhtml"/>
-
+                <h:form id="formularioFooter">
+                    <section>
+                        <div class="container">
+                            <div class="row brd-btn-update">
+                                <div class="col-md-12 col-xs-12 ">
+                                    <div class="col-md-6  col-xs-6  mrg-table">
+                                        <div align="left">
+                                            <p:commandButton class="btn btn-lg btn-primary" rendered="#{pedidoCT.botonatras}" ajax="false" action="#{pedidoCT.atras()}" value="Atras" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xs-6 mrg-table" >
+                                        <div align="right">
+                                            <p:commandButton class="btn btn-lg btn-primary" rendered="#{pedidoCT.botonsiguiente}" ajax="false" action="#{pedidoCT.siguiente()}" value="Siguiente" />                                       					
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </h:form>
             </ui:define>
-
         </ui:composition>
-
     </h:body>
-    
+
     <h:outputScript name="./js/moment-with-locales.min.js"  />
     <h:outputScript name="./js/bootstrap-datetimepicker.min.js"/>
 </html>

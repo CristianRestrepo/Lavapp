@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+    <!--CATEGORIAS PRENDAS-->
+    <!-- ventajas -->
+    <div>
+        <section class="alt-catego">
+            <div class="container-fluid alt-catego" >
+                <div class="row alt-catego" >
+                    <div class="col-sm-12 enlinea ">
+                        <h:form id="Productos">
+                            <ul class="nav nav-pills">
+                                <c:forEach var="producto" begin="0" items="#{productoCT.productos}" end="#{productoCT.productos.size()}">
+                                    <li>
+                                        <div class="box box-widget">
+                                            <div align="center" class="box-body">
+                                                <p:graphicImage value=""/>
+                                            </div>
+                                            <div align="center" class="box-footer">
+                                                <p:commandLink value="#{producto.nombre}">
+                                                    <f:setPropertyActionListener value="#{producto}" target="#{productoCT.producto}"/>
+                                                    <p:ajax event="click" listener="#{subProductoCT.consultarProductosSegunProducto(producto.idProducto)}" update=":SubProductos"/>
+                                                </p:commandLink>
+                                            </div>
+                                        </div>                                
+                                    </li>
+                                </c:forEach>
+                            </ul>
+                        </h:form>
+                    </div>
+                </div>             
+            </div>
+        </section>
+        <!-- ventajas -->
+        <!--CATEGORIAS PRENDAS-->
+
+        <!--PRENDAS-->
+        <section>
+            <div class="container pad-container">
+                <div class="row">
+                    <h:form id="SubProductos">
+                        <c:forEach items="#{subProductoCT.subProductosClasificados}" var="subproducto" begin="0" end="#{subProductoCT.subProductosClasificados.size()}">
+                            <div class="col-md-6 col-sm-6 col-xs-10 esp-prenda">
+                                <div class="row border-r">
+                                    <div class="col-xs-4" >
+                                        <p:graphicImage   value="#{subproducto.rutaImagen}"  class="img-responsive img-tam center-block"/>
+                                    </div>
+                                    <div style="padding-left: 50px"  class="col-xs-8 pad-content">
+                                        <h3 class="title-prenda">#{subproducto.nombre}</h3>
+                                        <p class="txt-justify">#{subproducto.descripcion}</p>
+
+                                        <!-- INICION DE CONTADOR -->
+                                        <div align="left">
+                                            <h:panelGrid  width="80%" columns="2">                                              
+                                                <p:commandButton id="btnAgregar" value="Agregar" class="btn btn-info">
+                                                    <f:setPropertyActionListener value="#{subproducto}" target="#{pedidoCT.subproducto}"/>
+                                                    <p:ajax event="click" listener="#{pedidoCT.agregarproductos()}"/>
+                                                </p:commandButton>                                                
+                                            </h:panelGrid><br/>
+                                        </div><!-- INICION DE CONTADOR -->
+                                    </div>                                    
+                                </div>
+                            </div>
+                        </c:forEach>                        
+                    </h:form>
+                </div>
+            </div>
+
+        </section>
+        <!--PRENDAS-->
+    </div>
+</html>
+
