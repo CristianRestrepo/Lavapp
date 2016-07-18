@@ -49,7 +49,8 @@ public class ServiciosPais {
         datos = cliente.consultarPaises(List.class);
         List<Pais_TO> paises = new ArrayList<>();
         for (int i = 0; i < datos.size(); i++) {
-            paises.add(new Pais_TO((int) datos.get(i).get("idPais"), (String) datos.get(i).get("nombre")));
+            paises.add(new Pais_TO((int) datos.get(i).get("idPais"), 
+                    (String) datos.get(i).get("nombre")));
         }
         return paises;
     }

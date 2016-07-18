@@ -69,6 +69,7 @@ public class Pedido_TO {
 
     //Constructores
     public Pedido_TO() {
+        usuario = new Usuario_TO();
     }
 
     //Constructor General

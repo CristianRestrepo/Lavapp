@@ -6,23 +6,29 @@
 package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.modelos.Usuario_TO;
+import com.planit.lavappweb.webservices.implementaciones.ServiciosUsuario;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 
-
-public class UsuarioCT {
+public class UsuarioCT implements Serializable{
 
     private Usuario_TO usuario;
     private List<Usuario_TO> usuarios;
+    private List<Usuario_TO> clientes;
+    private ServiciosUsuario servicioUser;
 
     public UsuarioCT() {
         usuario = new Usuario_TO();
         usuarios = new ArrayList<>();
+        clientes = new ArrayList<>();
+        servicioUser = new ServiciosUsuario();
     }
 
     @PostConstruct
     public void init() {
+        clientes = servicioUser.consultarClientes();
     }
 
     //Getters & Setters
@@ -42,6 +48,22 @@ public class UsuarioCT {
         this.usuarios = usuarios;
     }
 
+    public List<Usuario_TO> getClientes() {
+        return clientes;
+    }
+
+    public void setClientes(List<Usuario_TO> clientes) {
+        this.clientes = clientes;
+    }
+
+    public ServiciosUsuario getServicioUser() {
+        return servicioUser;
+    }
+
+    public void setServicioUser(ServiciosUsuario servicioUser) {
+        this.servicioUser = servicioUser;
+    }
+
     //Metodos
     public void registrar() {
     }
@@ -51,4 +73,5 @@ public class UsuarioCT {
 
     public void eliminar() {
     }
+
 }

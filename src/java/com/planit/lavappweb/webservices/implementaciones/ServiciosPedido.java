@@ -12,9 +12,12 @@ import com.planit.lavappweb.modelos.Proveedor_TO;
 import com.planit.lavappweb.modelos.Usuario_TO;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarPedido;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarPedidos;
+import com.planit.lavappweb.webservices.clientes.ClienteConsultarPedidosCliente;
 import com.planit.lavappweb.webservices.clientes.ClienteEliminarPedido;
 import com.planit.lavappweb.webservices.clientes.ClienteModificarPedido;
 import com.planit.lavappweb.webservices.clientes.ClienteRegistrarPedido;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -90,7 +93,7 @@ public class ServiciosPedido {
                 try {
                     pedidos.add(new Pedido_TO((int) datos.get(i).get("idPedido"),
                             usuarioModelo,
-//                          DUDA DE FUNSION CORRECTA POR SER TIPO DATE
+                            //                          DUDA DE FUNSION CORRECTA POR SER TIPO DATE
                             (Date) datos.get(i).get("fechainicio"),
                             horarioIniModel,
                             horarioFinModel,
@@ -107,9 +110,81 @@ public class ServiciosPedido {
         return pedidos;
     }
 
-     public Pedido_TO consultarPedido(int idUsuario) {
-        ClienteConsultarPedido clienteModelo = new ClienteConsultarPedido();
-        return clienteModelo.consultarPedidosCliente(Pedido_TO.class, "" + idUsuario);
+    public List<Pedido_TO> consultarPedidosCliente(int idUsuario) {
+
+        ClienteConsultarPedidosCliente cliente = new ClienteConsultarPedidosCliente();
+
+        List<LinkedHashMap> datos = cliente.consultarPedidosCliente(List.class, "" + idUsuario);
+        List<Pedido_TO> pedidosC = new ArrayList<>();
+
+//      MODELOS PARA PASO ED PARAMETROS EN CICLO FOR
+        Usuario_TO usuarioModelo = new Usuario_TO();
+        Horario_TO horarioIniModel = new Horario_TO();
+        Horario_TO horarioFinModel = new Horario_TO();
+        Estado_TO estadoModelo = new Estado_TO();
+        Proveedor_TO proveeModelo = new Proveedor_TO();
+
+//      SERVICIOS DE CADA MODELO
+        ServiciosUsuario serviUsuario = new ServiciosUsuario();
+        ServiciosHorario serviHorarioIn = new ServiciosHorario();
+        ServiciosHorario serviHorarioFn = new ServiciosHorario();
+        ServiciosEstado serviEstado = new ServiciosEstado();
+        ServiciosProveedor serviProve = new ServiciosProveedor();
+
+        for (int i = 0; i < datos.size(); i++) {
+            try {
+//          USUARIO
+                LinkedHashMap mapUS = (LinkedHashMap) datos.get(i).get("usuario");
+                usuarioModelo = serviUsuario.consultarUsuario((int) mapUS.get("idUsuario"));
+//          HORARIO INICIO
+                LinkedHashMap mapHI = (LinkedHashMap) datos.get(i).get("horaInicio");
+                horarioIniModel = serviHorarioIn.consultarHorario((int) mapHI.get("idHorario"), "");
+//          HORARIO FINAL
+                LinkedHashMap mapHF = (LinkedHashMap) datos.get(i).get("horaFinal");
+                horarioFinModel = serviHorarioFn.consultarHorario((int) mapHF.get("idHorario"), "");
+//          ESTADO
+                LinkedHashMap mapES = (LinkedHashMap) datos.get(i).get("estado");
+                estadoModelo = serviEstado.consultarEstadoID((int) mapES.get("idEstado"), "");
+//          PROVEEDOR
+                LinkedHashMap mapPR = (LinkedHashMap) datos.get(i).get("proveedor");
+                proveeModelo = serviProve.consultarProveedor((int) mapPR.get("idProveedor"));
+//          CAMBIO DE STRING A DATE
+
+//          INGERSO DE DATOS A LISTA DE OBJETO PEDIDO
+                try {
+                    pedidosC.add(new Pedido_TO((int) datos.get(i).get("idPedido"),
+                            usuarioModelo,
+//                          DUDA DE FUNSION CORRECTA POR SER TIPO DATE
+                            deStringToDate((String) datos.get(i).get("fechainicio")),
+                            horarioIniModel,
+                            horarioFinModel,
+                            estadoModelo,
+                            proveeModelo));
+
+                } catch (Exception e) {
+//                    System.out.println("impresion de error en consola: " + (String) datos.get(i).get("fechainicio"));
+                    throw e;
+                }
+
+            } catch (Exception ex) {
+                throw ex;
+            }
+
+        }
+
+        return pedidosC;
+    }
+
+    public static Date deStringToDate(String fecha) {
+        SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
+        Date fechaEnviar = null;
+        try {
+            fechaEnviar = formatoDelTexto.parse(fecha);
+            return fechaEnviar;
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
 }

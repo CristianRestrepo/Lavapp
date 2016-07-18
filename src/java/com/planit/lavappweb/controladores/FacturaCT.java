@@ -19,10 +19,14 @@ public class FacturaCT {
 
     private Factura_TO factura;
     private List<Factura_TO> facturas;
+    
+//    Variables
+    private UsuarioCT usuarioModelo;
 
     public FacturaCT() {
         factura = new Factura_TO();
         facturas = new ArrayList<>();
+        usuarioModelo = new UsuarioCT();
     }
 
     @PostConstruct
@@ -45,6 +49,16 @@ public class FacturaCT {
     public void setFacturas(List<Factura_TO> facturas) {
         this.facturas = facturas;
     }
+
+    public UsuarioCT getUsuarioModelo() {
+        return usuarioModelo;
+    }
+
+    public void setUsuarioModelo(UsuarioCT usuarioModelo) {
+        this.usuarioModelo = usuarioModelo;
+    }
+    
+    
 
     //Metodos
     public void registrar() {
