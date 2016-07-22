@@ -13,14 +13,14 @@
         <section class="alt-catego">
             <div class="container-fluid alt-catego" >
                 <div class="row alt-catego" >
-                    <div class="col-sm-12 enlinea ">
+                    <div class="col-sm-12 enlinea ">                      
                         <h:form id="Productos">
                             <ul class="nav nav-pills">
                                 <c:forEach var="producto" begin="0" items="#{productoCT.productos}" end="#{productoCT.productos.size()}">
                                     <li>
                                         <div class="box box-widget">
                                             <div align="center" class="box-body">
-                                                <p:graphicImage value=""/>
+                                                <p:graphicImage value="#{producto.rutaImagen}"/>
                                             </div>
                                             <div align="center" class="box-footer">
                                                 <p:commandLink value="#{producto.nombre}">
@@ -45,29 +45,29 @@
             <div class="container pad-container">
                 <div class="row">
                     <h:form id="SubProductos">
-                        <c:forEach items="#{subProductoCT.subProductosClasificados}" var="subproducto" begin="0" end="#{subProductoCT.subProductosClasificados.size()}">
+                        <c:forEach items="#{subProductoCT.subProductosConCosto}" var="subproducto" begin="0" end="#{subProductoCT.subProductosConCosto.size()}">
                             <div class="col-md-6 col-sm-6 col-xs-10 esp-prenda">
                                 <div class="row border-r">
                                     <div class="col-xs-4" >
-                                        <p:graphicImage   value="#{subproducto.rutaImagen}"  class="img-responsive img-tam center-block"/>
+                                        <p:graphicImage value="#{subproducto.rutaImagen}" width="180px" height="220px"/>
                                     </div>
-                                    <div style="padding-left: 50px"  class="col-xs-8 pad-content">
+                                    <div style="padding-left: 75px" class="col-xs-8 pad-content">
                                         <h3 class="title-prenda">#{subproducto.nombre}</h3>
                                         <p class="txt-justify">#{subproducto.descripcion}</p>
+                                        <p class="txt-justify">$#{subproducto.costo.valor}</p>   
 
                                         <!-- INICION DE CONTADOR -->
                                         <div align="left">
-                                            <h:panelGrid  width="80%" columns="2">                                              
-                                                <p:commandButton id="btnAgregar" value="Agregar" class="btn btn-info">
-                                                    <f:setPropertyActionListener value="#{subproducto}" target="#{pedidoCT.subproducto}"/>
-                                                    <p:ajax event="click" listener="#{pedidoCT.agregarproductos()}"/>
-                                                </p:commandButton>                                                
+                                            <h:panelGrid  width="80%" columns="2">                                                 
+                                                <h:commandButton id="btnAgregar" value="Agregar" class="btn btn-info">
+                                                    <p:ajax event="click" update="numPrendas" listener="#{pedidoCT.agregarproductos(subproducto)}"/>
+                                                </h:commandButton>                                                
                                             </h:panelGrid><br/>
                                         </div><!-- INICION DE CONTADOR -->
                                     </div>                                    
                                 </div>
                             </div>
-                        </c:forEach>                        
+                        </c:forEach>                         
                     </h:form>
                 </div>
             </div>

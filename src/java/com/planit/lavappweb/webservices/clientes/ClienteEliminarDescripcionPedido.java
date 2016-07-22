@@ -13,10 +13,10 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
 /**
  * Jersey REST client generated for REST resource:we
- * [consultarPedidosCliente]<br>
+ * [eliminarDescripcionPedido]<br>
  * USAGE:
  * <pre>
- *        ClienteConsultarPedidosCliente client = new ClienteConsultarPedidosCliente();
+ *        ClienteEliminarDescripcionPedido client = new ClienteEliminarDescripcionPedido();
  *        Object response = client.XXX(...);
  *        // do whatever with response
  *        client.close();
@@ -24,24 +24,24 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
  *
  * @author Desarrollo_Planit
  */
-public class ClienteConsultarPedidosCliente {
+public class ClienteEliminarDescripcionPedido {
     private WebTarget webTarget;
     private Client client;
     private static final String BASE_URI = "http://localhost:8084/LavappService/webresources/";
 
-    public ClienteConsultarPedidosCliente() {
+    public ClienteEliminarDescripcionPedido() {
         client = ResteasyClientBuilder.newBuilder().build();
-        webTarget = client.target(BASE_URI).path("consultarPedidosCliente");
+        webTarget = client.target(BASE_URI).path("eliminarDescripcionPedido");
     }
 
     /**
      * @param responseType Class representing the response
-     * @param idUsuario query parameter
+     * @param idDescripcionPedido query parameter
      * @return response object (instance of responseType class)
      */
-    public <T> T consultarPedidosCliente(Class<T> responseType, String idUsuario) throws ClientErrorException {
-        String[] queryParamNames = new String[]{"idUsuario"};
-        String[] queryParamValues = new String[]{idUsuario};
+    public <T> T eliminarDescripcionPedido(Class<T> responseType, String idDescripcionPedido) throws ClientErrorException {
+        String[] queryParamNames = new String[]{"idDescripcionPedido"};
+        String[] queryParamValues = new String[]{idDescripcionPedido};
         ;
         javax.ws.rs.core.Form form = getQueryOrFormParams(queryParamNames, queryParamValues);
         javax.ws.rs.core.MultivaluedMap<String, String> map = form.asMap();

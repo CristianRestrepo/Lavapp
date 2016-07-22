@@ -12,8 +12,7 @@ import javax.ws.rs.core.Form;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
 /**
- * Jersey REST client generated for REST resource:we
- * [consultarPedidosCliente]<br>
+ * Jersey REST client generated for REST resource:we [consultarPedido]<br>
  * USAGE:
  * <pre>
  *        ClienteConsultarPedido client = new ClienteConsultarPedido();
@@ -22,28 +21,26 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
  *        client.close();
  * </pre>
  *
- * @author SISTEMAS
+ * @author Desarrollo_Planit
  */
 public class ClienteConsultarPedido {
-
     private WebTarget webTarget;
     private Client client;
     private static final String BASE_URI = "http://localhost:8084/LavappService/webresources/";
 
     public ClienteConsultarPedido() {
-//        client = javax.ws.rs.client.ClientBuilder.newClient();
         client = ResteasyClientBuilder.newBuilder().build();
-        webTarget = client.target(BASE_URI).path("consultarPedidosCliente");
+        webTarget = client.target(BASE_URI).path("consultarPedido");
     }
 
     /**
      * @param responseType Class representing the response
-     * @param idUsuario query parameter
+     * @param idPedido query parameter
      * @return response object (instance of responseType class)
      */
-    public <T> T consultarPedidosCliente(Class<T> responseType, String idUsuario) throws ClientErrorException {
-        String[] queryParamNames = new String[]{"idUsuario"};
-        String[] queryParamValues = new String[]{idUsuario};
+    public <T> T consultarPedido(Class<T> responseType, String idPedido) throws ClientErrorException {
+        String[] queryParamNames = new String[]{"idPedido"};
+        String[] queryParamValues = new String[]{idPedido};
         ;
         javax.ws.rs.core.Form form = getQueryOrFormParams(queryParamNames, queryParamValues);
         javax.ws.rs.core.MultivaluedMap<String, String> map = form.asMap();
@@ -68,5 +65,5 @@ public class ClienteConsultarPedido {
     public void close() {
         client.close();
     }
-
+    
 }

@@ -105,7 +105,16 @@ public class SubProductoCT implements Serializable {
     public void setSubProductosClasificados(List<SubProducto_TO> subProductosClasificados) {
         this.subProductosClasificados = subProductosClasificados;
     }
+
+    public List<SubProductoCosto_TO> getSubProductosConCosto() {
+        return subProductosConCosto;
+    }
+
+    public void setSubProductosConCosto(List<SubProductoCosto_TO> subProductosConCosto) {
+        this.subProductosConCosto = subProductosConCosto;
+    }
        
+    
     
     
 

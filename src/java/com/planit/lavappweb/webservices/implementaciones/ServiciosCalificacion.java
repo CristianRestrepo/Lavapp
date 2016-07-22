@@ -55,7 +55,7 @@ public class ServiciosCalificacion {
         try {
             for (int i = 0; i < datos.size(); i++) {
                 LinkedHashMap map = (LinkedHashMap) datos.get(i).get("pedido");
-                pedidoModelo = servicioPedido.consultarPedido((int) map.get("idUsuario"));
+                pedidoModelo = servicioPedido.consultarPedido((int) map.get("idPedido"));
 
                 try {
                     calificaciones.add(new Calificacion_TO((int) datos.get(i).get("idCalificacion"),
