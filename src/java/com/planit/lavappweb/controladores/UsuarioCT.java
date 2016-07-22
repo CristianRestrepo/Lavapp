@@ -5,7 +5,12 @@
  */
 package com.planit.lavappweb.controladores;
 
+import com.planit.lavappweb.metodos.MD5;
 import com.planit.lavappweb.modelos.Usuario_TO;
+import com.planit.lavappweb.webservices.implementaciones.ServiciosBarrios;
+import com.planit.lavappweb.webservices.implementaciones.ServiciosCiudad;
+import com.planit.lavappweb.webservices.implementaciones.ServiciosEstado;
+import com.planit.lavappweb.webservices.implementaciones.ServiciosRol;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosUsuario;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -66,6 +71,24 @@ public class UsuarioCT implements Serializable{
 
     //Metodos
     public void registrar() {
+        
+        ServiciosBarrios sb = new ServiciosBarrios();
+        ServiciosRol sr = new ServiciosRol();
+        ServiciosEstado se = new ServiciosEstado();
+        ServiciosCiudad sc = new ServiciosCiudad();
+        
+        
+        usuario.setBarrio(sb.consultarBarrio(usuario.getBarrio().getIdBarrios(), usuario.getBarrio().getNombre()));
+        usuario.setCiudad(sc.consultarCiudad(usuario.getCiudad().getIdCiudad(), usuario.getCiudad().getNombre()));
+        usuario.setEstado(se.consultarEstadoID(1, ""));
+        usuario.setRol(sr.consultarRol(4, ""));
+        
+        servicioUser.registrarUsuario(usuario.getNombre(), usuario.getTelefono(), 
+                usuario.getBarrio().getIdBarrios(), usuario.getRol().getIdRol(), 
+                usuario.getEstado().getIdEstado(), usuario.getEmail(), 
+                MD5.getMD5(usuario.getContrasena()), usuario.getApellido(),
+                usuario.getGenero(), usuario.getMovil(), "", usuario.getCiudad().getIdCiudad(), usuario.getIdentificacion());
+        usuarios = servicioUser.consultarClientes();
     }
 
     public void modificar() {

@@ -126,10 +126,7 @@ public class PedidoCT {
                 break;
             case 2:
                 ruta = "pasos/confirmacion.xhtml";
-                break;
-            case 3:
-                ruta = "pasos/usuario-pago.xhtml";
-                break;
+                break;           
         }
         return ruta;
     }

@@ -12,7 +12,7 @@
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        
+
         <h:outputStylesheet name="./dashboard/css/default.css"/>
         <h:outputStylesheet name="./dashboard/css/cssLayout.css"/>
         <h:outputStylesheet name="./dashboard/bootstrap/css/bootstrap.css"/>
@@ -47,8 +47,8 @@
                                                         <div class="form-group centro"> 
                                                             <p align="center">Ingrese su correo electronico para recibir una nueva contraseña.</p>
                                                             <b:inputText  placeholder="Ingrese correo electronico" 
-                                                                         required="true" requiredMessage="Por favor, ingrese correo electronico" 
-                                                                         value="#{usuarioBean.usuarioView.usuarioEmail}" style="width: 100%; margin-bottom: 12px">
+                                                                          required="true" requiredMessage="Por favor, ingrese correo electronico" 
+                                                                          value="#{usuarioBean.usuarioView.usuarioEmail}" style="width: 100%; margin-bottom: 12px">
                                                             </b:inputText>
                                                         </div>                                           
                                                         <p:commandButton  onclick="PrimeFaces.monitorDownload(start, stop);"
@@ -57,10 +57,11 @@
                                                                           action="#{usuarioBean.generarNuevaContraseñaDeSesion()}"
                                                                           value="Solicitar nueva contraseña"
                                                                           />                                                       
-                                                        <div align="center"> <p:commandLink value="Iniciar sesion" 
-                                                                                            process="@this" 
-                                                                                            immediate="true" 
-                                                                                            action="CerrarSesopmAdmin"/>
+                                                        <div align="center"> 
+                                                            <p:commandLink value="Iniciar sesion" 
+                                                                           process="@this" 
+                                                                           immediate="true" 
+                                                                           action="CerrarSesopmAdmin"/>
                                                         </div>
                                                         <script type="text/javascript">
                                                             function start() {
