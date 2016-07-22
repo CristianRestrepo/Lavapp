@@ -1132,7 +1132,7 @@ a:focus {
 }
 .navbar-nav > .user-menu > .dropdown-menu > .user-footer {
     background-color: #f9f9f9;
-    padding: 16px 12px 44px 12px;
+        padding: 15px 8px 60px 9px;
 }
 .navbar-nav > .user-menu > .dropdown-menu > .user-footer:before,
 .navbar-nav > .user-menu > .dropdown-menu > .user-footer:after {
@@ -1538,10 +1538,11 @@ a:focus {
 }
 .box-bg-login {
     position: relative;
+    top: -54px;
     border-radius: 14px;
     background: #ffffff;
-    border-top: 3px solid #FC5930 !important;
-    margin-bottom: 20px;
+    border-top: 3px solid #0091d1 !important;
+    margin-bottom: 0px;
     width: 100%;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }

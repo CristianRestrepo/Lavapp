@@ -68,8 +68,8 @@ public class CalificacionCT implements Serializable{
 //    METODOS CRUD
     public void registrar() {
         ServiciosPedido sP = new ServiciosPedido();
-        calificacionModelo.setPedido(sP.consultarPedido(
-                calificacionModelo.getPedido().getUsuario().getIdUsuario()));
+//        calificacionModelo.setPedido(sP.consultarPedido(
+//                calificacionModelo.getPedido().getUsuario().getIdUsuario()));
 
         calificacionModelo = servicioModelo.registrarCalificacion(calificacionModelo.getCalificacion(),
                 calificacionModelo.getObservacion(),
@@ -79,8 +79,7 @@ public class CalificacionCT implements Serializable{
 
     public void modificar() {
         ServiciosPedido sP = new ServiciosPedido();
-        calificacionModelo.setPedido(sP.consultarPedido(
-                calificacionModelo.getPedido().getUsuario().getIdUsuario()));
+//        calificacionModelo.setPedido(sP.consultarPedido(calificacionModelo.getPedido().getUsuario().getIdUsuario()));
 
         calificacionModelo = servicioModelo.modificarCalificacion(calificacionModelo.getIdCalificacion(),
                 calificacionModelo.getCalificacion(),

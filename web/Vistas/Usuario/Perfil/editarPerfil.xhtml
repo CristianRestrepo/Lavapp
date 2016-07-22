@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="./../adminTemplate.xhtml">
+
+        <ui:define name="content">
+
+            <b:container fluid="true">
+                <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                    <div class="espacio-arriba" >
+                        <h4 style="font-size: x-large">INFORMACION PERSONAL Y PERFIL</h4><br/>
+                        <p>Te damos la bienvenida, #{usuarioCT.usuario.nombre}</p>
+                    </div>
+                </b:column>
+                <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12" offset-lg="1">                        
+                    <h:form id="formularioDatosPersonales">
+                        <div class="box box-info espacio-arriba">
+                            <div class="box-header with-border">
+                                <i class="fa fa-2x fa-file-text"/>
+                                <h4 class="box-title"> Información personal</h4>                                   
+                            </div> 
+                            <div class="box-body">
+                                <div class="table-responsive">
+                                    <h:panelGrid  id="seccionDatosUsuario" columns="2" cellpadding="2" style="width: 100%;">
+
+                                        <b:inputText id="TNombre" tooltip="Nombre del usuario" required="true" 
+                                                     requiredMessage="Ingrese nombre del usuario" placeholder="Nombre del usuario" 
+                                                     style="width: 100%;" maxlength="60" value="#{usuarioCT.usuario.nombre}">
+                                        </b:inputText>   
+                                        <p:message for="TNombre"/>
+
+                                        <b:inputText id="Apell" tooltip="Apellidos del usuario" required="true" 
+                                                     requiredMessage="Apellidos del usuario" placeholder="Apellido del usuario" 
+                                                     style="width: 100%;" maxlength="60" value="#{usuarioCT.usuario.apellido}">
+                                        </b:inputText>                       
+                                        <p:message for="Apell"/>
+
+                                        <b:selectOneMenu id="Ciudad" value="#{usuarioCT.usuario.ciudad.nombre}">
+                                            <f:selectItem itemLabel="Seleccione Ciudad" noSelectionOption="true"/>
+                                            <f:selectItems value="#{ciudadCT.ciudades}" var="ciudad" itemLabel="#{ciudad.nombre}" itemValue="#{ciudad.nombre}"/>                                               
+                                        </b:selectOneMenu>
+                                        <p:message for="Ciudad"/>
+
+                                        <b:selectOneMenu id="Barrios" value="#{usuarioCT.usuario.barrio.nombre}">
+                                            <f:selectItem itemLabel="Seleccione Barrio" noSelectionOption="true"/>
+                                            <f:selectItems value="#{barrioCT.barrios}" var="barrio" itemLabel="#{barrio.nombre}" itemValue="#{barrio.nombre}"/>                                               
+                                        </b:selectOneMenu>
+                                        <p:message for="Barrios"/>
+
+                                        <b:inputText maxlength="45" id="TCcProv" tooltip="Numero de identificación" 
+                                                     placeholder="Cedula de ciudadania" style="width: 100%"
+                                                     value="#{usuarioCT.usuario.identificacion}">
+                                        </b:inputText>
+                                        <p:message for="TCcProv"/>
+
+                                        <b:inputText maxlength="45" id="DireccResi" tooltip="Direcci{on de residencia" 
+                                                     placeholder="Direcci{on de residencia)" style="width: 100%" 
+                                                     value="#{usuarioCT.usuario.direccion}">
+                                        </b:inputText>
+                                        <p:message for="DireccResi"/>                                            
+
+                                        <b:inputText maxlength="45" id="TTelProv" tooltip="Numero de telefono" 
+                                                     placeholder="Numero de telefono fijo" style="width: 100%" 
+                                                     value="#{usuarioCT.usuario.telefono}">
+                                        </b:inputText> 
+                                        <p:message for="TTelProv"/>
+
+                                        <b:inputText maxlength="45" id="movil" tooltip="Numero de celular" 
+                                                     placeholder="Numero de telefono celular" style="width: 100%" 
+                                                     value="#{usuarioCT.usuario.movil}">
+                                        </b:inputText> 
+                                        <p:message for="movil"/>
+
+                                        <b:inputText maxlength="45" id="genero" tooltip="Genero " 
+                                                     placeholder="Genero de la persona" style="width: 100%" 
+                                                     value="#{usuarioCT.usuario.genero}">
+                                        </b:inputText> 
+                                        <p:message for="genero"/>
+
+                                        <b:selectOneMenu id="estado" value="#{usuarioCT.usuario.estado.nombre}">
+                                            <f:selectItem itemLabel="Seleccione Estado del Usuario" noSelectionOption="true"/>
+                                            <f:selectItems value="#{estratoCT}" var="estado" itemLabel="#{estado}" itemValue="#{estado}"/>                                               
+                                        </b:selectOneMenu>
+                                        <p:message for="estado"/>
+
+                                    </h:panelGrid>
+
+                                </div>
+                            </div>   
+                            <div class="box-footer">
+                                <h:panelGrid columns="1" width="100%">                                        
+                                    <p:commandButton id="BTModUsuario"  class="btn btn-block btn-primary" ajax="false"
+                                                     update=":formularioDatosPersonales :formB:TEstadoFoto :formB:fileIdPhoto :formularioDatosPersonales:msg" 
+                                                     action="#{usuarioCT.modificar()}" value="Modificar datos personales" />
+                                </h:panelGrid>
+                                <p:messages closable="true" id="msg" />
+                            </div>
+                        </div>
+                    </h:form>
+                </b:column>
+
+                <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12" >
+                    <h:form id="formB" enctype="multipart/form-data">
+                        <div class="box box-primary espacio-arriba">
+
+                            <div class="box-header with-border">
+                                <i class="fa fa-2x fa-user-plus"/>
+                                <h4 class="box-title">Datos de Sesión</h4>
+                            </div>
+                            <div class="box-body" style="width: 100%" align="center">
+                                <p:graphicImage class="img-circle" width="160" height="180" value="#{usuarioBean.usuario.usuarioFotoRuta}"/> 
+                                <hr/>
+                                <p:fragment autoUpdate="true">                                    
+                                    <div class="box-body">
+                                        <p:outputLabel id="TEstadoFoto" value="#{usuarioBean.estadoFoto}"/>
+                                        <div class="table-responsive">
+                                            <p:fileUpload id="fileIdPhoto" fileUploadListener="#{usuarioBean.upload}" mode="advanced" dragDropSupport="false"
+                                                          process="@this" uploadLabel="Subir Fotografia" cancelLabel="Cancelar" update=":formB" sizeLimit="10000000" allowTypes="/(\.|\/)(jpg|jpeg|png)$/"  />
+
+                                            <p:messages id="messages" closable="true" /></div> 
+                                    </div>
+                                </p:fragment>
+
+                                <b:inputText maxlength="100"  tooltip="Correo Electronico" id="TEmailProv" 
+                                             required="true" requiredMessage="Ingrese email"
+                                             placeholder="Direccion de correo electronico" style="width: 100%" 
+                                             value="#{usuarioCT.usuario.email}">
+                                    <f:attribute name="usuario" value="#{usuarioCT.usuario}"/>
+                                </b:inputText>
+                                <p:message for="TEmailProv"/>
+
+                                <b:inputText maxlength="45" id="contrase" tooltip="Cambiar contraseña" 
+                                             placeholder="Cambiar Contraseña" style="width: 100%" 
+                                             value="#{usuarioCT.usuario.contrasena}">
+                                </b:inputText> 
+                                <p:message for="contrase"/>
+
+                            </div>
+                        </div>
+                    </h:form>
+                </b:column>                    
+
+
+            </b:container>
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>

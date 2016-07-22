@@ -45,7 +45,7 @@
                     <nav class="navbar navbar-static-top" role="navigation">
                         <!-- Sidebar toggle button-->
                         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                            <span class="sr-only">Toggle navigation</span>
+                            <span class="sr-only">Botón Toogle</span>
                         </a>
 
                         <div class="navbar-custom-menu">
@@ -56,28 +56,28 @@
                                     <a href="#" class="dropdown-toggle nav-sms" data-toggle="dropdown">
                                         <p:graphicImage value="#{sesionActivaBean.usuario.usuarioFotoRuta}" 
                                                         class="user-image img-circle center-block img-responsive" alt="User Image"/>
-                                        <span class="hidden-xs">#{sesionActivaBean.usuario.usuarioNombre}</span>
+                                        <span class="hidden-xs">#{sesionActivaCT.usuario.nombre}</span>
                                     </a>
                                     <ul class="dropdown-menu">
                                         <!-- User image -->
                                         <li class="user-header">
                                             <p:graphicImage value="#{sesionActivaBean.usuario.usuarioFotoRuta}" class="img-circle center-block img-responsive" alt="User Image"/>
-                                            <p>#{sesionActivaBean.usuario.usuarioNombre}<br/>
-                                                <small>#{sesionActivaBean.usuario.smsRol.rolNombre}</small>
+                                            <p>#{sesionActivaCT.usuario.nombre}<br/>
+                                                <small>#{sesionActivaCT.usuario.rol.nombre}</small>
                                             </p>
 
                                         </li>
 
-                                        <!-- Menu Footer-->
-                                        <li class="user-footer">
+                                        <!-- Menu Footer--> 
+                                       <li class="user-footer">
                                             <div class="pull-left">
                                                 <h:form>
-                                                    <p:commandButton value="Editar Perfil" process="@this" ajax="false" immediate="true" action="#{usuarioBean.ir_editarPerfil()}" class="btn btn-default btn-block "/>
+                                                    <p:commandButton value="Editar Perfil" process="@this" ajax="false" immediate="true" action="EditarPerfil" class="btn btn-default btn-block "/>
                                                 </h:form>
                                             </div>
                                             <div class="pull-right">
                                                 <h:form>
-                                                    <p:commandButton value="Cerrar Sesion" immediate="true" action="#{sesionActivaBean.cerrarSession()}" class="btn btn-default btn-block "/>
+                                                    <p:commandButton value="Cerrar Sesion" immediate="true" action="#{sesionCT.cerrarSesionAdmin()}" class="btn btn-default btn-block "/>
                                                 </h:form> 
                                             </div>
                                         </li>
@@ -104,8 +104,8 @@
                                         </div>
                                         <div class="pull-left info">
                                             <div class="cont-description">
-                                                <p class="text-capitalize text-center " style="font-weight: 600;">#{sesionActivaBean.usuario.usuarioNombre}</p>
-                                                <p class="text-capitalize text-center ">#{sesionActivaBean.usuario.smsRol.rolNombre}</p>
+                                                <p class="text-capitalize text-center " style="font-weight: 600;">#{sesionActivaCT.usuario.nombre}</p>
+                                                <p class="text-capitalize text-center ">#{sesionActivaCT.usuario.ciudad.nombre}</p>
                                             </div>
                                         </div>
                                     </div>

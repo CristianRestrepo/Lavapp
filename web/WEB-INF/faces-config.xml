@@ -116,6 +116,28 @@
             <to-view-id>/Vistas/Usuario/Pedidos/Pedido.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>CerrarSesopmAdmin</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>recuperarContraseña</from-outcome>
+            <to-view-id>/contrasena.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+         <navigation-case>
+            <from-outcome>registroLav</from-outcome>
+            <to-view-id>/registro.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+         <navigation-case>
+            <from-outcome>EditarPerfil</from-outcome>
+            <to-view-id>/Vistas/Usuario/Perfil/editarPerfil.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        
+         
     </navigation-rule>    
     <!--Managed Beans-->
     <managed-bean>
@@ -206,6 +228,11 @@
     <managed-bean>
         <managed-bean-name>sesionCT</managed-bean-name>
         <managed-bean-class>com.planit.lavappweb.controladores.SesionCT</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>sesionActivaCT</managed-bean-name>
+        <managed-bean-class>com.planit.lavappweb.controladores.SesionActivaCT</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>

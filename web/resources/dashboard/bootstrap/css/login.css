@@ -1,9 +1,8 @@
 body{
     /*background: url(../../images/zona-rfanca.jpeg);*/
-    background: url(../../images/login-sms.jpg);
+    background: url(../../../dashboard/images/banner-p.jpg);
     background-color: #444;
     background-size: cover;
-
 }
 
 .vertical-offset-100{

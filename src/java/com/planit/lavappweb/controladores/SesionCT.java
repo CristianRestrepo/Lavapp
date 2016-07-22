@@ -74,5 +74,10 @@ public class SesionCT implements Serializable {
         cerrarHttpSesion();
         return "Principal";
     }
+    
+    public String cerrarSesionAdmin(){
+        cerrarHttpSesion();
+        return "CerrarSesopmAdmin";
+    }
 
 }
