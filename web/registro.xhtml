@@ -34,110 +34,100 @@
                         <div class="row vertical-offset-100">
                             <div class="col-lg-5 col-md-6 col-sm-8 col-xs-10
                                  col-lg-offset-4 col-md-offset-4 col-sm-offset-3 col-xs-offset-2 bg-login bg-position-register" > 
-
-
                                 <div id="registroLav" class="box-bg-login box-sms-renta">
                                     <div class="box-body">
-
                                         <f:facet name="anchor"><b:iconAwesome name="user-plus" size="1x"  /></f:facet>
                                         <!-- <form accept-charset="UTF-8" role="form">-->
-
                                         <fieldset>
-                                            <p:fragment autoUpdate="true">
-                                                <p:growl id="messages-2" life="2000"/>                                                                                                            
+                                            <p:growl id="messages-2" life="2000"/>                                                                                                            
 
-                                                <div class="box-header with-border">
-                                                    <i class="fa fa-2x fa-th-list"/>
-                                                    <h4 class="box-title">Datos del Cliente</h4>
-                                                </div>       
-                                                <div class="box-body">
-                                                    <div class="table-responsive">
-                                                        <div class="container-fluid">
-                                                            <div class="row">
-                                                                <div class="col-sm-10 col-sm-offset-1">
+                                            <div class="box-header with-border">
+                                                <i class="fa fa-2x fa-th-list"/>
+                                                <h4 class="box-title">Datos del Cliente</h4>
+                                            </div>       
+                                            <div class="box-body">
+                                                <div class="table-responsive">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-sm-10 col-sm-offset-1">
 
-                                                                    <h:panelGrid id="seccionDatosUsuario" cellpadding="5" columns="2" style="width: 100%;">
+                                                                <h:panelGrid id="seccionDatosUsuario" cellpadding="5" columns="2" style="width: 100%;">
 
-                                                                        <b:inputText maxlength="60" id="TNombresCli" required="true" requiredMessage="Ingrese nombres" placeholder="Nombres" value="#{usuarioCT.usuario.nombre}" style="width: 100%;"></b:inputText>                       
-                                                                        <p:message for="TNombresCli"/>
+                                                                    <b:inputText maxlength="60" id="TNombresCli" required="true" requiredMessage="Ingrese nombres" placeholder="Nombres" value="#{usuarioCT.usuario.nombre}" style="width: 100%;"></b:inputText>                       
+                                                                    <p:message for="TNombresCli"/>
 
-                                                                        <b:inputText maxlength="60" id="TApellidosCli" required="true" requiredMessage="Ingrese apellidos" placeholder="apellidos" value="#{usuarioCT.usuario.apellido}" style="width: 100%;"></b:inputText>                       
-                                                                        <p:message for="TApellidosCli"/>
+                                                                    <b:inputText maxlength="60" id="TApellidosCli" required="true" requiredMessage="Ingrese apellidos" placeholder="apellidos" value="#{usuarioCT.usuario.apellido}" style="width: 100%;"></b:inputText>                       
+                                                                    <p:message for="TApellidosCli"/>
 
-                                                                        <b:inputText maxlength="100"  id="TEmailCli" required="true" requiredMessage="Ingrese Email valido" placeholder="Direccion de correo electronico" value="#{usuarioCT.usuario.email}" style="width: 100%"/>
-                                                                        <p:message for="TEmailCli"/>                                                                     
+                                                                    <b:inputText maxlength="100"  id="TEmailCli" required="true" requiredMessage="Ingrese Email valido" placeholder="Direccion de correo electronico" value="#{usuarioCT.usuario.email}" style="width: 100%"/>
+                                                                    <p:message for="TEmailCli"/>                                                                     
 
-                                                                        <b:inputText maxlength="45" id="TCcCli" tooltip="Numero de identificación" placeholder="Cedula de ciudadania" value="#{usuarioCT.usuario.identificacion}" style="width: 100%" ></b:inputText>
-                                                                        <p:message for="TCcCli"/>
+                                                                    <b:inputText maxlength="45" id="TCcCli" tooltip="Numero de identificación" placeholder="Cedula de ciudadania" value="#{usuarioCT.usuario.identificacion}" style="width: 100%" ></b:inputText>
+                                                                    <p:message for="TCcCli"/>
 
-                                                                        <b:inputText maxlength="45" id="TTel" tooltip="Telefono" placeholder="Telefono" value="#{usuarioCT.usuario.telefono}" style="width: 100%" ></b:inputText>
-                                                                        <p:message for="TTel"/>
+                                                                    <b:inputText maxlength="45" id="TTel" tooltip="Telefono" placeholder="Telefono" value="#{usuarioCT.usuario.telefono}" style="width: 100%" ></b:inputText>
+                                                                    <p:message for="TTel"/>
 
-                                                                        <b:inputText maxlength="45" id="TMovil" tooltip="Movil" placeholder="Movil" value="#{usuarioCT.usuario.movil}" style="width: 100%" ></b:inputText>
-                                                                        <p:message for="TMovil"/>
+                                                                    <b:inputText maxlength="45" id="TMovil" tooltip="Movil" placeholder="Movil" value="#{usuarioCT.usuario.movil}" style="width: 100%" ></b:inputText>
+                                                                    <p:message for="TMovil"/>
 
-                                                                        <b:selectOneMenu required="true" value="#{usuarioCT.usuario.genero}" requiredMessage="Seleccione Genero" id="SGenero" style="width: 100%">
-                                                                            <f:selectItem itemLabel="Seleccione Genero"/>
-                                                                            <f:selectItem itemLabel="Masculino" itemValue="M"/>
-                                                                            <f:selectItem itemLabel="Femenino" itemValue="F"/>
-                                                                        </b:selectOneMenu>
-                                                                        <p:message for="SGenero"/>
+                                                                    <b:selectOneMenu required="true" value="#{usuarioCT.usuario.genero}" requiredMessage="Seleccione Genero" id="SGenero" style="width: 100%">
+                                                                        <f:selectItem itemLabel="Seleccione Genero"/>
+                                                                        <f:selectItem itemLabel="Masculino" itemValue="M"/>
+                                                                        <f:selectItem itemLabel="Femenino" itemValue="F"/>
+                                                                    </b:selectOneMenu>
+                                                                    <p:message for="SGenero"/>
 
-                                                                        <b:selectOneMenu required="true" value="#{usuarioCT.usuario.barrio.nombre}" requiredMessage="Seleccione barrio" id="SBarrios" style="width: 100%">
-                                                                            <f:selectItem itemLabel="Seleccione Barrio"/>
-                                                                            <f:selectItems value="#{barrioCT.barrios}" var="barrio" itemLabel="#{barrio.nombre}" itemValue="#{barrio.nombre}"/>
-                                                                        </b:selectOneMenu>
-                                                                        <p:message for="SBarrios"/>
-                                                                    </h:panelGrid>
-                                                                </div>
+                                                                    <b:selectOneMenu required="true" value="#{usuarioCT.usuario.barrio.nombre}" requiredMessage="Seleccione barrio" id="SBarrios" style="width: 100%">
+                                                                        <f:selectItem itemLabel="Seleccione Barrio"/>
+                                                                        <f:selectItems value="#{barrioCT.barrios}" var="barrio" itemLabel="#{barrio.nombre}" itemValue="#{barrio.nombre}"/>
+                                                                    </b:selectOneMenu>
+                                                                    <p:message for="SBarrios"/>
+                                                                </h:panelGrid>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="box-header with-border">
-                                                    <i class="fa fa-2x fa-check-square"/>
-                                                    <h4 class="box-title">Datos de Cuenta</h4>
-                                                </div>
-                                                <div class="box-body">                                  
-                                                    <div class="table-responsive">
-                                                        <div class="container-fluid">
-                                                            <div class="row">
-                                                                <div class="col-sm-10 col-sm-offset-1">
-                                                                    <h:panelGrid cellpadding="5" columns="2" id="seccionDatosSesion" style="width: 100%">
+                                            </div>
+                                            <div class="box-header with-border">
+                                                <i class="fa fa-2x fa-check-square"/>
+                                                <h4 class="box-title">Datos de Cuenta</h4>
+                                            </div>
+                                            <div class="box-body">                                  
+                                                <div class="table-responsive">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-sm-10 col-sm-offset-1">
+                                                                <h:panelGrid cellpadding="5" columns="2" id="seccionDatosSesion" style="width: 100%">
 
-                                                                        <b:inputSecret label="Contraseña" id="TPassCli" binding="#{pass}"  maxlength="20" style="width: 100%" value="#{usuarioCT.usuario.contrasena}" placeholder="Contraseña de sesion">
-                                                                            <f:validateLength minimum="6"/>
-                                                                        </b:inputSecret>
-                                                                        <p:message for="TPassCli"/>
-                                                                     
-                                                                    </h:panelGrid>
-                                                                </div>
+                                                                    <b:inputSecret label="Contraseña" id="TPassCli" binding="#{pass}"  maxlength="20" style="width: 100%" value="#{usuarioCT.usuario.contrasena}" placeholder="Contraseña de sesion">
+                                                                        <f:validateLength minimum="6"/>
+                                                                    </b:inputSecret>
+                                                                    <p:message for="TPassCli"/>
+
+                                                                </h:panelGrid>
                                                             </div>
                                                         </div>
-                                                    </div><hr/>
-                                                    <p:commandLink value="Iniciar sesion" process="@this" immediate="true" action="CerrarSesopmAdmin"/>
-                                                    <p:commandButton id="BTCliente" class="btn btn-lg btn-block btn-success" onclick="PrimeFaces.monitorDownload(start, stop);" update="@form" action="#{usuarioCT.registrar()}" value="Registrar" />
-                                                    <script type="text/javascript">
-                                                        function start() {
-                                                            PF('statusDialog').show();
-                                                        }
-                                                        function stop() {
-                                                            PF('statusDialog').hide();
-                                                        }
-                                                    </script>
-                                                    <p:dialog modal="true" widgetVar="statusDialog" header="Registrando Usuario" draggable="false" closable="false" resizable="false">
-                                                        <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif" />
-                                                    </p:dialog>
-                                                </div>                                                         
-                                            </p:fragment>
-
+                                                    </div>
+                                                </div><hr/>
+                                                <p:commandLink value="Iniciar sesion" process="@this" immediate="true" action="CerrarSesopmAdmin"/>
+                                                <p:commandButton id="BTCliente" class="btn btn-lg btn-block btn-success" onclick="PrimeFaces.monitorDownload(start, stop);" update="@form" action="#{usuarioCT.registrar()}" value="Registrar" />
+                                                <script type="text/javascript">
+                                                    function start() {
+                                                        PF('statusDialog').show();
+                                                    }
+                                                    function stop() {
+                                                        PF('statusDialog').hide();
+                                                    }
+                                                </script>
+                                                <p:dialog modal="true" widgetVar="statusDialog" header="Registrando Usuario" draggable="false" closable="false" resizable="false">
+                                                    <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif" />
+                                                </p:dialog>
+                                            </div>                                                      
                                         </fieldset>
                                         <!--</form>-->
-
-
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
