@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class SesionActivaCT {
 
-    private HttpServletRequest httpServletRequest;
-    private FacesContext faceContext;
+    protected HttpServletRequest httpServletRequest;
+    protected FacesContext faceContext;
     private FacesMessage facesMessage;
     private Usuario_TO usuario;
 

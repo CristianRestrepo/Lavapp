@@ -10,6 +10,7 @@ import com.planit.lavappweb.modelos.Usuario_TO;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosBarrios;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosCiudad;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosEstado;
+import com.planit.lavappweb.webservices.implementaciones.ServiciosLocalidad;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosRol;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosUsuario;
 import java.io.Serializable;
@@ -70,25 +71,34 @@ public class UsuarioCT implements Serializable{
     }
 
     //Metodos
-    public void registrar() {
+    public String registrarCliente() {
         
         ServiciosBarrios sb = new ServiciosBarrios();
         ServiciosRol sr = new ServiciosRol();
         ServiciosEstado se = new ServiciosEstado();
         ServiciosCiudad sc = new ServiciosCiudad();
+        ServiciosLocalidad sl = new ServiciosLocalidad();
         
         
         usuario.setBarrio(sb.consultarBarrio(usuario.getBarrio().getIdBarrios(), usuario.getBarrio().getNombre()));
-        usuario.setCiudad(sc.consultarCiudad(usuario.getCiudad().getIdCiudad(), usuario.getCiudad().getNombre()));
         usuario.setEstado(se.consultarEstadoID(1, ""));
         usuario.setRol(sr.consultarRol(4, ""));
+        usuario.getBarrio().setLocalidad(sl.consultarLocalidad(usuario.getBarrio().getLocalidad().getIdLocalidad(), ""));
+        usuario.setCiudad(sc.consultarCiudad(usuario.getBarrio().getLocalidad().getCiudad().getIdCiudad(), ""));
         
         servicioUser.registrarUsuario(usuario.getNombre(), usuario.getTelefono(), 
                 usuario.getBarrio().getIdBarrios(), usuario.getRol().getIdRol(), 
                 usuario.getEstado().getIdEstado(), usuario.getEmail(), 
-                MD5.getMD5(usuario.getContrasena()), usuario.getApellido(),
+                usuario.getContrasena(), usuario.getApellido(),
                 usuario.getGenero(), usuario.getMovil(), "", usuario.getCiudad().getIdCiudad(), usuario.getIdentificacion());
         usuarios = servicioUser.consultarClientes();
+        
+        SesionCT ss = new SesionCT();
+        ss.setUsuario(usuario);
+        ss.iniciarSesion();
+        
+        usuario = new Usuario_TO();
+        return "Principal";
     }
 
     public void modificar() {

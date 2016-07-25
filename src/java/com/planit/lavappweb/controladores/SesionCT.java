@@ -52,7 +52,18 @@ public class SesionCT implements Serializable {
             if (usuario.getContrasena().equalsIgnoreCase(pass)) {
                 if (usuario.getEstado().getIdEstado() != 0) {
                     iniciarHttpSesion(usuario);
-                    ruta = "Dashboard";
+                    switch(usuario.getRol().getIdRol()){
+                        case 1:
+                            ruta = "Dashboard";
+                            break;
+                        case 2:
+                            ruta = "Dashboard";
+                            break;
+                        case 4:
+                            ruta = "Principal";
+                            break;                                                    
+                    }
+                    
                     message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", "" + usuario.getNombre());
                     FacesContext.getCurrentInstance().addMessage(null, message);
                 } else {

@@ -21,18 +21,20 @@ public class PedidoCT {
     private List<List<SubProductoCosto_TO>> subproductosOrdenados;
     private List<SubProductoCosto_TO> subproductosvista;
     private int vista;
-    private int cantidadProductos;   
+    private int cantidadProductos;
 
     private SubProductoCosto_TO subproducto;
 
     private boolean botonatras;
     private boolean botonsiguiente;
+    private boolean botonconfirmar;
 
     public PedidoCT() {
         pedido = new Pedido_TO();
         vista = 0;
         botonatras = false;
         botonsiguiente = true;
+        botonconfirmar = false;
         subproductos = new ArrayList<>();
         cantidadProductos = 0;
         subproducto = new SubProductoCosto_TO();
@@ -111,44 +113,52 @@ public class PedidoCT {
 
     public void setSubproducto(SubProductoCosto_TO subproducto) {
         this.subproducto = subproducto;
-    }    
-    
-
-    //Metodos para las vistas
-    public String flujoPedido() {
-        String ruta = "";
-        switch (vista) {
-            case 0:
-                ruta = "pasos/prendas.xhtml";
-                break;
-            case 1:
-                ruta = "pasos/tiempos.xhtml";
-                break;
-            case 2:
-                ruta = "pasos/confirmacion.xhtml";
-                break;           
-        }
-        return ruta;
     }
+
+    public boolean isBotonconfirmar() {
+        return botonconfirmar;
+    }
+
+    public void setBotonconfirmar(boolean botonconfirmar) {
+        this.botonconfirmar = botonconfirmar;
+    }
+
+    //Metodos para las vistas 
 
     public void atras() {
         if (vista > 0) {
             vista--;
             botonsiguiente = true;
         }
+        if (vista == 1) {
+            botonconfirmar = false;            
+        }
+        if (vista == 2) {
+            botonsiguiente = false;
+            botonconfirmar = true;            
+        }
         if (vista == 0) {
             botonatras = false;
         }
     }
-
+    
     public void siguiente() {
         if (vista < 3) {
             vista++;
             botonatras = true;
         }
+        if (vista == 2) {
+            botonsiguiente = false;
+            botonconfirmar = true;
+        }
         if (vista == 3) {
             botonsiguiente = false;
+            botonconfirmar = false;
         }
+    }
+
+    public String confirmar() {
+        return "registroLav";
     }
 
     public void agregarproductos(SubProductoCosto_TO subproducto) {
@@ -169,11 +179,7 @@ public class PedidoCT {
         cantidadProductos = subproductos.size();
         organizarSubProductosPedido();
     }
-
-    public void registrarproducto() {
-
-    }
-
+  
     public void insertionSortSubProductos() {
         SubProductoCosto_TO aux;
         int c1;
