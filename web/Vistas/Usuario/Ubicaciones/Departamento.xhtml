@@ -26,7 +26,7 @@
                         </b:column>
 
                         <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
-                            <div class="box box-info">
+                            <div class="box box-success">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-globe"/>
                                     <h4 class="box-title">Datos del departamento</h4>
@@ -49,10 +49,10 @@
                                             </div>
                                         </h:panelGrid>                                        
                                     </div>
-                                    <div class="box-footer">
+                                    <div class="box-footer" align="right">
                                         <h:panelGrid columns="2">
                                             <p:commandButton id="DeptCancelar"  process="@this" 
-                                                             immediate="true" class="btn btn-primary" 
+                                                             immediate="true" class="btn btn-danger" 
                                                              update=":formularioRegistro :formularioListaDepartamentos"
                                                              action="#{departamentoCT.cancelar()}"
                                                              value="Cancelar" />
@@ -60,7 +60,7 @@
                                             <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" 
                                                              update=":formularioRegistro :formularioListaDepartamentos:DTDepartamentos"
                                                              value="#{departamentoCT.nombreOperacion}" action="#{departamentoCT.metodo()}"
-                                                             class="btn btn-success"  type="submit" />                                       
+                                                             class="btn btn-info"  type="submit" />                                       
                                         </h:panelGrid>
                                         <script type="text/javascript">
                                             function start() {

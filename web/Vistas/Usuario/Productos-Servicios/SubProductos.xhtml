@@ -18,9 +18,8 @@
                 <b:row>
                     <b:column col-lg="12">
                         <div>
-                            <h3>SUBPRODUCTOS <small> Subproductos de lavanderia a domicilio.</small></h3>                            
+                            <h3>PRENDAS <small> Prendas sobre las que se ofrecen  servicios de lavanderia a domicilio.</small></h3>                            
                         </div>
-
                     </b:column>
 
                     <h:form id="formSubProd" enctype="multipart/form-data" >                         
@@ -29,7 +28,7 @@
                         </b:column>
 
                         <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
-                            <div class="box box-info">
+                            <div class="box box-success">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-globe"/>
                                     <h4 class="box-title">Datos del SubProducto</h4>
@@ -40,9 +39,8 @@
 
                                             <b:inputText id="txtNombreSubProd" style="width: 100%" placeholder="Nombre del SubProducto..." 
                                                          required="true" requiredMessage="Ingrese nombre del SubProducto"  
-                                                         value="#{subProductoCT.subproducto.nombre}"/>   
-                                            <p:message for="formSubProd"/>
-
+                                                         value="#{subProductoCT.subproducto.nombre}"/>  
+                                         
                                             <h:inputTextarea  rows="3" class="form-control" style="width: 100%" required="true" requiredMessage="Ingrese descripcion del SubProducto"  
                                                               value="#{subProductoCT.subproducto.descripcion}" id="txtAreaDec" >
                                                 <f:passThroughAttribute name="placeholder" value="Descripcion del subproducto"/>
@@ -55,6 +53,10 @@
                                                     <f:selectItems value="#{productoCT.productos}" var="producto" itemLabel="#{producto.nombre}" itemValue="#{producto.nombre}"/>
                                                 </h:selectOneMenu>
                                             </div>
+                                            
+                                            <b:inputText id="txtCosto" style="width: 100%" placeholder="Costo del servicio" 
+                                                         required="true" requiredMessage="Ingrese costo del servicio para esta prenda"  
+                                                         value="#{subProductoCT.costo.valor}"/>  
 
                                             <p:outputLabel value="#{subProductoCT.imagen}"/>
                                             <label class="">Seleccionar Imagen del Producto:</label>
@@ -62,10 +64,10 @@
                                         </h:panelGrid>
                                         <br/>
                                     </div>
-                                    <div class="box-footer">
+                                    <div class="box-footer" align="right">
                                         <h:panelGrid columns="2">
                                             <p:commandButton id="SubProdCancelar"  process="@this" 
-                                                             immediate="true" class="btn btn-primary" 
+                                                             immediate="true" class="btn btn-danger" 
                                                              update=":formSubProd :formListSubProduc "
                                                              action="#{subProductoCT.cancelar()}"
                                                              value="Cancelar"/>
@@ -73,7 +75,7 @@
                                             <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" 
                                                              update=":formSubProd :formListSubProduc " 
                                                              action="#{subProductoCT.metodo()}"  value="#{subProductoCT.nombreOperacion}"
-                                                             class="btn btn-success"  type="submit" ajax="false"/>                                       
+                                                             class="btn btn-info"  type="submit" ajax="false"/>                                       
                                         </h:panelGrid>
                                         <script type="text/javascript">
                                             function start() {

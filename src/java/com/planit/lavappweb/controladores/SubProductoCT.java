@@ -6,10 +6,13 @@
 package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.metodos.Upload;
+import com.planit.lavappweb.modelos.Costo_TO;
 import com.planit.lavappweb.modelos.SubProductoCosto_TO;
 import com.planit.lavappweb.modelos.SubProducto_TO;
+import com.planit.lavappweb.webservices.implementaciones.ServiciosCosto;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosProducto;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosSubProductos;
+import com.planit.lavappweb.webservices.implementaciones.ServiciosZona;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -31,9 +34,13 @@ public class SubProductoCT implements Serializable {
     private List<SubProducto_TO> subproductos;
     private List<SubProducto_TO> subProductosClasificados;
     private List<SubProductoCosto_TO> subProductosConCosto;
-    protected ServiciosSubProductos serviciosSubProducto;
+
+    private Costo_TO costo;
     private UploadedFile file;
     protected Upload ControladorArchivos;
+
+    protected ServiciosSubProductos serviciosSubProducto;
+    protected ServiciosCosto serviciosCosto;
     //Variables    
     private String nombreOperacion;
     protected int operacion;
@@ -42,9 +49,15 @@ public class SubProductoCT implements Serializable {
     public SubProductoCT() {
         subproducto = new SubProducto_TO();
         subproductos = new ArrayList<>();
+
         serviciosSubProducto = new ServiciosSubProductos();
-        subProductosClasificados = new ArrayList<>();
         subProductosConCosto = new ArrayList<>();
+
+        serviciosCosto = new ServiciosCosto();
+        subProductosClasificados = new ArrayList<>();
+
+        costo = new Costo_TO();
+
         imagen = "";
         operacion = 0;
         nombreOperacion = "Registrar";
@@ -54,7 +67,6 @@ public class SubProductoCT implements Serializable {
     @PostConstruct
     public void init() {
         subproductos = serviciosSubProducto.consultarSubProductos();
-        
     }
 
     //Getter & Setter
@@ -96,7 +108,7 @@ public class SubProductoCT implements Serializable {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
-    }   
+    }
 
     public List<SubProducto_TO> getSubProductosClasificados() {
         return subProductosClasificados;
@@ -113,16 +125,25 @@ public class SubProductoCT implements Serializable {
     public void setSubProductosConCosto(List<SubProductoCosto_TO> subProductosConCosto) {
         this.subProductosConCosto = subProductosConCosto;
     }
-       
-    
-    
-    
+
+    public Costo_TO getCosto() {
+        return costo;
+    }
+
+    public void setCosto(Costo_TO costo) {
+        this.costo = costo;
+    }
 
     //Metodos
     public void registrar() {
         ServiciosProducto sp = new ServiciosProducto();
+        ServiciosZona sz = new ServiciosZona();
+
         subproducto.setProducto(sp.consultarProducto(subproducto.getProducto().getIdProducto(), subproducto.getProducto().getNombre()));
-        subproducto = serviciosSubProducto.registrarSubproducto(subproducto.getNombre(), subproducto.getDescripcion(), subproducto.getProducto().getIdProducto(), subproducto.getRutaImagen());
+        serviciosSubProducto.registrarSubproducto(subproducto.getNombre(), subproducto.getDescripcion(), subproducto.getProducto().getIdProducto(), subproducto.getRutaImagen());
+        costo.setSubProducto((SubProducto_TO) serviciosSubProducto.consultarSubProducto(subproducto.getIdSubProducto(), subproducto.getNombre()));
+        costo = serviciosCosto.RegistrarCosto(costo.getValor(), costo.getSubProducto().getIdSubProducto(), sz.consultarZona(0, "Zona General").getIdZona());
+        subproducto = new SubProducto_TO();
         subproductos = serviciosSubProducto.consultarSubProductos();
     }
 
@@ -134,11 +155,13 @@ public class SubProductoCT implements Serializable {
     }
 
     public void eliminar() {
+        costo = serviciosCosto.consultarCostoSubProducto(subproducto.getIdSubProducto());
+        costo = serviciosCosto.eliminarCosto(operacion);
         subproducto = serviciosSubProducto.eliminarSubProducto(subproducto.getIdSubProducto());
         subproductos = serviciosSubProducto.consultarSubProductos();
     }
-    
-    public void consultarProductosSegunProducto(int idProducto){
+
+    public void consultarProductosSegunProducto(int idProducto) {
         subProductosClasificados = new ArrayList<>();
         subProductosClasificados = serviciosSubProducto.consultarSubProductosSegunProducto(idProducto);
         subProductosConCosto = serviciosSubProducto.consultarSubProductosConCostoSegunProducto(idProducto);
@@ -146,7 +169,7 @@ public class SubProductoCT implements Serializable {
 
     //Metodos Propios
     public void metodo() throws IOException {
-         if (operacion == 0) {
+        if (operacion == 0) {
             if (!file.getFileName().isEmpty()) {
                 uploadFoto();
             }
@@ -154,7 +177,7 @@ public class SubProductoCT implements Serializable {
         } else if (operacion == 1) {
             if (!file.getFileName().isEmpty()) {
                 uploadFoto();
-            }            
+            }
             modificar();
             //Reiniciamos banderas
             nombreOperacion = "Registrar";
@@ -166,11 +189,12 @@ public class SubProductoCT implements Serializable {
 
     public void seleccionarCRUD(int i) {
         operacion = i;
-        if (operacion == 1) {
+        if (operacion == 1) {  
+            costo = serviciosCosto.consultarCostoSubProducto(subproducto.getIdSubProducto());
             nombreOperacion = "Modificar";
-            if(subproducto.getRutaImagen() != null){
+            if (subproducto.getRutaImagen() != null) {
                 imagen = "El producto ya tiene imagen asignada";
-            }else{
+            } else {
                 imagen = "El producto no tiene imagen asignada";
             }
         }
@@ -184,8 +208,9 @@ public class SubProductoCT implements Serializable {
         nombreOperacion = "Registrar";
         imagen = "";
         file = null;
+        costo = new Costo_TO();
     }
-    
+
     public void uploadFoto() throws IOException {
         try {
             String destino;

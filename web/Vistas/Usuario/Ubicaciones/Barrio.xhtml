@@ -9,17 +9,16 @@
 
     <ui:composition template="./../adminTemplate.xhtml">
         <ui:define name="content">
-s            <!--        ================================================================
-                        NUEVA PLANTILLA
-                        ================================================================-->
+            <!--        ================================================================
+                           NUEVA PLANTILLA
+                           ================================================================-->
 
             <b:container fluid="true">
                 <b:row>
                     <b:column col-lg="12">
                         <div>
-                            <h3>Barrios <small> localizacion y nombre de los barrios por Ciudad.</small></h3>                            
+                            <h3>BARRIOS<small> localizacion y nombre de los barrios por Ciudad.</small></h3>                            
                         </div>
-
                     </b:column>
 
                     <h:form id="formularioRegistro" enctype="multipart/form-data" >                         
@@ -28,46 +27,48 @@ s            <!--        =======================================================
                         </b:column>
 
                         <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
-                            <div class="box box-info">
+                            <div class="box box-success">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-globe"/>
                                     <h4 class="box-title">Datos del Barrio</h4>
                                 </div> 
                                 <div class="box-body">
                                     <div class="table-responsive">
-                                        <h:panelGrid id="SubProductos" columns="1" style="width: 100%">  
-
-                                            <b:inputText id="txtNombreSubProd" placeholder="Nombre del Barrio..." 
+                                        <h:panelGrid id="SubProductos" columns="1" style="width: 100%"> 
+                                            <b:inputText style="width: 100%" id="txtNombreSubProd" placeholder="Nombre del Barrio..." 
                                                          required="true" requiredMessage="Ingrese nombre del Barrio"  
-                                                         value="#{barrioCT.barrio.nombre}" span="12" />    <br/>
+                                                         value="#{barrioCT.barrio.nombre}"/>    
+                                            <p:message for="formularioRegistro"/>                                                                                   
 
-                                            <p:message for="formularioRegistro"/>
+                                            <div class="form-group">
+                                                <p:outputLabel for="SMLocalidad" value="Localidad" class="control-label"/>
+                                                <h:selectOneMenu class="form-control" id="SMLocalidad" value="#{barrioCT.barrio.localidad.nombre}" style="width: 100%" required="true" >
+                                                    <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{localidadCT.localidades}" var="localidad" itemLabel="#{localidad.nombre}" itemValue="#{localidad.nombre}"/>
+                                                </h:selectOneMenu>
+                                            </div>
 
-                                            <h:inputTextarea rows="3" style="width: 100%"
-                                                             required="true" requiredMessage="Ingrese descripcion del SubProducto"  
-                                                             value="#{subProductoCT.subproducto.descripcion}" id="txtAreaDec" />  <br/>
+                                            <div class="form-group">
+                                                <p:outputLabel for="SMEstrato" value="Estrato" class="control-label"/>
+                                                <h:selectOneMenu class="form-control" id="SMEstrato" value="#{barrioCT.barrio.estrato.nombre}" style="width: 100%" required="true" >
+                                                    <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{estratoCT.estratos}" var="Estrato" itemLabel="#{Estrato.nombre}" itemValue="#{Estrato.nombre}"/>
+                                                </h:selectOneMenu>
+                                            </div>
 
-                                            <b:selectOneMenu id="SMLocalidad" value="#{barrioCT.barrio.localidad.nombre}" style="width: 100%" required="true" >
-                                                <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
-                                                <f:selectItems value="#{localidadCT.localidades}" var="localidad" itemLabel="#{localidad.nombre}" itemValue="#{localidad.nombre}"/>
-                                            </b:selectOneMenu>
-
-                                            <b:selectOneMenu id="SMEstrato" value="#{barrioCT.barrio.estrato.nombre}" style="width: 100%" required="true" >
-                                                <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
-                                                <f:selectItems value="#{estratoCT.estratos}" var="Estrato" itemLabel="#{Estrato.nombre}" itemValue="#{Estrato.nombre}"/>
-                                            </b:selectOneMenu>
-
-                                            <b:selectOneMenu id="SMZona" value="#{barrioCT.barrio.zona.nombre}" style="width: 100%" required="true" >
-                                                <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
-                                                <f:selectItems value="#{zonaCT.zonas}" var="zona" itemLabel="#{zona.nombre}" itemValue="#{zona.nombre}"/>
-                                            </b:selectOneMenu>
-
+                                            <div class="form-group">
+                                                <p:outputLabel for="SMZona" value="Zona" class="control-label"/>
+                                                <h:selectOneMenu class="form-control" id="SMZona" value="#{barrioCT.barrio.zona.nombre}" style="width: 100%" required="true" >
+                                                    <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{zonaCT.zonas}" var="zona" itemLabel="#{zona.nombre}" itemValue="#{zona.nombre}"/>
+                                                </h:selectOneMenu>
+                                            </div>
                                         </h:panelGrid>
                                     </div>
-                                    <div class="box box-footer">
-                                        <h:panelGrid width="100%" columns="2">
+                                    <div class="box-footer" align="right">
+                                        <h:panelGrid columns="2">
                                             <p:commandButton id="BarrCancelar"  process="@this" 
-                                                             immediate="true" class="btn btn-primary" 
+                                                             immediate="true" class="btn btn-danger" 
                                                              update=":formularioRegistro :formularioListaBarrios"
                                                              action="#{barrioCT.cancelar()}"
                                                              value="Cancelar" />
@@ -75,7 +76,7 @@ s            <!--        =======================================================
                                             <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" 
                                                              update=":formularioRegistro :formularioListaBarrios"
                                                              action="#{barrioCT.metodo()}" value="#{barrioCT.nombreOperacion}"
-                                                             class="btn btn-success"  type="submit"/>                                       
+                                                             class="btn btn-info"  type="submit"/>                                       
                                         </h:panelGrid>
                                         <script type="text/javascript">
                                             function start() {
@@ -103,8 +104,8 @@ s            <!--        =======================================================
                                     <h4 class="box-title">Lista de Productos</h4>
                                 </div> 
                                 <div class="box-body">
-                                    <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText><br/>
-                                    <div class="ln_solid"></div>
+                                    <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
+                                    <hr/>
                                     <p:dataTable style="width: 100%" var="barrio" value="#{barrioCT.barrios}" class="table-responsive table table-striped" rows="10"
                                                  paginator="true"
                                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"

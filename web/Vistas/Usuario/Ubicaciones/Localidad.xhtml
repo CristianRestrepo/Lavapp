@@ -10,20 +10,14 @@
 
     <ui:composition template="./../adminTemplate.xhtml">
         <ui:define name="content">
-
-
             <!--        ================================================================
                         NUEVA PLANTILLA
                         ================================================================-->
-
-
-
-
             <b:container fluid="true">
                 <b:row>
                     <b:column col-lg="12">
                         <div>
-                            <h3>Localidades <small> Localidades de la Ciudad.</small></h3>                            
+                            <h3>LOCALIDADES <small> Localidades de la Ciudad.</small></h3>                            
                         </div>
 
                     </b:column>
@@ -34,7 +28,7 @@
                         </b:column>
 
                         <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
-                            <div class="box box-info">
+                            <div class="box box-success">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-globe"/>
                                     <h4 class="box-title">Datos de la Localidad</h4>
@@ -43,23 +37,24 @@
                                     <div class="table-responsive">
                                         <h:panelGrid id="SubProductos" columns="1" style="width: 100%">  
 
-                                            <b:inputText id="txtNombreDepartamento" placeholder="Nombre de la Localidad..." 
+                                            <b:inputText style="width: 100%" id="txtNombreDepartamento" placeholder="Nombre de la Localidad..." 
                                                          required="true" requiredMessage="Ingrese nombre de la Localidad"  
-                                                         value="#{localidadCT.localidad.nombre}" span="12" />    <br/>
-
+                                                         value="#{localidadCT.localidad.nombre}"/>
                                             <p:message for="formularioRegistro"/>
 
-                                            <b:selectOneMenu id="SMLocalidad" value="#{localidadCT.localidad.ciudad.nombre}" style="width: 100%" required="true" >
-                                                <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
-                                                <f:selectItems value="#{ciudadCT.ciudades}" var="ciudad" itemLabel="#{ciudad.nombre}" itemValue="#{ciudad.nombre}"/>
-                                            </b:selectOneMenu>
-
+                                            <div class="form-group">
+                                                <p:outputLabel value="Localidad" for="SMLocalidad" class="control-label"/>
+                                                <h:selectOneMenu class="form-control" id="SMLocalidad" value="#{localidadCT.localidad.ciudad.nombre}" style="width: 100%" required="true" >
+                                                    <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{ciudadCT.ciudades}" var="ciudad" itemLabel="#{ciudad.nombre}" itemValue="#{ciudad.nombre}"/>
+                                                </h:selectOneMenu>
+                                            </div>
                                         </h:panelGrid>
                                     </div>
-                                    <div class="box box-footer">
-                                        <h:panelGrid width="100%" columns="2">
+                                    <div class="box-footer" align="right">
+                                        <h:panelGrid columns="2">
                                             <p:commandButton id="LocCancelar"  process="@this" 
-                                                             immediate="true" class="btn btn-primary" 
+                                                             immediate="true" class="btn btn-danger" 
                                                              update=":formularioRegistro :formularioListaLocalidades" 
                                                              action="#{localidadCT.cancelar()}" 
                                                              value="Cancelar" />
@@ -67,7 +62,7 @@
                                             <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" 
                                                              update=":formularioRegistro :formularioListaLocalidades:DTLocalidades" 
                                                              value="#{localidadCT.nombreOperacion}" action="#{localidadCT.metodo()}"
-                                                             class="btn btn-success"  type="submit" />                                       
+                                                             class="btn btn-info"  type="submit" />                                       
                                         </h:panelGrid>
                                         <script type="text/javascript">
                                             function start() {
@@ -80,7 +75,6 @@
                                         <p:dialog  modal="true" widgetVar="statusDialog" header="Cargando" draggable="false" closable="false" resizable="false">
                                             <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif" />
                                         </p:dialog>
-
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +90,7 @@
                                 </div> 
                                 <div class="box-body">
                                     <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
-                                    <div class="ln_solid"></div>
+                                    <hr/>
                                     <p:dataTable id="DTLocalidades" style="width: 100%" var="localidad" value="#{localidadCT.localidades}" class="table-responsive table table-striped" rows="10"
                                                  paginator="true"
                                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -123,7 +117,6 @@
                                             </p:commandLink>
                                         </p:column>
                                     </p:dataTable> 
-
                                 </div>                                   
                             </div>
                         </b:column>

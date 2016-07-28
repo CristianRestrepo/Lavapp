@@ -10,14 +10,9 @@
     <ui:composition template="./../adminTemplate.xhtml">
 
         <ui:define name="content">
-
-
-
             <!--        =============================================
                         NUEVO TEMPLATE
                         =============================================-->
-
-
             <b:container fluid="true">
                 <b:row>
                     <b:column col-lg="12">
@@ -33,7 +28,7 @@
                         </b:column>
 
                         <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
-                            <div class="box box-info">
+                            <div class="box box-success">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-globe"/>
                                     <h4 class="box-title">Datos del servicio</h4>
@@ -57,16 +52,16 @@
                                         </h:panelGrid>
                                     </div>
                                 </div>
-                                <div class="box-footer">
+                                <div class="box-footer" align="right">
                                     <h:panelGrid columns="2">
                                         <p:commandButton id="SCancelar"  process="@this" 
-                                                         immediate="true" class="btn btn-primary" 
+                                                         immediate="true" class="btn btn-danger" 
                                                          update=":formRegisSubServ :formListaSubServ"
                                                          action="#{subServicioCT.cancelar()}" 
                                                          value="Cancelar" />
 
                                         <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" 
-                                                         class="btn btn-success" 
+                                                         class="btn btn-info" 
                                                          action="#{subServicioCT.metodo()}"
                                                          type="submit"
                                                          update=":formRegisSubServ :formListaSubServ" 

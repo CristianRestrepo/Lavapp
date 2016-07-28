@@ -31,7 +31,7 @@
                         </b:column>
 
                         <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
-                            <div class="box box-info">
+                            <div class="box box-success">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-globe"/>
                                     <h4 class="box-title">Datos del Pais</h4>
@@ -40,18 +40,17 @@
                                     <div class="table-responsive">
                                         <h:panelGrid id="SubProductos" columns="1" style="width: 100%">  
 
-                                            <b:inputText id="txtNombrePais" placeholder="Nombre del Pais..." 
+                                            <b:inputText style="width: 100%" id="txtNombrePais" placeholder="Nombre del Pais..." 
                                                          required="true" requiredMessage="Ingrese nombre del Pais"  
-                                                         value="#{paisCT.pais.nombre}" span="12" />    <br/>
-
+                                                         value="#{paisCT.pais.nombre}"/>    <br/>
                                             <p:message for="formularioRegistro"/>
 
                                         </h:panelGrid>
                                     </div>
-                                    <div class="box box-footer">
-                                        <h:panelGrid width="100%" columns="2">
+                                    <div class="box-footer" align="right">
+                                        <h:panelGrid columns="2">
                                             <p:commandButton id="PaisCancelar"  process="@this" 
-                                                             immediate="true" class="btn btn-primary" 
+                                                             immediate="true" class="btn btn-danger" 
                                                              update=":formularioRegistro :formularioListaPaises"
                                                              action="#{paisCT.cancelar()}"
                                                              value="Cancelar" />
@@ -59,7 +58,7 @@
                                             <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" 
                                                              update=":formularioRegistro :formularioListaPaises:DTPaises"
                                                              action="#{paisCT.metodo()}" value="#{paisCT.nombreOperacion}"
-                                                             class="btn btn-success"  type="submit" />                                       
+                                                             class="btn btn-info"  type="submit" />                                       
                                         </h:panelGrid>
                                         <script type="text/javascript">
                                             function start() {

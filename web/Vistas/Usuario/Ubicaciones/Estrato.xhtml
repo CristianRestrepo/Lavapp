@@ -20,7 +20,7 @@
                 <b:row>
                     <b:column col-lg="12">
                         <div>
-                            <h3>Estratos LavApp <small> Estratos de la ciudad.</small></h3>                            
+                            <h3>ESTRATOS <small> Estratos de la ciudad.</small></h3>                            
                         </div>
 
                     </b:column>
@@ -30,7 +30,7 @@
                             <p:messages id="messages" closable="true"/>
                         </b:column>
                         <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
-                            <div class="box box-info">
+                            <div class="box box-success">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-globe"/>
                                     <h4 class="box-title">Datos del Estrato</h4>
@@ -38,26 +38,24 @@
                                 <div class="box-body">
                                     <div class="table-responsive">
                                         <h:panelGrid id="Productos" columns="1" style="width: 100%">                                          
-                                            <b:inputText id="txtNombreEst" placeholder="Nombre del Estrato..." 
+                                            <b:inputText style="width: 100%" id="txtNombreEst" placeholder="Nombre del Estrato..." 
                                                          required="true" requiredMessage="Ingrese nombre del Estrato"  
-                                                         value="#{estratoCT.estrato.nombre}" span="12" />    <br/>
-
+                                                         value="#{estratoCT.estrato.nombre}"/>
                                             <p:message for="formularioRegistro"/>
-
                                         </h:panelGrid>
                                     </div>
-                                    <div class="box box-footer">
-                                        <h:panelGrid width="100%" columns="2">
+                                    <div class="box-footer" align="right">
+                                        <h:panelGrid columns="2">
                                             <p:commandButton id="EstCancelar"  process="@this" 
-                                                             immediate="true" class="btn btn-primary" 
+                                                             immediate="true" class="btn btn-danger" 
                                                              update=":formularioRegistro :formularioListaEstratos" 
                                                              action="#{estratoCT.cancelar()}"
-                                                             value="Cancelar" ajax="false"/>
+                                                             value="Cancelar"/>
 
                                             <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" 
                                                              update=":formularioRegistro :formularioListaEstratos:DTEstratos" 
                                                              action="#{estratoCT.metodo()}" value="#{estratoCT.nombreOperacion}" 
-                                                             class="btn btn-success"  type="submit"/>                                       
+                                                             class="btn btn-info"  type="submit"/>                                       
                                         </h:panelGrid>
                                         <script type="text/javascript">
                                             function start() {
@@ -70,7 +68,6 @@
                                         <p:dialog  modal="true" widgetVar="statusDialog" header="Cargando" draggable="false" closable="false" resizable="false">
                                             <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif"/>
                                         </p:dialog>
-
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +83,7 @@
                                 </div> 
                                 <div class="box-body">
                                     <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
-                                    <div class="ln_solid"></div>
+                                    <hr/>
                                     <p:dataTable id="DTEstratos" style="width: 100%" var="estrato" value="#{estratoCT.estratos}" class="table-responsive table table-striped" rows="10"
                                                  paginator="true"
                                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -109,7 +106,6 @@
                                             </p:commandLink>
                                         </p:column>
                                     </p:dataTable>
-
                                 </div>                                   
                             </div>
                         </b:column>

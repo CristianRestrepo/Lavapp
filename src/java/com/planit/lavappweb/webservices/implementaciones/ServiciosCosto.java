@@ -7,6 +7,7 @@ package com.planit.lavappweb.webservices.implementaciones;
 
 import com.planit.lavappweb.modelos.Costo_TO;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarCosto;
+import com.planit.lavappweb.webservices.clientes.ClienteConsultarCostoSubProducto;
 import com.planit.lavappweb.webservices.clientes.ClienteEditarCosto;
 import com.planit.lavappweb.webservices.clientes.ClienteEliminarCosto;
 import com.planit.lavappweb.webservices.clientes.ClienteRegistrarCosto;
@@ -20,6 +21,11 @@ public class ServiciosCosto {
     public Costo_TO consultarCosto(int idCosto){
         ClienteConsultarCosto cliente = new ClienteConsultarCosto();
         return cliente.consultarCosto(Costo_TO.class, "" + idCosto);
+    }
+    
+    public Costo_TO consultarCostoSubProducto(int idSubProducto){
+        ClienteConsultarCostoSubProducto cliente = new ClienteConsultarCostoSubProducto();
+        return cliente.consultarCostoSubProducto(Costo_TO.class, "" + idSubProducto);
     }
     
     public Costo_TO RegistrarCosto(int valor, int idSubProducto, int idZona){
