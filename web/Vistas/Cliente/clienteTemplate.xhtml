@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -17,11 +18,7 @@
         <h:outputStylesheet name="./css/ef-hover.css"/>
         <h:outputStylesheet name="./css/responsive.css"/>        
 
-
-
-
-
-        <title>Facelets Template</title>
+        <title>Pedido LavaApp</title>
     </h:head>
 
     <h:body>
@@ -44,29 +41,37 @@
                                     </button>
                                     <!--  <h1><a class="nav-brand" href="">GRAPE</a></h1> -->
                                     <div class="img-logo">
-                                        <img src="assets/images/logo/logolavap-menu.png" alt="logo menu" class="img-responsive"/>
+                                        <img src="../../../resources/images//logo-LavaApp-Final.png" alt="logo menu" class="img-responsive"/>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-7">
+                            <div class="col-sm-6 col-md-º6">
                                 <!-- Collect the nav toggling -->
                                 <div class="collapse navbar-collapse navbar-example pos-menu" id="bs-example-navbar-collapse-1">
                                     <ul class="nav navbar-nav">
-                                        <li><a href="#intro">Prendas</a></li>
-                                        <li><a href="#feature">Pedidos</a></li>
+                                        <li><a href="#intro">Pagina Web LavaApp</a></li>
+                                        <li><a href="#nosotros">Nosotros</a></li>
+                                        <li><a href="#feature">Contàctenos</a></li>
                                         <!-- <li><a href="#screenshot">Screenshots</a></li> -->
-                                        <li><a href="#description">Ubicación</a></li>
+<!--                                        <li><a href="#description">Ubicación</a></li>
                                         <li><a href="#download">Descargar</a></li>
-                                        <li><a href="#contact">Contáctenos</a></li>
+                                        <li><a href="#contact">Contáctenos</a></li>-->
                                     </ul>             
                                 </div><!-- /.navbar-collapse -->
                             </div>
-                            <div class="col-sm-4  col-md-3 mob-right">
+                            <div class="col-sm-4  col-md-4 mob-right">
                                 <ul class="app pull-right">
                                     <li style="margin-top: 7px;">
-                                        <a href="" class="btn-pedido btn-primary" ><i style="font-size: 18px ; margin-right: 11px;" class="fa fa-2 fa-desktop"></i>Pedido Aquí</a></li>
+                                        <p:commandLink class="btn-pedido btn-primary">
+                                            <i style="font-size: 18px ; margin-right: 11px;" class="fa fa-2 fa-desktop"/>Login                                          
+                                        </p:commandLink>
+                                    </li>
 
-                                    <li><a id="ico-android" href=""><i id="rem-ico" style="font-size: 33px " class="fa fa-android" ></i></a></li>
+                                    <li style="margin-top: 7px;">
+                                        <p:commandLink class="btn-pedido btn-primary">
+                                            <i style="font-size: 18px ; margin-right: 11px;" class="fa fa-2 fa-check-square"/>Estado Pedido                                          
+                                        </p:commandLink>
+                                    </li>
 
                                 </ul>
                             </div>
