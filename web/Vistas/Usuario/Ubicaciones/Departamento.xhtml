@@ -15,7 +15,7 @@
                 <b:row>
                     <b:column col-lg="12">
                         <div>
-                            <h3>Barrios <small> localizacion y nombre de los barrios por Ciudad.</small></h3>                            
+                            <h3>DEPARTAMENTOS <small> Departamentos donde funcionara el sistema.</small></h3>                            
                         </div>
 
                     </b:column>
@@ -29,27 +29,28 @@
                             <div class="box box-info">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-globe"/>
-                                    <h4 class="box-title">Datos del Barrio</h4>
+                                    <h4 class="box-title">Datos del departamento</h4>
                                 </div> 
                                 <div class="box-body">
                                     <div class="table-responsive">
                                         <h:panelGrid id="SubProductos" columns="1" style="width: 100%">  
 
-                                            <b:inputText id="txtNombreDepartamento" placeholder="Nombre del Departamento..." 
+                                            <b:inputText style="width: 100%" id="txtNombreDepartamento" placeholder="Nombre del Departamento" 
                                                          required="true" requiredMessage="Ingrese nombre del Departamento"  
-                                                         value="#{departamentoCT.departamento.nombre}" span="12" />    <br/>
-
+                                                         value="#{departamentoCT.departamento.nombre}"/>
                                             <p:message for="formularioRegistro"/>
-                                        
-                                            <b:selectOneMenu id="SMLocalidad" value="#{departamentoCT.departamento.pais.nombre}" style="width: 100%" required="true" >
-                                                <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
-                                                <f:selectItems value="#{paisCT.paises}" var="pais" itemLabel="#{pais.nombre}" itemValue="#{pais.nombre}"/> 
-                                            </b:selectOneMenu>
 
-                                        </h:panelGrid>
+                                            <div class="form-group">
+                                                <p:outputLabel class="control-label" value="Departamento" for="SMPais"/>
+                                                    <h:selectOneMenu class="form-control" id="SMPais" value="#{departamentoCT.departamento.pais.nombre}" style="width: 100%" required="true">
+                                                    <f:selectItem itemLabel="Seleccione departamento" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{paisCT.paises}" var="pais" itemLabel="#{pais.nombre}" itemValue="#{pais.nombre}"/> 
+                                                </h:selectOneMenu>
+                                            </div>
+                                        </h:panelGrid>                                        
                                     </div>
-                                    <div class="box box-footer">
-                                        <h:panelGrid width="100%" columns="2">
+                                    <div class="box-footer">
+                                        <h:panelGrid columns="2">
                                             <p:commandButton id="DeptCancelar"  process="@this" 
                                                              immediate="true" class="btn btn-primary" 
                                                              update=":formularioRegistro :formularioListaDepartamentos"
@@ -70,9 +71,8 @@
                                             }
                                         </script>
                                         <p:dialog  modal="true" widgetVar="statusDialog" header="Cargando" draggable="false" closable="false" resizable="false">
-                                            <p:graphicImage width="100%" class="progress-bar-aqua" />
+                                            <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif" />
                                         </p:dialog>
-
                                     </div>
                                 </div>
                             </div>
@@ -88,7 +88,7 @@
                                 </div> 
                                 <div class="box-body">
                                     <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
-                                    <div class="ln_solid"></div>
+                                    <hr/>
                                     <p:dataTable id="DTDepartamentos" style="width: 100%" var="departamento" value="#{departamentoCT.departamentos}" class="table-responsive table table-striped" rows="10"
                                                  paginator="true"
                                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"

@@ -117,7 +117,7 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>CerrarSesopmAdmin</from-outcome>
+            <from-outcome>Login</from-outcome>
             <to-view-id>/login.xhtml</to-view-id>
             <redirect/>
         </navigation-case>

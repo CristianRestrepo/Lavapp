@@ -11,17 +11,14 @@
     <ui:composition template="./../adminTemplate.xhtml">
 
         <ui:define name="content">
-
-           
-<!--        ====================================================================
-            NUEVA PLANTILLA 
-            ====================================================================-->
-
+            <!--        ====================================================================
+                        NUEVA PLANTILLA 
+                        ====================================================================-->
             <b:container fluid="true">
                 <b:row>
                     <b:column col-lg="12">
                         <div>
-                            <h3>SubProductos LavApp <small> Subproductos de lavanderia a domicilio.</small></h3>                            
+                            <h3>SUBPRODUCTOS <small> Subproductos de lavanderia a domicilio.</small></h3>                            
                         </div>
 
                     </b:column>
@@ -41,35 +38,37 @@
                                     <div class="table-responsive">
                                         <h:panelGrid id="SubProductos" columns="1" style="width: 100%">  
 
-                                            <b:inputText id="txtNombreSubProd" placeholder="Nombre del SubProducto..." 
+                                            <b:inputText id="txtNombreSubProd" style="width: 100%" placeholder="Nombre del SubProducto..." 
                                                          required="true" requiredMessage="Ingrese nombre del SubProducto"  
-                                                         value="#{subProductoCT.subproducto.nombre}" span="12" />    <br/>
-
+                                                         value="#{subProductoCT.subproducto.nombre}"/>   
                                             <p:message for="formSubProd"/>
 
-                                            <b:inputTextarea  placeholder="Descripcion del SubProducto..." rows="3"
-                                                              required="true" requiredMessage="Ingrese descripcion del SubProducto"  
-                                                              value="#{subProductoCT.subproducto.descripcion}" id="txtAreaDec" />  <br/>
+                                            <h:inputTextarea  rows="3" class="form-control" style="width: 100%" required="true" requiredMessage="Ingrese descripcion del SubProducto"  
+                                                              value="#{subProductoCT.subproducto.descripcion}" id="txtAreaDec" >
+                                                <f:passThroughAttribute name="placeholder" value="Descripcion del subproducto"/>
+                                            </h:inputTextarea>
 
-                                            <b:selectOneMenu id="SMProductos" value="#{subProductoCT.subproducto.producto.nombre}" style="width: 100%" required="true" >
-                                                <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
-                                                <f:selectItems value="#{productoCT.productos}" var="producto" itemLabel="#{producto.nombre}" itemValue="#{producto.nombre}"/>
-                                            </b:selectOneMenu>
+                                            <div class="form-group">
+                                                <p:outputLabel for="SMProductos" class="control-label" value="Categoria"/>
+                                                <h:selectOneMenu class="form-control" id="SMProductos" value="#{subProductoCT.subproducto.producto.nombre}" style="width: 100%" required="true" >
+                                                    <f:selectItem itemLabel="Seleccione Categoria" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{productoCT.productos}" var="producto" itemLabel="#{producto.nombre}" itemValue="#{producto.nombre}"/>
+                                                </h:selectOneMenu>
+                                            </div>
 
-
-                                            <label class="">Seleccionar Imagen del Producto:</label><br/>
-
-                                            <p:fileUpload id="SArchivo" value="#{subProductoCT.file}" mode="simple" label="Seleccione archivo" skinSimple="true"/>
-
+                                            <p:outputLabel value="#{subProductoCT.imagen}"/>
+                                            <label class="">Seleccionar Imagen del Producto:</label>
+                                            <p:fileUpload id="SArchivo" value="#{subProductoCT.file}" mode="simple" label="Seleccione archivo"/>
                                         </h:panelGrid>
+                                        <br/>
                                     </div>
-                                    <div class="box box-footer">
-                                        <h:panelGrid width="100%" columns="2">
+                                    <div class="box-footer">
+                                        <h:panelGrid columns="2">
                                             <p:commandButton id="SubProdCancelar"  process="@this" 
                                                              immediate="true" class="btn btn-primary" 
                                                              update=":formSubProd :formListSubProduc "
                                                              action="#{subProductoCT.cancelar()}"
-                                                             value="Cancelar" ajax="false"/>
+                                                             value="Cancelar"/>
 
                                             <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" 
                                                              update=":formSubProd :formListSubProduc " 
@@ -85,9 +84,8 @@
                                             }
                                         </script>
                                         <p:dialog  modal="true" widgetVar="statusDialog" header="Cargando" draggable="false" closable="false" resizable="false">
-                                            <p:graphicImage width="100%" class="progress-bar-aqua" />
+                                            <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif"/>
                                         </p:dialog>
-
                                     </div>
                                 </div>
                             </div>
@@ -103,8 +101,11 @@
                                 </div> 
                                 <div class="box-body">
                                     <b:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></b:inputText>
-                                    <div class="ln_solid"></div>
-                                    <p:dataTable id="DTSubProductos" var="subProd" value="#{subProductoCT.subproductos}" class="table-responsive table table-striped">
+                                    <hr/>
+                                    <p:dataTable id="DTSubProductos" var="subProd" value="#{subProductoCT.subproductos}" class="table-responsive table table-striped" rows="10"
+                                                 paginator="true"
+                                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15">
                                         <p:column headerText="Nombre">
                                             <p:outputLabel value="#{subProd.nombre}"/>                                               
                                         </p:column>
@@ -136,10 +137,6 @@
                             </div>
                         </b:column>
                     </h:form>
-
-
-
-
                 </b:row>
             </b:container>
         </ui:define>

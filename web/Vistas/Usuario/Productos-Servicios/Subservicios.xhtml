@@ -11,18 +11,18 @@
 
         <ui:define name="content">
 
-            
 
-<!--        =============================================
-            NUEVO TEMPLATE
-            =============================================-->
+
+            <!--        =============================================
+                        NUEVO TEMPLATE
+                        =============================================-->
 
 
             <b:container fluid="true">
                 <b:row>
                     <b:column col-lg="12">
                         <div>
-                            <h3>SubServicios LavApp <small> Subservicios de lavanderia a domicilio.</small></h3>                            
+                            <h3>SUBSERVICIOS <small> Subservicios de lavanderia a domicilio.</small></h3>                            
                         </div>
 
                     </b:column>
@@ -41,20 +41,24 @@
                                 <div class="box-body">
                                     <div class="table-responsive">
                                         <h:panelGrid id="PPais" columns="1" style="width: 100%">                                          
-                                            <b:inputText id="txtNombreSubServicio" placeholder="nombre del Subservicio..." 
+                                            <b:inputText id="txtNombreSubServicio" style="width: 100% " placeholder="Nombre del Subservicio..." 
                                                          required="true" requiredMessage="Ingrese nombre del Subservicio"  
-                                                         value="#{subServicioCT.subServicio.nombre}" span="12" />  
+                                                         value="#{subServicioCT.subServicio.nombre}" />  
 
-                                            <b:selectOneMenu id="DTSubServ" value="#{subServicioCT.subServicio.servicio.nombre}">
-                                                <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
-                                                <f:selectItems value="#{servicioCT.servicios}" var="servicio" itemLabel="#{servicio.nombre}" itemValue="#{servicio.nombre}"/>
-                                            </b:selectOneMenu>
-
+                                            <div class="form-group">
+                                                <h:outputLabel class="control-label" for="DTSubServ" value="Categoria del subservicio*"/>
+                                                <b:selectOneMenu id="DTSubServ" value="#{subServicioCT.subServicio.servicio.nombre}">
+                                                    <f:selectItem itemLabel="Seleccione categoria" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{servicioCT.servicios}" var="servicio" itemLabel="#{servicio.nombre}" itemValue="#{servicio.nombre}"/>
+                                                </b:selectOneMenu>
+                                            </div>
 
                                             <p:message for="formRegisSubServ"/>
                                         </h:panelGrid>
                                     </div>
-                                    <h:panelGrid width="100%" columns="2">
+                                </div>
+                                <div class="box-footer">
+                                    <h:panelGrid columns="2">
                                         <p:commandButton id="SCancelar"  process="@this" 
                                                          immediate="true" class="btn btn-primary" 
                                                          update=":formRegisSubServ :formListaSubServ"
@@ -80,7 +84,7 @@
                                         <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif" />
                                     </p:dialog>
                                 </div>
-                            </div>
+                            </div>                            
                         </b:column>                        
                     </h:form>
 
@@ -93,7 +97,7 @@
                                 </div> 
                                 <div class="box-body">
                                     <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
-                                    <div class="ln_solid"></div>
+                                    <hr/>
                                     <p:dataTable id="DTSubServ" class="table-responsive table table-striped"
                                                  var="subServ" value="#{subServicioCT.subServicios}" rows="10"
                                                  paginator="true"

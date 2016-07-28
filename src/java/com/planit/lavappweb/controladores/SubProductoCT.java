@@ -168,7 +168,7 @@ public class SubProductoCT implements Serializable {
         operacion = i;
         if (operacion == 1) {
             nombreOperacion = "Modificar";
-            if(!subproducto.getRutaImagen().equalsIgnoreCase("null")){
+            if(subproducto.getRutaImagen() != null){
                 imagen = "El producto ya tiene imagen asignada";
             }else{
                 imagen = "El producto no tiene imagen asignada";

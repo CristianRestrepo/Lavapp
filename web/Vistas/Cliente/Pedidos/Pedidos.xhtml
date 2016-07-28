@@ -48,6 +48,7 @@
 
                 <!-- CONTENIDO -->
                 <h:form id="formularioContenido" target="#{pedidoCT.pedido}">
+                    <p:growl id="msg" life="2500"/>
                     <c:choose>
                         <c:when test="${pedidoCT.vista == 0}">
                             <div>
@@ -231,31 +232,31 @@
                                                             <p:outputLabel class="label-lv-2" style="font-size: larger" value="#{pedidoCT.pedido.fechaRecogida.toString()}" id="lfecharecogida"/>
 
                                                             <label class="label-lv" for="lfechaentrega">Fecha de Entrega</label>
-                                                            <p:outputLabel class="label-lv-2" style="font-size: larger" value="#{pedidoCT.pedido.fechaRecogida.toString()}" id="lfechaentrega"/>
+                                                            <p:outputLabel class="label-lv-2" style="font-size: larger" value="#{pedidoCT.pedido.fechaEntrega.toString()}" id="lfechaentrega"/>
 
                                                             <label class="label-lv" for="">Horaria de recogida</label>
                                                             <p:outputLabel class="label-lv-2" style="font-size: larger" value="#{pedidoCT.pedido.horaInicio.horario}"/>
 
                                                             <label class="label-lv" for="">Horaria de entrega</label>
-                                                            <p:outputLabel class="label-lv-2" style="font-size: larger" value="#{pedidoCT.pedido.horaInicio.horario}"/>
+                                                            <p:outputLabel class="label-lv-2" style="font-size: larger" value="#{pedidoCT.pedido.horaFinal.horario}"/>
 
                                                             <label class="label-lv" for="">Barrio de recogida</label>
                                                             <p:outputLabel class="label-lv-2" style="font-size: larger" value="#{pedidoCT.pedido.barrioRecogida.nombre}"/>
 
                                                             <label class="label-lv" for="">Barrio de entrega</label>
-                                                            <p:outputLabel class="label-lv-2" style="font-size: larger" value="#{pedidoCT.pedido.barrioRecogida.nombre}"/>
+                                                            <p:outputLabel class="label-lv-2" style="font-size: larger" value="#{pedidoCT.pedido.barrioEntrega.nombre}"/>
 
                                                             <label class="label-lv" for="">Dirección de recogida</label>
                                                             <p:outputLabel class="label-lv-2" style="font-size: larger" value="#{pedidoCT.pedido.direccionRecogida}"/>
 
                                                             <label class="label-lv" for="">Dirección de entrega</label>
-                                                            <p:outputLabel class="label-lv-2" style="font-size: larger" value="#{pedidoCT.pedido.direccionRecogida}"/>
+                                                            <p:outputLabel class="label-lv-2" style="font-size: larger" value="#{pedidoCT.pedido.direccionEntrega}"/>
 
                                                             <label for="" class="label-lv">Quien entrega?</label>
                                                             <p:outputLabel class="label-lv-2" style="font-size: larger" value="#{pedidoCT.pedido.quienEntrega}"/>
 
                                                             <label for="" class="label-lv">Quien recibe?</label>
-                                                            <p:outputLabel class="label-lv-2" style="font-size: larger" value="#{pedidoCT.pedido.quienEntrega}"/>
+                                                            <p:outputLabel class="label-lv-2" style="font-size: larger" value="#{pedidoCT.pedido.quienRecibe}"/>
 
                                                             <f:facet name="footer">
                                                                 <hr/>
@@ -275,161 +276,145 @@
                                     <div class="row"><!-- ROW PRINCIPAL -->
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  pos-form ">
                                             <div class="row">
-                                                <div class="col-xs-12 col-md-6"><!-- inicion / fin columnas -->
-                                                    <h:form>
-                                                        <div class="bcg-color-pagos">
-                                                            <div class="title title-lv wow fadeInRight animated ">
-                                                                <h2 class="txt-title-form">Detalles del Contacto</h2>							
-                                                            </div>
+                                                <div class="col-xs-12 col-md-6"><!-- inicion / fin columnas -->                                                   
+                                                    <div class="bcg-color-pagos">
+                                                        <div class="title title-lv wow fadeInRight animated ">
+                                                            <h2 class="txt-title-form">Detalles del Contacto</h2>							
+                                                        </div>
 
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label class="label-lv-2" for="">Nombres</label>
-                                                                        <input type="text" class="form-control input-lg input-lg-lv" placeholder="Pepito"/>
-                                                                        <span class="help-block color-grey"><em>* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi praesentium autem qui</em></span>	
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label class="label-lv-2" for="">Apellidos</label>
-                                                                        <input type="text" class="form-control input-lg input-lg-lv" placeholder=" Perez"/>
-                                                                        <span class="help-block color-grey"><em>* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi praesentium autem qui</em></span>	
-                                                                    </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="label-lv-2" for="">Nombres</label>
+                                                                    <input type="text" class="form-control input-lg input-lg-lv" placeholder="Nombres" value="#{pedidoCT.pedido.usuario.nombre}"></input>
+                                                                    <span class="help-block color-grey"><em>* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi praesentium autem qui</em></span>	
                                                                 </div>
                                                             </div>
-
-                                                            <div class="form-grup">
-                                                                <label for="" class="label-lv-2">Genero</label>
-                                                                <h:selectOneMenu class="input-lg form-control input-lg-lv">
-                                                                    <f:selectItem itemLabel="Genero" noSelectionOption="true"/>
-                                                                    <f:selectItem itemLabel="Masculino" itemValue="M" />
-                                                                    <f:selectItem itemLabel="Femenino"  itemValue="F"/>
-                                                                </h:selectOneMenu>
-                                                                <span class="help-block color-grey"><em>* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi praesentium autem qui</em></span>	
-                                                            </div>
-
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label class="label-lv-2" for="">Tu Teléfono</label>
-                                                                        <input type="text" class="input-lg form-control input-lg-lv" placeholder="123 45 67"/>
-                                                                        <span class="help-block color-grey"><em>* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi praesentium autem qui</em></span>							
-                                                                    </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="label-lv-2" for="">Apellidos</label>
+                                                                    <input type="text" class="form-control input-lg input-lg-lv" placeholder="Apellidos" value="#{pedidoCT.pedido.usuario.apellido}"/>
+                                                                    <span class="help-block color-grey"><em>* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi praesentium autem qui</em></span>	
                                                                 </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label class="label-lv-2" for="">Celular</label>
-                                                                        <input type="text" class="input-lg form-control input-lg-lv" placeholder="000 000 0000"/>
-                                                                        <span class="help-block color-grey"><em>* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi praesentium autem qui</em></span>							
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="form-grup">
-                                                                <label for="" class="label-lv-2">Tu Email</label>
-                                                                <input type="text" class="form-control input-lg input-lg-lv" placeholder="ejmplo@gmail.com"/>
-                                                                <span class="help-block color-grey"><em>* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi praesentium autem qui</em></span>	
-                                                            </div>
-
-                                                            <div class="form-grup">
-                                                                <label for="" class="label-lv-2">Tu Contraseña</label>
-                                                                <input type="pasword" class="form-control input-lg input-lg-lv" placeholder="ejmplo@gmail.com"/>
-                                                                <span class="help-block color-grey"><em>* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi praesentium autem qui</em></span>	
-                                                            </div>
-
-                                                            <div class="form-grup">
-                                                                <label for="" class="label-lv-2">Confirma la Contraseña</label>
-                                                                <input type="text" class="form-control input-lg input-lg-lv" placeholder="ejmplo@gmail.com"/>
-                                                                <span class="help-block color-grey"><em>* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi praesentium autem qui</em></span>	
                                                             </div>
                                                         </div>
-                                                    </h:form>
+
+                                                        <div class="form-grup">
+                                                            <label for="" class="label-lv-2">Genero</label>
+                                                            <h:selectOneMenu value="#{pedidoCT.pedido.usuario.genero}" class="input-lg form-control input-lg-lv">
+                                                                <f:selectItem itemLabel="Genero" noSelectionOption="true"/>
+                                                                <f:selectItem itemLabel="Masculino" itemValue="M" />
+                                                                <f:selectItem itemLabel="Femenino"  itemValue="F"/>
+                                                            </h:selectOneMenu>
+                                                            <span class="help-block color-grey"><em>* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi praesentium autem qui</em></span>	
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="label-lv-2" for="">Tu Teléfono</label>
+                                                                    <input type="text" class="input-lg form-control input-lg-lv" value="#{pedidoCT.pedido.usuario.telefono}" placeholder="Telefono"/>
+                                                                    <span class="help-block color-grey"><em>* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi praesentium autem qui</em></span>							
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label class="label-lv-2" for="">Celular</label>
+                                                                    <input type="text" class="input-lg form-control input-lg-lv" placeholder="Celular" value="#{pedidoCT.pedido.usuario.movil}"/>
+                                                                    <span class="help-block color-grey"><em>* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi praesentium autem qui</em></span>							
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-grup">
+                                                            <label for="" class="label-lv-2">Tu Email</label>
+                                                            <input type="text" class="form-control input-lg input-lg-lv" placeholder="Email" value="#{pedidoCT.pedido.usuario.email}"/>
+                                                            <span class="help-block color-grey"><em>* Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi praesentium autem qui</em></span>	
+                                                        </div>
+                                                    </div>                                                    
                                                 </div><!-- fin columnas -->
 
                                                 <div class="col-xs-12 col-md-6"><!-- inicion / fin columnas -->
-                                                    <h:form>
-                                                        <div class="bcg-color-pagos">						
-                                                            <div class="title title-lv wow fadeInRight animated ">
-                                                                <h2 class="txt-title-form">Detalles de Pago</h2>
-                                                                <span class="span-pad">
-                                                                    <img src="./assets/images/fanq/amex.svg" alt="" class="img-franq-1"/>
-                                                                    <img src="./assets/images/fanq/mastercard.svg" alt="" class="img-franq-2"/>
-                                                                    <img src="./assets/images/fanq/visa.svg" alt="" class="img-franq-3"/>
-                                                                </span>							
-                                                            </div>
 
-                                                            <button class="btn btn-primary"  type="button" data-toggle="collapse" data-target="#collapseVentana1" aria-expanded="false" aria-controls="collapseVentana1">	Pago con Tarjeta	
-                                                            </button>
-                                                            <button class="btn btn-primary"  type="button" data-toggle="collapse" data-target="#collapseVentana2" aria-expanded="false" aria-controls="collapseVentana2">Pago en Persona
-                                                            </button>
+                                                    <div class="bcg-color-pagos">						
+                                                        <div class="title title-lv wow fadeInRight animated ">
+                                                            <h2 class="txt-title-form">Detalles de Pago</h2>
+                                                            <span class="span-pad">
+                                                                <img src="./assets/images/fanq/amex.svg" alt="" class="img-franq-1"/>
+                                                                <img src="./assets/images/fanq/mastercard.svg" alt="" class="img-franq-2"/>
+                                                                <img src="./assets/images/fanq/visa.svg" alt="" class="img-franq-3"/>
+                                                            </span>							
+                                                        </div>
 
-                                                            <div class="collapse in" id="collapseVentana1">
-                                                                <form action="">
-                                                                    <div class="form-group">
-                                                                        <label class="label-lv-2" for="">Número de Tarjeta</label>
-                                                                        <input type="text" class="input-lg form-control input-lg-lv"/>
+                                                        <button class="btn btn-primary"  type="button" data-toggle="collapse" data-target="#collapseVentana1" aria-expanded="false" aria-controls="collapseVentana1">	Pago con Tarjeta	
+                                                        </button>
+                                                        <button class="btn btn-primary"  type="button" data-toggle="collapse" data-target="#collapseVentana2" aria-expanded="false" aria-controls="collapseVentana2">Pago en Persona
+                                                        </button>
 
-                                                                        <span class="help-block color-grey"><em>* inserte el numero de la tarjeta débito o crédito</em></span>		
+                                                        <div class="collapse in" id="collapseVentana1">
 
-                                                                        <label class="label-lv-2" >Fecha de Expiración</label>
-                                                                        <div class="row">
-                                                                            <div class="col-sm-12-col-xs-12">
+                                                            <div class="form-group">
+                                                                <label class="label-lv-2" for="">Número de Tarjeta</label>
+                                                                <input type="text" class="input-lg form-control input-lg-lv"/>
 
-                                                                                <div class="col-xs-4">													
-                                                                                    <input type="text" class="input-lg form-control input-lg-lv" placeholder="Año"/>
+                                                                <span class="help-block color-grey"><em>* inserte el numero de la tarjeta débito o crédito</em></span>		
 
-                                                                                    <span class="help-block color-grey"><em>* inserte el numero de la tarjeta débito o crédito</em></span>	
-                                                                                </div>
-                                                                                <div class="col-xs-4">													
-                                                                                    <input type="text" class="input-lg form-control input-lg-lv" placeholder="Mes"/>
+                                                                <label class="label-lv-2" >Fecha de Expiración</label>
+                                                                <div class="row">
+                                                                    <div class="col-sm-12-col-xs-12">
 
-                                                                                    <span class="help-block color-grey"><em>* inserte el numero de la tarjeta débito o crédito</em></span>	
-                                                                                </div>
-                                                                                <div class="col-xs-4">													
-                                                                                    <input type="text" class="input-lg form-control input-lg-lv" placeholder="Día"/>
+                                                                        <div class="col-xs-4">													
+                                                                            <input type="text" class="input-lg form-control input-lg-lv" placeholder="Año"/>
 
-                                                                                    <span class="help-block color-grey"><em>* inserte el numero de la tarjeta débito o crédito</em></span>	
-                                                                                </div>
+                                                                            <span class="help-block color-grey"><em>* inserte el numero de la tarjeta débito o crédito</em></span>	
+                                                                        </div>
+                                                                        <div class="col-xs-4">													
+                                                                            <input type="text" class="input-lg form-control input-lg-lv" placeholder="Mes"/>
 
-                                                                            </div>
+                                                                            <span class="help-block color-grey"><em>* inserte el numero de la tarjeta débito o crédito</em></span>	
+                                                                        </div>
+                                                                        <div class="col-xs-4">													
+                                                                            <input type="text" class="input-lg form-control input-lg-lv" placeholder="Día"/>
+
+                                                                            <span class="help-block color-grey"><em>* inserte el numero de la tarjeta débito o crédito</em></span>	
                                                                         </div>
 
-                                                                        <button class="btn btn-success active">
-                                                                            <i class="fa fa-credit-card" aria-hiden="true"></i> Pagar
-                                                                        </button>
                                                                     </div>
-                                                                </form>	
-                                                            </div>
+                                                                </div>
 
-                                                            <div class="collapse" id="collapseVentana2">
-                                                                <h4 class="title-pago-efc">Pago de servicio en la entrega de la ropa</h4>
-                                                                <p>el pago se hará al momento de entregar la ropa al asesor encargado de la zona segun la dirección del cliente.</p>
-
-                                                                <form action="">
-                                                                    <div class="form-group">
-                                                                        <div class="radio">
-                                                                            <label>                                                            
-                                                                                <input type="radio" name="optionsRadios" id="optionsRadios1"  value="" />
-                                                                                Pago en efectivo
-                                                                            </label>
-                                                                        </div>
-
-                                                                        <div class="radio">
-                                                                            <label>
-                                                                                <input type="radio" name="optionsRadios" id="optionsRadios2"  value=""/>
-                                                                                Pago con Datáfono
-                                                                            </label>
-                                                                        </div>
-
-                                                                        <button class="btn btn-success active">
-                                                                            <i class="fa fa-usd" aria-hiden="true"></i> Definir Pago
-                                                                        </button>
-                                                                    </div>
-                                                                </form>		
+                                                                <p:commandButton value="PAGAR" style="width: 150px" class="btn btn-success active">
+                                                                    <p:ajax event="click" listener="#{pedidoCT.registrarPedido()}" update=":formularioContenido numPrendas"/>
+                                                                </p:commandButton>                                                                
                                                             </div>
                                                         </div>
-                                                    </h:form>
+
+                                                        <div class="collapse" id="collapseVentana2">
+                                                            <h4 class="title-pago-efc">Pago de servicio en la entrega de la ropa</h4>
+                                                            <p>el pago se hará al momento de entregar la ropa al asesor encargado de la zona segun la dirección del cliente.</p>
+
+
+                                                            <div class="form-group">
+                                                                <div class="radio">
+                                                                    <label>                                                            
+                                                                        <input type="radio" name="optionsRadios" id="optionsRadios1"  value="" />
+                                                                        Pago en efectivo
+                                                                    </label>
+                                                                </div>
+
+                                                                <div class="radio">
+                                                                    <label>
+                                                                        <input type="radio" name="optionsRadios" id="optionsRadios2"  value=""/>
+                                                                        Pago con Datáfono
+                                                                    </label>
+                                                                </div>
+
+                                                                <button class="btn btn-success active">
+                                                                    <i class="fa fa-usd" aria-hiden="true"></i> Definir Pago
+                                                                </button>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>                                                   
                                                 </div><!-- fin columnas -->	
                                             </div>
                                         </div>

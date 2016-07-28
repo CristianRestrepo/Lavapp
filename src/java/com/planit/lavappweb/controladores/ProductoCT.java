@@ -157,7 +157,7 @@ public class ProductoCT {
         operacion = i;
         if (operacion == 1) {
             nombreOperacion = "Modificar";
-            if(!producto.getRutaImagen().equalsIgnoreCase("null")){
+            if(producto.getRutaImagen() != null){
                 imagen = "El producto ya tiene imagen asignada";
             }else{
                 imagen = "El producto no tiene imagen asignada";

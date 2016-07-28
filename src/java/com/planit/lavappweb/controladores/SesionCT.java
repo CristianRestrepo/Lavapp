@@ -6,6 +6,7 @@
 package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.metodos.MD5;
+import com.planit.lavappweb.metodos.Sesion;
 import static com.planit.lavappweb.metodos.Sesion.cerrarHttpSesion;
 import static com.planit.lavappweb.metodos.Sesion.iniciarHttpSesion;
 import com.planit.lavappweb.modelos.Usuario_TO;
@@ -18,12 +19,11 @@ import javax.faces.context.FacesContext;
  *
  * @author Desarrollo_Planit
  */
-
 public class SesionCT implements Serializable {
 
     //variables
     private Usuario_TO usuario;
-    private ServiciosUsuario serviciosUsuario;
+    protected ServiciosUsuario serviciosUsuario;
 
     //Constructores
     public SesionCT() {
@@ -52,7 +52,7 @@ public class SesionCT implements Serializable {
             if (usuario.getContrasena().equalsIgnoreCase(pass)) {
                 if (usuario.getEstado().getIdEstado() != 0) {
                     iniciarHttpSesion(usuario);
-                    switch(usuario.getRol().getIdRol()){
+                    switch (usuario.getRol().getIdRol()) {
                         case 1:
                             ruta = "Dashboard";
                             break;
@@ -61,9 +61,9 @@ public class SesionCT implements Serializable {
                             break;
                         case 4:
                             ruta = "Principal";
-                            break;                                                    
+                            break;
                     }
-                    
+
                     message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", "" + usuario.getNombre());
                     FacesContext.getCurrentInstance().addMessage(null, message);
                 } else {
@@ -82,13 +82,20 @@ public class SesionCT implements Serializable {
     }
 
     public String cerrarSesion() {
+        usuario = (Usuario_TO) Sesion.obtenerSesion();
+        String ruta = "";
+        switch (usuario.getRol().getIdRol()) {
+            case 1:
+                ruta = "Login";
+                break;
+            case 2:
+                ruta = "Login";
+                break;
+            case 4:
+                ruta = "Principal";
+                break;
+        }
         cerrarHttpSesion();
-        return "Principal";
+        return ruta;
     }
-    
-    public String cerrarSesionAdmin(){
-        cerrarHttpSesion();
-        return "CerrarSesopmAdmin";
-    }
-
 }

@@ -15,7 +15,7 @@
                 <b:row>
                     <b:column col-lg="12">
                         <div>
-                            <h3>Productos LavApp <small> productos de lavanderia a domicilio.</small></h3>                            
+                            <h3>CATEGORIAS PRENDAS <small> Tipos de prendas para la lavanderia a domicilio.</small></h3>                            
                         </div>
 
                     </b:column>
@@ -34,36 +34,39 @@
                                 <div class="box-body">
                                     <div class="table-responsive">
                                         <h:panelGrid id="Productos" columns="1" style="width: 100%">                                          
-                                            <b:inputText id="txtNombreProd" placeholder="Nombre del Producto..." 
+                                            <b:inputText id="txtNombreProd" placeholder="Nombre del Producto" 
                                                          required="true" requiredMessage="Ingrese nombre del Producto"  
-                                                         value="#{productoCT.producto.nombre}" span="12" />    <br/>
-
+                                                             value="#{productoCT.producto.nombre}"/>   
                                             <p:message for="formularioRegistroProd"/>
-                                            
-                                            <b:inputTextarea  placeholder="Descripcion del Producto..." rows="3"
-                                                              required="true" requiredMessage="Ingrese descripcion del Producto"  
-                                                              value="#{productoCT.producto.descripcion}" id="txtDescripcion" />  <br/>
 
-                                            <b:selectOneMenu value="#{productoCT.producto.subServicio.nombre}"  style="width: 100%" required="true" id="SubServicio">
-                                                <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
-                                                <f:selectItems value="#{subServicioCT.subServicios}" var="subservicio" itemLabel="#{subservicio.nombre}" itemValue="#{subservicio.nombre}"/>
-                                            </b:selectOneMenu>
+                                            <div class="form-group">
+                                                <h:inputTextarea class="form-control"  style="width: 100%" rows="3" required="true" requiredMessage="Ingrese descripcion del Producto"  
+                                                                 value="#{productoCT.producto.descripcion}" id="txtDescripcion" >
+                                                    <f:passThroughAttribute name="placeholder" value="Descripcion producto"/>
+                                                </h:inputTextarea> 
+                                            </div>
 
-                                            <p:outputLabel value="#{productoCT.imagen}"/><br/>
+                                            <div class="form-group">
+                                                <h:outputLabel class="control-label" for="DTSubServicio" value="Categoria"/>
+                                                <b:selectOneMenu value="#{productoCT.producto.subServicio.nombre}"  style="width: 100%" required="true" id="DTSubServicio">
+                                                    <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{subServicioCT.subServicios}" var="subservicio" itemLabel="#{subservicio.nombre}" itemValue="#{subservicio.nombre}"/>
+                                                </b:selectOneMenu>
+                                            </div>
 
-                                            <label class="">Seleccionar Imagen del Producto:</label><br/>
-
+                                            <p:outputLabel value="#{productoCT.imagen}"/>
+                                            <label class="">Seleccionar Imagen del Producto:</label>
                                             <p:fileUpload id="ProdArc" value="#{productoCT.file}" mode="simple" label="Seleccione archivo" /> 
-
                                         </h:panelGrid>
+                                        <br/>
                                     </div>
-                                    <div class="box box-footer">
-                                        <h:panelGrid width="100%" columns="2">
+                                    <div class="box-footer">
+                                        <h:panelGrid columns="2">
                                             <p:commandButton id="ProdCancelar"  process="@this" 
                                                              immediate="true" class="btn btn-primary" 
                                                              update=":formularioRegistroProd :formularioListaProductos" 
                                                              action="#{productoCT.cancelar()}"
-                                                             value="Cancelar" ajax="false"/>
+                                                             value="Cancelar"/>
 
                                             <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" 
                                                              update=":formularioRegistroProd :formularioListaProductos" 
@@ -79,9 +82,8 @@
                                             }
                                         </script>
                                         <p:dialog  modal="true" widgetVar="statusDialog" header="Cargando" draggable="false" closable="false" resizable="false">
-                                            <p:graphicImage width="100%" class="progress-bar-aqua" />
+                                            <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif"/>
                                         </p:dialog>
-                                        
                                     </div>
                                 </div>
                             </div>
@@ -97,12 +99,12 @@
                                 </div> 
                                 <div class="box-body">
                                     <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
-                                    <div class="ln_solid"></div>
+                                    <hr/>
                                     <p:dataTable id="DTProductos" style="width: 100%" var="producto" value="#{productoCT.productos}" class="table-responsive table table-striped" rows="10"
                                                  paginator="true"
                                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                  rowsPerPageTemplate="5,10,15">
-                                        
+
                                         <p:column headerText="Nombre">
                                             <p:outputLabel value="#{producto.nombre}"/>         
                                         </p:column>

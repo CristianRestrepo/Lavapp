@@ -18,9 +18,8 @@
                 <b:row>
                     <b:column col-lg="12">
                         <div>
-                            <h3>Servicios LavApp <small> servicios de lavanderia a domicilio.</small></h3>                            
-                        </div>
-
+                            <h3>SERVICIOS <small> servicios de lavanderia a domicilio.</small></h3>                            
+                        </div>                        
                     </b:column>
 
                     <h:form id="formRegistroServicio"> 
@@ -36,14 +35,16 @@
                                 </div> 
                                 <div class="box-body">
                                     <div class="table-responsive">
-                                        <h:panelGrid id="PPais" columns="2" style="width: 100%">                                          
+                                        <h:panelGrid columns="2" style="width: 100%">                                          
                                             <b:inputText id="txtNombreServicio" placeholder="nombre del servicio..." 
                                                          required="true" requiredMessage="Ingrese nombre del servicio"  
-                                                         value="#{servicioCT.servicio.nombre}" span="12" />                                         
+                                                         value="#{servicioCT.servicio.nombre}"/>                                         
                                             <p:message for="formRegistroServicio"/>
                                         </h:panelGrid>
                                     </div>
-                                    <h:panelGrid width="100%" columns="2">
+                                </div>
+                                <div class="box-footer">                                    
+                                    <h:panelGrid columns="2">
                                         <p:commandButton id="SCancelar"  process="@this" 
                                                          immediate="true" class="btn btn-primary" 
                                                          update=":formRegistroServicio :formListaServicios" 
@@ -67,7 +68,7 @@
                                     </script>
                                     <p:dialog modal="true" widgetVar="statusDialog" header="Cargando" draggable="false" closable="false" resizable="false">
                                         <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif" />
-                                    </p:dialog>
+                                    </p:dialog>                                    
                                 </div>
                             </div>
                         </b:column>                        

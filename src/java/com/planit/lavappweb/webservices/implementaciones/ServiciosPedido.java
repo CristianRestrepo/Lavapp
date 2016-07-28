@@ -14,6 +14,7 @@ import com.planit.lavappweb.modelos.Usuario_TO;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarPedido;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarPedidos;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarPedidosCliente;
+import com.planit.lavappweb.webservices.clientes.ClienteConsultarUltimoPedidoCliente;
 import com.planit.lavappweb.webservices.clientes.ClienteEditarPedido;
 import com.planit.lavappweb.webservices.clientes.ClienteEliminarPedido;
 import com.planit.lavappweb.webservices.clientes.ClienteRegistrarPedido;
@@ -49,6 +50,11 @@ public class ServiciosPedido {
     public Pedido_TO consultarPedido(int idPedido) {
         ClienteConsultarPedido cliente = new ClienteConsultarPedido();
         return cliente.consultarPedido(Pedido_TO.class, "" + idPedido);
+    }
+    
+    public Pedido_TO consultarUltimoPedidoCliente(int idUsuario) {
+        ClienteConsultarUltimoPedidoCliente cliente = new ClienteConsultarUltimoPedidoCliente();
+        return cliente.consultarUltimoPedido(Pedido_TO.class, "" + idUsuario);
     }
 
     public Pedido_TO registrarPedidoCompleto(int idUsuario, String fechaInicio, int horarioInicio, int horarioFinal, int idEstado, String fechaEntrega, String direccionRecogida, String direccionEntrega, String fechaRecogida, String quienEntrega, String quienRecibe, int idBarrioRecogida, int idBarrioEntrega) {
