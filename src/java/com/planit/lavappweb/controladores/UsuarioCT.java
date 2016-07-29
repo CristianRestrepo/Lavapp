@@ -6,6 +6,7 @@
 package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.metodos.MD5;
+import com.planit.lavappweb.metodos.Sesion;
 import com.planit.lavappweb.metodos.Upload;
 import com.planit.lavappweb.modelos.Usuario_TO;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosBarrios;
@@ -33,7 +34,7 @@ public class UsuarioCT implements Serializable {
     private List<Usuario_TO> usuarios;
     private List<Usuario_TO> clientes;
     private ServiciosUsuario servicioUser;
-    
+
     protected Upload ControladorArchivos;
 
     public UsuarioCT() {
@@ -41,7 +42,7 @@ public class UsuarioCT implements Serializable {
         usuarios = new ArrayList<>();
         clientes = new ArrayList<>();
         servicioUser = new ServiciosUsuario();
-        
+
         ControladorArchivos = new Upload();
     }
 
@@ -129,12 +130,17 @@ public class UsuarioCT implements Serializable {
     }
 
     //Metodo para edicion de perfil
+    public String irPanelEdicion() {
+        usuario = Sesion.obtenerSesion();
+        return "Editar Perfil";
+    }
+
     public void editarPerfil() {
     }
 
     public void editarDatosSesion() {
     }
-    
+
     //Subida de archivos
     public void upload(FileUploadEvent e) throws IOException {
         try {
@@ -153,5 +159,5 @@ public class UsuarioCT implements Serializable {
         } catch (Exception ex) {
             ex.getMessage();
         }
-    }   
+    }
 }

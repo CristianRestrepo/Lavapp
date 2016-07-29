@@ -10,13 +10,12 @@
     <body>
 
         <ui:composition template="./../adminTemplate.xhtml">
-
             <ui:define name="content">
                 <b:container fluid="true">
                     <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
                         <div class="espacio-arriba" style="text-align: center" align="center">
                             <h4 style="font-size: x-large">INFORMACION DE SESION Y SEGURIDAD</h4><br/>
-                            <p>Te damos la bienvenida, Hola #{usuarioCT.usuario.nombre}</p>
+                            <p>Te damos la bienvenida, Hola #{sesionActivaCT.usuario.nombre}</p>
                         </div>
                     </b:column>
                     <b:column col-lg="8" col-md="8" col-sm="12" col-xs="12" offset-lg="2">                        

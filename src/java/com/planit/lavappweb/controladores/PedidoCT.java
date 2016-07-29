@@ -62,7 +62,7 @@ public class PedidoCT {
         if (Sesion.obtenerSesion() != null) {
             vista = Pedido.vista;
             pedido = Pedido.pedidoUsuario;
-            pedido.setUsuario((Usuario_TO) Sesion.obtenerSesion());
+            pedido.setUsuario(Sesion.obtenerSesion());
             subproductos = Pedido.subproductos;
             cantidadProductos = subproductos.size();
             if (vista != 0) {
