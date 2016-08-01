@@ -25,7 +25,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.DefaultUploadedFile;
 import org.primefaces.model.UploadedFile;
 
 public class UsuarioCT implements Serializable {
@@ -136,6 +135,20 @@ public class UsuarioCT implements Serializable {
     }
 
     public void editarPerfil() {
+        
+        ServiciosBarrios sb = new ServiciosBarrios();
+        ServiciosRol sr = new ServiciosRol();
+        ServiciosEstado se = new ServiciosEstado();
+        ServiciosCiudad sc = new ServiciosCiudad();
+        ServiciosLocalidad sl = new ServiciosLocalidad();
+        
+        usuario.setBarrio(sb.consultarBarrio(usuario.getBarrio().getIdBarrios(), usuario.getBarrio().getNombre()));
+        usuario.setEstado(se.consultarEstadoID(1, ""));
+        usuario.setRol(sr.consultarRol(usuario.getRol().getIdRol(), usuario.getRol().getNombre()));
+        usuario.getBarrio().setLocalidad(sl.consultarLocalidad(usuario.getBarrio().getLocalidad().getIdLocalidad(),""));
+        usuario.setCiudad(sc.consultarCiudad(usuario.getBarrio().getLocalidad().getCiudad().getIdCiudad(), ""));
+        
+        servicioUser.editarUsuario(usuario.getIdUsuario(), usuario.getNombre(), usuario.getApellido(), usuario.getTelefono(), usuario.getBarrio().getIdBarrios(), usuario.getMovil(), usuario.getDireccion(), usuario.getCiudad().getIdCiudad(), usuario.getIdentificacion());
     }
 
     public void editarDatosSesion() {
