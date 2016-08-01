@@ -48,11 +48,12 @@ public class ClienteRegistrarUsuario {
      * @param direccion query parameter
      * @param idCiudad query parameter
      * @param identificacion query parameter
+     * @param rutaImagen query parameter
      * @return response object (instance of responseType class)
      */
-    public <T> T registrarUsuarios(Class<T> responseType, String nombre, String telefono, String idbarrios, String idrol, String idestado, String usuario, String contrasena, String apellido, String genero, String movil, String direccion, String idCiudad, String identificacion) throws ClientErrorException {
-        String[] queryParamNames = new String[]{"nombre", "telefono", "idbarrios", "idrol", "idestado", "usuario", "contrasena", "apellido", "genero", "movil", "direccion", "idCiudad", "identificacion"};
-        String[] queryParamValues = new String[]{nombre, telefono, idbarrios, idrol, idestado, usuario, contrasena, apellido, genero, movil, direccion, idCiudad, identificacion};
+    public <T> T registrarUsuarios(Class<T> responseType, String nombre, String telefono, String idbarrios, String idrol, String idestado, String usuario, String contrasena, String apellido, String genero, String movil, String direccion, String idCiudad, String identificacion, String rutaImagen) throws ClientErrorException {
+        String[] queryParamNames = new String[]{"nombre", "telefono", "idbarrios", "idrol", "idestado", "usuario", "contrasena", "apellido", "genero", "movil", "direccion", "idCiudad", "identificacion", "rutaImagen"};
+        String[] queryParamValues = new String[]{nombre, telefono, idbarrios, idrol, idestado, usuario, contrasena, apellido, genero, movil, direccion, idCiudad, identificacion, rutaImagen};
         ;
         javax.ws.rs.core.Form form = getQueryOrFormParams(queryParamNames, queryParamValues);
         javax.ws.rs.core.MultivaluedMap<String, String> map = form.asMap();

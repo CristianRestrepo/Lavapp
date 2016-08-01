@@ -4,7 +4,6 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
@@ -54,16 +53,16 @@
                                 <!-- User Account: style can be found in dropdown.less -->
                                 <li class="dropdown user user-menu">
                                     <a href="#" class="dropdown-toggle nav-sms" data-toggle="dropdown">
-                                        <p:graphicImage value="#{sesionActivaBean.usuario.usuarioFotoRuta}" 
+                                        <p:graphicImage value="#{sesionCT.usuario.rutaImagen}" 
                                                         class="user-image img-circle center-block img-responsive" alt="User Image"/>
-                                        <span class="hidden-xs">#{sesionActivaCT.usuario.nombre}</span>
+                                        <span class="hidden-xs">#{sesionCT.usuario.nombre}</span>
                                     </a>
                                     <ul class="dropdown-menu">
                                         <!-- User image -->
                                         <li class="user-header">
-                                            <p:graphicImage value="#{sesionActivaBean.usuario.usuarioFotoRuta}" class="img-circle center-block img-responsive" alt="User Image"/>
-                                            <p>#{sesionActivaCT.usuario.nombre}<br/>
-                                                <small>#{sesionActivaCT.usuario.rol.nombre}</small>
+                                            <p:graphicImage value="#{sesionCT.usuario.rutaImagen}" class="img-circle center-block img-responsive" alt="User Image"/>
+                                            <p>#{sesionCT.usuario.nombre}<br/>
+                                                <small>#{sesionCT.usuario.rol.nombre}</small>
                                             </p>
 
                                         </li>
@@ -72,7 +71,7 @@
                                        <li class="user-footer">
                                             <div class="pull-left">
                                                 <h:form>
-                                                    <p:commandButton value="Editar Perfil" process="@this" ajax="false" immediate="true" action="#{usuarioCT.irPanelEdicion()}" class="btn btn-default btn-block "/>
+                                                    <p:commandButton value="Editar Perfil" process="@this" ajax="false" immediate="true" action="#{sesionCT.irPanelEdicion()}" class="btn btn-default btn-block "/>
                                                 </h:form>
                                             </div>
                                             <div class="pull-right">
@@ -104,8 +103,8 @@
                                         </div>
                                         <div class="pull-left info">
                                             <div class="cont-description">
-                                                <p class="text-capitalize text-center " style="font-weight: 600;">#{sesionActivaCT.usuario.nombre}</p>
-                                                <p class="text-capitalize text-center ">#{sesionActivaCT.usuario.ciudad.nombre}</p>
+                                                <p class="text-capitalize text-center " style="font-weight: 600;">#{sesionCT.usuario.nombre}</p>
+                                                <p class="text-capitalize text-center ">#{sesionCT.usuario.ciudad.nombre}</p>
                                             </div>
                                         </div>
                                     </div>

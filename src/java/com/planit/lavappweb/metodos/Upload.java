@@ -92,6 +92,27 @@ public class Upload {
         }
     }
 
+    public static HashMap<String, String> getMapPathFotosUsuarios() {
+        try {
+            HashMap<String, String> map = new HashMap<>();
+            String path = getPathFotosUsuarios();
+            map.put("path", path);
+            map.put("url", "/resources/images/upload/Usuarios/");
+            return map;
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return null;
+    }
+
+    public static String getPathFotosUsuarios() {
+        try {
+            String path = getPath() + "/resources/images/upload/Usuarios/";
+            return path;
+        } catch (Exception e) {
+            throw e;
+        }
+    }
     /**
      *
      * METODO QUE SUBE EL ARCHIVO =============================================

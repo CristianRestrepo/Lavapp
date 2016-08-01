@@ -16,14 +16,11 @@ import java.util.List;
  */
 public class Pedido {
 
-    public static Pedido_TO pedidoUsuario;
-    public static List<SubProductoCosto_TO> subproductos;
-    public static int vista;
+    public static Pedido_TO pedidoUsuario = new Pedido_TO();
+    public static List<SubProductoCosto_TO> subproductos = new ArrayList<>();
+    public static int vista = 0;
 
     public Pedido() {
-        pedidoUsuario = new Pedido_TO();
-        subproductos = new ArrayList<>();
-        vista = 0;
     }
 
     public static Pedido_TO getPedidoUsuario() {

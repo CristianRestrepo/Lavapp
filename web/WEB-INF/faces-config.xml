@@ -246,11 +246,6 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
-        <managed-bean-name>sesionActivaCT</managed-bean-name>
-        <managed-bean-class>com.planit.lavappweb.controladores.SesionActivaCT</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
         <managed-bean-name>subProductoCT</managed-bean-name>
         <managed-bean-class>com.planit.lavappweb.controladores.SubProductoCT</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>

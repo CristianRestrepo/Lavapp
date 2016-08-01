@@ -38,14 +38,14 @@ public class ServiciosUsuario {
         return cliente.consultarUsuarioSegunIdentificacion(Usuario_TO.class, identificacion);
     }
 
-    public Usuario_TO registrarUsuario(String nombre, String telefono, int idBarrios, int idRol, int idestado, String email, String contrasena, String apellido, String genero, String movil, String direccion, int idCiudad, String identificacion) {
+    public Usuario_TO registrarUsuario(String nombre, String telefono, int idBarrios, int idRol, int idestado, String email, String contrasena, String apellido, String genero, String movil, String direccion, int idCiudad, String identificacion, String rutaImagen) {
         ClienteRegistrarUsuario cliente = new ClienteRegistrarUsuario();
-        return cliente.registrarUsuarios(Usuario_TO.class, nombre, telefono, "" + idBarrios, "" + idRol, "" + idestado, genero, contrasena, apellido, genero, movil, direccion, "" + idCiudad, identificacion);
+        return cliente.registrarUsuarios(Usuario_TO.class, nombre, telefono, "" + idBarrios, "" + idRol, "" + idestado, genero, contrasena, apellido, genero, movil, direccion, "" + idCiudad, identificacion, rutaImagen);
     }
 
-    public Usuario_TO editarUsuario(int idUsuario, String nombre, String apellido, String telefono, int idBarrios, String movil, String direccion, int idCiudad, String identificacion) {
+    public Usuario_TO editarUsuario(int idUsuario, String nombre, String apellido, String genero, String telefono, int idBarrios, String movil, String direccion, int idCiudad, String identificacion, String rutaImagen) {
         ClienteEditarUsuario cliente = new ClienteEditarUsuario();
-        return cliente.editarUsuario(Usuario_TO.class, "" + idUsuario, nombre, apellido, telefono, "" + idBarrios, movil, direccion, "" + idCiudad, identificacion);
+        return cliente.editarUsuario(Usuario_TO.class, "" + idUsuario, nombre, apellido, genero, telefono, "" + idBarrios, movil, direccion, "" + idCiudad, identificacion, rutaImagen);
     }
 
     public Usuario_TO eliminarUsuario(int idUsuario) {
@@ -85,10 +85,11 @@ public class ServiciosUsuario {
                         (String) datos.get(i).get("movil"),
                         (String) datos.get(i).get("direccion"),
                         sC.consultarCiudad((int) ciudad.get("idCiudad"), ""),
-                        (String) datos.get(i).get("identificacion")));
+                        (String) datos.get(i).get("identificacion"),
+                        (String) datos.get(i).get("rutaImagen")));
 
             }
-            
+
         } catch (Exception e) {
             throw e;
         }

@@ -5,8 +5,6 @@
  */
 package com.planit.lavappweb.controladores;
 
-import com.planit.lavappweb.metodos.MD5;
-import com.planit.lavappweb.metodos.Sesion;
 import com.planit.lavappweb.metodos.Upload;
 import com.planit.lavappweb.modelos.Usuario_TO;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosBarrios;
@@ -15,34 +13,23 @@ import com.planit.lavappweb.webservices.implementaciones.ServiciosEstado;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosLocalidad;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosRol;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosUsuario;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import org.apache.commons.io.IOUtils;
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
 
 public class UsuarioCT implements Serializable {
 
     private Usuario_TO usuario;
     private List<Usuario_TO> usuarios;
     private List<Usuario_TO> clientes;
-    private ServiciosUsuario servicioUser;
-
-    protected Upload ControladorArchivos;
-
+    private ServiciosUsuario servicioUser;        
+        
     public UsuarioCT() {
         usuario = new Usuario_TO();
         usuarios = new ArrayList<>();
         clientes = new ArrayList<>();
         servicioUser = new ServiciosUsuario();
-
-        ControladorArchivos = new Upload();
     }
 
     @PostConstruct
@@ -83,6 +70,8 @@ public class UsuarioCT implements Serializable {
         this.servicioUser = servicioUser;
     }
 
+
+    
     //Metodos
     public String registrarCliente() {
 
@@ -102,7 +91,7 @@ public class UsuarioCT implements Serializable {
                 usuario.getBarrio().getIdBarrios(), usuario.getRol().getIdRol(),
                 usuario.getEstado().getIdEstado(), usuario.getEmail(),
                 usuario.getContrasena(), usuario.getApellido(),
-                usuario.getGenero(), usuario.getMovil(), "", usuario.getCiudad().getIdCiudad(), usuario.getIdentificacion());
+                usuario.getGenero(), usuario.getMovil(), "", usuario.getCiudad().getIdCiudad(), usuario.getIdentificacion(), usuario.getRutaImagen());
         usuarios = servicioUser.consultarClientes();
 
         SesionCT ss = new SesionCT();
@@ -128,49 +117,6 @@ public class UsuarioCT implements Serializable {
     public void eliminarAsesor() {
     }
 
-    //Metodo para edicion de perfil
-    public String irPanelEdicion() {
-        usuario = Sesion.obtenerSesion();
-        return "Editar Perfil";
-    }
-
-    public void editarPerfil() {
-        
-        ServiciosBarrios sb = new ServiciosBarrios();
-        ServiciosRol sr = new ServiciosRol();
-        ServiciosEstado se = new ServiciosEstado();
-        ServiciosCiudad sc = new ServiciosCiudad();
-        ServiciosLocalidad sl = new ServiciosLocalidad();
-        
-        usuario.setBarrio(sb.consultarBarrio(usuario.getBarrio().getIdBarrios(), usuario.getBarrio().getNombre()));
-        usuario.setEstado(se.consultarEstadoID(1, ""));
-        usuario.setRol(sr.consultarRol(usuario.getRol().getIdRol(), usuario.getRol().getNombre()));
-        usuario.getBarrio().setLocalidad(sl.consultarLocalidad(usuario.getBarrio().getLocalidad().getIdLocalidad(),""));
-        usuario.setCiudad(sc.consultarCiudad(usuario.getBarrio().getLocalidad().getCiudad().getIdCiudad(), ""));
-        
-        servicioUser.editarUsuario(usuario.getIdUsuario(), usuario.getNombre(), usuario.getApellido(), usuario.getTelefono(), usuario.getBarrio().getIdBarrios(), usuario.getMovil(), usuario.getDireccion(), usuario.getCiudad().getIdCiudad(), usuario.getIdentificacion());
-    }
-
-    public void editarDatosSesion() {
-    }
-
-    //Subida de archivos
-    public void upload(FileUploadEvent e) throws IOException {
-        try {
-            UploadedFile uploadedPhoto = e.getFile();
-            String destination;
-
-            HashMap<String, String> map = Upload.getMapPathFotosSubProducto();
-            destination = map.get("path");
-            if (null != uploadedPhoto) {
-                ControladorArchivos.uploadFile(IOUtils.toByteArray(uploadedPhoto.getInputstream()), uploadedPhoto.getFileName(), destination);
-//                Usuario.setUsuarioFotoNombre(uploadedPhoto.getFileName());
-//                Usuario.setUsuarioFotoRuta(map.get("url") + uploadedPhoto.getFileName());
-//                estadoFoto = "Foto actualizada con exito";
-            }
-            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Su foto (" + uploadedPhoto.getFileName() + ")  se ha guardado con exito.", ""));
-        } catch (Exception ex) {
-            ex.getMessage();
-        }
-    }
+    
+    
 }
