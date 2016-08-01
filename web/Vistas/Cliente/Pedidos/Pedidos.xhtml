@@ -215,6 +215,8 @@
                             </section>
                         </c:when>
                         <c:when test="${pedidoCT.vista == 2}">
+
+                            <!--VISTA CONFIRMACION-->
                             <section>
                                 <div class="container">
                                     <div class="row">
@@ -222,46 +224,92 @@
                                              pos-form ">
                                             <div class="row">
                                                 <div class="col-xs-12 col-md-12" >
-                                                    <div class="pedido">
-                                                        <h:panelGrid width="100%" columns="4">
-                                                            <f:facet name="header">
-                                                                <h:outputText  class="label-lv"  value="Informacion del pedido"/>
-                                                                <hr/>
-                                                            </f:facet>
-                                                            <label class="label-lv" for="lfecharecogida">Fecha de recogida</label>
-                                                            <p:outputLabel class="label-lv-2" style="font-size: larger" value="#{pedidoCT.pedido.fechaRecogida.toString()}" id="lfecharecogida"/>
+                                                    <div class="bcg-color-pagos">
 
-                                                            <label class="label-lv" for="lfechaentrega">Fecha de Entrega</label>
-                                                            <p:outputLabel class="label-lv-2" style="font-size: larger" value="#{pedidoCT.pedido.fechaEntrega.toString()}" id="lfechaentrega"/>
 
-                                                            <label class="label-lv" for="">Horaria de recogida</label>
-                                                            <p:outputLabel class="label-lv-2" style="font-size: larger" value="#{pedidoCT.pedido.horaInicio.horario}"/>
+                                                        <f:facet name="header">
+                                                          
+                                                        </f:facet>
+                                                            <div class="title title-lv wow fadeInRight animated ">
+                                                                <h2 class="txt-title-form">Detalles del Contacto</h2>							
+                                                            </div>
 
-                                                            <label class="label-lv" for="">Horaria de entrega</label>
-                                                            <p:outputLabel class="label-lv-2" style="font-size: larger" value="#{pedidoCT.pedido.horaFinal.horario}"/>
+                                                        <div class="row">
+                                                            <div class="col-xs-8 col-xs-offset-2 " style="padding: 20px 0px;" >
+                                                                <div class="col-sm-6" >
+                                                                    <label class="label-lv-2 bdr-azul text-capitalize" for="lfecharecogida">Fecha de recogida: </label>                                                                 
+                                                                    <p:outputLabel class="label-lv-2" style="font-size: larger" 
+                                                                                   value="#{pedidoCT.pedido.fechaRecogida.toString()}" id="lfecharecogida"/>
+                                                                </div>
+                                                                <div class="col-sm-6" >
+                                                                    <label class="label-lv-2 bdr-azul text-capitalize" for="lfechaentrega">Fecha de Entrega: </label>
+                                                                    <p:outputLabel class="label-lv-2" style="font-size: larger" 
+                                                                                   value="#{pedidoCT.pedido.fechaEntrega.toString()}" id="lfechaentrega"/>                                                                        
+                                                                </div>                                                            
+                                                            </div>
 
-                                                            <label class="label-lv" for="">Barrio de recogida</label>
-                                                            <p:outputLabel class="label-lv-2" style="font-size: larger" value="#{pedidoCT.pedido.barrioRecogida.nombre}"/>
+                                                            <div class="col-xs-8 col-xs-offset-2 " style="padding: 20px 0px;" >
+                                                                <div class="col-sm-6" >
+                                                                    <label class="label-lv-2 bdr-azul text-capitalize" for="">Horaria de recogida: </label>
+                                                                    <p:outputLabel class="label-lv-2" style="font-size: larger" 
+                                                                                   value="#{pedidoCT.pedido.horaInicio.horario}"/>
+                                                                </div>
+                                                                <div class="col-sm-6 pdgn-pedido" >
+                                                                    <label class="label-lv-2 bdr-azul text-capitalize" for="">Horaria de entrega: </label>
+                                                                    <p:outputLabel class="label-lv-2" style="font-size: larger" 
+                                                                                   value="#{pedidoCT.pedido.horaFinal.horario}"/>
+                                                                </div>                                                            
+                                                            </div>
 
-                                                            <label class="label-lv" for="">Barrio de entrega</label>
-                                                            <p:outputLabel class="label-lv-2" style="font-size: larger" value="#{pedidoCT.pedido.barrioEntrega.nombre}"/>
 
-                                                            <label class="label-lv" for="">Dirección de recogida</label>
-                                                            <p:outputLabel class="label-lv-2" style="font-size: larger" value="#{pedidoCT.pedido.direccionRecogida}"/>
 
-                                                            <label class="label-lv" for="">Dirección de entrega</label>
-                                                            <p:outputLabel class="label-lv-2" style="font-size: larger" value="#{pedidoCT.pedido.direccionEntrega}"/>
+                                                            <div class="col-xs-8 col-xs-offset-2 " style="padding: 20px 0px;" >
+                                                                <div class="col-sm-6" >
+                                                                    <label class="label-lv-2 bdr-azul text-capitalize" for="">Barrio de recogida: </label>
+                                                                    <p:outputLabel class="label-lv-2" style="font-size: larger" 
+                                                                                   value="#{pedidoCT.pedido.barrioRecogida.nombre}"/>
+                                                                </div>
+                                                                <div class="col-sm-6 " >
+                                                                    <label class="label-lv-2 bdr-azul text-capitalize" for="">Barrio de entrega: </label>
+                                                                    <p:outputLabel class="label-lv-2" style="font-size: larger" 
+                                                                                   value="#{pedidoCT.pedido.barrioEntrega.nombre}"/>
+                                                                </div>                                                            
+                                                            </div>
 
-                                                            <label for="" class="label-lv">Quien entrega?</label>
-                                                            <p:outputLabel class="label-lv-2" style="font-size: larger" value="#{pedidoCT.pedido.quienEntrega}"/>
 
-                                                            <label for="" class="label-lv">Quien recibe?</label>
-                                                            <p:outputLabel class="label-lv-2" style="font-size: larger" value="#{pedidoCT.pedido.quienRecibe}"/>
+                                                            <div class="col-xs-8 col-xs-offset-2 " style="padding: 20px 0px;">
+                                                                <div class="col-sm-6" >
+                                                                    <label class="label-lv-2 bdr-azul text-capitalize" for="">Dirección de recogida: </label>
+                                                                    <p:outputLabel class="label-lv-2" style="font-size: larger" 
+                                                                                   value="#{pedidoCT.pedido.direccionRecogida}"/>
+                                                                </div>
+                                                                <div class="col-sm-6 " >
+                                                                    <label class="label-lv-2 bdr-azul text-capitalize" for="">Dirección de entrega: </label>
+                                                                    <p:outputLabel class="label-lv-2" style="font-size: larger" 
+                                                                                   value="#{pedidoCT.pedido.direccionEntrega}"/>
+                                                                </div>                                                            
+                                                            </div>
 
-                                                            <f:facet name="footer">
-                                                                <hr/>
-                                                            </f:facet>
-                                                        </h:panelGrid>
+
+                                                            <div class="col-xs-8 col-xs-offset-2 " style="padding: 20px 0px;" >
+                                                                <div class="col-sm-6" >
+                                                                    <label for="" class="label-lv-2 bdr-azul text-capitalize">Quien entrega?</label>
+                                                                    <p:outputLabel class="label-lv-2" style="font-size: larger" 
+                                                                                   value="#{pedidoCT.pedido.quienEntrega}"/>
+                                                                </div>
+                                                                <div class="col-sm-6" >
+                                                                    <label for="" class="label-lv-2 bdr-azul text-capitalize">Quien recibe?</label>
+                                                                    <p:outputLabel class="label-lv-2" style="font-size: larger" 
+                                                                                   value="#{pedidoCT.pedido.quienRecibe}"/>
+                                                                </div>                                                            
+                                                            </div>                                                         
+                                                        </div>
+
+
+                                                        <f:facet name="footer">
+                                                            <hr/>
+                                                        </f:facet>
+
                                                     </div>                                                   
                                                 </div>
                                             </div>
