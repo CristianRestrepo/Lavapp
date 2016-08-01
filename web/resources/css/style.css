@@ -2288,3 +2288,8 @@ button#numPrendas.btn-num-prendas{
 #numPrendas span.ui-button-text-icon-left, .ui-button-text {
     padding: 0.3em !important;
 }
+
+.bdr-azul{
+    border-bottom: 1px solid #0aabe1 ;
+    width: 76% ;
+}

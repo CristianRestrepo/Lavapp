@@ -1,17 +1,507 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"    
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-    <body>
+    <ui:composition template="./../adminTemplate.xhtml">
 
-        <ui:composition template="./../adminTemplate.xhtml">
+        <ui:define name="content">
+            <b:container fluid="true">
+                <b:row>
+                    <b:column col-lg="12">
+                        <div>
+                            <h3>Pedidos<small> Listado de Pedidos segun usuario.</small></h3>                            
+                        </div>
+                    </b:column>
 
-            <ui:define name="content">
-                content
-            </ui:define>
+                    <h:form id="formularioRegistro" enctype="multipart/form-data" >                         
+                        <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                            <p:messages id="messages" closable="true"/>
+                        </b:column>
 
-        </ui:composition>
+                        <b:column col-lg="6" col-md="6" col-sm="12" col-xs="12">
+                            <div class="box box-success">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-globe"/>
+                                    <h4 class="box-title">Datos del Barrio</h4>
+                                </div> 
+                                <div class="box-body">
+                                    <div class="table-responsive">
+                                        <!-- Begin Listing: 609 W GRAVERS LN-->
+                                        <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing-pv">
+                                            <div>
+                                                <h5>Cliente: <small> Listado de Productos segun el Pedido.</small></h5>                            
+                                            </div>
+                                                                 
+                                            <div class="media">
+                                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                                    <a class="pull-left" href="#" target="_parent">
+                                                        <img alt="image" class="img-responsive " 
+                                                             src="http://images.prd.mris.com/image/V2/1/Yu59d899Ocpyr_RnF0-8qNJX1oYibjwp9TiLy-bZvU9vRJ2iC1zSQgFwW-fTCs6tVkKrj99s7FFm5Ygwl88xIA.jpg" />
+                                                    </a>                                                    
+                                                </div>
 
-    </body>
+                                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                                    <div class="media-body fnt-smaller">
+                                                        <a href="#" target="_parent"></a>
+
+                                                        <h4 class="media-heading">
+                                                            <a href="#" target="_parent">$75,000 <small class="pull-right">Calle falsa 12 - 34</small></a></h4>
+
+
+                                                        <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
+                                                            <li>Camisa:<strong> 5</strong></li>
+
+                                                            <li style="list-style: none">|</li>
+
+                                                            <li>Pantalon:<strong> 2</strong></li>
+
+                                                            <li style="list-style: none">|</li>
+
+                                                            <li>
+                                                                <p:commandLink class="btn btn-primary btn-xs" >
+                                                                    <i class="fa fa-plus-square" /> más 
+                                                                </p:commandLink>
+                                                            </li>
+                                                        </ul>
+
+                                                        <p class="hidden-xs">
+                                                            <strong>Observacines:</strong> 
+                                                            Descripcion de observaciones acerca del pedido especifico, tipo de tela, 
+                                                            daños de la prenda, manchas, etc.
+                                                            <p:commandLink class="btn btn-primary btn-xs btn-block" >
+                                                                <i class="fa fa-file-text" /> Mirar pructos
+                                                            </p:commandLink>
+                                                        </p>
+                                                        <span class="fnt-smaller fnt-lighter fnt-arial">
+                                                            <div class="col-xs-6">
+                                                                <strong>Recibido: </strong> 2- 06 - 2015                                                                
+                                                            </div>
+                                                            <div class="col-xs-6">
+                                                                <strong>Enterga: </strong> 2- 06 - 2015                                                                                                                            
+                                                            </div>
+                                                        </span>
+                                                    </div>                                                    
+                                                </div>
+                                            </div>
+                                        </div><!-- End Listing-->
+
+                                        <!-- Begin Listing: 609 W GRAVERS LN-->
+                                        <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing-pv">
+                                            <div class="media">
+                                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                                    <a class="pull-left" href="#" target="_parent">
+                                                        <img alt="image" class="img-responsive " 
+                                                             src="http://images.prd.mris.com/image/V2/1/Yu59d899Ocpyr_RnF0-8qNJX1oYibjwp9TiLy-bZvU9vRJ2iC1zSQgFwW-fTCs6tVkKrj99s7FFm5Ygwl88xIA.jpg" />
+                                                    </a>                                                    
+                                                </div>
+
+                                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                                    <div class="media-body fnt-smaller">
+                                                        <a href="#" target="_parent"></a>
+
+                                                        <h4 class="media-heading">
+                                                            <a href="#" target="_parent">$75,000 <small class="pull-right">Calle falsa 12 - 34</small></a></h4>
+
+
+                                                        <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
+                                                            <li>Camisa:<strong> 5</strong></li>
+
+                                                            <li style="list-style: none">|</li>
+
+                                                            <li>Pantalon:<strong> 2</strong></li>
+
+                                                            <li style="list-style: none">|</li>
+
+                                                            <li>
+                                                                <p:commandLink class="btn btn-primary btn-xs" >
+                                                                    <i class="fa fa-plus-square" /> más 
+                                                                </p:commandLink>
+                                                            </li>
+                                                        </ul>
+
+                                                        <p class="hidden-xs">
+                                                            <strong>Observacines:</strong> 
+                                                            Descripcion de observaciones acerca del pedido especifico, tipo de tela, 
+                                                            daños de la prenda, manchas, etc.
+                                                            <p:commandLink class="btn btn-primary btn-xs btn-block" >
+                                                                <i class="fa fa-file-text" /> Mirar pructos
+                                                            </p:commandLink>
+                                                        </p>
+                                                        <span class="fnt-smaller fnt-lighter fnt-arial">
+                                                            <div class="col-xs-6">
+                                                                <strong>Recibido: </strong> 2- 06 - 2015                                                                
+                                                            </div>
+                                                            <div class="col-xs-6">
+                                                                <strong>Enterga: </strong> 2- 06 - 2015                                                                                                                            
+                                                            </div>
+                                                        </span>
+                                                    </div>                                                    
+                                                </div>
+                                            </div>
+                                        </div><!-- End Listing-->
+                                    </div>
+
+                                </div>
+                            </div>
+                        </b:column>     
+
+                        <b:column col-lg="6" col-md="6" col-sm="12" col-xs="12">
+                            <div class="box box-success">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-globe"/>
+                                    <h4 class="box-title">Datos del Barrio</h4>
+                                </div> 
+                                <div class="box-body">
+                                    <div class="table-responsive">
+                                        <!-- Begin Listing: 609 W GRAVERS LN-->
+                                        <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing-pv">
+                                            <div>
+                                                <h5>Cliente: <small> Listado de Productos segun el Pedido.</small></h5>                            
+                                            </div>
+                                            
+                                            <div class="media">
+                                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                                    <a class="pull-left" href="#" target="_parent">
+                                                        <img alt="image" class="img-responsive " 
+                                                             src="http://images.prd.mris.com/image/V2/1/Yu59d899Ocpyr_RnF0-8qNJX1oYibjwp9TiLy-bZvU9vRJ2iC1zSQgFwW-fTCs6tVkKrj99s7FFm5Ygwl88xIA.jpg" />
+                                                    </a>                                                    
+                                                </div>
+
+                                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                                    <div class="media-body fnt-smaller">
+                                                        <a href="#" target="_parent"></a>
+
+                                                        <h4 class="media-heading">
+                                                            <a href="#" target="_parent">$75,000 <small class="pull-right">Calle falsa 12 - 34</small></a></h4>
+
+
+                                                        <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
+                                                            <li>Camisa:<strong> 5</strong></li>
+
+                                                            <li style="list-style: none">|</li>
+
+                                                            <li>Pantalon:<strong> 2</strong></li>
+
+                                                            <li style="list-style: none">|</li>
+
+                                                            <li>
+                                                                <p:commandLink class="btn btn-primary btn-xs" >
+                                                                    <i class="fa fa-plus-square" /> más 
+                                                                </p:commandLink>
+                                                            </li>
+                                                        </ul>
+
+                                                        <p class="hidden-xs">
+                                                            <strong>Observacines:</strong> 
+                                                            Descripcion de observaciones acerca del pedido especifico, tipo de tela, 
+                                                            daños de la prenda, manchas, etc.
+                                                            <p:commandLink class="btn btn-primary btn-xs btn-block" >
+                                                                <i class="fa fa-file-text" /> Mirar pructos
+                                                            </p:commandLink>
+                                                        </p>
+                                                        <span class="fnt-smaller fnt-lighter fnt-arial">
+                                                            <div class="col-xs-6">
+                                                                <strong>Recibido: </strong> 2- 06 - 2015                                                                
+                                                            </div>
+                                                            <div class="col-xs-6">
+                                                                <strong>Enterga: </strong> 2- 06 - 2015                                                                                                                            
+                                                            </div>
+                                                        </span>
+                                                    </div>                                                    
+                                                </div>
+                                            </div>
+                                        </div><!-- End Listing-->
+
+                                        <!-- Begin Listing: 609 W GRAVERS LN-->
+                                        <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing-pv">
+                                            <div>
+                                                <h5>Cliente: <small> Listado de Productos segun el Pedido.</small></h5>                            
+                                            </div>
+                                            <div class="media">
+                                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                                    <a class="pull-left" href="#" target="_parent">
+                                                        <img alt="image" class="img-responsive " 
+                                                             src="http://images.prd.mris.com/image/V2/1/Yu59d899Ocpyr_RnF0-8qNJX1oYibjwp9TiLy-bZvU9vRJ2iC1zSQgFwW-fTCs6tVkKrj99s7FFm5Ygwl88xIA.jpg" />
+                                                    </a>                                                    
+                                                </div>
+
+                                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                                    <div class="media-body fnt-smaller">
+                                                        <a href="#" target="_parent"></a>
+
+                                                        <h4 class="media-heading">
+                                                            <a href="#" target="_parent">$75,000 <small class="pull-right">Calle falsa 12 - 34</small></a></h4>
+
+
+                                                        <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
+                                                            <li>Camisa:<strong> 5</strong></li>
+
+                                                            <li style="list-style: none">|</li>
+
+                                                            <li>Pantalon:<strong> 2</strong></li>
+
+                                                            <li style="list-style: none">|</li>
+
+                                                            <li>
+                                                                <p:commandLink class="btn btn-primary btn-xs" >
+                                                                    <i class="fa fa-plus-square" /> más 
+                                                                </p:commandLink>
+                                                            </li>
+                                                        </ul>
+
+                                                        <p class="hidden-xs">
+                                                            <strong>Observacines:</strong> 
+                                                            Descripcion de observaciones acerca del pedido especifico, tipo de tela, 
+                                                            daños de la prenda, manchas, etc.
+                                                            <p:commandLink class="btn btn-primary btn-xs btn-block" >
+                                                                <i class="fa fa-file-text" /> Mirar pructos
+                                                            </p:commandLink>
+                                                        </p>
+                                                        <span class="fnt-smaller fnt-lighter fnt-arial">
+                                                            <div class="col-xs-6">
+                                                                <strong>Recibido: </strong> 2- 06 - 2015                                                                
+                                                            </div>
+                                                            <div class="col-xs-6">
+                                                                <strong>Enterga: </strong> 2- 06 - 2015                                                                                                                            
+                                                            </div>
+                                                        </span>
+                                                    </div>                                                    
+                                                </div>
+                                            </div>
+                                        </div><!-- End Listing-->
+
+
+                                    </div>                                   
+                                </div>
+                            </div>
+                        </b:column>     
+
+                    </h:form>
+                </b:row>
+            </b:container>
+
+
+            <b:container fluid="true">
+                <b:row>
+                    <b:column col-lg="12">
+                        <div>
+                            <h3>Productos Por Pedidos<small> Listado de Productos segun el Pedido.</small></h3>                            
+                        </div>
+                    </b:column>
+
+                    <h:form  enctype="multipart/form-data" >                         
+                        <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                            <p:messages id="messages" closable="true"/>
+                        </b:column>
+
+                        <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                            <div class="box box-success">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-globe"/>
+                                    <h4 class="box-title">Datos del Barrio</h4>
+                                </div> 
+                                <div class="box-body">
+                                    <div class="table-responsive">
+                                        <!-- VISTA DE PEDIDO POR PERSONA-->
+                                        <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing-pv">
+                                            <div>
+                                                <h3>Cliente: (Nombre de Usuario) <small> N° referencia: (id Pedido o el que sea mas apropiado)</small></h3>                            
+                                            </div>
+                                            <div class="media">
+                                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                                    <a class="pull-left" href="#" target="_parent">
+                                                        <img alt="image" class="img-responsive " 
+                                                             src="http://images.prd.mris.com/image/V2/1/Yu59d899Ocpyr_RnF0-8qNJX1oYibjwp9TiLy-bZvU9vRJ2iC1zSQgFwW-fTCs6tVkKrj99s7FFm5Ygwl88xIA.jpg" />
+                                                    </a>                                                    
+                                                </div>
+
+                                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                                    <div class="media-body fnt-smaller">
+                                                        <a href="#" target="_parent"></a>
+
+                                                        <h4 class="media-heading">
+                                                            <a href="#" target="_parent">$75,000 <small class="pull-right"><strong>Dirección: </strong>Calle Falsa 12 - 34
+                                                                    <strong style="margin-left: 20px">Cel: </strong>302 541 23 85
+                                                                </small></a></h4>
+
+
+                                                        <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
+                                                            <li><strong>Vestido Dama:</strong> 2</li>
+
+                                                            <li style="list-style: none">|</li>
+
+                                                            <li><strong>Pantalon:</strong> 4</li>
+
+                                                            <li style="list-style: none">|</li>
+
+                                                            <li><strong>Corbata:</strong> 4</li>
+
+                                                            <li style="list-style: none">|</li>
+
+                                                            <li><strong>Sacos Lana:</strong> 6</li>
+                                                        </ul>
+
+                                                        <div class="mrg-desc-prod">
+                                                            <p class="hidden-xs">
+                                                            <strong>Observacines:</strong> 
+                                                            Descripcion de observaciones acerca del pedido especifico, tipo de tela, 
+                                                            daños de la prenda, manchas, etc.
+                                                           
+                                                        </p>
+                                                        </div>
+                                                    </div>                                                    
+                                                </div>
+                                            </div>
+                                        </div><!-- End Listing-->
+
+                                        <div>
+                                            <h4 class="mrg-titles">Prendas del Pedido de (Referencia o Nombre del Usuario)<small> N° de Referencia (# de referencia).</small></h4>                            
+                                        </div>
+
+                                        <div class="col-sm-6 col-xs-12">
+                                            <!-- LISTA DE PRODUCTOS POR PEDIDOS-->
+                                            <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing-pv">
+                                                <div class="media">
+                                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                                        <a class="pull-left" href="#" target="_parent">
+                                                            <img alt="image" class="img-responsive " 
+                                                                 src="http://images.prd.mris.com/image/V2/1/Yu59d899Ocpyr_RnF0-8qNJX1oYibjwp9TiLy-bZvU9vRJ2iC1zSQgFwW-fTCs6tVkKrj99s7FFm5Ygwl88xIA.jpg" />
+                                                        </a>                                                    
+                                                    </div>
+
+                                                    <div class="col-lg-8 col-md-8 col-sm-8">
+                                                        <div class="media-body fnt-smaller">
+                                                            <a href="#" target="_parent"></a>
+
+                                                            <h4 class="media-heading">
+                                                                <a href="#" target="_parent">$1,975,000 <small class="pull-right">609 W Gravers Ln</small></a></h4>
+
+
+                                                            <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
+                                                                <li>4,820 SqFt</li>
+
+                                                                <li style="list-style: none">|</li>
+
+                                                                <li>5 Beds</li>
+
+                                                                <li style="list-style: none">|</li>
+
+                                                                <li>5 Baths</li>
+                                                            </ul>
+
+                                                            <p class="hidden-xs">Situated between fairmount
+                                                                park and the prestigious philadelphia cricket
+                                                                club, this beautiful 2+ acre property is truly
+                                                                ...</p><span class="fnt-smaller fnt-lighter fnt-arial">Courtesy of HS Fox  Roach-Chestnut Hill
+                                                                Evergreen</span>
+                                                        </div>                                                    
+                                                    </div>
+                                                </div>
+                                            </div><!-- End Listing-->
+                                        </div>
+                                        <div class="col-sm-6 col-xs-12">
+                                            <!-- LISTA DE PRODUCTOS POR PEDIDOS-->
+                                            <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing-pv">
+                                                <div class="media">
+                                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                                        <a class="pull-left" href="#" target="_parent">
+                                                            <img alt="image" class="img-responsive " 
+                                                                 src="http://images.prd.mris.com/image/V2/1/Yu59d899Ocpyr_RnF0-8qNJX1oYibjwp9TiLy-bZvU9vRJ2iC1zSQgFwW-fTCs6tVkKrj99s7FFm5Ygwl88xIA.jpg" />
+                                                        </a>                                                    
+                                                    </div>
+
+                                                    <div class="col-lg-8 col-md-8 col-sm-8">
+                                                        <div class="media-body fnt-smaller">
+                                                            <a href="#" target="_parent"></a>
+
+                                                            <h4 class="media-heading">
+                                                                <a href="#" target="_parent">$1,975,000 <small class="pull-right">609 W Gravers Ln</small></a></h4>
+
+
+                                                            <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
+                                                                <li>4,820 SqFt</li>
+
+                                                                <li style="list-style: none">|</li>
+
+                                                                <li>5 Beds</li>
+
+                                                                <li style="list-style: none">|</li>
+
+                                                                <li>5 Baths</li>
+                                                            </ul>
+
+                                                            <p class="hidden-xs">Situated between fairmount
+                                                                park and the prestigious philadelphia cricket
+                                                                club, this beautiful 2+ acre property is truly
+                                                                ...</p><span class="fnt-smaller fnt-lighter fnt-arial">Courtesy of HS Fox  Roach-Chestnut Hill
+                                                                Evergreen</span>
+                                                        </div>                                                    
+                                                    </div>
+                                                </div>
+                                            </div><!-- End Listing-->
+                                        </div>
+
+                                        <!-- LISTA DE PRODUCTOS POR PEDIDOS-->
+                                        <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing-pv">
+                                            <div class="media">
+                                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                                    <a class="pull-left" href="#" target="_parent">
+                                                        <img alt="image" class="img-responsive " 
+                                                             src="http://images.prd.mris.com/image/V2/1/Yu59d899Ocpyr_RnF0-8qNJX1oYibjwp9TiLy-bZvU9vRJ2iC1zSQgFwW-fTCs6tVkKrj99s7FFm5Ygwl88xIA.jpg" />
+                                                    </a>                                                    
+                                                </div>
+
+                                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                                    <div class="media-body fnt-smaller">
+                                                        <a href="#" target="_parent"></a>
+
+                                                        <h4 class="media-heading">
+                                                            <a href="#" target="_parent">$1,975,000 <small class="pull-right">609 W Gravers Ln</small></a></h4>
+
+
+                                                        <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
+                                                            <li>4,820 SqFt</li>
+
+                                                            <li style="list-style: none">|</li>
+
+                                                            <li>5 Beds</li>
+
+                                                            <li style="list-style: none">|</li>
+
+                                                            <li>5 Baths</li>
+                                                        </ul>
+
+                                                        <p class="hidden-xs">Situated between fairmount
+                                                            park and the prestigious philadelphia cricket
+                                                            club, this beautiful 2+ acre property is truly
+                                                            ...</p><span class="fnt-smaller fnt-lighter fnt-arial">Courtesy of HS Fox  Roach-Chestnut Hill
+                                                            Evergreen</span>
+                                                    </div>                                                    
+                                                </div>
+                                            </div>
+                                        </div><!-- End Listing-->
+
+
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </b:column>     
+
+                    </h:form>
+
+                </b:row>
+            </b:container>
+
+        </ui:define>
+
+    </ui:composition>
+
+
 </html>
