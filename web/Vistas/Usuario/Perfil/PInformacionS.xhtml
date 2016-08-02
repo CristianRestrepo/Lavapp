@@ -15,12 +15,12 @@
                     <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
                         <div class="espacio-arriba" style="text-align: center" align="center">
                             <h4 style="font-size: x-large">INFORMACION DE SESION Y SEGURIDAD</h4><br/>
-                            <p>Te damos la bienvenida, Hola #{sesionActivaCT.usuario.nombre}</p>
+                            <p>Te damos la bienvenida, Hola #{sesionCT.usuario.nombre}</p>
                         </div>
                     </b:column>
                     <b:column col-lg="8" col-md="8" col-sm="12" col-xs="12" offset-lg="2">                        
                         <h:form id="formularioDatosPersonales">
-                            <div class="box box-danger espacio-arriba">
+                            <div class="box box-info espacio-arriba">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-file-text"/>
                                     <h4 class="box-title"> Edicion de Perfil</h4>                                   
@@ -29,37 +29,36 @@
                                     <div class="table-responsive">
                                         <div align="center"> 
                                             <h:panelGrid columns="2" cellpadding="5" id="seccionInformacionUsuario" style="width: 80%">
-                                                <p:graphicImage class="img-circle" width="160" height="180" /> 
+                                                <p:graphicImage value="#{sesionCT.usuario.rutaImagen}" class="img-circle" width="160" height="180" /> 
                                                 <h:panelGrid columns="1" width="100%">
-                                                    <p:outputLabel style="width: 100%" value="#{usuarioCT.usuario.nombre}"/>
-                                                    <p:outputLabel style="width: 100%" value="#{usuarioCT.usuario.identificacion}"/>
-                                                    <p:outputLabel style="width: 100%" value="#{usuarioCT.usuario.email}"/>
-                                                    <p:outputLabel style="width: 100%" value="#{usuarioCT.usuario.telefono}"/>
+                                                    <p:outputLabel style="width: 100%" value="#{sesionCT.usuario.nombre}"/>
+                                                    <p:outputLabel style="width: 100%" value="#{sesionCT.usuario.identificacion}"/>
+                                                    <p:outputLabel style="width: 100%" value="#{sesionCT.usuario.email}"/>
+                                                    <p:outputLabel style="width: 100%" value="#{sesionCT.usuario.telefono}"/>
                                                 </h:panelGrid>
                                             </h:panelGrid>
                                         </div>
                                         <hr/><br/>
                                         <h:panelGrid cellpadding="5" columns="3" id="seccionDatosSesion" style="width: 100%">
 
+                                            <p:outputLabel value="Correo: "/>
+                                            <b:inputText label="Correo" id="TEmail" style="width: 100%" value="#{sesionCT.usuario.email}" placeholder="Contraseña de sesion">
+                                                <f:validateLength minimum="6"/>
+                                            </b:inputText>
+                                            <p:message for="TEmail"/>
+                                            
                                             <p:outputLabel value="Contraseña: "/>
-                                            <b:inputSecret label="Contraseña" binding="#{MUsuarioPass}" id="TPassUsu" maxlength="20" style="width: 100%" value="#{usuarioBean.nuevaContraseña}" placeholder="Contraseña de sesion">
+                                            <b:inputSecret label="Contraseña" binding="#{MUsuarioPass}" id="TPassUsu" maxlength="20" style="width: 100%" value="#{sesionCT.nuevaContrasena}" placeholder="Contraseña de sesion">
                                                 <f:validateLength minimum="6"/>
                                             </b:inputSecret>
-                                            <p:message for="TPassUsu"/>
-
-                                            <p:outputLabel value="Repita contraseña: "/>
-                                            <b:inputSecret label="Repita Contraseña" id="TRemPassUsu" maxlength="20" style="width: 100%" value="#{usuarioBean.repitaContraseña}" placeholder="Repita contraseña de sesion" >
-                                                <f:validateLength minimum="6"/>
-                                                <f:attribute name="password" value="#{MUsuarioPass.value}"/>
-                                            </b:inputSecret>
-                                            <p:message for="TRemPassUsu"/>
+                                            <p:message for="TPassUsu"/>                                            
                                         </h:panelGrid>
                                         <p:messages id="msg" closable="true"/>
                                     </div>
                                 </div>
                                 <div align="center" class="box-footer">
                                     <h:panelGrid columns="1" width="80%">                                        
-                                        <p:commandButton id="BTModUsuario"  class="btn btn-block btn-primary" update="@form" action="#{usuarioCT.editarDatosSesion()}" value="Modificar datos de sesion" />
+                                        <p:commandButton id="BTModUsuario"  class="btn btn-block btn-primary" update="@form" action="#{sesionCT.editarDatosSesion()}" value="Modificar datos de sesion" />
                                     </h:panelGrid>
                                 </div>
                             </div>

@@ -1,17 +1,139 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
         <ui:composition template="./../adminTemplate.xhtml">
 
             <ui:define name="content">
-                content
+                <b:container fluid="true">
+                    <b:row>
+                        <b:column col-lg="12">
+                            <div>
+                                <h3>ASESORES<small> Asesores y recolectores</small></h3>                            
+                            </div>
+                        </b:column>
+                        <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
+                            <h:form id="formularioAsesor">
+                                <div class="box box-success">
+                                    <div class="box-header with-border">
+                                        <i class="fa fa-2x fa-user-plus"/>
+                                        <h4 class="box-title">Registro de Asesor</h4>
+                                    </div>
+                                    <div class="box-body">
+                                        <h:panelGrid id="seccionDatosUsuario" cellpadding="5" columns="2" style="width: 100%;">
+
+                                            <b:inputText maxlength="60" id="TNombres" required="true" requiredMessage="Ingrese nombres" placeholder="Nombres" value="#{usuarioCT.usuario.nombre}" style="width: 100%;"></b:inputText>                       
+                                            <p:message for="TNombres"/>
+
+                                            <b:inputText maxlength="60" id="TApellidos" required="true" requiredMessage="Ingrese apellidos" placeholder="apellidos" value="#{usuarioCT.usuario.apellido}" style="width: 100%;"></b:inputText>                       
+                                            <p:message for="TApellidos"/>
+
+                                            <b:inputText maxlength="100"  id="TEmail" required="true" requiredMessage="Ingrese Email valido" placeholder="Direccion de correo electronico" value="#{usuarioCT.usuario.email}" style="width: 100%"/>
+                                            <p:message for="TEmail"/>                                                                     
+
+                                            <b:inputText maxlength="45" id="TCc" tooltip="Numero de identificación" placeholder="Cedula de ciudadania" value="#{usuarioCT.usuario.identificacion}" style="width: 100%" ></b:inputText>
+                                            <p:message for="TCc"/>
+
+                                            <b:inputText maxlength="45" id="TTel" tooltip="Telefono" placeholder="Telefono" value="#{usuarioCT.usuario.telefono}" style="width: 100%" ></b:inputText>
+                                            <p:message for="TTel"/>
+
+                                            <b:inputText maxlength="45" id="TMovil" tooltip="Movil" placeholder="Movil" value="#{usuarioCT.usuario.movil}" style="width: 100%" ></b:inputText>
+                                            <p:message for="TMovil"/>
+
+                                            <b:selectOneMenu required="true" value="#{usuarioCT.usuario.genero}" requiredMessage="Seleccione Genero" id="SGenero" style="width: 100%">
+                                                <f:selectItem itemLabel="Seleccione Genero"/>
+                                                <f:selectItem itemLabel="Masculino" itemValue="M"/>
+                                                <f:selectItem itemLabel="Femenino" itemValue="F"/>
+                                            </b:selectOneMenu>
+                                            <p:message for="SGenero"/>
+
+                                            <b:selectOneMenu required="true" value="#{usuarioCT.usuario.barrio.nombre}" requiredMessage="Seleccione barrio" id="SBarrios" style="width: 100%">
+                                                <f:selectItem itemLabel="Seleccione Barrio"/>
+                                                <f:selectItems value="#{barrioCT.barrios}" var="barrio" itemLabel="#{barrio.nombre}" itemValue="#{barrio.nombre}"/>
+                                            </b:selectOneMenu>
+                                            <p:message for="SBarrios"/>
+                                        </h:panelGrid>
+                                    </div>
+                                    <div class="box-footer">
+                                        <p:commandButton  value="Cancelar" immediate="true" process="@this" 
+                                                          update=":formularioAsesor" action="#{usuarioCT.cancelarAsesor()}"
+                                                          class="btn btn-primary"/>
+                                        <p:commandButton  onclick="PrimeFaces.monitorDownload(start, stop);"  type="submit" update=":formularioAsesor :formularioListaAsesores" 
+                                                          action="#{usuarioCT.metodo()}" value="#{usuarioCT.nombreOperacion}" 
+                                                          class="btn btn-success"/>
+                                        <script type="text/javascript">
+                                            function start() {
+                                                PF('statusDialog').show();
+                                            }
+                                            function stop() {
+                                                PF('statusDialog').hide();
+                                            }
+                                        </script>
+                                        <p:dialog  modal="true" widgetVar="statusDialog" header="Cargando" draggable="false" closable="false" resizable="false">
+                                            <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif"/>
+                                        </p:dialog>
+                                    </div>
+                                </div>
+                            </h:form>
+                        </b:column>
+                        <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12">
+                            <div class="box box-success">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-list"/>
+                                    <h4 class="box-title">Lista de asesores</h4>
+                                </div>
+                                <div class="box-body">
+                                    <h:form id="formularioListaAsesores">
+                                        <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
+                                        <hr/>
+                                        <p:dataTable style="width: 100%" var="asesor" value="#{usuarioCT.asesores}" class="table-responsive table table-striped" rows="10"
+                                                     paginator="true" emptyMessage="No existen asesores registrados"
+                                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                     rowsPerPageTemplate="5,10,15">
+                                            <p:column headerText="Nombre">
+                                                <p:outputLabel value="#{asesor.nombre}"/>         
+                                            </p:column>
+
+                                            <p:column headerText="Apellido">
+                                                <p:outputLabel value="#{asesor.apellido}"/>         
+                                            </p:column>
+
+                                            <p:column headerText="Correo">
+                                                <p:outputLabel value="#{asesor.email}"/>         
+                                            </p:column>
+
+                                            <p:column headerText="Identificacion">
+                                                <p:outputLabel value="#{asesor.identificacion}"/>         
+                                            </p:column>
+                                           
+                                            <p:column  style="width: 60px" headerText="">
+                                                <p:commandLink style="color: white; width: 100%" process="@this" update=":formularioRegistro" action="#{usuarioCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
+                                                    <f:setPropertyActionListener value="#{asesor}" target="#{usuarioCT.usuario}"/>
+                                                    <i class="fa fa-pencil"/> 
+                                                </p:commandLink>
+                                            </p:column>
+
+                                            <p:column  style="width: 60px" headerText="">
+                                                <p:commandLink style="color: white; width: 100%" action="#{usuarioCT.eliminarAsesor()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
+                                                    <f:setPropertyActionListener value="#{asesor}" target="#{usuarioCT.usuario}"/>
+                                                    <i class="fa fa-trash"/>                                                     
+                                                </p:commandLink>
+                                            </p:column>
+                                        </p:dataTable>  
+                                    </h:form>
+                                </div>
+                            </div>
+                        </b:column>
+                    </b:row>
+                </b:container>
             </ui:define>
-
         </ui:composition>
-
     </body>
 </html>

@@ -23,13 +23,21 @@ public class UsuarioCT implements Serializable {
     private Usuario_TO usuario;
     private List<Usuario_TO> usuarios;
     private List<Usuario_TO> clientes;
-    private ServiciosUsuario servicioUser;        
-        
+    private List<Usuario_TO> asesores;
+    private ServiciosUsuario servicioUser;
+
+    private String nombreOperacion;
+    private int operacion; //Controla la operacion a ejecutar
+
     public UsuarioCT() {
         usuario = new Usuario_TO();
         usuarios = new ArrayList<>();
         clientes = new ArrayList<>();
+        asesores = new ArrayList<>();
         servicioUser = new ServiciosUsuario();
+
+        operacion = 0;
+        nombreOperacion = "Registrar";
     }
 
     @PostConstruct
@@ -70,8 +78,30 @@ public class UsuarioCT implements Serializable {
         this.servicioUser = servicioUser;
     }
 
+    public String getNombreOperacion() {
+        return nombreOperacion;
+    }
 
-    
+    public void setNombreOperacion(String nombreOperacion) {
+        this.nombreOperacion = nombreOperacion;
+    }
+
+    public int getOperacion() {
+        return operacion;
+    }
+
+    public void setOperacion(int operacion) {
+        this.operacion = operacion;
+    }
+
+    public List<Usuario_TO> getAsesores() {
+        return asesores;
+    }
+
+    public void setAsesores(List<Usuario_TO> asesores) {
+        this.asesores = asesores;
+    }        
+        
     //Metodos
     public String registrarCliente() {
 
@@ -109,14 +139,60 @@ public class UsuarioCT implements Serializable {
     }
 
     public void registrarAsesor() {
+        ServiciosBarrios sb = new ServiciosBarrios();
+        ServiciosRol sr = new ServiciosRol();
+        ServiciosEstado se = new ServiciosEstado();
+        ServiciosCiudad sc = new ServiciosCiudad();
+        ServiciosLocalidad sl = new ServiciosLocalidad();
+
+        usuario.setBarrio(sb.consultarBarrio(usuario.getBarrio().getIdBarrios(), usuario.getBarrio().getNombre()));
+        usuario.setEstado(se.consultarEstadoID(1, ""));
+        usuario.setRol(sr.consultarRol(3, ""));
+        usuario.getBarrio().setLocalidad(sl.consultarLocalidad(usuario.getBarrio().getLocalidad().getIdLocalidad(), ""));
+        usuario.setCiudad(sc.consultarCiudad(usuario.getBarrio().getLocalidad().getCiudad().getIdCiudad(), ""));
+
+        usuario.setRutaImagen(Upload.getPathDefaultUsuario());
+        
+        servicioUser.registrarUsuario(usuario.getNombre(), usuario.getTelefono(),
+                usuario.getBarrio().getIdBarrios(), usuario.getRol().getIdRol(),
+                usuario.getEstado().getIdEstado(), usuario.getEmail(),
+                usuario.getContrasena(), usuario.getApellido(),
+                usuario.getGenero(), usuario.getMovil(), "", usuario.getCiudad().getIdCiudad(), usuario.getIdentificacion(), usuario.getRutaImagen());
+        usuarios = servicioUser.consultarClientes();
     }
 
     public void modificarAsesor() {
     }
 
     public void eliminarAsesor() {
+        
+        servicioUser.eliminarUsuario(usuario.getIdUsuario());        
+    
     }
 
+    //Metodos Asesor
+    public void metodo() {
+        if (operacion == 0) {
+            registrarAsesor();
+        } else if (operacion == 1) {
+            modificarAsesor();
+            //Reiniciamos banderas
+            nombreOperacion = "Registrar";
+            operacion = 0;
+        }
+    }
+
+    public void seleccionarCRUD(int i) {
+        operacion = i;
+        if (operacion == 1) {
+            nombreOperacion = "Modificar";
+        }
+    }
     
-    
+    public void cancelarAsesor(){
+        usuario = new Usuario_TO();
+        nombreOperacion = "Registrar";
+        operacion = 0;
+    }
+
 }

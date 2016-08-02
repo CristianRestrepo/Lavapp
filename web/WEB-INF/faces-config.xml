@@ -145,12 +145,12 @@
         <from-view-id>/Vistas/Usuario/Perfil/PEditarPerfil.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>InformacionPersonal</from-outcome>
-            <to-view-id>/Vistas/Usuario/Perfil/PInformacionPersonal.xhtml</to-view-id>
+            <to-view-id>/Vistas/Usuario/Perfil/PInformacionP.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>InformacionSesion</from-outcome>
-            <to-view-id>/Vistas/Usuario/Perfil/PInformacionSesion.xhtml</to-view-id>
+            <to-view-id>/Vistas/Usuario/Perfil/PInformacionS.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>

@@ -7,11 +7,13 @@ package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.metodos.GenerarPassword;
 import com.planit.lavappweb.metodos.MD5;
+import com.planit.lavappweb.metodos.Upload;
 import com.planit.lavappweb.modelos.Estado_TO;
 import com.planit.lavappweb.modelos.Proveedor_TO;
 import com.planit.lavappweb.modelos.Usuario_TO;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosBarrios;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosCiudad;
+import com.planit.lavappweb.webservices.implementaciones.ServiciosLocalidad;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosProveedor;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosRol;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosUsuario;
@@ -81,18 +83,18 @@ public class ProveedorCT {
     public void setOperacion(int operacion) {
         this.operacion = operacion;
     }
-    
-    
 
     //Metodos CRUD    
     public void registrar() {
         ServiciosBarrios sb = new ServiciosBarrios();
+        ServiciosLocalidad sl = new ServiciosLocalidad();
         ServiciosCiudad sc = new ServiciosCiudad();
         ServiciosRol sr = new ServiciosRol();
 
         //Registro de informacion de usuario
         proveedor.getUsuario().setBarrio(sb.consultarBarrio(proveedor.getUsuario().getBarrio().getIdBarrios(), proveedor.getUsuario().getBarrio().getNombre()));
-        proveedor.getUsuario().setCiudad(sc.consultarCiudad(proveedor.getUsuario().getCiudad().getIdCiudad(), proveedor.getUsuario().getCiudad().getNombre()));
+        proveedor.getUsuario().getBarrio().setLocalidad(sl.consultarLocalidad(proveedor.getUsuario().getBarrio().getLocalidad().getIdLocalidad(), ""));
+        proveedor.getUsuario().setCiudad(sc.consultarCiudad(proveedor.getUsuario().getBarrio().getLocalidad().getCiudad().getIdCiudad(), ""));
         proveedor.getUsuario().setRol(sr.consultarRol(5, "Proveedor"));
         proveedor.getUsuario().setEstado(new Estado_TO(1, "Activo"));
         proveedor.getUsuario().setDireccion(proveedor.getDireccion());
@@ -101,20 +103,22 @@ public class ProveedorCT {
         String password = GenerarPassword.generarPass(6);//Generamos contraseña automatica        
         String identificacion = proveedor.getUsuario().getIdentificacion();//Guardamos la identificacion del usuario para consultarlo despues de ser registrado
 
+        proveedor.getUsuario().setRutaImagen(Upload.getPathDefaultUsuario());
         //Se registra el usuario
-//        serviciosUsuario.registrarUsuario(proveedor.getUsuario().getNombre(),
-//                proveedor.getUsuario().getTelefono(),
-//                proveedor.getUsuario().getBarrio().getIdBarrios(),
-//                proveedor.getUsuario().getRol().getIdRol(),
-//                proveedor.getUsuario().getEstado().getIdEstado(),
-//                proveedor.getUsuario().getEmail(),
-//                MD5.getMD5(password),
-//                proveedor.getUsuario().getApellido(),
-//                proveedor.getUsuario().getGenero(),
-//                proveedor.getUsuario().getMovil(),
-//                proveedor.getUsuario().getDireccion(),
-//                proveedor.getUsuario().getCiudad().getIdCiudad(),
-//                proveedor.getUsuario().getIdentificacion());
+        serviciosUsuario.registrarUsuario(proveedor.getUsuario().getNombre(),
+                proveedor.getUsuario().getTelefono(),
+                proveedor.getUsuario().getBarrio().getIdBarrios(),
+                proveedor.getUsuario().getRol().getIdRol(),
+                proveedor.getUsuario().getEstado().getIdEstado(),
+                proveedor.getUsuario().getEmail(),
+                MD5.getMD5(password),
+                proveedor.getUsuario().getApellido(),
+                proveedor.getUsuario().getGenero(),
+                proveedor.getUsuario().getMovil(),
+                proveedor.getUsuario().getDireccion(),
+                proveedor.getUsuario().getCiudad().getIdCiudad(),
+                proveedor.getUsuario().getIdentificacion(),
+                proveedor.getUsuario().getRutaImagen());
 
         //Envio de correo de bienvenida
         //
@@ -143,22 +147,25 @@ public class ProveedorCT {
     public void modificar() {
 
         ServiciosBarrios sb = new ServiciosBarrios();
+         ServiciosLocalidad sl = new ServiciosLocalidad();
         ServiciosCiudad sc = new ServiciosCiudad();
         ServiciosRol sr = new ServiciosRol();
 
         proveedor.getUsuario().setBarrio(sb.consultarBarrio(proveedor.getUsuario().getBarrio().getIdBarrios(), proveedor.getUsuario().getBarrio().getNombre()));
-        proveedor.getUsuario().setCiudad(sc.consultarCiudad(proveedor.getUsuario().getCiudad().getIdCiudad(), proveedor.getUsuario().getCiudad().getNombre()));
-
-//        serviciosUsuario.editarUsuario(proveedor.getUsuario().getIdUsuario(),
-//                proveedor.getUsuario().getNombre(),
-//                proveedor.getUsuario().getApellido(),
-//                proveedor.getUsuario().getTelefono(),
-//                proveedor.getUsuario().getBarrio().getIdBarrios(),
-//                proveedor.getUsuario().getMovil(),
-//                proveedor.getUsuario().getDireccion(),
-//                proveedor.getUsuario().getCiudad().getIdCiudad(),
-//                proveedor.getUsuario().getIdentificacion());
-
+        proveedor.getUsuario().getBarrio().setLocalidad(sl.consultarLocalidad(proveedor.getUsuario().getBarrio().getLocalidad().getIdLocalidad(), ""));
+        proveedor.getUsuario().setCiudad(sc.consultarCiudad(proveedor.getUsuario().getBarrio().getLocalidad().getCiudad().getIdCiudad(), ""));
+        
+        serviciosUsuario.editarUsuario(proveedor.getUsuario().getIdUsuario(),
+                proveedor.getUsuario().getNombre(),
+                proveedor.getUsuario().getApellido(),
+                proveedor.getUsuario().getGenero(),
+                proveedor.getUsuario().getTelefono(),
+                proveedor.getUsuario().getBarrio().getIdBarrios(),
+                proveedor.getUsuario().getMovil(),
+                proveedor.getUsuario().getDireccion(),
+                proveedor.getUsuario().getCiudad().getIdCiudad(),
+                proveedor.getUsuario().getIdentificacion(),
+                proveedor.getUsuario().getRutaImagen());
         ServiciosZona sz = new ServiciosZona();
         //Consultamos la informacion del barrio seleccionado y asi consultamos la zona a la que esta asociada
         proveedor.getUsuario().setBarrio(sb.consultarBarrio(proveedor.getUsuario().getBarrio().getIdBarrios(), proveedor.getUsuario().getBarrio().getNombre()));
@@ -177,11 +184,9 @@ public class ProveedorCT {
     }
 
     public void eliminar() {
-
         int usuario = proveedor.getUsuario().getIdUsuario();
         proveedor = servicios.eliminarProveedor(proveedor.getIdProveedor());
         serviciosUsuario.eliminarUsuario(usuario);
-
         proveedores = servicios.consultarProveedores();
     }
 

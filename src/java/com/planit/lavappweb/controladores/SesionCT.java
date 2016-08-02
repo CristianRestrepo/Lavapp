@@ -37,6 +37,7 @@ public class SesionCT implements Serializable {
     protected ServiciosUsuario serviciosUsuario;
     protected Upload ControladorArchivos;
     private String estadoFoto;
+    private String nuevaContrasena;
 
     //Constructores
     public SesionCT() {
@@ -44,6 +45,7 @@ public class SesionCT implements Serializable {
         usuario = new Usuario_TO();
         ControladorArchivos = new Upload();
         estadoFoto = "";
+        nuevaContrasena = "";
     }
 
     //Getter & Setter
@@ -61,6 +63,14 @@ public class SesionCT implements Serializable {
 
     public void setEstadoFoto(String estadoFoto) {
         this.estadoFoto = estadoFoto;
+    }
+
+    public String getNuevaContrasena() {
+        return nuevaContrasena;
+    }
+
+    public void setNuevaContrasena(String nuevaContrasena) {
+        this.nuevaContrasena = nuevaContrasena;
     }
 
     //Metodos
@@ -153,11 +163,18 @@ public class SesionCT implements Serializable {
                 usuario.getDireccion(),
                 usuario.getCiudad().getIdCiudad(),
                 usuario.getIdentificacion(),
-                usuario.getRutaImagen());        
-        
+                usuario.getRutaImagen());
     }
 
     public void editarDatosSesion() {
+        if (!nuevaContrasena.isEmpty()) {
+            serviciosUsuario.editarCorreoSesion(usuario.getIdUsuario(),usuario.getEmail());
+            serviciosUsuario.editarContrasenaSesion(usuario.getIdUsuario(),nuevaContrasena);
+        } else {
+            serviciosUsuario.editarCorreoSesion(usuario.getIdUsuario(),usuario.getEmail());
+        }
+        
+        nuevaContrasena = "";
     }
 
     //Subida de archivos
