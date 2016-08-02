@@ -1,17 +1,233 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"    
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-    <body>
+    <ui:composition template="./../adminTemplate.xhtml">
 
-        <ui:composition template="./../adminTemplate.xhtml">
+        <ui:define name="content">
 
-            <ui:define name="content">
-                content
-            </ui:define>
+            <b:container fluid="true">
+                <b:row>
+                    <b:column col-lg="12">
+                        <div>
+                            <h3>Estado e Historico <small> estado e hostorrico de pedidos LavaApp.</small></h3>                            
+                        </div>
+                    </b:column>
 
-        </ui:composition>
+                    <h:form id="formularioRegistro" enctype="multipart/form-data" >                         
+                        <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                            <p:messages id="messages" closable="true"/>
+                        </b:column>
 
-    </body>
+                        <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                            <div class="box box-info">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-list-alt"/>
+                                    <h4 class="box-title">Estado de Prendas</h4>
+                                </div> 
+                                <div class="box-body">
+                                    <div class="form-horizontal">
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label"> Nombre de Cliente</label>                                                
+
+                                            <div class="col-sm-6">
+                                                <b:inputText id="txtNomCliente" class="input-lg-lv col-sm-12" placeholder="Nombre del cliente..." 
+                                                             required="true" requiredMessage="Ingrese nombre de la Jornada"  
+                                                             value="#{jornadaCT.jornada.nombre}"/>                                               
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label"> Cédula de cliente</label>                                                
+
+                                            <div class="col-sm-6">
+                                                <b:inputText id="txtCCclien" class="input-lg-lv col-sm-12" placeholder="Nombre del cliente..." 
+                                                             required="true" requiredMessage="Ingrese nombre de la Jornada"  
+                                                             value="#{jornadaCT.jornada.nombre}"/>                                               
+                                            </div>
+
+                                        </div>
+                                        
+                                        
+                                        <div class="col-sm-8">
+                                            <div class="col-sm-6 col-sm-offset-6">
+                                                <p:commandLink onclick="PrimeFaces.monitorDownload(start, stop);" 
+                                                               update=":formularioRegistro :formularioListaJornadas:DTJornadas" 
+                                                               action="#{jornadaCT.metodo()}"  
+                                                               class="btn btn-info btn-block "  type="submit" style="float: right" >
+                                                    <i class="fa fa-search" /> Buscar
+                                                </p:commandLink>                                                                                       
+                                            </div>
+                                        </div>
+
+                                        <script type="text/javascript">
+                                            function start() {
+                                                PF('statusDialog').show();
+                                            }
+                                            function stop() {
+                                                PF('statusDialog').hide();
+                                            }
+                                        </script>
+                                        <p:dialog  modal="true" widgetVar="statusDialog" header="Cargando" draggable="false" closable="false" resizable="false">
+                                            <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif"/>
+                                        </p:dialog>
+
+                                        <p:message for="formularioRegistro"/>
+                                    </div>
+                                    
+                                    <div class="box-footer" style=" margin: 80px 0px;" >
+                                        <!--BARRA DE ESTADOS DE PRENDA-->                                      
+                                        
+
+            <c:choose>
+                <c:when test="">AAA</c:when>
+                <c:when test="">BBB</c:when>
+                <c:when test="">CCC</c:when>
+                <c:otherwise>undefined</c:otherwise>
+            </c:choose>
+
+<!--
+        
+        *Modelo a seguir para hacer activo  cada estado cuando corresponda
+
+-->                                        
+                                        <div class="container-fluid">
+
+                                            <div class="row bs-wizard" style="border-bottom:0;">
+
+                                                <div class="col-xs-3 bs-wizard-step complete">
+                                                    <div class="text-center bs-wizard-stepnum">
+                                                        <i class="fa fa-user-plus" />Recibido
+                                                    </div>
+                                                    <div class="progress"><div class="progress-bar"></div></div>
+                                                    <a href="#" class="bs-wizard-dot"></a>
+                                                    <div class="bs-wizard-info text-center">Lorem ipsum dolor sit amet.</div>
+                                                </div>
+
+                                                <div class="col-xs-3 bs-wizard-step complete"><!-- complete -->
+                                                    <div class="text-center bs-wizard-stepnum">
+                                                         <i class="fa fa-refresh" /> Lavado
+                                                    </div>
+                                                    <div class="progress"><div class="progress-bar"></div></div>
+                                                    <a href="#" class="bs-wizard-dot"></a>
+                                                    <div class="bs-wizard-info text-center">Nam mollis tristique erat vel tristique. Aliquam erat volutpat. Mauris et vestibulum nisi. Duis molestie nisl sed scelerisque vestibulum. Nam placerat tristique placerat</div>
+                                                </div>
+
+                                                <div class="col-xs-3 bs-wizard-step active"><!-- complete -->
+                                                    <div class="text-center bs-wizard-stepnum">
+                                                        <i class="fa fa-check" />    Empacado
+                                                    </div>
+                                                    <div class="progress"><div class="progress-bar"></div></div>
+                                                    <a href="#" class="bs-wizard-dot"></a>
+                                                    <div class="bs-wizard-info text-center">Integer semper dolor ac auctor rutrum. Duis porta ipsum vitae mi bibendum bibendum</div>
+                                                </div>
+
+                                                <div class="col-xs-3 bs-wizard-step disabled"><!-- active -->
+                                                    <div class="text-center bs-wizard-stepnum">
+                                                        <i class="fa fa-send" /> Entega a Cliente
+                                                    </div>
+                                                    <div class="progress"><div class="progress-bar"></div></div>
+                                                    <a href="#" class="bs-wizard-dot"></a>
+                                                    <div class="bs-wizard-info text-center"> Curabitur mollis magna at blandit vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae</div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!--BARRA DE ESTADOS DE PRENDA-->
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </b:column>                        
+                    </h:form>
+
+                    <h:form id="formularioListaJornadas">
+                        <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                            <div class="box box-info">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-list-alt"/>
+                                    <h4 class="box-title">Histórico de Acciones Por Pedido</h4>
+                                </div> 
+                                <div class="box-body">
+                                    <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
+                                    <hr/>
+                                    <p:dataTable id="DTJornadas" style="width: 100%" var="jornada" value="#{jornadaCT.jornadas}" class="table-responsive table table-striped" rows="10"
+                                                 paginator="true"
+                                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15">
+                                        
+                                        <p:column headerText="Nombre ">
+                                            <p:outputLabel value="#{jornada.nombre}"/>                                               
+                                        </p:column>
+                                        
+                                        <p:column headerText="Cc">
+                                            <p:outputLabel value="#{jornada.nombre}"/>                                               
+                                        </p:column>
+                                        
+                                        <p:column headerText="Direccion">
+                                            <p:outputLabel value="#{jornada.nombre}"/>                                               
+                                        </p:column>
+                                        
+                                        <p:column headerText="Tel o Cel">
+                                            <p:outputLabel value="#{jornada.nombre}"/>                                               
+                                        </p:column>
+
+                                        <p:column style="width: 60px" headerText="">
+                                            <p:commandLink style="color: white; width: 100%" process="@this" update=":formularioRegistro" action="#{jornadaCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
+                                                <f:setPropertyActionListener value="#{jornada}" target="#{jornadaCT.jornada}"/>
+                                                <i class="fa fa-pencil"/> 
+                                            </p:commandLink>
+                                        </p:column>
+
+                                        <p:column style="width: 60px" headerText="">
+                                            <p:commandLink style="color: white; width: 100%" action="#{jornadaCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
+                                                <f:setPropertyActionListener value="#{jornada}" target="#{jornadaCT.jornada}"/>
+                                                <i class="fa fa-trash"/>                                                     
+                                            </p:commandLink>
+                                        </p:column>
+                                        
+                                        <p:column style="width: 60px" headerText="">
+                                            <p:commandLink style="color: white; width: 100%" action="#{jornadaCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-warning">
+                                                <f:setPropertyActionListener value="#{jornada}" target="#{jornadaCT.jornada}"/>
+                                                <i class="fa fa-search"/>                                                     
+                                            </p:commandLink>
+                                        </p:column>
+                                        
+                                        <p:column style="width: 60px" headerText="">
+                                            <p:commandLink style="color: white; width: 100%" action="#{jornadaCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-success">
+                                                <f:setPropertyActionListener value="#{jornada}" target="#{jornadaCT.jornada}"/>
+                                                <i class="fa fa-send"/>                                                     
+                                            </p:commandLink>
+                                        </p:column>
+                                        
+                                        <p:column style="width: 60px" headerText="">
+                                            <p:commandLink style="color: white; width: 100%" action="#{jornadaCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-primary">
+                                                <f:setPropertyActionListener value="#{jornada}" target="#{jornadaCT.jornada}"/>
+                                                <i class="fa fa-check"/>                                                     
+                                            </p:commandLink>
+                                        </p:column>
+                                        
+                                        
+                                    </p:dataTable>
+                                </div>                                   
+                            </div>
+                        </b:column>
+                    </h:form>
+                </b:row>
+            </b:container>
+
+        </ui:define>
+
+    </ui:composition>
+
 </html>
