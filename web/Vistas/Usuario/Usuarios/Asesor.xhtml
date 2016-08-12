@@ -5,7 +5,8 @@
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body>
 
@@ -35,8 +36,10 @@
                                             <b:inputText maxlength="60" id="TApellidos" required="true" requiredMessage="Ingrese apellidos" placeholder="apellidos" value="#{usuarioCT.usuario.apellido}" style="width: 100%;"></b:inputText>                       
                                             <p:message for="TApellidos"/>
 
-                                            <b:inputText maxlength="100"  id="TEmail" required="true" requiredMessage="Ingrese Email valido" placeholder="Direccion de correo electronico" value="#{usuarioCT.usuario.email}" style="width: 100%"/>
-                                            <p:message for="TEmail"/>                                                                     
+                                            <c:if test="#{usuarioCT.operacion == 0}">
+                                                <b:inputText maxlength="100"  id="TEmail" required="true" requiredMessage="Ingrese Email valido" placeholder="Direccion de correo electronico" value="#{usuarioCT.usuario.email}" style="width: 100%"/>
+                                                <p:message for="TEmail"/>      
+                                            </c:if>
 
                                             <b:inputText maxlength="45" id="TCc" tooltip="Numero de identificación" placeholder="Cedula de ciudadania" value="#{usuarioCT.usuario.identificacion}" style="width: 100%" ></b:inputText>
                                             <p:message for="TCc"/>
@@ -112,9 +115,9 @@
                                             <p:column headerText="Identificacion">
                                                 <p:outputLabel value="#{asesor.identificacion}"/>         
                                             </p:column>
-                                           
+
                                             <p:column  style="width: 60px" headerText="">
-                                                <p:commandLink style="color: white; width: 100%" process="@this" update=":formularioRegistro" action="#{usuarioCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
+                                                <p:commandLink style="color: white; width: 100%" process="@this" update=":formularioAsesor" action="#{usuarioCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
                                                     <f:setPropertyActionListener value="#{asesor}" target="#{usuarioCT.usuario}"/>
                                                     <i class="fa fa-pencil"/> 
                                                 </p:commandLink>
