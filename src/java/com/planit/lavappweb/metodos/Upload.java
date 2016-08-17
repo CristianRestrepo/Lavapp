@@ -113,6 +113,18 @@ public class Upload {
             throw e;
         }
     }
+    
+    
+    public static String getPathDefaultUsuario() {
+
+        try {
+            String path = "/resources/images/upload/Usuarios/user.png";
+            return path;
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        return null;
+    }
     /**
      *
      * METODO QUE SUBE EL ARCHIVO =============================================

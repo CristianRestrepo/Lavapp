@@ -99,7 +99,7 @@
                                     <!-- Sidebar user panel -->
                                     <div class="user-panel padding-panel">
                                         <div class="pull-left image">
-                                            <p:graphicImage value="#{sesionActivaBean.usuario.usuarioFotoRuta}" class="img-circle center-block img-responsive" alt="User Image"/>
+                                            <p:graphicImage value="#{sesionCT.usuario.rutaImagen}" class="img-circle center-block img-responsive" alt="User Image"/>
                                         </div>
                                         <div class="pull-left info">
                                             <div class="cont-description">
@@ -133,6 +133,12 @@
                                                 <li>
                                                     <h:link outcome="Asesor">
                                                         <i class="fa fa-circle-o"></i> Asesores
+                                                    </h:link>
+                                                </li>
+                                                
+                                                 <li>
+                                                    <h:link outcome="Proveedor">
+                                                        <i class="fa fa-circle-o"></i> Proveedores
                                                     </h:link>
                                                 </li>
                                             </ul>

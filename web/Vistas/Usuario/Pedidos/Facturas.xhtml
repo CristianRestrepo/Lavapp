@@ -8,9 +8,7 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="./../adminTemplate.xhtml">
-
         <ui:define name="content">
-
             <b:container fluid="true">
                 <b:row>
                     <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
@@ -50,7 +48,7 @@
                                         <p:column headerText="Apellido">
                                             <p:outputLabel value="#{cliente.apellido}"/>
                                         </p:column>      
-                                        
+
                                         <p:column headerText="Email">
                                             <p:outputLabel value="#{cliente.email}"/>
                                         </p:column>      
@@ -58,8 +56,7 @@
                                     <hr/>                                        
                                     <div align="center" style="width: 100%">
                                         <center>
-                                            <p:commandButton style="width: 80%" update=":formularioCliente  :formPedidos" 
-                                                             action="#{pedidoCT.consultarPedidosClientes()}"  
+                                            <p:commandButton style="width: 80%" update=":formularioCliente  :formPedidos"
                                                              value="Consultar Pedidos" class="btn btn-block btn-success"/>
                                         </center>
                                     </div>
@@ -92,7 +89,7 @@
                                             <h:outputText value="#{pedido.fechaInicio}" />
                                         </p:column>
 
-                                     
+
                                     </p:dataTable>
                                     <script type="text/javascript">
                                         function start() {
@@ -111,9 +108,7 @@
                     </b:column>                       
                 </b:row>
             </b:container>
-
         </ui:define>
-
     </ui:composition>
 
 </html>

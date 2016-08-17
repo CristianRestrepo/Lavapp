@@ -6,10 +6,12 @@
 package com.planit.lavappweb.webservices.implementaciones;
 
 import com.planit.lavappweb.modelos.Usuario_TO;
-import com.planit.lavappweb.webservices.clientes.ClienteConsultarClientes;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarUsuario;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarUsuarioPorLogin;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarUsuarioSegunIdentificacion;
+import com.planit.lavappweb.webservices.clientes.ClienteConsultarUsuariosPorRol;
+import com.planit.lavappweb.webservices.clientes.ClienteEditarContrasenaSesion;
+import com.planit.lavappweb.webservices.clientes.ClienteEditarCorreoSesion;
 import com.planit.lavappweb.webservices.clientes.ClienteEditarUsuario;
 import com.planit.lavappweb.webservices.clientes.ClienteEliminarUsuario;
 import com.planit.lavappweb.webservices.clientes.ClienteRegistrarUsuario;
@@ -40,7 +42,7 @@ public class ServiciosUsuario {
 
     public Usuario_TO registrarUsuario(String nombre, String telefono, int idBarrios, int idRol, int idestado, String email, String contrasena, String apellido, String genero, String movil, String direccion, int idCiudad, String identificacion, String rutaImagen) {
         ClienteRegistrarUsuario cliente = new ClienteRegistrarUsuario();
-        return cliente.registrarUsuarios(Usuario_TO.class, nombre, telefono, "" + idBarrios, "" + idRol, "" + idestado, genero, contrasena, apellido, genero, movil, direccion, "" + idCiudad, identificacion, rutaImagen);
+        return cliente.registrarUsuarios(Usuario_TO.class, nombre, telefono, "" + idBarrios, "" + idRol, "" + idestado, email, contrasena, apellido, genero, movil, direccion, "" + idCiudad, identificacion, rutaImagen);
     }
 
     public Usuario_TO editarUsuario(int idUsuario, String nombre, String apellido, String genero, String telefono, int idBarrios, String movil, String direccion, int idCiudad, String identificacion, String rutaImagen) {
@@ -48,15 +50,25 @@ public class ServiciosUsuario {
         return cliente.editarUsuario(Usuario_TO.class, "" + idUsuario, nombre, apellido, genero, telefono, "" + idBarrios, movil, direccion, "" + idCiudad, identificacion, rutaImagen);
     }
 
+    public Usuario_TO editarContrasenaSesion(int idUsuario, String contrasena) {
+        ClienteEditarContrasenaSesion cliente = new ClienteEditarContrasenaSesion();
+        return cliente.editarContrasenaSesion(Usuario_TO.class, "" + idUsuario, contrasena);
+    }
+
+    public Usuario_TO editarCorreoSesion(int idUsuario, String correo) {
+        ClienteEditarCorreoSesion cliente = new ClienteEditarCorreoSesion();
+        return cliente.editarCorreoSesion(Usuario_TO.class, "" + idUsuario ,correo);
+    }
+
     public Usuario_TO eliminarUsuario(int idUsuario) {
         ClienteEliminarUsuario cliente = new ClienteEliminarUsuario();
         return cliente.eliminarUsuario(Usuario_TO.class, "" + idUsuario);
     }
 
-    public List<Usuario_TO> consultarClientes() {
-        ClienteConsultarClientes clienteModelo = new ClienteConsultarClientes();
+    public List<Usuario_TO> consultarUsuariosPorRol(int idRol) {
+        ClienteConsultarUsuariosPorRol clienteModelo = new ClienteConsultarUsuariosPorRol();
         List<LinkedHashMap> datos = new ArrayList<>();
-        datos = clienteModelo.consultarClientes(List.class);
+        datos = clienteModelo.consultarUsuariosPorRol(List.class, "" + idRol);
         List<Usuario_TO> usuarios = new ArrayList<>();
 
 //        SERVICIOS

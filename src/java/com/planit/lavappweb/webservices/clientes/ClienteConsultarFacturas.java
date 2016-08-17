@@ -11,10 +11,10 @@ import javax.ws.rs.client.WebTarget;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
 /**
- * Jersey REST client generated for REST resource:we [consultarClientes]<br>
+ * Jersey REST client generated for REST resource:we [consultarFacturas]<br>
  * USAGE:
  * <pre>
- *        ClienteConsultarClientes client = new ClienteConsultarClientes();
+ *        ClienteConsultarFacturas client = new ClienteConsultarFacturas();
  *        Object response = client.XXX(...);
  *        // do whatever with response
  *        client.close();
@@ -22,21 +22,21 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
  *
  * @author Desarrollo_Planit
  */
-public class ClienteConsultarClientes {
+public class ClienteConsultarFacturas {
     private WebTarget webTarget;
     private Client client;
     private static final String BASE_URI = "http://localhost:8084/LavappService/webresources/";
 
-    public ClienteConsultarClientes() {
+    public ClienteConsultarFacturas() {
         client = ResteasyClientBuilder.newBuilder().build();
-        webTarget = client.target(BASE_URI).path("consultarClientes");
+        webTarget = client.target(BASE_URI).path("consultarFacturas");
     }
 
     /**
      * @param responseType Class representing the response
      * @return response object (instance of responseType class)
      */
-    public <T> T consultarClientes(Class<T> responseType) throws ClientErrorException {
+    public <T> T consultarFacturas(Class<T> responseType) throws ClientErrorException {
         return webTarget.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 

@@ -7,6 +7,7 @@ package com.planit.lavappweb.webservices.implementaciones;
 
 import com.planit.lavappweb.modelos.Calificacion_TO;
 import com.planit.lavappweb.modelos.Pedido_TO;
+import com.planit.lavappweb.webservices.clientes.ClienteConsultarCalificacionPorPedido;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarCalificaciones;
 import com.planit.lavappweb.webservices.clientes.ClienteEliminarCalificacion;
 import com.planit.lavappweb.webservices.clientes.ClienteModificarCalificaion;
@@ -21,26 +22,28 @@ import java.util.List;
  */
 public class ServiciosCalificacion {
 
-    public Calificacion_TO registrarCalificacion(int calificacion, String observacion, int idPedido) {
+    public Calificacion_TO registrarCalificacion(int idcalificacion, String observacion, int idPedido) {
 
         ClienteRegistrarCalificacion clieModelo = new ClienteRegistrarCalificacion();
-
-        return clieModelo.registrarCalificacion(Calificacion_TO.class, "" + calificacion, observacion, "" + idPedido);
+        return clieModelo.registrarCalificacion(Calificacion_TO.class, "" + idcalificacion, observacion, "" + idPedido);
     }
 
     public Calificacion_TO modificarCalificacion(int idCalificacion, int calificacion, String observacion, int idPedido) {
 
         ClienteModificarCalificaion clienModelo = new ClienteModificarCalificaion();
-
         return clienModelo.modificarCalificacion(Calificacion_TO.class, "" + idCalificacion, "" + calificacion, observacion, "" + idPedido);
-
     }
 
     public Calificacion_TO eliminarCalificacion(int idCalificacion) {
 
         ClienteEliminarCalificacion clieModelo = new ClienteEliminarCalificacion();
-
         return clieModelo.eliminarCalificacion(Calificacion_TO.class, "" + idCalificacion);
+    }
+
+    public Calificacion_TO consultarCalificacionPorPedido(int idPedido) {
+
+        ClienteConsultarCalificacionPorPedido cliente = new ClienteConsultarCalificacionPorPedido();
+        return cliente.consultarCalificacionPorPedido(Calificacion_TO.class, "" + idPedido);
     }
 
     public List<Calificacion_TO> consultarCalificaciones() {

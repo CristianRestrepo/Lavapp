@@ -5,6 +5,7 @@
  */
 package com.planit.lavappweb.controladores;
 
+import com.planit.lavappweb.metodos.GenerarPassword;
 import com.planit.lavappweb.metodos.Upload;
 import com.planit.lavappweb.modelos.Usuario_TO;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosBarrios;
@@ -23,18 +24,27 @@ public class UsuarioCT implements Serializable {
     private Usuario_TO usuario;
     private List<Usuario_TO> usuarios;
     private List<Usuario_TO> clientes;
-    private ServiciosUsuario servicioUser;        
-        
+    private List<Usuario_TO> asesores;
+    private ServiciosUsuario servicioUser;
+
+    private String nombreOperacion;
+    private int operacion; //Controla la operacion a ejecutar
+
     public UsuarioCT() {
         usuario = new Usuario_TO();
         usuarios = new ArrayList<>();
         clientes = new ArrayList<>();
+        asesores = new ArrayList<>();
         servicioUser = new ServiciosUsuario();
+
+        operacion = 0;
+        nombreOperacion = "Registrar";
     }
 
     @PostConstruct
     public void init() {
-        clientes = servicioUser.consultarClientes();
+        clientes = servicioUser.consultarUsuariosPorRol(4);
+        asesores = servicioUser.consultarUsuariosPorRol(3);
     }
 
     //Getters & Setters
@@ -70,8 +80,30 @@ public class UsuarioCT implements Serializable {
         this.servicioUser = servicioUser;
     }
 
+    public String getNombreOperacion() {
+        return nombreOperacion;
+    }
 
-    
+    public void setNombreOperacion(String nombreOperacion) {
+        this.nombreOperacion = nombreOperacion;
+    }
+
+    public int getOperacion() {
+        return operacion;
+    }
+
+    public void setOperacion(int operacion) {
+        this.operacion = operacion;
+    }
+
+    public List<Usuario_TO> getAsesores() {
+        return asesores;
+    }
+
+    public void setAsesores(List<Usuario_TO> asesores) {
+        this.asesores = asesores;
+    }
+
     //Metodos
     public String registrarCliente() {
 
@@ -92,7 +124,7 @@ public class UsuarioCT implements Serializable {
                 usuario.getEstado().getIdEstado(), usuario.getEmail(),
                 usuario.getContrasena(), usuario.getApellido(),
                 usuario.getGenero(), usuario.getMovil(), "", usuario.getCiudad().getIdCiudad(), usuario.getIdentificacion(), usuario.getRutaImagen());
-        usuarios = servicioUser.consultarClientes();
+        clientes = servicioUser.consultarUsuariosPorRol(4);
 
         SesionCT ss = new SesionCT();
         ss.setUsuario(usuario);
@@ -103,20 +135,87 @@ public class UsuarioCT implements Serializable {
     }
 
     public void modificarCliente() {
+
     }
 
     public void eliminarCliente() {
+        servicioUser.eliminarUsuario(usuario.getIdUsuario());
+        clientes = servicioUser.consultarUsuariosPorRol(4);
     }
 
     public void registrarAsesor() {
+        ServiciosBarrios sb = new ServiciosBarrios();
+        ServiciosRol sr = new ServiciosRol();
+        ServiciosEstado se = new ServiciosEstado();
+        ServiciosCiudad sc = new ServiciosCiudad();
+        ServiciosLocalidad sl = new ServiciosLocalidad();
+
+        usuario.setBarrio(sb.consultarBarrio(usuario.getBarrio().getIdBarrios(), usuario.getBarrio().getNombre()));
+        usuario.setEstado(se.consultarEstadoID(1, ""));
+        usuario.setRol(sr.consultarRol(3, ""));
+        usuario.getBarrio().setLocalidad(sl.consultarLocalidad(usuario.getBarrio().getLocalidad().getIdLocalidad(), ""));
+        usuario.setCiudad(sc.consultarCiudad(usuario.getBarrio().getLocalidad().getCiudad().getIdCiudad(), ""));
+
+        usuario.setRutaImagen(Upload.getPathDefaultUsuario());
+        usuario.setContrasena(GenerarPassword.generarPass(6));
+
+        usuario = servicioUser.registrarUsuario(usuario.getNombre(), usuario.getTelefono(),
+                usuario.getBarrio().getIdBarrios(), usuario.getRol().getIdRol(),
+                usuario.getEstado().getIdEstado(), usuario.getEmail(),
+                usuario.getContrasena(), usuario.getApellido(),
+                usuario.getGenero(), usuario.getMovil(), "", usuario.getCiudad().getIdCiudad(), usuario.getIdentificacion(), usuario.getRutaImagen());
+        asesores = servicioUser.consultarUsuariosPorRol(3);
     }
 
     public void modificarAsesor() {
+        ServiciosBarrios sb = new ServiciosBarrios();
+        ServiciosRol sr = new ServiciosRol();
+        ServiciosEstado se = new ServiciosEstado();
+        ServiciosCiudad sc = new ServiciosCiudad();
+        ServiciosLocalidad sl = new ServiciosLocalidad();
+
+        usuario.setBarrio(sb.consultarBarrio(usuario.getBarrio().getIdBarrios(), usuario.getBarrio().getNombre()));
+        usuario.setEstado(se.consultarEstadoID(1, ""));
+        usuario.setRol(sr.consultarRol(3, ""));
+        usuario.getBarrio().setLocalidad(sl.consultarLocalidad(usuario.getBarrio().getLocalidad().getIdLocalidad(), ""));
+        usuario.setCiudad(sc.consultarCiudad(usuario.getBarrio().getLocalidad().getCiudad().getIdCiudad(), ""));
+     
+        usuario = servicioUser.editarUsuario(usuario.getIdUsuario(), usuario.getNombre(), 
+                usuario.getApellido(), usuario.getGenero(), usuario.getTelefono(),
+                usuario.getBarrio().getIdBarrios(),
+                usuario.getMovil(), "", usuario.getCiudad().getIdCiudad(),
+                usuario.getIdentificacion(), usuario.getRutaImagen());
+        asesores = servicioUser.consultarUsuariosPorRol(3);
     }
 
     public void eliminarAsesor() {
+        servicioUser.eliminarUsuario(usuario.getIdUsuario());
+        asesores = servicioUser.consultarUsuariosPorRol(3);
     }
 
-    
-    
+    //Metodos Asesor
+    public void metodo() {
+        if (operacion == 0) {
+            registrarAsesor();
+        } else if (operacion == 1) {
+            modificarAsesor();
+            //Reiniciamos banderas
+            nombreOperacion = "Registrar";
+            operacion = 0;
+        }
+    }
+
+    public void seleccionarCRUD(int i) {
+        operacion = i;
+        if (operacion == 1) {
+            nombreOperacion = "Modificar";
+        }
+    }
+
+    public void cancelarAsesor() {
+        usuario = new Usuario_TO();
+        nombreOperacion = "Registrar";
+        operacion = 0;
+    }
+
 }

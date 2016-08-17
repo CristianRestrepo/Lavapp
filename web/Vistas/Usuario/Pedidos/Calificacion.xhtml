@@ -39,7 +39,7 @@
                                                  rowsPerPageTemplate="5,10,15">
 
                                         <p:column headerText="ID">
-                                            <p:outputLabel value="#{calificacion.idCalificacion}"/>         
+                                            <p:outputLabel/>       
                                         </p:column>
 
                                         <p:column headerText="Calificacion">
@@ -47,11 +47,11 @@
                                         </p:column>
 
                                         <p:column headerText="Observaciones">
-                                            <p:outputLabel value="#{calificacion.observacion}"/>         
+                                            <p:outputLabel/>          
                                         </p:column>
 
                                         <p:column headerText="ID Pedido">
-                                            <p:outputLabel value="#{calificacion.pedido.idPedido}"/>         
+                                            <p:outputLabel/>          
                                         </p:column>
                                         
                                         <p:column headerText="Raiting">
@@ -72,15 +72,10 @@
                                             </p:commandLink>
                                         </p:column>
                                     </p:dataTable>
-
                                 </div>                                   
                             </div>
                         </b:column>
                     </h:form>
-
-
-
-
                 </b:row>
             </b:container>
 

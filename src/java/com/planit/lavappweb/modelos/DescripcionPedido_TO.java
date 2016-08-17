@@ -83,7 +83,12 @@ public class DescripcionPedido_TO {
      * Columna idPedido
      */
     private Pedido_TO pedido;
-
+     /**
+     *
+     * Columna idPedido
+     */
+    private String codigo;
+    
     //Constructores
     public DescripcionPedido_TO() {
     }
@@ -93,7 +98,8 @@ public class DescripcionPedido_TO {
     }      
 
     //Constructor General
-    public DescripcionPedido_TO(int idDescripcionPedido, Estado_TO estado, SubProducto_TO subProducto, String descripcion, String observacionAsesor, String observacionAdministrador, byte foto1, byte foto2, byte foto3, Color_TO color, Pedido_TO pedido) {
+
+    public DescripcionPedido_TO(int idDescripcionPedido, Estado_TO estado, SubProducto_TO subProducto, String descripcion, String observacionAsesor, String observacionAdministrador, byte foto1, byte foto2, byte foto3, Color_TO color, Pedido_TO pedido, String codigo) {
         this.idDescripcionPedido = idDescripcionPedido;
         this.estado = estado;
         this.subProducto = subProducto;
@@ -105,7 +111,9 @@ public class DescripcionPedido_TO {
         this.foto3 = foto3;
         this.color = color;
         this.pedido = pedido;
+        this.codigo = codigo;
     }
+ 
 
     //Getter and Setter
     public int getIdDescripcionPedido() {
@@ -196,9 +204,20 @@ public class DescripcionPedido_TO {
         this.pedido = pedido;
     }
 
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
     @Override
     public String toString() {
-        return "DescripcionPedido_TO{" + "idDescripcionPedido=" + idDescripcionPedido + ", estado=" + estado + ", subProducto=" + subProducto + ", descripcion=" + descripcion + ", observacionAsesor=" + observacionAsesor + ", observacionAdministrador=" + observacionAdministrador + ", foto1=" + foto1 + ", foto2=" + foto2 + ", foto3=" + foto3 + ", color=" + color + ", pedido=" + pedido + '}';
+        return "DescripcionPedido_TO{" + "idDescripcionPedido=" + idDescripcionPedido + ", estado=" + estado + ", subProducto=" + subProducto + ", descripcion=" + descripcion + ", observacionAsesor=" + observacionAsesor + ", observacionAdministrador=" + observacionAdministrador + ", foto1=" + foto1 + ", foto2=" + foto2 + ", foto3=" + foto3 + ", color=" + color + ", pedido=" + pedido + ", codigo=" + codigo + '}';
     }
+
+    
+    
 
 }
