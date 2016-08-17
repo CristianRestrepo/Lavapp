@@ -28,12 +28,16 @@ public class CalificacionCT implements Serializable{
     private String nombreOperacion;
     protected int operacion; //Controla la operacion a ejecutar
 
+//    EJEMPLOS PARA RAITING
+    private Integer rating;
+    
     public CalificacionCT() {
         calificacionModelo = new Calificacion_TO();
         calificaciones = new ArrayList<>();
         servicioModelo = new ServiciosCalificacion();
         operacion = 0;
         nombreOperacion = "Registrar";
+        rating = 5;
     }
 
     @PostConstruct
@@ -65,6 +69,15 @@ public class CalificacionCT implements Serializable{
         this.servicioModelo = servicioModelo;
     }
 
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
+    
+    
 //    METODOS CRUD
     public void registrar() {
         ServiciosPedido sP = new ServiciosPedido();

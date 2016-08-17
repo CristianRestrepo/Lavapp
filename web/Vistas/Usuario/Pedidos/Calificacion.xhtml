@@ -7,7 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="./../adminTemplate.xhtml">
+    <ui:composition template="./../adminTemplate.xhtml">    
 
         <ui:define name="content">
 
@@ -31,7 +31,7 @@
                                 </div> 
                                 <div class="box-body">
                                     <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
-                                    <div class="ln_solid"></div>
+                                    <div class="ln_solid"></div> <br/>
                                     <p:dataTable id="DTCAlificacion" style="width: 100%" var="calificacion" value="#{calificacionCT.calificaciones}" 
                                                  class="table-responsive table table-striped" rows="10"
                                                  paginator="true"
@@ -42,8 +42,8 @@
                                             <p:outputLabel value="#{calificacion.idCalificacion}"/>         
                                         </p:column>
 
-                                        <p:column headerText="CAlificacion">
-                                            <p:outputLabel value="#{calificacion.calificacion}"/>         
+                                        <p:column headerText="Calificacion">
+                                             <p:rating value="#{calificacion.calificacion}" />
                                         </p:column>
 
                                         <p:column headerText="Observaciones">
@@ -52,6 +52,10 @@
 
                                         <p:column headerText="ID Pedido">
                                             <p:outputLabel value="#{calificacion.pedido.idPedido}"/>         
+                                        </p:column>
+                                        
+                                        <p:column headerText="Raiting">
+                                            <p:outputLabel value="#{calificacion.calificacion}"/>         
                                         </p:column>
 
                                         <p:column  style="width: 60px" headerText="">

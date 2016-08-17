@@ -55,8 +55,8 @@
                                             </div>
 
                                         </div>
-                                        
-                                        
+
+
                                         <div class="col-sm-8">
                                             <div class="col-sm-6 col-sm-offset-6">
                                                 <p:commandLink onclick="PrimeFaces.monitorDownload(start, stop);" 
@@ -82,64 +82,61 @@
 
                                         <p:message for="formularioRegistro"/>
                                     </div>
-                                    
+
                                     <div class="box-footer" style=" margin: 80px 0px;" >
                                         <!--BARRA DE ESTADOS DE PRENDA-->                                      
-                                        
-
-            <c:choose>
-                <c:when test="">AAA</c:when>
-                <c:when test="">BBB</c:when>
-                <c:when test="">CCC</c:when>
-                <c:otherwise>undefined</c:otherwise>
-            </c:choose>
-
-<!--
-        
-        *Modelo a seguir para hacer activo  cada estado cuando corresponda
-
--->                                        
+                                                                                
                                         <div class="container-fluid">
 
-                                            <div class="row bs-wizard" style="border-bottom:0;">
+                                            <c:choose>
+                                                <div class="row bs-wizard" style="border-bottom:0;">
 
-                                                <div class="col-xs-3 bs-wizard-step complete">
-                                                    <div class="text-center bs-wizard-stepnum">
-                                                        <i class="fa fa-user-plus" />Recibido
-                                                    </div>
-                                                    <div class="progress"><div class="progress-bar"></div></div>
-                                                    <a href="#" class="bs-wizard-dot"></a>
-                                                    <div class="bs-wizard-info text-center">Lorem ipsum dolor sit amet.</div>
+                                                    <c:when test=""><!-- // LOGICA 1ER ESTADO // -->
+                                                        <div class="col-xs-3 bs-wizard-step complete">
+                                                            <div class="text-center bs-wizard-stepnum">
+                                                                <i class="fa fa-user-plus" />Recibido
+                                                            </div>
+                                                            <div class="progress"><div class="progress-bar"></div></div>
+                                                            <a href="#" class="bs-wizard-dot"></a>
+                                                            <div class="bs-wizard-info text-center">Lorem ipsum dolor sit amet.</div>
+                                                        </div>                                                        
+                                                    </c:when>
+
+                                                    <c:when test=""><!-- // LOGICA 2° ESTADO // -->
+                                                        <div class="col-xs-3 bs-wizard-step complete"><!-- complete -->
+                                                            <div class="text-center bs-wizard-stepnum">
+                                                                <i class="fa fa-refresh" /> Lavado
+                                                            </div>
+                                                            <div class="progress"><div class="progress-bar"></div></div>
+                                                            <a href="#" class="bs-wizard-dot"></a>
+                                                            <div class="bs-wizard-info text-center">Nam mollis tristique erat vel tristique. Aliquam erat volutpat. Mauris et vestibulum nisi. Duis molestie nisl sed scelerisque vestibulum. Nam placerat tristique placerat</div>
+                                                        </div>                                                        
+                                                    </c:when>
+
+                                                    <c:when test=""><!-- // LOGICA 3° ESTADO // -->
+                                                        <div class="col-xs-3 bs-wizard-step active"><!-- complete -->
+                                                            <div class="text-center bs-wizard-stepnum">
+                                                                <i class="fa fa-check" />    Empacado
+                                                            </div>
+                                                            <div class="progress"><div class="progress-bar"></div></div>
+                                                            <a href="#" class="bs-wizard-dot"></a>
+                                                            <div class="bs-wizard-info text-center">Integer semper dolor ac auctor rutrum. Duis porta ipsum vitae mi bibendum bibendum</div>
+                                                        </div>                                                        
+                                                    </c:when>
+
+                                                    <c:when test=""><!-- // LOGICA 4° ESTADO // -->
+                                                        <div class="col-xs-3 bs-wizard-step disabled"><!-- active -->
+                                                            <div class="text-center bs-wizard-stepnum">
+                                                                <i class="fa fa-send" /> Entega a Cliente
+                                                            </div>
+                                                            <div class="progress"><div class="progress-bar"></div></div>
+                                                            <a href="#" class="bs-wizard-dot"></a>
+                                                            <div class="bs-wizard-info text-center"> Curabitur mollis magna at blandit vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae</div>
+                                                        </div>                                                        
+                                                    </c:when>
                                                 </div>
-
-                                                <div class="col-xs-3 bs-wizard-step complete"><!-- complete -->
-                                                    <div class="text-center bs-wizard-stepnum">
-                                                         <i class="fa fa-refresh" /> Lavado
-                                                    </div>
-                                                    <div class="progress"><div class="progress-bar"></div></div>
-                                                    <a href="#" class="bs-wizard-dot"></a>
-                                                    <div class="bs-wizard-info text-center">Nam mollis tristique erat vel tristique. Aliquam erat volutpat. Mauris et vestibulum nisi. Duis molestie nisl sed scelerisque vestibulum. Nam placerat tristique placerat</div>
-                                                </div>
-
-                                                <div class="col-xs-3 bs-wizard-step active"><!-- complete -->
-                                                    <div class="text-center bs-wizard-stepnum">
-                                                        <i class="fa fa-check" />    Empacado
-                                                    </div>
-                                                    <div class="progress"><div class="progress-bar"></div></div>
-                                                    <a href="#" class="bs-wizard-dot"></a>
-                                                    <div class="bs-wizard-info text-center">Integer semper dolor ac auctor rutrum. Duis porta ipsum vitae mi bibendum bibendum</div>
-                                                </div>
-
-                                                <div class="col-xs-3 bs-wizard-step disabled"><!-- active -->
-                                                    <div class="text-center bs-wizard-stepnum">
-                                                        <i class="fa fa-send" /> Entega a Cliente
-                                                    </div>
-                                                    <div class="progress"><div class="progress-bar"></div></div>
-                                                    <a href="#" class="bs-wizard-dot"></a>
-                                                    <div class="bs-wizard-info text-center"> Curabitur mollis magna at blandit vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae</div>
-                                                </div>
-                                            </div>
-
+                                                <c:otherwise>undefined</c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <!--BARRA DE ESTADOS DE PRENDA-->
                                     </div>
@@ -165,19 +162,19 @@
                                                  paginator="true"
                                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                  rowsPerPageTemplate="5,10,15">
-                                        
+
                                         <p:column headerText="Nombre ">
                                             <p:outputLabel value="#{jornada.nombre}"/>                                               
                                         </p:column>
-                                        
+
                                         <p:column headerText="Cc">
                                             <p:outputLabel value="#{jornada.nombre}"/>                                               
                                         </p:column>
-                                        
+
                                         <p:column headerText="Direccion">
                                             <p:outputLabel value="#{jornada.nombre}"/>                                               
                                         </p:column>
-                                        
+
                                         <p:column headerText="Tel o Cel">
                                             <p:outputLabel value="#{jornada.nombre}"/>                                               
                                         </p:column>
@@ -195,29 +192,29 @@
                                                 <i class="fa fa-trash"/>                                                     
                                             </p:commandLink>
                                         </p:column>
-                                        
+
                                         <p:column style="width: 60px" headerText="">
                                             <p:commandLink style="color: white; width: 100%" action="#{jornadaCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-warning">
                                                 <f:setPropertyActionListener value="#{jornada}" target="#{jornadaCT.jornada}"/>
                                                 <i class="fa fa-search"/>                                                     
                                             </p:commandLink>
                                         </p:column>
-                                        
+
                                         <p:column style="width: 60px" headerText="">
                                             <p:commandLink style="color: white; width: 100%" action="#{jornadaCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-success">
                                                 <f:setPropertyActionListener value="#{jornada}" target="#{jornadaCT.jornada}"/>
                                                 <i class="fa fa-send"/>                                                     
                                             </p:commandLink>
                                         </p:column>
-                                        
+
                                         <p:column style="width: 60px" headerText="">
                                             <p:commandLink style="color: white; width: 100%" action="#{jornadaCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-primary">
                                                 <f:setPropertyActionListener value="#{jornada}" target="#{jornadaCT.jornada}"/>
                                                 <i class="fa fa-check"/>                                                     
                                             </p:commandLink>
                                         </p:column>
-                                        
-                                        
+
+
                                     </p:dataTable>
                                 </div>                                   
                             </div>
