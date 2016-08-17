@@ -69,6 +69,8 @@ public class Factura_TO {
 
     //Constructores
     public Factura_TO() {
+        pedido = new Pedido_TO();
+
     }
 
     //Constructor General

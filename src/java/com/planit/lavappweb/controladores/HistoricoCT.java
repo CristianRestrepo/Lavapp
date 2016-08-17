@@ -6,6 +6,7 @@
 package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.modelos.Historico_TO;
+import com.planit.lavappweb.webservices.implementaciones.ServiciosHistorico;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -19,10 +20,13 @@ public class HistoricoCT {
 
     private Historico_TO historico;
     private List<Historico_TO> historicos;
+    
+    protected ServiciosHistorico servicios;
 
     public HistoricoCT() {
         historico = new Historico_TO();
         historicos = new ArrayList<>();
+        servicios = new ServiciosHistorico();
     }
 
     @PostConstruct
@@ -48,11 +52,10 @@ public class HistoricoCT {
 
     //Metodos
     public void registrar() {
+        servicios.registrarHistorico(historico);
     }
-
-    public void modificar() {
-    }
-
+   
     public void eliminar() {
+        servicios.eliminarHistorico(historico);
     }
 }

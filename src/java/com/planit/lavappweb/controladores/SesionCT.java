@@ -133,6 +133,10 @@ public class SesionCT implements Serializable {
         cerrarHttpSesion();
         return ruta;
     }
+    
+    public Usuario_TO obtenerSesion(){
+       return (Usuario_TO) Sesion.obtenerSesion();
+    }
 
     //Metodo para edicion de perfil
     public String irPanelEdicion() {

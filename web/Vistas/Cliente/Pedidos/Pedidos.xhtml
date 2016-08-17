@@ -11,7 +11,6 @@
     <h:body>
         <ui:composition template="./../clienteTemplate.xhtml">
             <ui:define name="content">
-
                 <!--DEFINICION DEL BANNER-->
                 <!-- banner start -->
                 <section class="heigth-section">
@@ -44,8 +43,6 @@
                     </div>                  
                 </section>
                 <!-- BANNER END -->             
-
-
                 <!-- CONTENIDO -->
                 <h:form id="formularioContenido" target="#{pedidoCT.pedido}">
                     <p:growl id="msg" life="2500"/>
@@ -215,7 +212,6 @@
                             </section>
                         </c:when>
                         <c:when test="${pedidoCT.vista == 2}">
-
                             <!--VISTA CONFIRMACION-->
                             <section>
                                 <div class="container">
@@ -226,13 +222,9 @@
                                                 <div class="col-xs-12 col-md-12" >
                                                     <div class="bcg-color-pagos">
 
-
-                                                        <f:facet name="header">
-                                                          
-                                                        </f:facet>
-                                                            <div class="title wow fadeInRight animated ">
-                                                                <h2 class="txt-title-form">Detalles del Contacto</h2>							
-                                                            </div>
+                                                        <div class="title wow fadeInRight animated ">
+                                                            <h2 class="txt-title-form">Detalles del Contacto</h2>							
+                                                        </div>
 
                                                         <div class="row">
                                                             <div class="col-xs-8 col-xs-offset-2 " style="padding: 20px 0px;" >
@@ -261,8 +253,6 @@
                                                                 </div>                                                            
                                                             </div>
 
-
-
                                                             <div class="col-xs-8 col-xs-offset-2 " style="padding: 20px 0px;" >
                                                                 <div class="col-sm-6" >
                                                                     <label class="label-lv-2 bdr-azul text-capitalize" for="">Barrio de recogida: </label>
@@ -275,7 +265,6 @@
                                                                                    value="#{pedidoCT.pedido.barrioEntrega.nombre}"/>
                                                                 </div>                                                            
                                                             </div>
-
 
                                                             <div class="col-xs-8 col-xs-offset-2 " style="padding: 20px 0px;">
                                                                 <div class="col-sm-6" >
@@ -304,12 +293,9 @@
                                                                 </div>                                                            
                                                             </div>                                                         
                                                         </div>
-
-
                                                         <f:facet name="footer">
                                                             <hr/>
                                                         </f:facet>
-
                                                     </div>                                                   
                                                 </div>
                                             </div>
@@ -471,6 +457,7 @@
                             </section>
                         </c:when> 
                     </c:choose>
+              
                     <section>
                         <div class="container">
                             <div class="row brd-btn-update">
@@ -482,8 +469,8 @@
                                     </div>
                                     <div class="col-md-6 col-xs-6 mrg-table" >
                                         <div align="right">
-                                            <p:commandButton class="btn btn-lg btn-primary" rendered="#{pedidoCT.botonsiguiente}" update=":formularioContenido" action="#{pedidoCT.siguiente()}" value="Siguiente" />                                       					
-                                            <p:commandButton class="btn btn-lg btn-success" rendered="#{pedidoCT.botonconfirmar}" update=":formularioContenido" action="#{pedidoCT.confirmar()}" value="Confirmar pedido" />                                      					
+                                            <p:commandButton class="btn btn-lg btn-primary" rendered="#{pedidoCT.botonsiguiente}" update=":formularioContenido " action="#{pedidoCT.siguiente()}" value="Siguiente" />                                       					
+                                            <p:commandButton class="btn btn-lg btn-success" rendered="#{pedidoCT.botonconfirmar}" update=":formularioContenido " action="#{pedidoCT.confirmar()}" value="Confirmar pedido" />                                      					
                                         </div>
                                     </div>
                                 </div>
@@ -528,7 +515,6 @@
                                                                 <div align="left">
                                                                     <h:panelGrid  width="80%" columns="2">                                                 
                                                                         <p:commandButton id="btnAgregar" action="#{pedidoCT.eliminarproducto(subProducto)}" update="numPrendas :modal" value="Eliminar" class="btn btn-danger">
-
                                                                         </p:commandButton>
                                                                     </h:panelGrid><br/>
                                                                 </div><!-- INICION DE CONTADOR -->

@@ -32,26 +32,26 @@
                                 <div class="box-body">
                                     <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
                                     <div class="ln_solid"></div>
-                                    <p:dataTable id="DTCAlificacion" style="width: 100%" var="calificacion" value="#{calificacionCT.calificaciones}" 
+                                    <p:dataTable id="DTCAlificacion" style="width: 100%" var="calificacion"
                                                  class="table-responsive table table-striped" rows="10"
                                                  paginator="true"
                                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                  rowsPerPageTemplate="5,10,15">
 
                                         <p:column headerText="ID">
-                                            <p:outputLabel value="#{calificacion.idCalificacion}"/>         
+                                            <p:outputLabel/>       
                                         </p:column>
 
                                         <p:column headerText="CAlificacion">
-                                            <p:outputLabel value="#{calificacion.calificacion}"/>         
+                                            <p:outputLabel/>        
                                         </p:column>
 
                                         <p:column headerText="Observaciones">
-                                            <p:outputLabel value="#{calificacion.observacion}"/>         
+                                            <p:outputLabel/>          
                                         </p:column>
 
                                         <p:column headerText="ID Pedido">
-                                            <p:outputLabel value="#{calificacion.pedido.idPedido}"/>         
+                                            <p:outputLabel/>          
                                         </p:column>
 
                                         <p:column  style="width: 60px" headerText="">
@@ -68,15 +68,10 @@
                                             </p:commandLink>
                                         </p:column>
                                     </p:dataTable>
-
                                 </div>                                   
                             </div>
                         </b:column>
                     </h:form>
-
-
-
-
                 </b:row>
             </b:container>
 
