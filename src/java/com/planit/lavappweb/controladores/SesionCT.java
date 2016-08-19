@@ -106,6 +106,7 @@ public class SesionCT implements Serializable {
                     FacesContext.getCurrentInstance().addMessage(null, message);
                 }
             } else {
+                usuario.setContrasena("");
                 message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Contraseña incorrecta", "Digite de nuevo su contraseña");
                 FacesContext.getCurrentInstance().addMessage(null, message);
             }
@@ -117,25 +118,13 @@ public class SesionCT implements Serializable {
     }
 
     public String cerrarSesion() {
-        usuario = (Usuario_TO) Sesion.obtenerSesion();
-        String ruta = "";
-        switch (usuario.getRol().getIdRol()) {
-            case 1:
-                ruta = "Login";
-                break;
-            case 2:
-                ruta = "Login";
-                break;
-            case 4:
-                ruta = "Principal";
-                break;
-        }
+        String ruta = "Principal";
         cerrarHttpSesion();
         return ruta;
     }
-    
-    public Usuario_TO obtenerSesion(){
-       return (Usuario_TO) Sesion.obtenerSesion();
+
+    public Usuario_TO obtenerSesion() {
+        return (Usuario_TO) Sesion.obtenerSesion();
     }
 
     //Metodo para edicion de perfil
@@ -172,12 +161,11 @@ public class SesionCT implements Serializable {
 
     public void editarDatosSesion() {
         if (!nuevaContrasena.isEmpty()) {
-            serviciosUsuario.editarCorreoSesion(usuario.getIdUsuario(),usuario.getEmail());
-            serviciosUsuario.editarContrasenaSesion(usuario.getIdUsuario(),nuevaContrasena);
+            serviciosUsuario.editarCorreoSesion(usuario.getIdUsuario(), usuario.getEmail());
+            serviciosUsuario.editarContrasenaSesion(usuario.getIdUsuario(), nuevaContrasena);
         } else {
-            serviciosUsuario.editarCorreoSesion(usuario.getIdUsuario(),usuario.getEmail());
+            serviciosUsuario.editarCorreoSesion(usuario.getIdUsuario(), usuario.getEmail());
         }
-        
         nuevaContrasena = "";
     }
 

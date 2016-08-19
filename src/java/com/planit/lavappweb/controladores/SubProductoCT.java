@@ -150,7 +150,9 @@ public class SubProductoCT implements Serializable {
     public void modificar() {
         ServiciosProducto sp = new ServiciosProducto();
         subproducto.setProducto(sp.consultarProducto(subproducto.getProducto().getIdProducto(), subproducto.getProducto().getNombre()));
-        subproducto = serviciosSubProducto.editarSubProducto(subproducto.getIdSubProducto(), subproducto.getNombre(), subproducto.getDescripcion(), subproducto.getProducto().getIdProducto(), subproducto.getRutaImagen());
+        serviciosSubProducto.editarSubProducto(subproducto.getIdSubProducto(), subproducto.getNombre(), subproducto.getDescripcion(), subproducto.getProducto().getIdProducto(), subproducto.getRutaImagen());
+        costo.setSubProducto(subproducto);
+        costo = serviciosCosto.modificarCosto(costo.getIdCosto(), costo.getValor(), costo.getSubProducto().getIdSubProducto(), costo.getZona().getIdZona());
         subproductos = serviciosSubProducto.consultarSubProductos();
     }
 
@@ -189,7 +191,7 @@ public class SubProductoCT implements Serializable {
 
     public void seleccionarCRUD(int i) {
         operacion = i;
-        if (operacion == 1) {  
+        if (operacion == 1) {
             costo = serviciosCosto.consultarCostoSubProducto(subproducto.getIdSubProducto());
             nombreOperacion = "Modificar";
             if (subproducto.getRutaImagen() != null) {

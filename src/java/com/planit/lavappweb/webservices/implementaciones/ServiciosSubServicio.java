@@ -8,10 +8,8 @@ package com.planit.lavappweb.webservices.implementaciones;
 import com.planit.lavappweb.modelos.Servicio_TO;
 import com.planit.lavappweb.modelos.SubServicio_TO;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarSubServicio;
-import com.planit.lavappweb.webservices.clientes.ClienteConsultarSubServicio_SP;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarSubServicios;
 import com.planit.lavappweb.webservices.clientes.ClienteEditarSubServicio;
-import com.planit.lavappweb.webservices.clientes.ClienteEliminarServicio;
 import com.planit.lavappweb.webservices.clientes.ClienteEliminarSubServicio;
 import com.planit.lavappweb.webservices.clientes.ClienteRegistarSubServicio;
 import java.util.ArrayList;
@@ -27,12 +25,7 @@ public class ServiciosSubServicio {
     public SubServicio_TO consultarSubServicio(int idSubServicio, String nombre){
         ClienteConsultarSubServicio cliente = new ClienteConsultarSubServicio();
         return cliente.consultarSubServicio(SubServicio_TO.class, "" + idSubServicio, nombre);
-    } 
-    
-    public List<SubServicio_TO> consultarSubServiciosPorId(int idServicio) {
-        ClienteConsultarSubServicio_SP subServiCliente = new ClienteConsultarSubServicio_SP();
-        return subServiCliente.consultarSubServicios(List.class, "" + idServicio);
-    }
+    }   
 
     public List<SubServicio_TO> consultarSubServicios() {
         List<SubServicio_TO> subServicios = new ArrayList<>();

@@ -457,7 +457,7 @@
                             </section>
                         </c:when> 
                     </c:choose>
-              
+
                     <section>
                         <div class="container">
                             <div class="row brd-btn-update">
@@ -478,14 +478,15 @@
                         </div>
                     </section>
                 </h:form>
-
                 <!-- CONTENIDO END-->
 
-                <p:commandButton id="numPrendas" update=":modal" class="btn-num-prendas" icon="fa fa-pencil-square-o fa-2x pos-info-btn ico-forma" value="#{pedidoCT.cantidadProductos}">
+
+                <p:commandButton id="numPrendas" icon="fa fa-pencil-square-o fa-2x pos-info-btn ico-forma" update=":modal" class="btn-num-prendas"  value="#{pedidoCT.cantidadProductos}">
                     <p:ajax event="click" listener="#{pedidoCT.organizarSubProductosPedido()}"/>
                     <f:passThroughAttribute name="data-toggle" value="modal"/>
                     <f:passThroughAttribute name="data-target" value="#myModal"/>
                 </p:commandButton>
+
 
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">

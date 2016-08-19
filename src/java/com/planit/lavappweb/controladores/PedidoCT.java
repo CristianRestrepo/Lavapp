@@ -26,6 +26,7 @@ import javax.annotation.PostConstruct;
 public class PedidoCT {
 
     private Pedido_TO pedido;
+    private List<Pedido_TO> pedidos;
     private List<SubProductoCosto_TO> subproductos;
     private List<List<SubProductoCosto_TO>> subproductosOrdenados;
     private List<SubProductoCosto_TO> subproductosvista;
@@ -54,6 +55,7 @@ public class PedidoCT {
         subproductosOrdenados = new ArrayList<>();
         subproductosvista = new ArrayList<>();
         servicios = new ServiciosPedido();
+        pedidos = new ArrayList<>();
     }
 
     @PostConstruct
@@ -85,6 +87,14 @@ public class PedidoCT {
         this.pedido = pedido;
     }
 
+    public List<Pedido_TO> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido_TO> pedidos) {
+        this.pedidos = pedidos;
+    }
+       
     public int getVista() {
         return vista;
     }
