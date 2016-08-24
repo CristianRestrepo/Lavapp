@@ -78,7 +78,9 @@
                                     <h4 class="box-title">Lista de Jornadas</h4>
                                 </div> 
                                 <div class="box-body">
-                                    <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
+                                    <p:inputText value="#{jornadaCT.buscar}" style="width: 100%" placeholder="Buscar..." class="form-control">
+                                        <p:ajax process="@this" update="DTJornadas" event="keyup" listener="#{jornadaCT.buscarJornadas()}"/>
+                                    </p:inputText>
                                     <hr/>
                                     <p:dataTable id="DTJornadas" style="width: 100%" var="jornada" value="#{jornadaCT.jornadas}" class="table-responsive table table-striped" rows="10"
                                                  paginator="true"

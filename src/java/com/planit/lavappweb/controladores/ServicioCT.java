@@ -24,6 +24,7 @@ public class ServicioCT {
     //Variables
     private String nombreOperacion;
     protected int operacion;
+    private String buscar;
 
     public ServicioCT() {
         servicio = new Servicio_TO();
@@ -32,6 +33,7 @@ public class ServicioCT {
 
         nombreOperacion = "Registrar";
         operacion = 0;
+        buscar = null;
     }
 
     @PostConstruct
@@ -79,6 +81,16 @@ public class ServicioCT {
         servicio = clienteServicio.eliminarServicio(servicio.getIdServicio());
         servicios = clienteServicio.consultarServicios();
     }
+
+    public String getBuscar() {
+        return buscar;
+    }
+
+    public void setBuscar(String buscar) {
+        this.buscar = buscar;
+    }
+    
+     
     
     //Metodos Propios
     public void metodo() {
@@ -104,5 +116,15 @@ public class ServicioCT {
         servicios = clienteServicio.consultarServicios();
         operacion = 0;
         nombreOperacion = "Registrar";
+    }
+    
+    
+    public void buscarServicios(){
+        servicios = new ArrayList<>();
+        if(buscar == null){
+            servicios = clienteServicio.consultarServicios();
+        }else{
+            servicios = clienteServicio.BuscarServicios(buscar);
+        }
     }
 }

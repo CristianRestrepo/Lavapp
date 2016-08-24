@@ -26,6 +26,7 @@ public class SubServicioCT implements Serializable {
     //Variables 
     private String nombreOperacion;
     protected int operacion;
+    private String buscar;
 
     public SubServicioCT() {
         subServicio = new SubServicio_TO();
@@ -33,6 +34,7 @@ public class SubServicioCT implements Serializable {
         serviceSubServicio = new ServiciosSubServicio();
         nombreOperacion = "Registrar";
         operacion = 0;
+        buscar = null;
     }
 
     @PostConstruct
@@ -64,6 +66,14 @@ public class SubServicioCT implements Serializable {
 
     public void setNombreOperacion(String nombreOperacion) {
         this.nombreOperacion = nombreOperacion;
+    }
+
+    public String getBuscar() {
+        return buscar;
+    }
+
+    public void setBuscar(String buscar) {
+        this.buscar = buscar;
     }
 
     //Metodos
@@ -110,6 +120,15 @@ public class SubServicioCT implements Serializable {
         subServicios = serviceSubServicio.consultarSubServicios();
         operacion = 0;
         nombreOperacion = "Registrar";
+    }
+
+    public void buscarSubServicios() {
+        subServicios = new ArrayList<>();
+        if (buscar == null) {
+            subServicios = serviceSubServicio.consultarSubServicios();
+        } else {
+            subServicios = serviceSubServicio.buscarSubServicios(buscar);
+        }
     }
 
 }

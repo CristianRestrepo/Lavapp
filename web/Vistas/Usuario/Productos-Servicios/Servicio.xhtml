@@ -82,9 +82,9 @@
                                     <h4 class="box-title">Lista de Servicios</h4>
                                 </div> 
                                 <div class="box-body">
-                                    <b:inputText placeholder="Buscar" value="#{paisBean.buscar}" style="width: 100%">
-                                        <p:ajax event="keyup" listener="#{paisBean.filtrar()}" process="@this" />                                    
-                                    </b:inputText>
+                                    <p:inputText class="form-control" placeholder="Buscar" value="#{servicioCT.buscar}" style="width: 100%">
+                                        <p:ajax event="keyup" listener="#{servicioCT.buscarServicios()}" update="DTServicios" process="@this" />                                    
+                                    </p:inputText>
                                     <hr/>
                                     <p:dataTable id="DTServicios" class="table-responsive table table-striped"
                                                  var="servicios" value="#{servicioCT.servicios}" rows="10"
@@ -92,9 +92,6 @@
                                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                  rowsPerPageTemplate="5,10,15">
 
-                                        <p:column headerText="ID">
-                                            <p:outputLabel value="#{servicios.idServicio}" />
-                                        </p:column>
                                         <p:column headerText="Nombre Servicio">
                                             <p:outputLabel value="#{servicios.nombre}" />
                                         </p:column>

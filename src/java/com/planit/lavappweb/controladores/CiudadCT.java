@@ -25,6 +25,7 @@ public class CiudadCT {
 
     private String nombreOperacion;
     protected int operacion; //Controla la operacion a ejecutar
+    private String buscar;
 
     public CiudadCT() {
         ciudad = new Ciudad_TO();
@@ -32,6 +33,7 @@ public class CiudadCT {
         servicios = new ServiciosCiudad();
         nombreOperacion = "Registrar";
         operacion = 0;
+        buscar = null;
     }
 
     @PostConstruct
@@ -62,6 +64,14 @@ public class CiudadCT {
 
     public void setNombreOperacion(String nombreOperacion) {
         this.nombreOperacion = nombreOperacion;
+    }
+
+    public String getBuscar() {
+        return buscar;
+    }
+
+    public void setBuscar(String buscar) {
+        this.buscar = buscar;
     }
 
     //CRUD   
@@ -108,5 +118,14 @@ public class CiudadCT {
         ciudades = servicios.consultarCiudades();
         operacion = 0;
         nombreOperacion = "Registrar";
+    }
+
+    public void buscarCiudades() {
+        ciudades = new ArrayList<>();
+        if (buscar == null) {
+            ciudades = servicios.consultarCiudades();
+        } else {
+            ciudades = servicios.buscarCiudades(buscar);
+        }
     }
 }

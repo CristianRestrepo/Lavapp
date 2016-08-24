@@ -7,6 +7,7 @@ package com.planit.lavappweb.webservices.implementaciones;
 
 import com.planit.lavappweb.modelos.Producto_TO;
 import com.planit.lavappweb.modelos.SubServicio_TO;
+import com.planit.lavappweb.webservices.clientes.ClienteBuscarProductos;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarProducto;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarProductos;
 import com.planit.lavappweb.webservices.clientes.ClienteEditarProducto;
@@ -22,17 +23,35 @@ import java.util.List;
  */
 public class ServiciosProducto {
 
-    public Producto_TO consultarProducto(int idProducto, String nombre){
+    public Producto_TO consultarProducto(int idProducto, String nombre) {
         ClienteConsultarProducto cliente = new ClienteConsultarProducto();
         return cliente.consultarProducto(Producto_TO.class, "" + idProducto, nombre);
     }
-    
+
     public List<Producto_TO> consultarProductos() {
         ClienteConsultarProductos cliente = new ClienteConsultarProductos();
         List<LinkedHashMap> datos = cliente.consultarProductos(List.class);
         List<Producto_TO> productos = new ArrayList<>();
         ServiciosSubServicio ss = new ServiciosSubServicio();
-                
+
+        for (int i = 0; i < datos.size(); i++) {
+            LinkedHashMap map = (LinkedHashMap) datos.get(i).get("subServicio");
+            SubServicio_TO subServicio = ss.consultarSubServicio((int) map.get("idSubServicio"), (String) map.get("nombre"));
+            productos.add(new Producto_TO((int) datos.get(i).get("idProducto"),
+                    (String) datos.get(i).get("nombre"),
+                    (String) datos.get(i).get("descripcion"),
+                    subServicio,
+                    (String) datos.get(i).get("rutaImagen")));
+        }
+        return productos;
+    }
+
+    public List<Producto_TO> BuscarProductos(String valor) {
+        ClienteBuscarProductos cliente = new ClienteBuscarProductos();
+        List<LinkedHashMap> datos = cliente.buscarProductos(List.class, valor);
+        List<Producto_TO> productos = new ArrayList<>();
+        ServiciosSubServicio ss = new ServiciosSubServicio();
+
         for (int i = 0; i < datos.size(); i++) {
             LinkedHashMap map = (LinkedHashMap) datos.get(i).get("subServicio");
             SubServicio_TO subServicio = ss.consultarSubServicio((int) map.get("idSubServicio"), (String) map.get("nombre"));

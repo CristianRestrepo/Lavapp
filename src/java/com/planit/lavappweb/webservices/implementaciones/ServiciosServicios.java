@@ -6,6 +6,7 @@
 package com.planit.lavappweb.webservices.implementaciones;
 
 import com.planit.lavappweb.modelos.Servicio_TO;
+import com.planit.lavappweb.webservices.clientes.ClienteBuscarServicios;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarServicio;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarServicios;
 import com.planit.lavappweb.webservices.clientes.ClienteEditarServicio;
@@ -24,6 +25,16 @@ public class ServiciosServicios {
     public List<Servicio_TO> consultarServicios() {
         ClienteConsultarServicios clienteServicio = new ClienteConsultarServicios();
         List<LinkedHashMap> datos = clienteServicio.consultarServicios(List.class);
+        List<Servicio_TO> servicios = new ArrayList<>();
+        for (int i = 0; i < datos.size(); i++) {
+            servicios.add(new Servicio_TO((int) datos.get(i).get("idServicio"), (String) datos.get(i).get("nombre")));
+        }
+        return servicios;
+    }
+    
+    public List<Servicio_TO> BuscarServicios(String valor) {
+        ClienteBuscarServicios cliente = new ClienteBuscarServicios();
+        List<LinkedHashMap> datos = cliente.buscarServicios(List.class, valor);
         List<Servicio_TO> servicios = new ArrayList<>();
         for (int i = 0; i < datos.size(); i++) {
             servicios.add(new Servicio_TO((int) datos.get(i).get("idServicio"), (String) datos.get(i).get("nombre")));

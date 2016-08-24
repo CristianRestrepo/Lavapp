@@ -23,6 +23,7 @@ public class JornadaCT {
 
     private String nombreOperacion;
     protected int operacion; //Controla la operacion a ejecutar
+    private String buscar;
 
     public JornadaCT() {
         jornada = new Jornada_TO();
@@ -31,6 +32,7 @@ public class JornadaCT {
 
         nombreOperacion = "Registrar";
         operacion = 0;
+        buscar = null;
     }
 
     @PostConstruct
@@ -79,6 +81,15 @@ public class JornadaCT {
         jornadas = servicios.consultarJornadas();
     }
 
+    public String getBuscar() {
+        return buscar;
+    }
+
+    public void setBuscar(String buscar) {
+        this.buscar = buscar;
+    }
+
+    
     //Metodos Propios
     public void metodo() {
         if (operacion == 0) {
@@ -103,5 +114,14 @@ public class JornadaCT {
         //barrios = servicios.consultarBarrios();
         operacion = 0;
         nombreOperacion = "Registrar";
+    }
+    
+    public void buscarJornadas(){
+        jornadas = new ArrayList<>();
+        if(buscar == null){
+            jornadas = servicios.consultarJornadas();
+        }else{
+            jornadas = servicios.buscarJornadas(buscar);
+        }
     }
 }

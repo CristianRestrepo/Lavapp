@@ -116,7 +116,7 @@
                                             <ul class="sidebar-menu">
                                                 <li class="header">Menú Principal</li>
                                                 <li>
-                                                    <h:link >
+                                                    <h:link outcome="Dashboard">
                                                         <i class="fa fa-dashboard"></i> <span>Inicio</span>
                                                     </h:link>
                                                 </li> 
@@ -127,15 +127,16 @@
                                                         <span>Usuarios </span><i class="fa fa-angle-left pull-right"></i>
                                                     </a>
                                                     <ul class="treeview-menu">
-                                                        <li class="active">
-                                                            <h:link outcome="Rol">                                                            
-                                                                <i class="fa fa-circle-o"></i> Roles
-                                                            </h:link>
-                                                        </li>
-
                                                         <li>
                                                             <h:link outcome="Asesor">
                                                                 <i class="fa fa-circle-o"></i> Asesores
+                                                            </h:link>
+                                                        </li>
+
+
+                                                        <li>
+                                                            <h:link outcome="Cliente">
+                                                                <i class="fa fa-circle-o"></i> Clientes
                                                             </h:link>
                                                         </li>
 
@@ -280,7 +281,40 @@
                                             <ul class="sidebar-menu">
                                                 <li class="header">Menú Principal</li>
                                                 <li>
-                                                    <h:link >
+                                                    <h:link outcome="Dashboard">
+                                                        <i class="fa fa-dashboard"></i> <span>Inicio</span>
+                                                    </h:link>
+                                                </li> 
+                                                <li class="treeview">
+                                                    <a href="#">
+                                                        <i class="fa fa-clipboard"></i>
+                                                        <span>Pedidos</span><i class="fa fa-angle-left pull-right"></i>
+                                                    </a>
+                                                    <ul class="treeview-menu">
+                                                        <li class="active">
+                                                            <h:link outcome="Pedido">
+                                                                <i class="fa fa-circle-o"></i> Pedidos
+                                                            </h:link>
+                                                        </li>
+                                                        <li>
+                                                            <h:link outcome="Historico">
+                                                                <i class="fa fa-circle-o"></i> Historico
+                                                            </h:link>
+                                                        </li>
+                                                        <li>
+                                                            <h:link outcome="Calificacion">
+                                                                <i class="fa fa-circle-o"></i> Calificacion
+                                                            </h:link>
+                                                        </li>
+                                                    </ul>
+                                                </li> 
+                                            </ul> 
+                                        </c:when>
+                                        <c:when test="#{sesionCT.obtenerSesion().rol.idRol == 2}">
+                                            <ul class="sidebar-menu">
+                                                <li class="header">Menú Principal</li>
+                                                <li>
+                                                    <h:link outcome="Dashboard">
                                                         <i class="fa fa-dashboard"></i> <span>Inicio</span>
                                                     </h:link>
                                                 </li> 
@@ -313,7 +347,7 @@
                                             <ul class="sidebar-menu">
                                                 <li class="header">Menú Principal</li>
                                                 <li>
-                                                    <h:link >
+                                                    <h:link outcome="Dashboard">
                                                         <i class="fa fa-dashboard"></i> <span>Inicio</span>
                                                     </h:link>
                                                 </li> 

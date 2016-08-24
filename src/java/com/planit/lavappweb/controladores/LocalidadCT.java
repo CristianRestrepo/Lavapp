@@ -24,6 +24,7 @@ public class LocalidadCT {
 
     private String nombreOperacion;
     private int operacion;
+    private String buscar;
 
     public LocalidadCT() {
         localidad = new Localidad_TO();
@@ -31,6 +32,7 @@ public class LocalidadCT {
         servicios = new ServiciosLocalidad();
         nombreOperacion = "Registrar";
         operacion = 0;
+        buscar = null;
     }
 
     @PostConstruct
@@ -62,6 +64,16 @@ public class LocalidadCT {
     public void setNombreOperacion(String nombreOperacion) {
         this.nombreOperacion = nombreOperacion;
     }
+
+    public String getBuscar() {
+        return buscar;
+    }
+
+    public void setBuscar(String buscar) {
+        this.buscar = buscar;
+    }
+    
+    
 
     //CRUD
     public void registrar() {
@@ -110,5 +122,15 @@ public class LocalidadCT {
         localidades = servicios.consultarLocalidades();
         operacion = 0;
         nombreOperacion = "Registrar";
+    }
+    
+    public void buscarLocalidades(){
+        localidades = new ArrayList<>();
+        if(buscar == null){
+            localidades = servicios.consultarLocalidades();
+        }else{
+            localidades = servicios.BuscarLocalidades(buscar);
+        }       
+        
     }
 }

@@ -7,6 +7,7 @@ package com.planit.lavappweb.webservices.implementaciones;
 
 import com.planit.lavappweb.modelos.Departamento_TO;
 import com.planit.lavappweb.modelos.Pais_TO;
+import com.planit.lavappweb.webservices.clientes.ClienteBuscarDepartamentos;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarDepartamento;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarDepartamentos;
 import com.planit.lavappweb.webservices.clientes.ClienteEditarDepartamento;
@@ -38,7 +39,22 @@ public class ServiciosDepartamento {
         return departamentos;
     }
 
-    public Departamento_TO registrarDepartamento(String nombre , int idPais) {
+    public List<Departamento_TO> buscarDepartamentos(String valor) {
+        ClienteBuscarDepartamentos cliente = new ClienteBuscarDepartamentos();
+        List<LinkedHashMap> datos = cliente.buscarDepartamentos(List.class, valor);
+        List<Departamento_TO> departamentos = new ArrayList<>();
+        Pais_TO pais = new Pais_TO();
+        ServiciosPais serviciosPais = new ServiciosPais();
+        for (int i = 0; i < datos.size(); i++) {
+            LinkedHashMap map = (LinkedHashMap) datos.get(i).get("pais");
+            pais = serviciosPais.consultarPais((int) map.get("idPais"), "");
+            departamentos.add(new Departamento_TO((int) datos.get(i).get("idDepartamento"),
+                    (String) datos.get(i).get("nombre"), pais));
+        }
+        return departamentos;
+    }
+
+    public Departamento_TO registrarDepartamento(String nombre, int idPais) {
         ClienteRegistrarDepartamento cliente = new ClienteRegistrarDepartamento();
         return cliente.registrarDepartamento(Departamento_TO.class, nombre, "" + idPais);
     }
@@ -54,7 +70,7 @@ public class ServiciosDepartamento {
         ClienteEliminarDepartamento cliente = new ClienteEliminarDepartamento();
         return cliente.eliminarDepartamento(Departamento_TO.class, "" + idDepartamento);
     }
-    
+
     public Departamento_TO consultarDepartamento(int idDepartemento, String nombre) {
         ClienteConsultarDepartamento cliente = new ClienteConsultarDepartamento();
         return cliente.consultarDepartamento(Departamento_TO.class, "" + idDepartemento, nombre);

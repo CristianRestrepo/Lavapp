@@ -102,7 +102,9 @@
                                     <h4 class="box-title">Lista de Productos</h4>
                                 </div> 
                                 <div class="box-body">
-                                    <b:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></b:inputText>
+                                    <p:inputText style="width: 100%" value="#{subProductoCT.buscar}" placeholder="Buscar..." class="form-control">
+                                        <p:ajax process="@this" event="keyup" listener="#{subProductoCT.buscarSubProductos()}" update="DTSubProductos"/>
+                                    </p:inputText>
                                     <hr/>
                                     <p:dataTable id="DTSubProductos" var="subProd" value="#{subProductoCT.subproductos}" class="table-responsive table table-striped" rows="10"
                                                  paginator="true"
@@ -134,7 +136,6 @@
                                             </p:commandLink>
                                         </p:column>
                                     </p:dataTable>  
-
                                 </div>                                   
                             </div>
                         </b:column>

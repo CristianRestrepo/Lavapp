@@ -89,7 +89,9 @@
                                     <h4 class="box-title">Lista de Localidades</h4>
                                 </div> 
                                 <div class="box-body">
-                                    <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
+                                    <p:inputText  style="width: 100%" value="#{localidadCT.buscar}" placeholder="Buscar..." class="form-control">
+                                        <p:ajax listener="#{localidadCT.buscarLocalidades()}" event="keyup" process="@this" update="DTLocalidades"/>
+                                    </p:inputText>
                                     <hr/>
                                     <p:dataTable id="DTLocalidades" style="width: 100%" var="localidad" value="#{localidadCT.localidades}" class="table-responsive table table-striped" rows="10"
                                                  paginator="true"

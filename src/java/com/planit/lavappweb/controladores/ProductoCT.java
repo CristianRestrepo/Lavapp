@@ -35,6 +35,7 @@ public class ProductoCT {
     private String nombreOperacion;
     protected int operacion;
     private String imagen;
+    private String buscar;
 
     /**
      * Relacion con clases
@@ -47,8 +48,9 @@ public class ProductoCT {
         serviciosProducto = new ServiciosProducto();
         nombreOperacion = "Registrar";
         operacion = 0;
-        archivo_CT = new Upload();        
-        imagen = "";        
+        archivo_CT = new Upload();
+        imagen = "";
+        buscar = null;
     }
 
     @PostConstruct
@@ -111,8 +113,16 @@ public class ProductoCT {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
-    }  
-    
+    }
+
+    public String getBuscar() {
+        return buscar;
+    }
+
+    public void setBuscar(String buscar) {
+        this.buscar = buscar;
+    }
+
     //Metodos
     public void registrar() {
         ServiciosSubServicio ss = new ServiciosSubServicio();
@@ -135,7 +145,7 @@ public class ProductoCT {
 
     //Metodos Propios
     public void metodo() throws IOException {
-         if (operacion == 0) {
+        if (operacion == 0) {
             if (!file.getFileName().isEmpty()) {
                 uploadFoto();
             }
@@ -143,7 +153,7 @@ public class ProductoCT {
         } else if (operacion == 1) {
             if (!file.getFileName().isEmpty()) {
                 uploadFoto();
-            }            
+            }
             modificar();
             //Reiniciamos banderas
             nombreOperacion = "Registrar";
@@ -157,9 +167,9 @@ public class ProductoCT {
         operacion = i;
         if (operacion == 1) {
             nombreOperacion = "Modificar";
-            if(producto.getRutaImagen() != null){
+            if (producto.getRutaImagen() != null) {
                 imagen = "El producto ya tiene imagen asignada";
-            }else{
+            } else {
                 imagen = "El producto no tiene imagen asignada";
             }
         }
@@ -188,6 +198,15 @@ public class ProductoCT {
             FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Su foto (" + file.getFileName() + ")  se ha guardado con exito.", ""));
         } catch (IOException ex) {
             throw ex;
+        }
+    }
+
+    public void buscarProductos() {
+        productos = new ArrayList<>();
+        if (buscar == null) {
+            productos = serviciosProducto.consultarProductos();
+        } else {
+            productos = serviciosProducto.BuscarProductos(buscar);
         }
     }
 }

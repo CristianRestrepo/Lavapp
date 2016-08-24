@@ -7,6 +7,7 @@ package com.planit.lavappweb.webservices.implementaciones;
 
 import com.planit.lavappweb.modelos.Horario_TO;
 import com.planit.lavappweb.modelos.Jornada_TO;
+import com.planit.lavappweb.webservices.clientes.ClienteBuscarHorarios;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarHorario;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarHorarios;
 import com.planit.lavappweb.webservices.clientes.ClienteEditarHorario;
@@ -30,6 +31,26 @@ public class ServiciosHorario {
     public List<Horario_TO> consultarHorarios() {
         ClienteConsultarHorarios cliente = new ClienteConsultarHorarios();
         List<LinkedHashMap> datos = cliente.consultarHorarios(List.class);
+        List<Horario_TO> horarios = new ArrayList<>();
+        ServiciosJornadas sj = new ServiciosJornadas();
+        for (int i = 0; i < datos.size(); i++) {
+            LinkedHashMap map = (LinkedHashMap) datos.get(i).get("jornada");
+            Jornada_TO jornada = new Jornada_TO();
+            jornada = sj.consultarJornada((int) map.get("idJornada"), "");
+            horarios.add(new Horario_TO(
+                    (int) datos.get(i).get("idHorario"),
+                    (String) datos.get(i).get("horaInicio"),
+                    (String) datos.get(i).get("horaFinal"),
+                    jornada,
+                    (String) datos.get(i).get("horario")
+            ));
+        }
+        return horarios;
+    }
+
+    public List<Horario_TO> buscarBarrios(String valor) {
+        ClienteBuscarHorarios cliente = new ClienteBuscarHorarios();
+        List<LinkedHashMap> datos = cliente.buscarHorarios(List.class, valor);
         List<Horario_TO> horarios = new ArrayList<>();
         ServiciosJornadas sj = new ServiciosJornadas();
         for (int i = 0; i < datos.size(); i++) {

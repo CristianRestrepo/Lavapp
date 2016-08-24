@@ -6,6 +6,7 @@
 package com.planit.lavappweb.webservices.implementaciones;
 
 import com.planit.lavappweb.modelos.Estrato_TO;
+import com.planit.lavappweb.webservices.clientes.ClienteBuscarEstratos;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarEstrato;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarEstratos;
 import com.planit.lavappweb.webservices.clientes.ClienteEditarEstrato;
@@ -39,6 +40,16 @@ public class ServiciosEstrato {
     public List<Estrato_TO> consultarEstratos() {
         ClienteConsultarEstratos cliente = new ClienteConsultarEstratos();
         List<LinkedHashMap> datos = cliente.consultarEstratos(List.class);
+        List<Estrato_TO> estratos = new ArrayList<>();
+        for (int i = 0; i < datos.size(); i++) {
+            estratos.add(new Estrato_TO((int) datos.get(i).get("idEstrato"), (String) datos.get(i).get("nombre")));
+        }
+        return estratos;
+    }
+    
+    public List<Estrato_TO> buscarEstratos(String valor){
+        ClienteBuscarEstratos cliente = new ClienteBuscarEstratos();
+        List<LinkedHashMap> datos = cliente.buscarEstratos(List.class, valor);
         List<Estrato_TO> estratos = new ArrayList<>();
         for (int i = 0; i < datos.size(); i++) {
             estratos.add(new Estrato_TO((int) datos.get(i).get("idEstrato"), (String) datos.get(i).get("nombre")));

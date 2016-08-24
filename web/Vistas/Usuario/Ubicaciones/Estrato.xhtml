@@ -82,7 +82,9 @@
                                     <h4 class="box-title">Lista de Estratos</h4>
                                 </div> 
                                 <div class="box-body">
-                                    <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
+                                    <p:inputText style="width: 100%" value="#{estratoCT.buscar}" placeholder="Buscar..." class="form-control">
+                                        <p:ajax event="keyup" update="DTEstratos" process="@this" listener="#{estratoCT.buscarEstratos()}"/>
+                                    </p:inputText>
                                     <hr/>
                                     <p:dataTable id="DTEstratos" style="width: 100%" var="estrato" value="#{estratoCT.estratos}" class="table-responsive table table-striped" rows="10"
                                                  paginator="true"

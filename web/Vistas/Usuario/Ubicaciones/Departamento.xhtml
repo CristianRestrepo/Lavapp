@@ -87,7 +87,9 @@
                                     <h4 class="box-title">Lista de Departamentos</h4>
                                 </div> 
                                 <div class="box-body">
-                                    <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
+                                    <p:inputText value="#{departamentoCT.buscar}" style="width: 100%" placeholder="Buscar..." class="form-control">
+                                        <p:ajax event="keyup" listener="#{departamentoCT.buscarDepartamentos()}" process="@this" update="DTDepartamentos"/>
+                                    </p:inputText>
                                     <hr/>
                                     <p:dataTable id="DTDepartamentos" style="width: 100%" var="departamento" value="#{departamentoCT.departamentos}" class="table-responsive table table-striped" rows="10"
                                                  paginator="true"
@@ -114,8 +116,7 @@
                                                 <i class="fa fa-trash"/>                                                     
                                             </p:commandLink>
                                         </p:column>
-                                    </p:dataTable>  
-
+                                    </p:dataTable> 
                                 </div>                                   
                             </div>
                         </b:column>

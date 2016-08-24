@@ -62,6 +62,11 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <from-outcome>Cliente</from-outcome>
+            <to-view-id>/Vistas/Usuario/Usuarios/Cliente.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>Rol</from-outcome>
             <to-view-id>/Vistas/Usuario/Usuarios/Rol.xhtml</to-view-id>
             <redirect/>

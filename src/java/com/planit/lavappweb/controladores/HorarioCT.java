@@ -41,6 +41,7 @@ public class HorarioCT {
     private String nombreOperacion;
     protected int operacion; //Controla la operacion a ejecutar
 
+    private String buscar;
     public HorarioCT() {
         horario = new Horario_TO();
         horarios = new ArrayList<>();
@@ -59,6 +60,8 @@ public class HorarioCT {
         horas = new ArrayList<>();
         minutos = new ArrayList<>();
         segundos = new ArrayList<>();
+    
+        buscar = null;
     }
 
     @PostConstruct
@@ -166,6 +169,15 @@ public class HorarioCT {
         this.segundofinal = segundofinal;
     }
 
+    public String getBuscar() {
+        return buscar;
+    }
+
+    public void setBuscar(String buscar) {
+        this.buscar = buscar;
+    }
+
+    
     //Metodos
     public void registrar() {
         ServiciosJornadas sj = new ServiciosJornadas();
@@ -311,5 +323,14 @@ public class HorarioCT {
         horario = new Horario_TO();
         operacion = 0;
         nombreOperacion = "Registrar";
+    }
+    
+    public void buscarHorario(){
+        horarios = new ArrayList<>();
+        if(buscar == null){
+            horarios = servicios.consultarHorarios();
+        }else{
+            horarios = servicios.buscarBarrios(buscar);
+        }
     }
 }

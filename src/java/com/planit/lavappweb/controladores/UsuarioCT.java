@@ -7,6 +7,7 @@ package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.metodos.GenerarPassword;
 import com.planit.lavappweb.metodos.Upload;
+import static com.planit.lavappweb.metodos.Upload.getPathDefaultUsuario;
 import com.planit.lavappweb.modelos.Usuario_TO;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosBarrios;
 import com.planit.lavappweb.webservices.implementaciones.ServiciosCiudad;
@@ -29,6 +30,7 @@ public class UsuarioCT implements Serializable {
 
     private String nombreOperacion;
     private int operacion; //Controla la operacion a ejecutar
+    private String buscar;
 
     public UsuarioCT() {
         usuario = new Usuario_TO();
@@ -39,6 +41,7 @@ public class UsuarioCT implements Serializable {
 
         operacion = 0;
         nombreOperacion = "Registrar";
+        buscar = null;
     }
 
     @PostConstruct
@@ -104,6 +107,16 @@ public class UsuarioCT implements Serializable {
         this.asesores = asesores;
     }
 
+    public String getBuscar() {
+        return buscar;
+    }
+
+    public void setBuscar(String buscar) {
+        this.buscar = buscar;
+    }
+    
+    
+
     //Metodos
     public String registrarCliente() {
 
@@ -118,7 +131,8 @@ public class UsuarioCT implements Serializable {
         usuario.setRol(sr.consultarRol(4, ""));
         usuario.getBarrio().setLocalidad(sl.consultarLocalidad(usuario.getBarrio().getLocalidad().getIdLocalidad(), ""));
         usuario.setCiudad(sc.consultarCiudad(usuario.getBarrio().getLocalidad().getCiudad().getIdCiudad(), ""));
-
+        usuario.setRutaImagen(getPathDefaultUsuario());
+        
         servicioUser.registrarUsuario(usuario.getNombre(), usuario.getTelefono(),
                 usuario.getBarrio().getIdBarrios(), usuario.getRol().getIdRol(),
                 usuario.getEstado().getIdEstado(), usuario.getEmail(),
@@ -192,9 +206,9 @@ public class UsuarioCT implements Serializable {
         servicioUser.eliminarUsuario(usuario.getIdUsuario());
         asesores = servicioUser.consultarUsuariosPorRol(3);
     }
-
+    
     //Metodos Asesor
-    public void metodo() {
+    public void metodoAsesor() {
         if (operacion == 0) {
             registrarAsesor();
         } else if (operacion == 1) {
@@ -205,6 +219,17 @@ public class UsuarioCT implements Serializable {
         }
     }
 
+    public void metodoCliente() {
+        if (operacion == 0) {
+            registrarCliente();
+        } else if (operacion == 1) {
+            modificarCliente();
+            //Reiniciamos banderas
+            nombreOperacion = "Registrar";
+            operacion = 0;
+        }
+    }
+    
     public void seleccionarCRUD(int i) {
         operacion = i;
         if (operacion == 1) {
@@ -218,4 +243,22 @@ public class UsuarioCT implements Serializable {
         operacion = 0;
     }
 
+    
+    public void buscarAsesores(){
+        asesores = new ArrayList<>();
+        if(buscar == null){
+            asesores = servicioUser.consultarUsuariosPorRol(3);
+        }else {
+            asesores = servicioUser.buscarAsesores(buscar);
+        }
+    }
+    
+    public void buscarClientes(){
+        clientes = new ArrayList<>();
+        if(buscar == null){
+            clientes = servicioUser.consultarUsuariosPorRol(4);
+        }else {
+            clientes = servicioUser.buscarClientes(buscar);
+        }
+    }
 }

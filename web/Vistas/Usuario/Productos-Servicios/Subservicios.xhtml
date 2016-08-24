@@ -91,16 +91,16 @@
                                     <h4 class="box-title">Lista de SubServicios</h4>
                                 </div> 
                                 <div class="box-body">
-                                    <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
+                                    <p:inputText value="#{subServicioCT.buscar}" style="width: 100%" placeholder="Buscar..." class="form-control">
+                                        <p:ajax update="DTSubServ" event="keyup" process="@this" listener="#{subServicioCT.buscarSubServicios()}"/>
+                                    </p:inputText>
                                     <hr/>
                                     <p:dataTable id="DTSubServ" class="table-responsive table table-striped"
                                                  var="subServ" value="#{subServicioCT.subServicios}" rows="10"
                                                  paginator="true"
                                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                  rowsPerPageTemplate="5,10,15">
-                                        <p:column headerText="ID">
-                                            <p:outputLabel value="#{subServ.idSubServicio}" />
-                                        </p:column>
+                                      
                                         <p:column headerText="Nombre">
                                             <p:outputLabel value="#{subServ.nombre}" />
                                         </p:column>
@@ -121,8 +121,7 @@
                                                 <i class="fa fa-trash"/>                                                     
                                             </p:commandLink>
                                         </p:column>
-                                    </p:dataTable> 
-
+                                    </p:dataTable>
                                 </div>                                   
                             </div>
                         </b:column>

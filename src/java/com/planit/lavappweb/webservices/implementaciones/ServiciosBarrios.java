@@ -6,6 +6,7 @@
 package com.planit.lavappweb.webservices.implementaciones;
 
 import com.planit.lavappweb.modelos.Barrio_TO;
+import com.planit.lavappweb.webservices.clientes.ClienteBuscarBarrios;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarBarrio;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarBarrios;
 import com.planit.lavappweb.webservices.clientes.ClienteEditarBarrio;
@@ -44,6 +45,28 @@ public class ServiciosBarrios {
     public List<Barrio_TO> consultarBarrios() {
         ClienteConsultarBarrios cliente = new ClienteConsultarBarrios();
         List<LinkedHashMap> datos = cliente.consultarBarrios(List.class);
+        List<Barrio_TO> barrios = new ArrayList<>();
+
+        ServiciosLocalidad sl = new ServiciosLocalidad();
+        ServiciosZona sz = new ServiciosZona();
+        ServiciosEstrato se = new ServiciosEstrato();
+
+        for (int i = 0; i < datos.size(); i++) {
+            LinkedHashMap localidad = (LinkedHashMap) datos.get(i).get("localidad");
+            LinkedHashMap zona = (LinkedHashMap) datos.get(i).get("zona");
+            LinkedHashMap estrato = (LinkedHashMap) datos.get(i).get("estrato");
+            barrios.add(new Barrio_TO((int) datos.get(i).get("idBarrios"),
+                    (String) datos.get(i).get("nombre"),
+                    sl.consultarLocalidad((int) localidad.get("idLocalidad"), ""),
+                    sz.consultarZona((int) zona.get("idZona"), ""), 
+                    se.consultarEstrato((int) estrato.get("idEstrato"), "")));
+        }
+        return barrios;
+    }
+    
+    public List<Barrio_TO> buscarBarrios(String valor){
+        ClienteBuscarBarrios cliente = new ClienteBuscarBarrios();
+         List<LinkedHashMap> datos = cliente.buscarBarrios(List.class, valor);
         List<Barrio_TO> barrios = new ArrayList<>();
 
         ServiciosLocalidad sl = new ServiciosLocalidad();

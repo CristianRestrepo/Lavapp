@@ -9,6 +9,7 @@ import com.planit.lavappweb.modelos.Costo_TO;
 import com.planit.lavappweb.modelos.Producto_TO;
 import com.planit.lavappweb.modelos.SubProductoCosto_TO;
 import com.planit.lavappweb.modelos.SubProducto_TO;
+import com.planit.lavappweb.webservices.clientes.ClienteBuscarSubProductos;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarSubProducto;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarSubProductos;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarSubProductosConCosto;
@@ -30,6 +31,23 @@ public class ServiciosSubProductos {
         ClienteConsultarSubProductos cliente = new ClienteConsultarSubProductos();
         List<SubProducto_TO> subproductos = new ArrayList<>();
         List<LinkedHashMap> datos = cliente.consultarSubProductos(List.class);
+        ServiciosProducto sp = new ServiciosProducto();
+        for (int i = 0; i < datos.size(); i++) {
+            LinkedHashMap map = (LinkedHashMap) datos.get(i).get("producto");
+            Producto_TO producto = sp.consultarProducto((int) map.get("idProducto"), (String) map.get("nombre"));
+            subproductos.add(new SubProducto_TO((int) datos.get(i).get("idSubProducto"),
+                    (String) datos.get(i).get("nombre"),
+                    (String) datos.get(i).get("descripcion"),
+                    producto,
+                    (String) datos.get(i).get("rutaImagen")));
+        }
+        return subproductos;
+    }
+
+    public List<SubProducto_TO> buscarSubProductos(String valor) {
+        ClienteBuscarSubProductos cliente = new ClienteBuscarSubProductos();
+        List<SubProducto_TO> subproductos = new ArrayList<>();
+        List<LinkedHashMap> datos = cliente.buscarSubProductos(List.class, valor);
         ServiciosProducto sp = new ServiciosProducto();
         for (int i = 0; i < datos.size(); i++) {
             LinkedHashMap map = (LinkedHashMap) datos.get(i).get("producto");

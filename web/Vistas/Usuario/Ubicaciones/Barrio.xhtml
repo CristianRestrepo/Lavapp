@@ -104,9 +104,11 @@
                                     <h4 class="box-title">Lista de Productos</h4>
                                 </div> 
                                 <div class="box-body">
-                                    <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
+                                    <p:inputText style="width: 100%" value="#{barrioCT.buscar}" placeholder="Buscar..." class="form-control">
+                                        <p:ajax event="keyup" process="@this" listener="#{barrioCT.buscarBarrios()}" update="DTBarrios"/>
+                                    </p:inputText>
                                     <hr/>
-                                    <p:dataTable style="width: 100%" var="barrio" value="#{barrioCT.barrios}" class="table-responsive table table-striped" rows="10"
+                                    <p:dataTable id="DTBarrios" style="width: 100%" var="barrio" value="#{barrioCT.barrios}" class="table-responsive table table-striped" rows="10"
                                                  paginator="true"
                                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                  rowsPerPageTemplate="5,10,15">
@@ -125,14 +127,14 @@
                                         <p:column  style="width: 60px" headerText="">
                                             <p:commandLink style="color: white; width: 100%" process="@this" update=":formularioRegistro" action="#{barrioCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
                                                 <f:setPropertyActionListener value="#{barrio}" target="#{barrioCT.barrio}"/>
-                                                <i class="fa fa-pencil"/> 
+                                                <i class="fa fa-pencil"></i> 
                                             </p:commandLink>
                                         </p:column>
 
                                         <p:column  style="width: 60px" headerText="">
                                             <p:commandLink style="color: white; width: 100%" action="#{barrioCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
                                                 <f:setPropertyActionListener value="#{barrio}" target="#{barrioCT.barrio}"/>
-                                                <i class="fa fa-trash"/>                                                     
+                                                <i class="fa fa-trash"></i>                                                     
                                             </p:commandLink>
                                         </p:column>
                                     </p:dataTable>  

@@ -6,6 +6,7 @@
 package com.planit.lavappweb.webservices.implementaciones;
 
 import com.planit.lavappweb.modelos.Localidad_TO;
+import com.planit.lavappweb.webservices.clientes.ClienteBuscarLocalidades;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarLocalidad;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarLocalidades;
 import com.planit.lavappweb.webservices.clientes.ClienteEditarLocalidad;
@@ -28,8 +29,22 @@ public class ServiciosLocalidad {
         ServiciosCiudad servCiudad = new ServiciosCiudad();
         for (int i = 0; i < datos.size(); i++) {
             LinkedHashMap map = (LinkedHashMap) datos.get(i).get("ciudad");
-            localidades.add(new Localidad_TO((int) datos.get(i).get("idLocalidad"), 
-                    (String) datos.get(i).get("nombre"), 
+            localidades.add(new Localidad_TO((int) datos.get(i).get("idLocalidad"),
+                    (String) datos.get(i).get("nombre"),
+                    servCiudad.consultarCiudad((int) map.get("idCiudad"), "")));
+        }
+        return localidades;
+    }
+
+    public List<Localidad_TO> BuscarLocalidades(String valor) {
+        ClienteBuscarLocalidades cliente = new ClienteBuscarLocalidades();
+        List<LinkedHashMap> datos = cliente.buscarLocalidades(List.class, valor);
+        List<Localidad_TO> localidades = new ArrayList<>();
+        ServiciosCiudad servCiudad = new ServiciosCiudad();
+        for (int i = 0; i < datos.size(); i++) {
+            LinkedHashMap map = (LinkedHashMap) datos.get(i).get("ciudad");
+            localidades.add(new Localidad_TO((int) datos.get(i).get("idLocalidad"),
+                    (String) datos.get(i).get("nombre"),
                     servCiudad.consultarCiudad((int) map.get("idCiudad"), "")));
         }
         return localidades;

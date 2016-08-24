@@ -6,6 +6,7 @@
 package com.planit.lavappweb.webservices.implementaciones;
 
 import com.planit.lavappweb.modelos.Zona_TO;
+import com.planit.lavappweb.webservices.clientes.ClienteBuscarZonas;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarZona;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarZonas;
 import com.planit.lavappweb.webservices.clientes.ClienteEditarZona;
@@ -24,6 +25,16 @@ public class ServiciosZona {
     public List<Zona_TO> consultarZonas() {
         ClienteConsultarZonas cliente = new ClienteConsultarZonas();
         List<LinkedHashMap> datos = cliente.consultarZonas(List.class);
+        List<Zona_TO> zonas = new ArrayList<>();
+        for (int i = 0; i < datos.size(); i++) {
+            zonas.add(new Zona_TO((int) datos.get(i).get("idZona"), (String) datos.get(i).get("nombre"), (String) datos.get(i).get("descripcion")));
+        }
+        return zonas;
+    }
+    
+    public List<Zona_TO> buscarZonas(String valor){ 
+        ClienteBuscarZonas cliente = new ClienteBuscarZonas();
+        List<LinkedHashMap> datos = cliente.buscarZonas(List.class, valor);
         List<Zona_TO> zonas = new ArrayList<>();
         for (int i = 0; i < datos.size(); i++) {
             zonas.add(new Zona_TO((int) datos.get(i).get("idZona"), (String) datos.get(i).get("nombre"), (String) datos.get(i).get("descripcion")));

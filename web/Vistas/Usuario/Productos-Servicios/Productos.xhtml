@@ -98,7 +98,9 @@
                                     <h4 class="box-title">Lista de Productos</h4>
                                 </div> 
                                 <div class="box-body">
-                                    <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
+                                    <p:inputText value="#{productoCT.buscar}" style="width: 100%" placeholder="Buscar..." class="form-control">
+                                        <p:ajax event="keyup" listener="#{productoCT.buscarProductos()}" process="@this" update="DTProductos"/>
+                                    </p:inputText>
                                     <hr/>
                                     <p:dataTable id="DTProductos" style="width: 100%" var="producto" value="#{productoCT.productos}" class="table-responsive table table-striped" rows="10"
                                                  paginator="true"
@@ -131,7 +133,6 @@
                                             </p:commandLink>
                                         </p:column>
                                     </p:dataTable>
-
                                 </div>                                   
                             </div>
                         </b:column>

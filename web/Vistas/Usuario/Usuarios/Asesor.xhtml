@@ -69,7 +69,7 @@
                                                           update=":formularioAsesor" action="#{usuarioCT.cancelarAsesor()}"
                                                           class="btn btn-primary"/>
                                         <p:commandButton  onclick="PrimeFaces.monitorDownload(start, stop);"  type="submit" update=":formularioAsesor :formularioListaAsesores" 
-                                                          action="#{usuarioCT.metodo()}" value="#{usuarioCT.nombreOperacion}" 
+                                                          action="#{usuarioCT.metodoAsesor()}" value="#{usuarioCT.nombreOperacion}" 
                                                           class="btn btn-success"/>
                                         <script type="text/javascript">
                                             function start() {
@@ -94,9 +94,11 @@
                                 </div>
                                 <div class="box-body">
                                     <h:form id="formularioListaAsesores">
-                                        <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
+                                        <p:inputText value="#{usuarioCT.buscar}" style="width: 100%" placeholder="Buscar..." class="form-control">
+                                            <p:ajax process="@this" event="keyup" update="DTAsesores" listener="#{usuarioCT.buscarAsesores()}"/>
+                                        </p:inputText>
                                         <hr/>
-                                        <p:dataTable style="width: 100%" var="asesor" value="#{usuarioCT.asesores}" class="table-responsive table table-striped" rows="10"
+                                        <p:dataTable id="DTAsesores" style="width: 100%" var="asesor" value="#{usuarioCT.asesores}" class="table-responsive table table-striped" rows="10"
                                                      paginator="true" emptyMessage="No existen asesores registrados"
                                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                      rowsPerPageTemplate="5,10,15">

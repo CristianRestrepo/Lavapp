@@ -6,6 +6,7 @@
 package com.planit.lavappweb.webservices.implementaciones;
 
 import com.planit.lavappweb.modelos.Jornada_TO;
+import com.planit.lavappweb.webservices.clientes.ClienteBuscarJornadas;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarJornada;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarJornadas;
 import com.planit.lavappweb.webservices.clientes.ClienteEditarJornada;
@@ -24,6 +25,16 @@ public class ServiciosJornadas {
     public List<Jornada_TO> consultarJornadas() {
         ClienteConsultarJornadas cliente = new ClienteConsultarJornadas();
         List<LinkedHashMap> datos = cliente.consultarJornadas(List.class);
+        List<Jornada_TO> jornadas = new ArrayList<>();
+        for (int i = 0; i < datos.size(); i++) {
+            jornadas.add(new Jornada_TO((int) datos.get(i).get("idJornada"), (String) datos.get(i).get("nombre")));
+        }
+        return jornadas;
+    }
+
+    public List<Jornada_TO> buscarJornadas(String valor) {
+        ClienteBuscarJornadas cliente = new ClienteBuscarJornadas();
+        List<LinkedHashMap> datos = cliente.buscarJornadas(List.class, valor);
         List<Jornada_TO> jornadas = new ArrayList<>();
         for (int i = 0; i < datos.size(); i++) {
             jornadas.add(new Jornada_TO((int) datos.get(i).get("idJornada"), (String) datos.get(i).get("nombre")));

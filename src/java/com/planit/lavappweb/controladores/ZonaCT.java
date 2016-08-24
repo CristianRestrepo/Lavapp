@@ -25,6 +25,7 @@ public class ZonaCT {
     //Variables
     private String nombreOperacion;
     private int operacion;
+    private String buscar;
     
     public ZonaCT() {
         zona = new Zona_TO();
@@ -32,6 +33,7 @@ public class ZonaCT {
         nombreOperacion = "Registrar";
         servicios = new ServiciosZona();
         operacion = 0;
+        buscar = null;
     }
 
     @PostConstruct
@@ -80,6 +82,16 @@ public class ZonaCT {
         zonas = servicios.consultarZonas();
     }
 
+    public String getBuscar() {
+        return buscar;
+    }
+
+    public void setBuscar(String buscar) {
+        this.buscar = buscar;
+    }
+    
+    
+
     //Metodos Propios
     public void metodo() {
         if (operacion == 0) {
@@ -104,5 +116,14 @@ public class ZonaCT {
         zonas = servicios.consultarZonas();
         operacion = 0;
         nombreOperacion = "Registrar";
+    }
+    
+    public void buscarZonas(){
+        zonas = new ArrayList<>();
+        if(buscar == null){
+            zonas = servicios.consultarZonas();
+        }else{
+            zonas = servicios.buscarZonas(buscar);
+        }
     }
 }

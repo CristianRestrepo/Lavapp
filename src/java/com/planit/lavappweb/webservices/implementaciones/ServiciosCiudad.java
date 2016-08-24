@@ -7,6 +7,7 @@ package com.planit.lavappweb.webservices.implementaciones;
 
 import com.planit.lavappweb.modelos.Ciudad_TO;
 import com.planit.lavappweb.modelos.Departamento_TO;
+import com.planit.lavappweb.webservices.clientes.ClienteBuscarCiudades;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarCiudad;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarCiudades;
 import com.planit.lavappweb.webservices.clientes.ClienteEditarCiudad;
@@ -25,6 +26,20 @@ public class ServiciosCiudad {
     public List<Ciudad_TO> consultarCiudades() {
         ClienteConsultarCiudades cliente = new ClienteConsultarCiudades();
         List<LinkedHashMap> datos = cliente.consultarCiudades(List.class);
+        List<Ciudad_TO> ciudades = new ArrayList<>();
+        ServiciosDepartamento servDepartamento = new ServiciosDepartamento();
+
+        for (int i = 0; i < datos.size(); i++) {
+            LinkedHashMap map = (LinkedHashMap) datos.get(i).get("departamento");
+            Departamento_TO departamento = servDepartamento.consultarDepartamento((int) map.get("idDepartamento"), "");
+            ciudades.add(new Ciudad_TO((int) datos.get(i).get("idCiudad"), (String) datos.get(i).get("nombre"), departamento));
+        }
+        return ciudades;
+    }
+
+    public List<Ciudad_TO> buscarCiudades(String valor) {
+        ClienteBuscarCiudades cliente = new ClienteBuscarCiudades();
+        List<LinkedHashMap> datos = cliente.buscarCiudades(List.class, valor);
         List<Ciudad_TO> ciudades = new ArrayList<>();
         ServiciosDepartamento servDepartamento = new ServiciosDepartamento();
 

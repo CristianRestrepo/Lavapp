@@ -93,9 +93,11 @@
                                     <h4 class="box-title">Lista de Productos</h4>
                                 </div> 
                                 <div class="box-body">
-                                    <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
+                                    <p:inputText value="#{ciudadCT.buscar}" style="width: 100%" placeholder="Buscar..." class="form-control">
+                                        <p:ajax listener="#{ciudadCT.buscarCiudades()}" event="keyup" update="DTCiudades" process="@this"/>
+                                    </p:inputText>
                                     <hr/>
-                                    <p:dataTable style="width: 100%" var="ciudad" value="#{ciudadCT.ciudades}" class="table-responsive table table-striped" rows="10"
+                                    <p:dataTable id="DTCiudades" style="width: 100%" var="ciudad" value="#{ciudadCT.ciudades}" class="table-responsive table table-striped" rows="10"
                                                  paginator="true"
                                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                  rowsPerPageTemplate="5,10,15">

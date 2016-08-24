@@ -6,6 +6,9 @@
 package com.planit.lavappweb.webservices.implementaciones;
 
 import com.planit.lavappweb.modelos.Usuario_TO;
+import com.planit.lavappweb.webservices.clientes.ClienteBuscarAdministradores;
+import com.planit.lavappweb.webservices.clientes.ClienteBuscarAsesores;
+import com.planit.lavappweb.webservices.clientes.ClienteBuscarClientes;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarUsuario;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarUsuarioPorLogin;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarUsuarioSegunIdentificacion;
@@ -72,6 +75,144 @@ public class ServiciosUsuario {
         List<Usuario_TO> usuarios = new ArrayList<>();
 
 //        SERVICIOS
+        ServiciosBarrios sB = new ServiciosBarrios();
+        ServiciosRol sR = new ServiciosRol();
+        ServiciosEstado sE = new ServiciosEstado();
+        ServiciosCiudad sC = new ServiciosCiudad();
+        try {
+            for (int i = 0; i < datos.size(); i++) {
+
+                LinkedHashMap barrio = (LinkedHashMap) datos.get(i).get("barrio");
+                LinkedHashMap rol = (LinkedHashMap) datos.get(i).get("rol");
+                LinkedHashMap estado = (LinkedHashMap) datos.get(i).get("estado");
+                LinkedHashMap ciudad = (LinkedHashMap) datos.get(i).get("ciudad");
+
+                usuarios.add(new Usuario_TO((int) datos.get(i).get("idUsuario"),
+                        (String) datos.get(i).get("nombre"),
+                        (String) datos.get(i).get("telefono"),
+                        sB.consultarBarrio((int) barrio.get("idBarrios"), ""),
+                        sR.consultarRol((int) rol.get("idRol"), ""),
+                        sE.consultarEstadoID((int) estado.get("idEstado"), ""),
+                        (String) datos.get(i).get("email"),
+                        (String) datos.get(i).get("contrasena"),
+                        (String) datos.get(i).get("apellido"),
+                        (String) datos.get(i).get("genero"),
+                        (String) datos.get(i).get("movil"),
+                        (String) datos.get(i).get("direccion"),
+                        sC.consultarCiudad((int) ciudad.get("idCiudad"), ""),
+                        (String) datos.get(i).get("identificacion"),
+                        (String) datos.get(i).get("rutaImagen")));
+
+            }
+
+        } catch (Exception e) {
+            throw e;
+        }
+
+        return usuarios;
+    }
+    
+    
+    public List<Usuario_TO> buscarAsesores(String valor){
+    
+        ClienteBuscarAsesores clienteModelo = new ClienteBuscarAsesores();
+        List<LinkedHashMap> datos = new ArrayList<>();
+        datos = clienteModelo.buscarAsesores(List.class, valor);
+        List<Usuario_TO> usuarios = new ArrayList<>();
+
+        //SERVICIOS
+        ServiciosBarrios sB = new ServiciosBarrios();
+        ServiciosRol sR = new ServiciosRol();
+        ServiciosEstado sE = new ServiciosEstado();
+        ServiciosCiudad sC = new ServiciosCiudad();
+        try {
+            for (int i = 0; i < datos.size(); i++) {
+
+                LinkedHashMap barrio = (LinkedHashMap) datos.get(i).get("barrio");
+                LinkedHashMap rol = (LinkedHashMap) datos.get(i).get("rol");
+                LinkedHashMap estado = (LinkedHashMap) datos.get(i).get("estado");
+                LinkedHashMap ciudad = (LinkedHashMap) datos.get(i).get("ciudad");
+
+                usuarios.add(new Usuario_TO((int) datos.get(i).get("idUsuario"),
+                        (String) datos.get(i).get("nombre"),
+                        (String) datos.get(i).get("telefono"),
+                        sB.consultarBarrio((int) barrio.get("idBarrios"), ""),
+                        sR.consultarRol((int) rol.get("idRol"), ""),
+                        sE.consultarEstadoID((int) estado.get("idEstado"), ""),
+                        (String) datos.get(i).get("email"),
+                        (String) datos.get(i).get("contrasena"),
+                        (String) datos.get(i).get("apellido"),
+                        (String) datos.get(i).get("genero"),
+                        (String) datos.get(i).get("movil"),
+                        (String) datos.get(i).get("direccion"),
+                        sC.consultarCiudad((int) ciudad.get("idCiudad"), ""),
+                        (String) datos.get(i).get("identificacion"),
+                        (String) datos.get(i).get("rutaImagen")));
+
+            }
+
+        } catch (Exception e) {
+            throw e;
+        }
+
+        return usuarios;
+    }
+    
+    
+    public List<Usuario_TO> buscarClientes(String valor){
+    
+        ClienteBuscarClientes clienteModelo = new ClienteBuscarClientes();
+        List<LinkedHashMap> datos = new ArrayList<>();
+        datos = clienteModelo.buscarClientes(List.class, valor);
+        List<Usuario_TO> usuarios = new ArrayList<>();
+
+        //SERVICIOS
+        ServiciosBarrios sB = new ServiciosBarrios();
+        ServiciosRol sR = new ServiciosRol();
+        ServiciosEstado sE = new ServiciosEstado();
+        ServiciosCiudad sC = new ServiciosCiudad();
+        try {
+            for (int i = 0; i < datos.size(); i++) {
+
+                LinkedHashMap barrio = (LinkedHashMap) datos.get(i).get("barrio");
+                LinkedHashMap rol = (LinkedHashMap) datos.get(i).get("rol");
+                LinkedHashMap estado = (LinkedHashMap) datos.get(i).get("estado");
+                LinkedHashMap ciudad = (LinkedHashMap) datos.get(i).get("ciudad");
+
+                usuarios.add(new Usuario_TO((int) datos.get(i).get("idUsuario"),
+                        (String) datos.get(i).get("nombre"),
+                        (String) datos.get(i).get("telefono"),
+                        sB.consultarBarrio((int) barrio.get("idBarrios"), ""),
+                        sR.consultarRol((int) rol.get("idRol"), ""),
+                        sE.consultarEstadoID((int) estado.get("idEstado"), ""),
+                        (String) datos.get(i).get("email"),
+                        (String) datos.get(i).get("contrasena"),
+                        (String) datos.get(i).get("apellido"),
+                        (String) datos.get(i).get("genero"),
+                        (String) datos.get(i).get("movil"),
+                        (String) datos.get(i).get("direccion"),
+                        sC.consultarCiudad((int) ciudad.get("idCiudad"), ""),
+                        (String) datos.get(i).get("identificacion"),
+                        (String) datos.get(i).get("rutaImagen")));
+
+            }
+
+        } catch (Exception e) {
+            throw e;
+        }
+
+        return usuarios;
+    }
+    
+    
+    public List<Usuario_TO> buscarAdministradores(String valor){
+    
+        ClienteBuscarAdministradores clienteModelo = new ClienteBuscarAdministradores();
+        List<LinkedHashMap> datos = new ArrayList<>();
+        datos = clienteModelo.buscarAdministradores(List.class, valor);
+        List<Usuario_TO> usuarios = new ArrayList<>();
+
+        //SERVICIOS
         ServiciosBarrios sB = new ServiciosBarrios();
         ServiciosRol sR = new ServiciosRol();
         ServiciosEstado sE = new ServiciosEstado();

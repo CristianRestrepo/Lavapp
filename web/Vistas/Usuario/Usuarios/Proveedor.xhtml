@@ -128,10 +128,12 @@
                                 </div>
                                 <div class="box-body">
                                     <h:form id="formularioListaProveedores">
-                                        <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
+                                        <p:inputText value="#{proveedorCT.buscar}" style="width: 100%" placeholder="Buscar..." class="form-control">
+                                            <p:ajax event="keyup" listener="#{proveedorCT.buscarProveedores()}" process="@this" update="DTProveedores" />
+                                        </p:inputText>
                                         <hr/>
-                                        <p:dataTable style="width: 100%" var="Proveedor" value="#{proveedorCT.proveedores}" class="table-responsive table table-striped" rows="10"
-                                                     paginator="true"
+                                        <p:dataTable id="DTProveedores" style="width: 100%" var="Proveedor" value="#{proveedorCT.proveedores}" class="table-responsive table table-striped" rows="10"
+                                                     paginator="true" emptyMessage="No existen planta registradas"
                                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                      rowsPerPageTemplate="5,10,15">
                                             <p:column headerText="Razon Social">

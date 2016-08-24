@@ -82,7 +82,9 @@
                                 </div>
                                 <div class="box-body">
                                     <h:form id="formularioListaHorarios">
-                                        <p:inputText style="width: 100%" placeholder="Buscar..." class="form-control"></p:inputText>
+                                        <p:inputText value="#{horarioCT.buscar}" style="width: 100%" placeholder="Buscar..." class="form-control">
+                                            <p:ajax event="keyup" update="DTHorarios" listener="#{horarioCT.buscarHorario()}" process="@this"/>
+                                        </p:inputText>
                                         <br/>
                                         <p:dataTable id="DTHorarios" emptyMessage="Horarios no registrados" style="width: 100%" var="horario" value="#{horarioCT.horarios}" class="table-responsive table table-striped" rows="10"
                                                      paginator="true"

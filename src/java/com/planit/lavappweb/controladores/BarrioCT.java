@@ -25,6 +25,7 @@ public class BarrioCT {
     protected ServiciosBarrios servicios;
     private String nombreOperacion;
     protected int operacion; //Controla la operacion a ejecutar
+    private String buscar;
 
     public BarrioCT() {
         barrio = new Barrio_TO();
@@ -32,6 +33,7 @@ public class BarrioCT {
         servicios = new ServiciosBarrios();
         nombreOperacion = "Registrar";
         operacion = 0;
+        buscar = null;
     }
 
     @PostConstruct
@@ -64,6 +66,15 @@ public class BarrioCT {
         this.nombreOperacion = nombreOperacion;
     }
 
+    public String getBuscar() {
+        return buscar;
+    }
+
+    public void setBuscar(String buscar) {
+        this.buscar = buscar;
+    }
+
+    
     //Metodos    
     public void registrar() {
         ServiciosLocalidad Sl = new ServiciosLocalidad();
@@ -128,5 +139,15 @@ public class BarrioCT {
         barrios = servicios.consultarBarrios();
         operacion = 0;
         nombreOperacion = "Registrar";
+    }
+    
+    
+    public void buscarBarrios(){
+        barrios = new ArrayList<>();
+        if(buscar == null){
+            barrios = servicios.consultarBarrios();
+        }else{
+            barrios = servicios.buscarBarrios(buscar);
+        }    
     }
 }

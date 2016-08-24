@@ -16,7 +16,6 @@ import javax.annotation.PostConstruct;
  *
  * @author Desarrollo_Planit
  */
-
 public class DepartamentoCT {
 
     private Departamento_TO departamento;
@@ -26,6 +25,7 @@ public class DepartamentoCT {
     //Variables   
     private String nombreOperacion;
     private int operacion;
+    private String buscar;
 
     public DepartamentoCT() {
         departamento = new Departamento_TO();
@@ -33,6 +33,7 @@ public class DepartamentoCT {
         servicios = new ServiciosDepartamento();
         nombreOperacion = "Registrar";
         operacion = 0;
+        buscar = null;
     }
 
     @PostConstruct
@@ -65,11 +66,19 @@ public class DepartamentoCT {
         this.nombreOperacion = nombreOperacion;
     }
 
+    public String getBuscar() {
+        return buscar;
+    }
+
+    public void setBuscar(String buscar) {
+        this.buscar = buscar;
+    }
+
     //CRUD    
     public void registrar() {
         ServiciosPais sp = new ServiciosPais();
         departamento.setPais(sp.consultarPais(departamento.getPais().getIdPais(), departamento.getPais().getNombre()));
-        
+
         departamento = servicios.registrarDepartamento(departamento.getNombre(), departamento.getPais().getIdPais());
         departamentos = servicios.consultarDepartamentos();
     }
@@ -77,8 +86,7 @@ public class DepartamentoCT {
     public void modificar() {
         ServiciosPais sp = new ServiciosPais();
         departamento.setPais(sp.consultarPais(departamento.getPais().getIdPais(), departamento.getPais().getNombre()));
-        
-        
+
         departamento = servicios.editarDepartamento(departamento.getIdDepartamento(), departamento.getNombre(), departamento.getPais().getIdPais());
         departamentos = servicios.consultarDepartamentos();
     }
@@ -112,5 +120,14 @@ public class DepartamentoCT {
         departamentos = servicios.consultarDepartamentos();
         operacion = 0;
         nombreOperacion = "Registrar";
+    }
+
+    public void buscarDepartamentos() {
+        departamentos = new ArrayList<>();
+        if (buscar == null) {
+            departamentos = servicios.consultarDepartamentos();
+        } else {
+            departamentos = servicios.buscarDepartamentos(buscar);
+        }
     }
 }

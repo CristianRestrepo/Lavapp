@@ -45,6 +45,7 @@ public class SubProductoCT implements Serializable {
     private String nombreOperacion;
     protected int operacion;
     private String imagen;
+    private String buscar;
 
     public SubProductoCT() {
         subproducto = new SubProducto_TO();
@@ -62,6 +63,7 @@ public class SubProductoCT implements Serializable {
         operacion = 0;
         nombreOperacion = "Registrar";
         ControladorArchivos = new Upload();
+        buscar = null;
     }
 
     @PostConstruct
@@ -132,6 +134,14 @@ public class SubProductoCT implements Serializable {
 
     public void setCosto(Costo_TO costo) {
         this.costo = costo;
+    }
+
+    public String getBuscar() {
+        return buscar;
+    }
+
+    public void setBuscar(String buscar) {
+        this.buscar = buscar;
     }
 
     //Metodos
@@ -226,6 +236,15 @@ public class SubProductoCT implements Serializable {
             FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Su foto (" + file.getFileName() + ")  se ha guardado con exito.", ""));
         } catch (IOException ex) {
             throw ex;
+        }
+    }
+
+    public void buscarSubProductos() {
+        subproductos = new ArrayList<>();
+        if (buscar == null) {
+            subproductos = serviciosSubProducto.consultarSubProductos();
+        } else {
+            subproductos = serviciosSubProducto.buscarSubProductos(buscar);
         }
     }
 }

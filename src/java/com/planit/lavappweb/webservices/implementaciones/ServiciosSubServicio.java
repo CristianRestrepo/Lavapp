@@ -7,6 +7,7 @@ package com.planit.lavappweb.webservices.implementaciones;
 
 import com.planit.lavappweb.modelos.Servicio_TO;
 import com.planit.lavappweb.modelos.SubServicio_TO;
+import com.planit.lavappweb.webservices.clientes.ClienteBuscarSubServicios;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarSubServicio;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarSubServicios;
 import com.planit.lavappweb.webservices.clientes.ClienteEditarSubServicio;
@@ -32,6 +33,19 @@ public class ServiciosSubServicio {
         ClienteConsultarSubServicios Cliente = new ClienteConsultarSubServicios();
         ServiciosServicios ss = new ServiciosServicios();        
         List<LinkedHashMap> datos = Cliente.consultarSubServicios(List.class);
+        for (int i = 0; i < datos.size(); i++) {
+            LinkedHashMap map = (LinkedHashMap) datos.get(i).get("servicio");
+            Servicio_TO servicio = ss.consultarServicio((int)map.get("idServicio"), "");
+            subServicios.add(new SubServicio_TO((int) datos.get(i).get("idSubServicio"), (String) datos.get(i).get("nombre"), servicio));
+        }
+        return subServicios;
+    }
+    
+    public List<SubServicio_TO> buscarSubServicios(String valor) {
+        List<SubServicio_TO> subServicios = new ArrayList<>();
+        ClienteBuscarSubServicios Cliente = new ClienteBuscarSubServicios();
+        ServiciosServicios ss = new ServiciosServicios();        
+        List<LinkedHashMap> datos = Cliente.buscarSubServicio(List.class, valor);
         for (int i = 0; i < datos.size(); i++) {
             LinkedHashMap map = (LinkedHashMap) datos.get(i).get("servicio");
             Servicio_TO servicio = ss.consultarServicio((int)map.get("idServicio"), "");

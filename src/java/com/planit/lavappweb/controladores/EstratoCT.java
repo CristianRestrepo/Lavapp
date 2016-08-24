@@ -25,6 +25,7 @@ public class EstratoCT {
     //variables
     private String nombreOperacion;
     private int operacion;
+    private String buscar;
     
     public EstratoCT() {
         estrato = new Estrato_TO();
@@ -32,6 +33,7 @@ public class EstratoCT {
         servicios = new ServiciosEstrato();
         nombreOperacion = "Registrar";
         operacion = 0;
+        buscar = null;
     }
 
     @PostConstruct
@@ -80,6 +82,16 @@ public class EstratoCT {
         estratos = servicios.consultarEstratos();
     }
 
+    public String getBuscar() {
+        return buscar;
+    }
+
+    public void setBuscar(String buscar) {
+        this.buscar = buscar;
+    }
+    
+    
+
     //Metodos Propios
     public void metodo() {
         if (operacion == 0) {
@@ -104,6 +116,15 @@ public class EstratoCT {
         estratos = servicios.consultarEstratos();
         operacion = 0;
         nombreOperacion = "Registrar";
+    }
+    
+    public void buscarEstratos(){
+        estratos = new ArrayList<>();
+        if(buscar == null){
+            estratos = servicios.consultarEstratos();
+        }else{
+            estratos = servicios.buscarEstratos(buscar);
+        }
     }
 
 }

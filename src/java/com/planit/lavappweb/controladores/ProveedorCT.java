@@ -36,6 +36,7 @@ public class ProveedorCT {
 
     private String nombreOperacion;
     private int operacion; //Controla la operacion a ejecutar
+    private String buscar;
 
     public ProveedorCT() {
         proveedor = new Proveedor_TO();
@@ -45,6 +46,7 @@ public class ProveedorCT {
 
         servicios = new ServiciosProveedor();
         serviciosUsuario = new ServiciosUsuario();
+        buscar = null;
     }
 
     @PostConstruct
@@ -84,6 +86,16 @@ public class ProveedorCT {
         this.operacion = operacion;
     }
 
+    public String getBuscar() {
+        return buscar;
+    }
+
+    public void setBuscar(String buscar) {
+        this.buscar = buscar;
+    }
+    
+    
+
     //Metodos CRUD    
     public void registrar() {
         ServiciosBarrios sb = new ServiciosBarrios();
@@ -95,7 +107,7 @@ public class ProveedorCT {
         proveedor.getUsuario().setBarrio(sb.consultarBarrio(proveedor.getUsuario().getBarrio().getIdBarrios(), proveedor.getUsuario().getBarrio().getNombre()));
         proveedor.getUsuario().getBarrio().setLocalidad(sl.consultarLocalidad(proveedor.getUsuario().getBarrio().getLocalidad().getIdLocalidad(), ""));
         proveedor.getUsuario().setCiudad(sc.consultarCiudad(proveedor.getUsuario().getBarrio().getLocalidad().getCiudad().getIdCiudad(), ""));
-        proveedor.getUsuario().setRol(sr.consultarRol(5, "Proveedor"));
+        proveedor.getUsuario().setRol(sr.consultarRol(2, "Administrador Planta"));
         proveedor.getUsuario().setEstado(new Estado_TO(1, "Activo"));
         proveedor.getUsuario().setDireccion(proveedor.getDireccion());
         proveedor.getUsuario().setTelefono(proveedor.getTelefono());
@@ -103,7 +115,7 @@ public class ProveedorCT {
         String password = GenerarPassword.generarPass(6);//Generamos contraseña automatica        
         String identificacion = proveedor.getUsuario().getIdentificacion();//Guardamos la identificacion del usuario para consultarlo despues de ser registrado
 
-        proveedor.getUsuario().setRutaImagen(Upload.getPathDefaultUsuario());
+        proveedor.getUsuario().setRutaImagen(Upload.getPathDefaultUsuario());//Asignamos fotografia default
         //Se registra el usuario
         serviciosUsuario.registrarUsuario(proveedor.getUsuario().getNombre(),
                 proveedor.getUsuario().getTelefono(),
@@ -215,5 +227,14 @@ public class ProveedorCT {
         operacion = 0;
         nombreOperacion = "Registrar";
     }
-
+    
+    
+    public void buscarProveedores(){
+        proveedores = new ArrayList<>();
+        if(buscar == null){
+            proveedores = servicios.consultarProveedores();
+        }else{
+            proveedores = servicios.buscarProveedores(buscar);
+        }
+    }
 }
