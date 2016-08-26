@@ -6,7 +6,7 @@
 package com.planit.lavappweb.metodos;
 
 
-import com.planit.lavappweb.modelos.Usuario_TO;
+import com.planit.lavappweb.modelo.dto.Usuario_TO;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 

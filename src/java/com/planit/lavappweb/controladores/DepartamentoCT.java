@@ -5,9 +5,8 @@
  */
 package com.planit.lavappweb.controladores;
 
-import com.planit.lavappweb.modelos.Departamento_TO;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosDepartamento;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosPais;
+import com.planit.lavappweb.modelo.dao.DepartamentoDao;
+import com.planit.lavappweb.modelo.dto.Departamento_TO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -20,8 +19,7 @@ public class DepartamentoCT {
 
     private Departamento_TO departamento;
     private List<Departamento_TO> departamentos;
-    protected ServiciosDepartamento servicios;
-
+   
     //Variables   
     private String nombreOperacion;
     private int operacion;
@@ -29,8 +27,7 @@ public class DepartamentoCT {
 
     public DepartamentoCT() {
         departamento = new Departamento_TO();
-        departamentos = new ArrayList<>();
-        servicios = new ServiciosDepartamento();
+        departamentos = new ArrayList<>();       
         nombreOperacion = "Registrar";
         operacion = 0;
         buscar = null;
@@ -38,7 +35,8 @@ public class DepartamentoCT {
 
     @PostConstruct
     public void init() {
-        departamentos = servicios.consultarDepartamentos();
+        DepartamentoDao departamentoDao = new DepartamentoDao();
+        departamentos = departamentoDao.consultarDepartamentos();
     }
 
     //Getter & Setter
@@ -76,24 +74,21 @@ public class DepartamentoCT {
 
     //CRUD    
     public void registrar() {
-        ServiciosPais sp = new ServiciosPais();
-        departamento.setPais(sp.consultarPais(departamento.getPais().getIdPais(), departamento.getPais().getNombre()));
-
-        departamento = servicios.registrarDepartamento(departamento.getNombre(), departamento.getPais().getIdPais());
-        departamentos = servicios.consultarDepartamentos();
+        DepartamentoDao departamentoDao = new DepartamentoDao();
+        departamento = departamentoDao.registrarDepartamento(departamento);
+        departamentos = departamentoDao.consultarDepartamentos();
     }
 
     public void modificar() {
-        ServiciosPais sp = new ServiciosPais();
-        departamento.setPais(sp.consultarPais(departamento.getPais().getIdPais(), departamento.getPais().getNombre()));
-
-        departamento = servicios.editarDepartamento(departamento.getIdDepartamento(), departamento.getNombre(), departamento.getPais().getIdPais());
-        departamentos = servicios.consultarDepartamentos();
+        DepartamentoDao departamentoDao = new DepartamentoDao();
+        departamento = departamentoDao.editarDepartamento(departamento);
+        departamentos = departamentoDao.consultarDepartamentos();
     }
 
     public void eliminar() {
-        departamento = servicios.eliminarDepartamento(departamento.getIdDepartamento());
-        departamentos = servicios.consultarDepartamentos();
+        DepartamentoDao departamentoDao = new DepartamentoDao();
+        departamento = departamentoDao.eliminarDepartamento(departamento);
+        departamentos = departamentoDao.consultarDepartamentos();
     }
 
     //Metodos
@@ -116,18 +111,20 @@ public class DepartamentoCT {
     }
 
     public void cancelar() {
+        DepartamentoDao departamentoDao = new DepartamentoDao();
         departamento = new Departamento_TO();
-        departamentos = servicios.consultarDepartamentos();
+        departamentos = departamentoDao.consultarDepartamentos();
         operacion = 0;
         nombreOperacion = "Registrar";
     }
 
     public void buscarDepartamentos() {
+        DepartamentoDao departamentoDao = new DepartamentoDao();
         departamentos = new ArrayList<>();
         if (buscar == null) {
-            departamentos = servicios.consultarDepartamentos();
+            departamentos = departamentoDao.consultarDepartamentos();
         } else {
-            departamentos = servicios.buscarDepartamentos(buscar);
+            departamentos = departamentoDao.buscarDepartamentos(buscar);
         }
     }
 }

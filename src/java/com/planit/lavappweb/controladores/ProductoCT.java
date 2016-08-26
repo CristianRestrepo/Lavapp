@@ -6,15 +6,14 @@
 package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.metodos.Upload;
-import com.planit.lavappweb.modelos.Producto_TO;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosProducto;
+import com.planit.lavappweb.modelo.dto.Producto_TO;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import static com.planit.lavappweb.metodos.Upload.getMapPathFotosProducto;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosSubServicio;
+import com.planit.lavappweb.modelo.dao.ProductoDao;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.apache.commons.io.IOUtils;
@@ -28,7 +27,7 @@ public class ProductoCT {
 
     private Producto_TO producto;
     private List<Producto_TO> productos;
-    protected ServiciosProducto serviciosProducto;
+
     private UploadedFile file;
 
     //Variables
@@ -37,25 +36,24 @@ public class ProductoCT {
     private String imagen;
     private String buscar;
 
-    /**
-     * Relacion con clases
-     */
     private Upload archivo_CT;
 
     public ProductoCT() {
         producto = new Producto_TO();
         productos = new ArrayList<>();
-        serviciosProducto = new ServiciosProducto();
+
         nombreOperacion = "Registrar";
         operacion = 0;
-        archivo_CT = new Upload();
         imagen = "";
         buscar = null;
+
+        archivo_CT = new Upload();
     }
 
     @PostConstruct
     public void init() {
-        productos = serviciosProducto.consultarProductos();
+        ProductoDao productoDao = new ProductoDao();
+        productos = productoDao.consultarProductos();
     }
 
     //Getter & Setter
@@ -81,14 +79,6 @@ public class ProductoCT {
 
     public void setNombreOperacion(String nombreOperacion) {
         this.nombreOperacion = nombreOperacion;
-    }
-
-    public ServiciosProducto getServiciosProducto() {
-        return serviciosProducto;
-    }
-
-    public void setServiciosProducto(ServiciosProducto serviciosProducto) {
-        this.serviciosProducto = serviciosProducto;
     }
 
     public Upload getArchivo_CT() {
@@ -125,22 +115,21 @@ public class ProductoCT {
 
     //Metodos
     public void registrar() {
-        ServiciosSubServicio ss = new ServiciosSubServicio();
-        producto.setSubServicio(ss.consultarSubServicio(producto.getSubServicio().getIdSubServicio(), producto.getSubServicio().getNombre()));
-        producto = serviciosProducto.registrarProducto(producto.getNombre(), producto.getDescripcion(), producto.getSubServicio().getIdSubServicio(), producto.getRutaImagen());
-        productos = serviciosProducto.consultarProductos();
+        ProductoDao productoDao = new ProductoDao();
+        producto = productoDao.registrarProducto(producto);
+        productos = productoDao.consultarProductos();
     }
 
     public void modificar() {
-        ServiciosSubServicio ss = new ServiciosSubServicio();
-        producto.setSubServicio(ss.consultarSubServicio(0, producto.getSubServicio().getNombre()));
-        producto = serviciosProducto.modificarProducto(producto.getIdProducto(), producto.getNombre(), producto.getDescripcion(), producto.getSubServicio().getIdSubServicio(), producto.getRutaImagen());
-        productos = serviciosProducto.consultarProductos();
+        ProductoDao productoDao = new ProductoDao();
+        producto = productoDao.modificarProducto(producto);
+        productos = productoDao.consultarProductos();
     }
 
     public void eliminar() {
-        producto = serviciosProducto.eliminar(producto.getIdProducto());
-        productos = serviciosProducto.consultarProductos();
+        ProductoDao productoDao = new ProductoDao();
+        producto = productoDao.eliminarProducto(producto);
+        productos = productoDao.consultarProductos();
     }
 
     //Metodos Propios
@@ -177,8 +166,9 @@ public class ProductoCT {
     }
 
     public void cancelar() {
+        ProductoDao productoDao = new ProductoDao();
         producto = new Producto_TO();
-        productos = serviciosProducto.consultarProductos();
+        productos = productoDao.consultarProductos();
         operacion = 0;
         nombreOperacion = "Registrar";
         imagen = "";
@@ -202,11 +192,12 @@ public class ProductoCT {
     }
 
     public void buscarProductos() {
+        ProductoDao productoDao = new ProductoDao();
         productos = new ArrayList<>();
         if (buscar == null) {
-            productos = serviciosProducto.consultarProductos();
+            productos = productoDao.consultarProductos();
         } else {
-            productos = serviciosProducto.BuscarProductos(buscar);
+            productos = productoDao.BuscarProductos(buscar);
         }
     }
 }

@@ -5,8 +5,8 @@
  */
 package com.planit.lavappweb.controladores;
 
-import com.planit.lavappweb.modelos.Servicio_TO;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosServicios;
+import com.planit.lavappweb.modelo.dao.ServicioDao;
+import com.planit.lavappweb.modelo.dto.Servicio_TO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -19,7 +19,6 @@ public class ServicioCT {
 
     private Servicio_TO servicio;
     private List<Servicio_TO> servicios;
-    protected ServiciosServicios clienteServicio;
 
     //Variables
     private String nombreOperacion;
@@ -29,8 +28,6 @@ public class ServicioCT {
     public ServicioCT() {
         servicio = new Servicio_TO();
         servicios = new ArrayList<>();
-        clienteServicio = new ServiciosServicios();
-
         nombreOperacion = "Registrar";
         operacion = 0;
         buscar = null;
@@ -38,7 +35,8 @@ public class ServicioCT {
 
     @PostConstruct
     public void init() {
-        servicios = clienteServicio.consultarServicios();
+        ServicioDao servicioDao = new ServicioDao();
+        servicios = servicioDao.consultarServicios();
     }
 
     //Getter & Setter
@@ -68,18 +66,21 @@ public class ServicioCT {
 
     //Metodos   
     public void registrar() {
-        servicio = clienteServicio.registrarServicio(servicio.getNombre());
-        servicios = clienteServicio.consultarServicios();
+        ServicioDao servicioDao = new ServicioDao();
+        servicio = servicioDao.registrarServicio(servicio);
+        servicios = servicioDao.consultarServicios();
     }
 
     public void modificar() {
-        servicio = clienteServicio.editarServicio(servicio.getIdServicio(), servicio.getNombre());
-        servicios = clienteServicio.consultarServicios();
+        ServicioDao servicioDao = new ServicioDao();
+        servicio = servicioDao.editarServicio(servicio);
+        servicios = servicioDao.consultarServicios();
     }
 
     public void eliminar() {
-        servicio = clienteServicio.eliminarServicio(servicio.getIdServicio());
-        servicios = clienteServicio.consultarServicios();
+        ServicioDao servicioDao = new ServicioDao();
+        servicio = servicioDao.eliminarServicio(servicio);
+        servicios = servicioDao.consultarServicios();
     }
 
     public String getBuscar() {
@@ -89,9 +90,7 @@ public class ServicioCT {
     public void setBuscar(String buscar) {
         this.buscar = buscar;
     }
-    
-     
-    
+
     //Metodos Propios
     public void metodo() {
         if (operacion == 0) {
@@ -112,19 +111,20 @@ public class ServicioCT {
     }
 
     public void cancelar() {
+        ServicioDao servicioDao = new ServicioDao();
         servicio = new Servicio_TO();
-        servicios = clienteServicio.consultarServicios();
+        servicios = servicioDao.consultarServicios();
         operacion = 0;
         nombreOperacion = "Registrar";
     }
-    
-    
-    public void buscarServicios(){
+
+    public void buscarServicios() {
+        ServicioDao servicioDao = new ServicioDao();
         servicios = new ArrayList<>();
-        if(buscar == null){
-            servicios = clienteServicio.consultarServicios();
-        }else{
-            servicios = clienteServicio.BuscarServicios(buscar);
+        if (buscar == null) {
+            servicios = servicioDao.consultarServicios();
+        } else {
+            servicios = servicioDao.BuscarServicios(buscar);
         }
     }
 }

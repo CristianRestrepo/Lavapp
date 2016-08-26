@@ -5,7 +5,7 @@
  */
 package com.planit.lavappweb.controladores;
 
-import com.planit.lavappweb.modelos.Descuento_TO;
+import com.planit.lavappweb.modelo.dto.Descuento_TO;
 import java.util.List;
 import javax.annotation.PostConstruct;
 

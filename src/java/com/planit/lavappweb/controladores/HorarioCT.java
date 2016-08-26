@@ -5,12 +5,10 @@
  */
 package com.planit.lavappweb.controladores;
 
-import com.planit.lavappweb.modelos.Horario_TO;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosHorario;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosJornadas;
+import com.planit.lavappweb.modelo.dao.HorarioDao;
+import com.planit.lavappweb.modelo.dto.Horario_TO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +22,6 @@ public class HorarioCT {
 
     private Horario_TO horario;
     private List<Horario_TO> horarios;
-    protected ServiciosHorario servicios;
 
     private String horainicio;
     private String minutoinicio;
@@ -42,12 +39,12 @@ public class HorarioCT {
     protected int operacion; //Controla la operacion a ejecutar
 
     private String buscar;
+
     public HorarioCT() {
         horario = new Horario_TO();
         horarios = new ArrayList<>();
         nombreOperacion = "Registrar";
         operacion = 0;
-        servicios = new ServiciosHorario();
 
         horainicio = "00";
         minutoinicio = "00";
@@ -60,13 +57,14 @@ public class HorarioCT {
         horas = new ArrayList<>();
         minutos = new ArrayList<>();
         segundos = new ArrayList<>();
-    
+
         buscar = null;
     }
 
     @PostConstruct
     public void init() {
-        horarios = servicios.consultarHorarios();
+        HorarioDao horarioDao = new HorarioDao();
+        horarios = horarioDao.consultarHorarios();
         cargarhoras();
         cargarminutos();
         cargarsegundos();
@@ -177,16 +175,16 @@ public class HorarioCT {
         this.buscar = buscar;
     }
 
-    
     //Metodos
     public void registrar() {
-        ServiciosJornadas sj = new ServiciosJornadas();
+
+        HorarioDao horarioDao = new HorarioDao();
         horario.setHoraInicio(horainicio + ":" + minutoinicio + ":" + segundoinicio);
         horario.setHoraFinal(horafinal + ":" + minutofinal + ":" + segundofinal);
         horario.setHorario("" + horario.getHoraInicio() + "-" + horario.getHoraFinal());
-        horario.setJornada(sj.consultarJornada(horario.getIdHorario(), horario.getJornada().getNombre()));
-        horario = servicios.registrarHorario(horario.getHoraInicio(), horario.getHoraFinal(), horario.getJornada().getIdJornada(), horario.getHorario());
-        horarios = servicios.consultarHorarios();
+
+        horario = horarioDao.registrarHorario(horario);
+        horarios = horarioDao.consultarHorarios();
 
         horainicio = "00";
         minutoinicio = "00";
@@ -198,13 +196,14 @@ public class HorarioCT {
     }
 
     public void modificar() {
-        ServiciosJornadas sj = new ServiciosJornadas();
+        
+        HorarioDao horarioDao = new HorarioDao();
         horario.setHoraInicio(horainicio + ":" + minutoinicio + ":" + segundoinicio);
         horario.setHoraFinal(horafinal + ":" + minutofinal + ":" + segundofinal);
         horario.setHorario("" + horario.getHoraInicio() + "-" + horario.getHoraFinal());
-        horario.setJornada(sj.consultarJornada(0, horario.getJornada().getNombre()));
-        horario = servicios.editarHorario(horario.getIdHorario(), horario.getHoraInicio(), horario.getHoraFinal(), horario.getJornada().getIdJornada(), horario.getHorario());
-        horarios = servicios.consultarHorarios();
+        
+        horario = horarioDao.registrarHorario(horario);
+        horarios = horarioDao.consultarHorarios();
 
         horainicio = "00";
         minutoinicio = "00";
@@ -216,8 +215,9 @@ public class HorarioCT {
     }
 
     public void eliminar() {
-        horario = servicios.eliminarHorario(horario.getIdHorario());
-        horarios = servicios.consultarHorarios();
+        HorarioDao horarioDao = new HorarioDao();
+        horario = horarioDao.eliminarHorario(horario);
+        horarios = horarioDao.consultarHorarios();
     }
 
     public void cargarhoras() {
@@ -324,13 +324,14 @@ public class HorarioCT {
         operacion = 0;
         nombreOperacion = "Registrar";
     }
-    
-    public void buscarHorario(){
+
+    public void buscarHorario() {
+        HorarioDao horarioDao = new HorarioDao();
         horarios = new ArrayList<>();
-        if(buscar == null){
-            horarios = servicios.consultarHorarios();
-        }else{
-            horarios = servicios.buscarBarrios(buscar);
+        if (buscar == null) {
+            horarios = horarioDao.consultarHorarios();
+        } else {
+            horarios = horarioDao.buscarBarrios(buscar);
         }
     }
 }

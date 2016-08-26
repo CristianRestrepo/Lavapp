@@ -8,13 +8,9 @@ package com.planit.lavappweb.controladores;
 import com.planit.lavappweb.metodos.GenerarPassword;
 import com.planit.lavappweb.metodos.Upload;
 import static com.planit.lavappweb.metodos.Upload.getPathDefaultUsuario;
-import com.planit.lavappweb.modelos.Usuario_TO;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosBarrios;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosCiudad;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosEstado;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosLocalidad;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosRol;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosUsuario;
+import com.planit.lavappweb.modelo.dao.UsuarioDao;
+import com.planit.lavappweb.modelo.dto.Rol_TO;
+import com.planit.lavappweb.modelo.dto.Usuario_TO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +22,7 @@ public class UsuarioCT implements Serializable {
     private List<Usuario_TO> usuarios;
     private List<Usuario_TO> clientes;
     private List<Usuario_TO> asesores;
-    private ServiciosUsuario servicioUser;
+ 
 
     private String nombreOperacion;
     private int operacion; //Controla la operacion a ejecutar
@@ -37,7 +33,7 @@ public class UsuarioCT implements Serializable {
         usuarios = new ArrayList<>();
         clientes = new ArrayList<>();
         asesores = new ArrayList<>();
-        servicioUser = new ServiciosUsuario();
+        
 
         operacion = 0;
         nombreOperacion = "Registrar";
@@ -46,8 +42,9 @@ public class UsuarioCT implements Serializable {
 
     @PostConstruct
     public void init() {
-        clientes = servicioUser.consultarUsuariosPorRol(4);
-        asesores = servicioUser.consultarUsuariosPorRol(3);
+        UsuarioDao usuarioDao = new UsuarioDao();
+        clientes = usuarioDao.consultarUsuariosPorRol(new Rol_TO(4));
+        asesores = usuarioDao.consultarUsuariosPorRol(new Rol_TO(3));
     }
 
     //Getters & Setters
@@ -73,15 +70,7 @@ public class UsuarioCT implements Serializable {
 
     public void setClientes(List<Usuario_TO> clientes) {
         this.clientes = clientes;
-    }
-
-    public ServiciosUsuario getServicioUser() {
-        return servicioUser;
-    }
-
-    public void setServicioUser(ServiciosUsuario servicioUser) {
-        this.servicioUser = servicioUser;
-    }
+    } 
 
     public String getNombreOperacion() {
         return nombreOperacion;
@@ -114,31 +103,16 @@ public class UsuarioCT implements Serializable {
     public void setBuscar(String buscar) {
         this.buscar = buscar;
     }
-    
-    
 
     //Metodos
     public String registrarCliente() {
+        UsuarioDao usuarioDao = new UsuarioDao();
 
-        ServiciosBarrios sb = new ServiciosBarrios();
-        ServiciosRol sr = new ServiciosRol();
-        ServiciosEstado se = new ServiciosEstado();
-        ServiciosCiudad sc = new ServiciosCiudad();
-        ServiciosLocalidad sl = new ServiciosLocalidad();
-
-        usuario.setBarrio(sb.consultarBarrio(usuario.getBarrio().getIdBarrios(), usuario.getBarrio().getNombre()));
-        usuario.setEstado(se.consultarEstadoID(1, ""));
-        usuario.setRol(sr.consultarRol(4, ""));
-        usuario.getBarrio().setLocalidad(sl.consultarLocalidad(usuario.getBarrio().getLocalidad().getIdLocalidad(), ""));
-        usuario.setCiudad(sc.consultarCiudad(usuario.getBarrio().getLocalidad().getCiudad().getIdCiudad(), ""));
+        usuario.setRol(new Rol_TO(4, ""));
         usuario.setRutaImagen(getPathDefaultUsuario());
-        
-        servicioUser.registrarUsuario(usuario.getNombre(), usuario.getTelefono(),
-                usuario.getBarrio().getIdBarrios(), usuario.getRol().getIdRol(),
-                usuario.getEstado().getIdEstado(), usuario.getEmail(),
-                usuario.getContrasena(), usuario.getApellido(),
-                usuario.getGenero(), usuario.getMovil(), "", usuario.getCiudad().getIdCiudad(), usuario.getIdentificacion(), usuario.getRutaImagen());
-        clientes = servicioUser.consultarUsuariosPorRol(4);
+
+        usuarioDao.registrarUsuario(usuario);
+        clientes = usuarioDao.consultarUsuariosPorRol(new Rol_TO(4));
 
         SesionCT ss = new SesionCT();
         ss.setUsuario(usuario);
@@ -153,60 +127,37 @@ public class UsuarioCT implements Serializable {
     }
 
     public void eliminarCliente() {
-        servicioUser.eliminarUsuario(usuario.getIdUsuario());
-        clientes = servicioUser.consultarUsuariosPorRol(4);
+
+        UsuarioDao usuarioDao = new UsuarioDao();
+        usuarioDao.eliminarUsuario(usuario);
+        clientes = usuarioDao.consultarUsuariosPorRol(new Rol_TO(4));
     }
 
     public void registrarAsesor() {
-        ServiciosBarrios sb = new ServiciosBarrios();
-        ServiciosRol sr = new ServiciosRol();
-        ServiciosEstado se = new ServiciosEstado();
-        ServiciosCiudad sc = new ServiciosCiudad();
-        ServiciosLocalidad sl = new ServiciosLocalidad();
 
-        usuario.setBarrio(sb.consultarBarrio(usuario.getBarrio().getIdBarrios(), usuario.getBarrio().getNombre()));
-        usuario.setEstado(se.consultarEstadoID(1, ""));
-        usuario.setRol(sr.consultarRol(3, ""));
-        usuario.getBarrio().setLocalidad(sl.consultarLocalidad(usuario.getBarrio().getLocalidad().getIdLocalidad(), ""));
-        usuario.setCiudad(sc.consultarCiudad(usuario.getBarrio().getLocalidad().getCiudad().getIdCiudad(), ""));
+        UsuarioDao usuarioDao = new UsuarioDao();
 
+        usuario.setRol(new Rol_TO(3, ""));
         usuario.setRutaImagen(Upload.getPathDefaultUsuario());
         usuario.setContrasena(GenerarPassword.generarPass(6));
 
-        usuario = servicioUser.registrarUsuario(usuario.getNombre(), usuario.getTelefono(),
-                usuario.getBarrio().getIdBarrios(), usuario.getRol().getIdRol(),
-                usuario.getEstado().getIdEstado(), usuario.getEmail(),
-                usuario.getContrasena(), usuario.getApellido(),
-                usuario.getGenero(), usuario.getMovil(), "", usuario.getCiudad().getIdCiudad(), usuario.getIdentificacion(), usuario.getRutaImagen());
-        asesores = servicioUser.consultarUsuariosPorRol(3);
+        usuario = usuarioDao.registrarUsuario(usuario);
+        asesores = usuarioDao.consultarUsuariosPorRol(new Rol_TO(3));
     }
 
     public void modificarAsesor() {
-        ServiciosBarrios sb = new ServiciosBarrios();
-        ServiciosRol sr = new ServiciosRol();
-        ServiciosEstado se = new ServiciosEstado();
-        ServiciosCiudad sc = new ServiciosCiudad();
-        ServiciosLocalidad sl = new ServiciosLocalidad();
 
-        usuario.setBarrio(sb.consultarBarrio(usuario.getBarrio().getIdBarrios(), usuario.getBarrio().getNombre()));
-        usuario.setEstado(se.consultarEstadoID(1, ""));
-        usuario.setRol(sr.consultarRol(3, ""));
-        usuario.getBarrio().setLocalidad(sl.consultarLocalidad(usuario.getBarrio().getLocalidad().getIdLocalidad(), ""));
-        usuario.setCiudad(sc.consultarCiudad(usuario.getBarrio().getLocalidad().getCiudad().getIdCiudad(), ""));
-     
-        usuario = servicioUser.editarUsuario(usuario.getIdUsuario(), usuario.getNombre(), 
-                usuario.getApellido(), usuario.getGenero(), usuario.getTelefono(),
-                usuario.getBarrio().getIdBarrios(),
-                usuario.getMovil(), "", usuario.getCiudad().getIdCiudad(),
-                usuario.getIdentificacion(), usuario.getRutaImagen());
-        asesores = servicioUser.consultarUsuariosPorRol(3);
+        UsuarioDao usuarioDao = new UsuarioDao();
+        usuario = usuarioDao.editarUsuario(usuario);
+        asesores = usuarioDao.consultarUsuariosPorRol(new Rol_TO(3));
     }
 
     public void eliminarAsesor() {
-        servicioUser.eliminarUsuario(usuario.getIdUsuario());
-        asesores = servicioUser.consultarUsuariosPorRol(3);
+        UsuarioDao usuarioDao = new UsuarioDao();
+        usuario = usuarioDao.eliminarUsuario(usuario);
+        asesores = usuarioDao.consultarUsuariosPorRol(new Rol_TO(3));
     }
-    
+
     //Metodos Asesor
     public void metodoAsesor() {
         if (operacion == 0) {
@@ -229,7 +180,7 @@ public class UsuarioCT implements Serializable {
             operacion = 0;
         }
     }
-    
+
     public void seleccionarCRUD(int i) {
         operacion = i;
         if (operacion == 1) {
@@ -243,22 +194,23 @@ public class UsuarioCT implements Serializable {
         operacion = 0;
     }
 
-    
-    public void buscarAsesores(){
+    public void buscarAsesores() {
+          UsuarioDao usuarioDao = new UsuarioDao();
         asesores = new ArrayList<>();
-        if(buscar == null){
-            asesores = servicioUser.consultarUsuariosPorRol(3);
-        }else {
-            asesores = servicioUser.buscarAsesores(buscar);
+        if (buscar == null) {
+            asesores = usuarioDao.consultarUsuariosPorRol(new Rol_TO(3));
+        } else {
+            asesores = usuarioDao.buscarAsesores(buscar);
         }
     }
-    
-    public void buscarClientes(){
+
+    public void buscarClientes() {
+          UsuarioDao usuarioDao = new UsuarioDao();
         clientes = new ArrayList<>();
-        if(buscar == null){
-            clientes = servicioUser.consultarUsuariosPorRol(4);
-        }else {
-            clientes = servicioUser.buscarClientes(buscar);
+        if (buscar == null) {
+            clientes = usuarioDao.consultarUsuariosPorRol(new Rol_TO(4));
+        } else {
+            clientes = usuarioDao.buscarClientes(buscar);
         }
     }
 }

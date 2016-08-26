@@ -5,11 +5,8 @@
  */
 package com.planit.lavappweb.controladores;
 
-import com.planit.lavappweb.modelos.Barrio_TO;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosBarrios;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosEstrato;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosLocalidad;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosZona;
+import com.planit.lavappweb.modelo.dao.BarriosDao;
+import com.planit.lavappweb.modelo.dto.Barrio_TO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -22,7 +19,7 @@ public class BarrioCT {
 
     private Barrio_TO barrio;
     private List<Barrio_TO> barrios;
-    protected ServiciosBarrios servicios;
+
     private String nombreOperacion;
     protected int operacion; //Controla la operacion a ejecutar
     private String buscar;
@@ -30,7 +27,6 @@ public class BarrioCT {
     public BarrioCT() {
         barrio = new Barrio_TO();
         barrios = new ArrayList<>();
-        servicios = new ServiciosBarrios();
         nombreOperacion = "Registrar";
         operacion = 0;
         buscar = null;
@@ -38,7 +34,8 @@ public class BarrioCT {
 
     @PostConstruct
     public void init() {
-        barrios = servicios.consultarBarrios();
+        BarriosDao barrioDao = new BarriosDao();
+        barrios = barrioDao.consultarBarrios();
     }
 
     //Getters & Setters
@@ -74,45 +71,22 @@ public class BarrioCT {
         this.buscar = buscar;
     }
 
-    
-    //Metodos    
     public void registrar() {
-        ServiciosLocalidad Sl = new ServiciosLocalidad();
-        ServiciosZona Sz = new ServiciosZona();
-        ServiciosEstrato Se = new ServiciosEstrato();
-
-        barrio.setEstrato(Se.consultarEstrato(barrio.getEstrato().getIdEstrato(), barrio.getEstrato().getNombre()));
-        barrio.setLocalidad(Sl.consultarLocalidad(barrio.getLocalidad().getIdLocalidad(), barrio.getLocalidad().getNombre()));
-        barrio.setZona(Sz.consultarZona(barrio.getZona().getIdZona(), barrio.getZona().getNombre()));
-
-        barrio = servicios.registrarBarrio(barrio.getNombre(),
-                barrio.getLocalidad().getIdLocalidad(),
-                barrio.getZona().getIdZona(),
-                barrio.getEstrato().getIdEstrato());
-        barrios = servicios.consultarBarrios();
+        BarriosDao barrioDao = new BarriosDao();
+        barrio = barrioDao.registrarBarrio(barrio);
+        barrios = barrioDao.consultarBarrios();
     }
 
     public void modificar() {
-
-        ServiciosLocalidad Sl = new ServiciosLocalidad();
-        ServiciosZona Sz = new ServiciosZona();
-        ServiciosEstrato Se = new ServiciosEstrato();
-
-        barrio.setEstrato(Se.consultarEstrato(barrio.getEstrato().getIdEstrato(), barrio.getEstrato().getNombre()));
-        barrio.setLocalidad(Sl.consultarLocalidad(barrio.getLocalidad().getIdLocalidad(), barrio.getLocalidad().getNombre()));
-        barrio.setZona(Sz.consultarZona(barrio.getZona().getIdZona(), barrio.getZona().getNombre()));
-
-        barrio = servicios.editarBarrio(barrio.getIdBarrios(),
-                barrio.getNombre(),
-                barrio.getLocalidad().getIdLocalidad(),
-                barrio.getZona().getIdZona(),
-                barrio.getEstrato().getIdEstrato());
-        barrios = servicios.consultarBarrios();
+        BarriosDao barrioDao = new BarriosDao();
+        barrio = barrioDao.modificarBarrio(barrio);
+        barrios = barrioDao.consultarBarrios();
     }
 
     public void eliminar() {
-        barrio = servicios.eliminarBarrio(barrio.getIdBarrios());
-        barrios = servicios.consultarBarrios();
+        BarriosDao barrioDao = new BarriosDao();
+        barrio = barrioDao.eliminarBarrio(barrio);
+        barrios = barrioDao.consultarBarrios();
     }
 
     //Metodos Propios
@@ -135,19 +109,20 @@ public class BarrioCT {
     }
 
     public void cancelar() {
+        BarriosDao barrioDao = new BarriosDao();
         barrio = new Barrio_TO();
-        barrios = servicios.consultarBarrios();
+        barrios = barrioDao.consultarBarrios();
         operacion = 0;
         nombreOperacion = "Registrar";
     }
-    
-    
-    public void buscarBarrios(){
+
+    public void buscarBarrios() {
+        BarriosDao barrioDao = new BarriosDao();
         barrios = new ArrayList<>();
-        if(buscar == null){
-            barrios = servicios.consultarBarrios();
-        }else{
-            barrios = servicios.buscarBarrios(buscar);
-        }    
+        if (buscar == null) {
+            barrios = barrioDao.consultarBarrios();
+        } else {
+            barrios = barrioDao.buscarBarrio(buscar);
+        }
     }
 }

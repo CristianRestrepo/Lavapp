@@ -5,9 +5,8 @@
  */
 package com.planit.lavappweb.controladores;
 
-import com.planit.lavappweb.modelos.Localidad_TO;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosCiudad;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosLocalidad;
+import com.planit.lavappweb.modelo.dao.LocalidadDao;
+import com.planit.lavappweb.modelo.dto.Localidad_TO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -20,16 +19,14 @@ public class LocalidadCT {
 
     private Localidad_TO localidad;
     private List<Localidad_TO> localidades;
-    protected ServiciosLocalidad servicios;
-
+    
     private String nombreOperacion;
     private int operacion;
     private String buscar;
 
     public LocalidadCT() {
         localidad = new Localidad_TO();
-        localidades = new ArrayList<>();
-        servicios = new ServiciosLocalidad();
+        localidades = new ArrayList<>();        
         nombreOperacion = "Registrar";
         operacion = 0;
         buscar = null;
@@ -37,7 +34,8 @@ public class LocalidadCT {
 
     @PostConstruct
     public void init() {
-        localidades = servicios.consultarLocalidades();
+        LocalidadDao localidadDao = new LocalidadDao();
+        localidades = localidadDao.consultarLocalidades();
     }
 
     //Getter & Setter
@@ -77,24 +75,21 @@ public class LocalidadCT {
 
     //CRUD
     public void registrar() {
-        ServiciosCiudad sc = new ServiciosCiudad();
-        localidad.setCiudad(sc.consultarCiudad(localidad.getCiudad().getIdCiudad(), localidad.getCiudad().getNombre()));
-
-        localidad = servicios.registrarLocalidad(localidad.getNombre(), localidad.getCiudad().getIdCiudad());
-        localidades = servicios.consultarLocalidades();
+        LocalidadDao localidadDao = new LocalidadDao();
+        localidad = localidadDao.registrarLocalidad(localidad);
+        localidades = localidadDao.consultarLocalidades();
     }
 
     public void modificar() {
-        ServiciosCiudad sc = new ServiciosCiudad();
-        localidad.setCiudad(sc.consultarCiudad(localidad.getCiudad().getIdCiudad(), localidad.getCiudad().getNombre()));
-
-        localidad = servicios.editarLocalidad(localidad.getIdLocalidad(), localidad.getNombre(), localidad.getCiudad().getIdCiudad());
-        localidades = servicios.consultarLocalidades();
+        LocalidadDao localidadDao = new LocalidadDao();
+        localidad = localidadDao.modificarLocalidad(localidad);
+        localidades = localidadDao.consultarLocalidades();
     }
 
     public void eliminar() {
-        localidad = servicios.eliminarLocalidad(localidad.getIdLocalidad());
-        localidades = servicios.consultarLocalidades();
+        LocalidadDao localidadDao = new LocalidadDao();
+        localidad = localidadDao.eliminarLocalidad(localidad);
+        localidades = localidadDao.consultarLocalidades();
     }
 
     //Metodos
@@ -118,18 +113,20 @@ public class LocalidadCT {
     }
 
     public void cancelar() {
+        LocalidadDao localidadDao = new LocalidadDao();
         localidad = new Localidad_TO();
-        localidades = servicios.consultarLocalidades();
+        localidades = localidadDao.consultarLocalidades();
         operacion = 0;
         nombreOperacion = "Registrar";
     }
     
     public void buscarLocalidades(){
+        LocalidadDao localidadDao = new LocalidadDao();
         localidades = new ArrayList<>();
         if(buscar == null){
-            localidades = servicios.consultarLocalidades();
+            localidades = localidadDao.consultarLocalidades();
         }else{
-            localidades = servicios.BuscarLocalidades(buscar);
+            localidades = localidadDao.BuscarLocalidades(buscar);
         }       
         
     }

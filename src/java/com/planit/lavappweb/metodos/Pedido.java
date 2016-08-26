@@ -5,8 +5,8 @@
  */
 package com.planit.lavappweb.metodos;
 
-import com.planit.lavappweb.modelos.Pedido_TO;
-import com.planit.lavappweb.modelos.SubProductoCosto_TO;
+import com.planit.lavappweb.modelo.dto.Pedido_TO;
+import com.planit.lavappweb.modelo.dto.SubProductoCosto_TO;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -6,18 +6,13 @@
 package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.metodos.GenerarPassword;
-import com.planit.lavappweb.metodos.MD5;
 import com.planit.lavappweb.metodos.Upload;
-import com.planit.lavappweb.modelos.Estado_TO;
-import com.planit.lavappweb.modelos.Proveedor_TO;
-import com.planit.lavappweb.modelos.Usuario_TO;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosBarrios;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosCiudad;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosLocalidad;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosProveedor;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosRol;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosUsuario;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosZona;
+import com.planit.lavappweb.modelo.dao.ProveedorDao;
+import com.planit.lavappweb.modelo.dao.UsuarioDao;
+import com.planit.lavappweb.modelo.dto.Estado_TO;
+import com.planit.lavappweb.modelo.dto.Proveedor_TO;
+import com.planit.lavappweb.modelo.dto.Rol_TO;
+import com.planit.lavappweb.modelo.dto.Usuario_TO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -31,9 +26,6 @@ public class ProveedorCT {
     private Proveedor_TO proveedor;
     private List<Proveedor_TO> proveedores;
 
-    protected ServiciosProveedor servicios;
-    protected ServiciosUsuario serviciosUsuario;
-
     private String nombreOperacion;
     private int operacion; //Controla la operacion a ejecutar
     private String buscar;
@@ -44,14 +36,13 @@ public class ProveedorCT {
         operacion = 0;
         nombreOperacion = "Registrar";
 
-        servicios = new ServiciosProveedor();
-        serviciosUsuario = new ServiciosUsuario();
         buscar = null;
     }
 
     @PostConstruct
     public void init() {
-        proveedores = servicios.consultarProveedores();
+        ProveedorDao proveedorDao = new ProveedorDao();
+        proveedores = proveedorDao.consultarProveedores();
     }
 
     public Proveedor_TO getProveedor() {
@@ -93,113 +84,57 @@ public class ProveedorCT {
     public void setBuscar(String buscar) {
         this.buscar = buscar;
     }
-    
-    
 
     //Metodos CRUD    
     public void registrar() {
-        ServiciosBarrios sb = new ServiciosBarrios();
-        ServiciosLocalidad sl = new ServiciosLocalidad();
-        ServiciosCiudad sc = new ServiciosCiudad();
-        ServiciosRol sr = new ServiciosRol();
+
+        UsuarioDao usuarioDao = new UsuarioDao();
+        ProveedorDao proveedorDao = new ProveedorDao();
 
         //Registro de informacion de usuario
-        proveedor.getUsuario().setBarrio(sb.consultarBarrio(proveedor.getUsuario().getBarrio().getIdBarrios(), proveedor.getUsuario().getBarrio().getNombre()));
-        proveedor.getUsuario().getBarrio().setLocalidad(sl.consultarLocalidad(proveedor.getUsuario().getBarrio().getLocalidad().getIdLocalidad(), ""));
-        proveedor.getUsuario().setCiudad(sc.consultarCiudad(proveedor.getUsuario().getBarrio().getLocalidad().getCiudad().getIdCiudad(), ""));
-        proveedor.getUsuario().setRol(sr.consultarRol(2, "Administrador Planta"));
+        proveedor.getUsuario().setRol(new Rol_TO(2, "Administrador Planta"));
         proveedor.getUsuario().setEstado(new Estado_TO(1, "Activo"));
-        proveedor.getUsuario().setDireccion(proveedor.getDireccion());
-        proveedor.getUsuario().setTelefono(proveedor.getTelefono());
 
         String password = GenerarPassword.generarPass(6);//Generamos contraseña automatica        
         String identificacion = proveedor.getUsuario().getIdentificacion();//Guardamos la identificacion del usuario para consultarlo despues de ser registrado
 
         proveedor.getUsuario().setRutaImagen(Upload.getPathDefaultUsuario());//Asignamos fotografia default
-        //Se registra el usuario
-        serviciosUsuario.registrarUsuario(proveedor.getUsuario().getNombre(),
-                proveedor.getUsuario().getTelefono(),
-                proveedor.getUsuario().getBarrio().getIdBarrios(),
-                proveedor.getUsuario().getRol().getIdRol(),
-                proveedor.getUsuario().getEstado().getIdEstado(),
-                proveedor.getUsuario().getEmail(),
-                MD5.getMD5(password),
-                proveedor.getUsuario().getApellido(),
-                proveedor.getUsuario().getGenero(),
-                proveedor.getUsuario().getMovil(),
-                proveedor.getUsuario().getDireccion(),
-                proveedor.getUsuario().getCiudad().getIdCiudad(),
-                proveedor.getUsuario().getIdentificacion(),
-                proveedor.getUsuario().getRutaImagen());
+        proveedor.getUsuario().setContrasena(password);
+        proveedor.getUsuario().setDireccion(proveedor.getDireccion());
+        proveedor.getUsuario().setTelefono(proveedor.getTelefono());
 
+        //Se registra el usuario
+        usuarioDao.registrarUsuario(proveedor.getUsuario());
         //Envio de correo de bienvenida
         //
         //
-        //Registro informacion proveedor
-        ServiciosZona sz = new ServiciosZona();
-        proveedor.setUsuario(new Usuario_TO());
-        proveedor.setUsuario(serviciosUsuario.consultarUsuarioSegunIdentificacion(identificacion)); //Consultamos el usuario recien registrado
-
-        //Consultamos la informacion del barrio seleccionado y asi consultamos la zona a la que esta asociada
-        proveedor.getUsuario().setBarrio(sb.consultarBarrio(proveedor.getUsuario().getBarrio().getIdBarrios(), proveedor.getUsuario().getBarrio().getNombre()));
-        proveedor.setZona(sz.consultarZona(proveedor.getUsuario().getBarrio().getZona().getIdZona(), proveedor.getUsuario().getBarrio().getZona().getNombre()));
+        //Registro informacion proveedor     
+        proveedor.setUsuario(usuarioDao.consultarUsuarioSegunIdentificacion(identificacion)); //Consultamos el usuario recien registrado
 
         //Registramos la informacion de la planta
-        proveedor = servicios.registrarProveedor(proveedor.getRazonSocial(),
-                proveedor.getNit(),
-                proveedor.getTelefono(),
-                proveedor.getDireccion(),
-                proveedor.getUsuario().getIdUsuario(),
-                proveedor.getCupo(),
-                proveedor.getZona().getIdZona());
-
-        proveedores = servicios.consultarProveedores();//Actualizamos la lista de proveedores
+        proveedor = proveedorDao.registrarProveedor(proveedor);
+        proveedores = proveedorDao.consultarProveedores();//Actualizamos la lista de proveedores
     }
 
     public void modificar() {
 
-        ServiciosBarrios sb = new ServiciosBarrios();
-         ServiciosLocalidad sl = new ServiciosLocalidad();
-        ServiciosCiudad sc = new ServiciosCiudad();
-        ServiciosRol sr = new ServiciosRol();
+        UsuarioDao usuarioDao = new UsuarioDao();
+        ProveedorDao proveedorDao = new ProveedorDao();
 
-        proveedor.getUsuario().setBarrio(sb.consultarBarrio(proveedor.getUsuario().getBarrio().getIdBarrios(), proveedor.getUsuario().getBarrio().getNombre()));
-        proveedor.getUsuario().getBarrio().setLocalidad(sl.consultarLocalidad(proveedor.getUsuario().getBarrio().getLocalidad().getIdLocalidad(), ""));
-        proveedor.getUsuario().setCiudad(sc.consultarCiudad(proveedor.getUsuario().getBarrio().getLocalidad().getCiudad().getIdCiudad(), ""));
-        
-        serviciosUsuario.editarUsuario(proveedor.getUsuario().getIdUsuario(),
-                proveedor.getUsuario().getNombre(),
-                proveedor.getUsuario().getApellido(),
-                proveedor.getUsuario().getGenero(),
-                proveedor.getUsuario().getTelefono(),
-                proveedor.getUsuario().getBarrio().getIdBarrios(),
-                proveedor.getUsuario().getMovil(),
-                proveedor.getUsuario().getDireccion(),
-                proveedor.getUsuario().getCiudad().getIdCiudad(),
-                proveedor.getUsuario().getIdentificacion(),
-                proveedor.getUsuario().getRutaImagen());
-        ServiciosZona sz = new ServiciosZona();
-        //Consultamos la informacion del barrio seleccionado y asi consultamos la zona a la que esta asociada
-        proveedor.getUsuario().setBarrio(sb.consultarBarrio(proveedor.getUsuario().getBarrio().getIdBarrios(), proveedor.getUsuario().getBarrio().getNombre()));
-        proveedor.setZona(sz.consultarZona(proveedor.getUsuario().getBarrio().getZona().getIdZona(), proveedor.getUsuario().getBarrio().getZona().getNombre()));
-
-        proveedor = servicios.editarProveedor(proveedor.getIdProveedor(),
-                proveedor.getRazonSocial(),
-                proveedor.getNit(),
-                proveedor.getTelefono(),
-                proveedor.getDireccion(),
-                proveedor.getUsuario().getIdUsuario(),
-                proveedor.getCupo(),
-                proveedor.getZona().getIdZona());
-
-        proveedores = servicios.consultarProveedores();//Actualizamos la lista de proveedores
+        usuarioDao.editarUsuario(proveedor.getUsuario());
+        proveedor = proveedorDao.editarProveedor(proveedor);
+        proveedores = proveedorDao.consultarProveedores();//Actualizamos la lista de proveedores
     }
 
     public void eliminar() {
+        
+        UsuarioDao usuarioDao = new UsuarioDao();
+        ProveedorDao proveedorDao = new ProveedorDao();
+        
         int usuario = proveedor.getUsuario().getIdUsuario();
-        proveedor = servicios.eliminarProveedor(proveedor.getIdProveedor());
-        serviciosUsuario.eliminarUsuario(usuario);
-        proveedores = servicios.consultarProveedores();
+        proveedor = proveedorDao.eliminarProveedor(proveedor);
+        usuarioDao.eliminarUsuario(new Usuario_TO(usuario));
+        proveedores = proveedorDao.consultarProveedores();
     }
 
     //Metodos Propios
@@ -227,14 +162,14 @@ public class ProveedorCT {
         operacion = 0;
         nombreOperacion = "Registrar";
     }
-    
-    
-    public void buscarProveedores(){
+
+    public void buscarProveedores() {
+        ProveedorDao proveedorDao = new ProveedorDao();
         proveedores = new ArrayList<>();
-        if(buscar == null){
-            proveedores = servicios.consultarProveedores();
-        }else{
-            proveedores = servicios.buscarProveedores(buscar);
+        if (buscar == null) {
+            proveedores = proveedorDao.consultarProveedores();
+        } else {
+            proveedores = proveedorDao.buscarProveedores(buscar);
         }
     }
 }

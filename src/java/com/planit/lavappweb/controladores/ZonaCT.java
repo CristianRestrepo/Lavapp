@@ -5,8 +5,8 @@
  */
 package com.planit.lavappweb.controladores;
 
-import com.planit.lavappweb.modelos.Zona_TO;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosZona;
+import com.planit.lavappweb.modelo.dao.ZonaDao;
+import com.planit.lavappweb.modelo.dto.Zona_TO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -15,30 +15,28 @@ import javax.annotation.PostConstruct;
  *
  * @author Desarrollo_Planit
  */
-
 public class ZonaCT {
 
     private Zona_TO zona;
     private List<Zona_TO> zonas;
-    protected ServiciosZona servicios;
-    
+
     //Variables
     private String nombreOperacion;
     private int operacion;
     private String buscar;
-    
+
     public ZonaCT() {
         zona = new Zona_TO();
         zonas = new ArrayList<>();
         nombreOperacion = "Registrar";
-        servicios = new ServiciosZona();
         operacion = 0;
         buscar = null;
     }
 
     @PostConstruct
     public void init() {
-        zonas = servicios.consultarZonas();
+        ZonaDao zonadao = new ZonaDao();
+        zonas = zonadao.consultarZonas();
     }
 
     //Getter & Setter
@@ -68,18 +66,21 @@ public class ZonaCT {
 
     //Metodos
     public void registrar() {
-        zona = servicios.registrarZona(zona.getNombre(), zona.getDescripcion());
-        zonas = servicios.consultarZonas();
+        ZonaDao zonadao = new ZonaDao();
+        zona = zonadao.registrarZona(zona);
+        zonas = zonadao.consultarZonas();
     }
 
     public void modificar() {
-        zona = servicios.editarZona(zona.getIdZona(), zona.getNombre(), zona.getDescripcion());
-        zonas = servicios.consultarZonas();
+        ZonaDao zonadao = new ZonaDao();
+        zona = zonadao.editarZona(zona);
+        zonas = zonadao.consultarZonas();
     }
 
     public void eliminar() {
-        zona = servicios.eliminarZona(zona.getIdZona());
-        zonas = servicios.consultarZonas();
+        ZonaDao zonadao = new ZonaDao();
+        zona = zonadao.eliminarZona(zona);
+        zonas = zonadao.consultarZonas();
     }
 
     public String getBuscar() {
@@ -89,8 +90,6 @@ public class ZonaCT {
     public void setBuscar(String buscar) {
         this.buscar = buscar;
     }
-    
-    
 
     //Metodos Propios
     public void metodo() {
@@ -110,20 +109,22 @@ public class ZonaCT {
             nombreOperacion = "Modificar";
         }
     }
-    
-    public void cancelar(){
+
+    public void cancelar() {
+        ZonaDao zonadao = new ZonaDao();
         zona = new Zona_TO();
-        zonas = servicios.consultarZonas();
+        zonas = zonadao.consultarZonas();
         operacion = 0;
         nombreOperacion = "Registrar";
     }
-    
-    public void buscarZonas(){
+
+    public void buscarZonas() {
+        ZonaDao zonadao = new ZonaDao();
         zonas = new ArrayList<>();
-        if(buscar == null){
-            zonas = servicios.consultarZonas();
-        }else{
-            zonas = servicios.buscarZonas(buscar);
+        if (buscar == null) {
+            zonas = zonadao.consultarZonas();
+        } else {
+            zonas = zonadao.buscarZonas(buscar);
         }
     }
 }

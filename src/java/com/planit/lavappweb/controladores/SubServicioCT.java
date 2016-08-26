@@ -5,9 +5,8 @@
  */
 package com.planit.lavappweb.controladores;
 
-import com.planit.lavappweb.modelos.SubServicio_TO;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosServicios;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosSubServicio;
+import com.planit.lavappweb.modelo.dao.SubServicioDao;
+import com.planit.lavappweb.modelo.dto.SubServicio_TO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,6 @@ public class SubServicioCT implements Serializable {
 
     private SubServicio_TO subServicio;
     private List<SubServicio_TO> subServicios;
-    protected ServiciosSubServicio serviceSubServicio;
 
     //Variables 
     private String nombreOperacion;
@@ -31,7 +29,6 @@ public class SubServicioCT implements Serializable {
     public SubServicioCT() {
         subServicio = new SubServicio_TO();
         subServicios = new ArrayList<>();
-        serviceSubServicio = new ServiciosSubServicio();
         nombreOperacion = "Registrar";
         operacion = 0;
         buscar = null;
@@ -39,7 +36,8 @@ public class SubServicioCT implements Serializable {
 
     @PostConstruct
     public void init() {
-        subServicios = serviceSubServicio.consultarSubServicios();
+        SubServicioDao subServicioDao = new SubServicioDao();
+        subServicios = subServicioDao.consultarSubServicios();
 
     }
 
@@ -78,22 +76,21 @@ public class SubServicioCT implements Serializable {
 
     //Metodos
     public void registrar() {
-        ServiciosServicios ss = new ServiciosServicios();
-        subServicio.setServicio(ss.consultarServicio(subServicio.getServicio().getIdServicio(), subServicio.getServicio().getNombre()));
-        subServicio = serviceSubServicio.registrarSubServicio(subServicio.getNombre(), subServicio.getServicio().getIdServicio());
-        subServicios = serviceSubServicio.consultarSubServicios();
+        SubServicioDao subServicioDao = new SubServicioDao();
+        subServicio = subServicioDao.registrarSubServicio(subServicio);
+        subServicios = subServicioDao.consultarSubServicios();
     }
 
     public void modificar() {
-        ServiciosServicios ss = new ServiciosServicios();
-        subServicio.setServicio(ss.consultarServicio(0, subServicio.getServicio().getNombre()));
-        subServicio = serviceSubServicio.editarSubServicio(subServicio.getIdSubServicio(), subServicio.getNombre(), subServicio.getServicio().getIdServicio());
-        subServicios = serviceSubServicio.consultarSubServicios();
+        SubServicioDao subServicioDao = new SubServicioDao();
+        subServicio = subServicioDao.editarSubServicio(subServicio);
+        subServicios = subServicioDao.consultarSubServicios();
     }
 
     public void eliminar() {
-        subServicio = serviceSubServicio.eliminarSubServicio(subServicio.getIdSubServicio());
-        subServicios = serviceSubServicio.consultarSubServicios();
+        SubServicioDao subServicioDao = new SubServicioDao();
+        subServicio = subServicioDao.eliminarSubServicio(subServicio);
+        subServicios = subServicioDao.consultarSubServicios();
     }
 
     //Metodos Propios
@@ -116,18 +113,20 @@ public class SubServicioCT implements Serializable {
     }
 
     public void cancelar() {
+        SubServicioDao subServicioDao = new SubServicioDao();
         subServicio = new SubServicio_TO();
-        subServicios = serviceSubServicio.consultarSubServicios();
+        subServicios = subServicioDao.consultarSubServicios();
         operacion = 0;
         nombreOperacion = "Registrar";
     }
 
     public void buscarSubServicios() {
+        SubServicioDao subServicioDao = new SubServicioDao();
         subServicios = new ArrayList<>();
         if (buscar == null) {
-            subServicios = serviceSubServicio.consultarSubServicios();
+            subServicios = subServicioDao.consultarSubServicios();
         } else {
-            subServicios = serviceSubServicio.buscarSubServicios(buscar);
+            subServicios = subServicioDao.buscarSubServicios(buscar);
         }
     }
 

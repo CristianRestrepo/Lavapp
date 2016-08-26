@@ -5,8 +5,8 @@
  */
 package com.planit.lavappweb.controladores;
 
-import com.planit.lavappweb.modelos.Jornada_TO;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosJornadas;
+import com.planit.lavappweb.modelo.dao.JornadaDao;
+import com.planit.lavappweb.modelo.dto.Jornada_TO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -19,8 +19,7 @@ public class JornadaCT {
 
     private Jornada_TO jornada;
     private List<Jornada_TO> jornadas;
-    protected ServiciosJornadas servicios;
-
+   
     private String nombreOperacion;
     protected int operacion; //Controla la operacion a ejecutar
     private String buscar;
@@ -28,8 +27,7 @@ public class JornadaCT {
     public JornadaCT() {
         jornada = new Jornada_TO();
         jornadas = new ArrayList<>();
-        servicios = new ServiciosJornadas();
-
+   
         nombreOperacion = "Registrar";
         operacion = 0;
         buscar = null;
@@ -37,7 +35,8 @@ public class JornadaCT {
 
     @PostConstruct
     public void init() {
-        jornadas = servicios.consultarJornadas();
+        JornadaDao jornadaDao = new JornadaDao();
+        jornadas = jornadaDao.consultarJornadas();
     }
 
     //Getter & Setter
@@ -67,18 +66,21 @@ public class JornadaCT {
 
     //Metodos
     public void registrar() {
-        jornada = servicios.registraJornada(jornada.getNombre());
-        jornadas = servicios.consultarJornadas();
+        JornadaDao jornadaDao = new JornadaDao();
+        jornada = jornadaDao.registraJornada(jornada);
+        jornadas = jornadaDao.consultarJornadas();
     }
 
     public void modificar() {
-        jornada = servicios.editarJornada(jornada.getIdJornada(), jornada.getNombre());
-        jornadas = servicios.consultarJornadas();
+        JornadaDao jornadaDao = new JornadaDao();
+        jornada = jornadaDao.editarJornada(jornada);
+        jornadas = jornadaDao.consultarJornadas();
     }
 
     public void eliminar() {
-        jornada = servicios.eliminarJornada(jornada.getIdJornada());
-        jornadas = servicios.consultarJornadas();
+        JornadaDao jornadaDao = new JornadaDao();
+        jornada = jornadaDao.eliminarJornada(jornada);
+        jornadas = jornadaDao.consultarJornadas();
     }
 
     public String getBuscar() {
@@ -117,11 +119,12 @@ public class JornadaCT {
     }
     
     public void buscarJornadas(){
+        JornadaDao jornadaDao = new JornadaDao();
         jornadas = new ArrayList<>();
         if(buscar == null){
-            jornadas = servicios.consultarJornadas();
+            jornadas = jornadaDao.consultarJornadas();
         }else{
-            jornadas = servicios.buscarJornadas(buscar);
+            jornadas = jornadaDao.buscarJornadas(buscar);
         }
     }
 }

@@ -5,8 +5,8 @@
  */
 package com.planit.lavappweb.controladores;
 
-import com.planit.lavappweb.modelos.Factura_TO;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosFactura;
+import com.planit.lavappweb.modelo.dao.FacturaDao;
+import com.planit.lavappweb.modelo.dto.Factura_TO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -15,23 +15,20 @@ import javax.annotation.PostConstruct;
  *
  * @author Desarrollo_Planit
  */
-
 public class FacturaCT {
 
     private Factura_TO factura;
     private List<Factura_TO> facturas;
-   
-    protected ServiciosFactura servicios;
-      
+
     public FacturaCT() {
         factura = new Factura_TO();
-        facturas = new ArrayList<>();  
-        servicios = new ServiciosFactura();
+        facturas = new ArrayList<>();
     }
 
     @PostConstruct
     public void init() {
-        facturas = servicios.consultarFacturas();
+        FacturaDao facturaDao = new FacturaDao();
+        facturas = facturaDao.consultarFacturas();
     }
 
     //Getter & Setter
@@ -49,19 +46,19 @@ public class FacturaCT {
 
     public void setFacturas(List<Factura_TO> facturas) {
         this.facturas = facturas;
-    }   
-    
+    }
+
     //Metodos
     public void registrar() {
-        servicios.registrarFactura(factura);
-        facturas = servicios.consultarFacturas();
-    } 
+        FacturaDao facturaDao = new FacturaDao();
+        factura = facturaDao.registrarFactura(factura);
+        facturas = facturaDao.consultarFacturas();
+    }
 
     public void eliminar() {
-        servicios.eliminarFactura(factura);
-        facturas = servicios.consultarFacturas();
+        FacturaDao facturaDao = new FacturaDao();
+        factura = facturaDao.eliminarFactura(factura);
+        facturas = facturaDao.consultarFacturas();
     }
-    
-    
-   
+
 }

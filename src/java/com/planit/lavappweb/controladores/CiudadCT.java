@@ -5,9 +5,8 @@
  */
 package com.planit.lavappweb.controladores;
 
-import com.planit.lavappweb.modelos.Ciudad_TO;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosCiudad;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosDepartamento;
+import com.planit.lavappweb.modelo.dao.CiudadDao;
+import com.planit.lavappweb.modelo.dto.Ciudad_TO;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +20,6 @@ public class CiudadCT {
 
     private Ciudad_TO ciudad;
     private List<Ciudad_TO> ciudades;
-    protected ServiciosCiudad servicios;
 
     private String nombreOperacion;
     protected int operacion; //Controla la operacion a ejecutar
@@ -30,7 +28,6 @@ public class CiudadCT {
     public CiudadCT() {
         ciudad = new Ciudad_TO();
         ciudades = new ArrayList<>();
-        servicios = new ServiciosCiudad();
         nombreOperacion = "Registrar";
         operacion = 0;
         buscar = null;
@@ -38,7 +35,8 @@ public class CiudadCT {
 
     @PostConstruct
     public void init() {
-        ciudades = servicios.consultarCiudades();
+        CiudadDao ciudadDao = new CiudadDao();
+        ciudades = ciudadDao.consultarCiudades();
     }
 
     //Getters & Setters
@@ -76,22 +74,21 @@ public class CiudadCT {
 
     //CRUD   
     public void registrar() {
-        ServiciosDepartamento sd = new ServiciosDepartamento();
-        ciudad.setDepartamento(sd.consultarDepartamento(ciudad.getDepartamento().getIdDepartamento(), ciudad.getDepartamento().getNombre()));
-        ciudad = servicios.registrarCiudad(ciudad.getNombre(), ciudad.getDepartamento().getIdDepartamento());
-        ciudades = servicios.consultarCiudades();
+        CiudadDao ciudadDao = new CiudadDao();
+        ciudad = ciudadDao.registrarCiudad(ciudad);
+        ciudades = ciudadDao.consultarCiudades();
     }
 
     public void modificar() {
-        ServiciosDepartamento sd = new ServiciosDepartamento();
-        ciudad.setDepartamento(sd.consultarDepartamento(ciudad.getDepartamento().getIdDepartamento(), ciudad.getDepartamento().getNombre()));
-        ciudad = servicios.editarCiudad(ciudad.getIdCiudad(), ciudad.getNombre(), ciudad.getDepartamento().getIdDepartamento());
-        ciudades = servicios.consultarCiudades();
+        CiudadDao ciudadDao = new CiudadDao();
+        ciudad = ciudadDao.editarCiudad(ciudad);
+        ciudades = ciudadDao.consultarCiudades();
     }
 
     public void eliminar() {
-        ciudad = servicios.eliminarCiudad(ciudad.getIdCiudad());
-        ciudades = servicios.consultarCiudades();
+        CiudadDao ciudadDao = new CiudadDao();
+        ciudad = ciudadDao.eliminarCiudad(ciudad);
+        ciudades = ciudadDao.consultarCiudades();
     }
 
     //Metodos 
@@ -114,18 +111,20 @@ public class CiudadCT {
     }
 
     public void cancelar() {
+        CiudadDao ciudadDao = new CiudadDao();
         ciudad = new Ciudad_TO();
-        ciudades = servicios.consultarCiudades();
+        ciudades = ciudadDao.consultarCiudades();
         operacion = 0;
         nombreOperacion = "Registrar";
     }
 
     public void buscarCiudades() {
+        CiudadDao ciudadDao = new CiudadDao();
         ciudades = new ArrayList<>();
         if (buscar == null) {
-            ciudades = servicios.consultarCiudades();
+            ciudades = ciudadDao.consultarCiudades();
         } else {
-            ciudades = servicios.buscarCiudades(buscar);
+            ciudades = ciudadDao.buscarCiudades(buscar);
         }
     }
 }

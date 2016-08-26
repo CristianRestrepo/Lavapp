@@ -7,13 +7,14 @@ package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.metodos.Pedido;
 import com.planit.lavappweb.metodos.Sesion;
-import com.planit.lavappweb.modelos.Pedido_TO;
-import com.planit.lavappweb.modelos.SubProductoCosto_TO;
-import com.planit.lavappweb.modelos.Usuario_TO;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosBarrios;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosDescripcionPedido;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosHorario;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosPedido;
+import com.planit.lavappweb.modelo.dao.DescripcionPedidoDao;
+import com.planit.lavappweb.modelo.dao.PedidoDao;
+import com.planit.lavappweb.modelo.dto.DescripcionPedido_TO;
+import com.planit.lavappweb.modelo.dto.Estado_TO;
+import com.planit.lavappweb.modelo.dto.Pedido_TO;
+import com.planit.lavappweb.modelo.dto.SubProductoCosto_TO;
+import com.planit.lavappweb.modelo.dto.SubProducto_TO;
+import com.planit.lavappweb.modelo.dto.Usuario_TO;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,19 +28,17 @@ public class PedidoCT {
 
     private Pedido_TO pedido;
     private List<Pedido_TO> pedidos;
+
     private List<SubProductoCosto_TO> subproductos;
     private List<List<SubProductoCosto_TO>> subproductosOrdenados;
+
     private List<SubProductoCosto_TO> subproductosvista;
     private int vista;
     private int cantidadProductos;
 
-    private SubProductoCosto_TO subproducto;
-
     private boolean botonatras;
     private boolean botonsiguiente;
     private boolean botonconfirmar;
-
-    protected ServiciosPedido servicios;
 
     public PedidoCT() {
 
@@ -51,10 +50,8 @@ public class PedidoCT {
         botonsiguiente = true;
         botonconfirmar = false;
 
-        subproducto = new SubProductoCosto_TO();
         subproductosOrdenados = new ArrayList<>();
         subproductosvista = new ArrayList<>();
-        servicios = new ServiciosPedido();
         pedidos = new ArrayList<>();
     }
 
@@ -63,7 +60,7 @@ public class PedidoCT {
         if (Sesion.obtenerSesion() != null) {
             vista = Pedido.vista;
             pedido = Pedido.pedidoUsuario;
-            pedido.setUsuario(Sesion.obtenerSesion()) ;
+            pedido.setUsuario(Sesion.obtenerSesion());
             subproductos = Pedido.subproductos;
             cantidadProductos = subproductos.size();
             if (vista != 0) {
@@ -94,7 +91,7 @@ public class PedidoCT {
     public void setPedidos(List<Pedido_TO> pedidos) {
         this.pedidos = pedidos;
     }
-       
+
     public int getVista() {
         return vista;
     }
@@ -149,14 +146,6 @@ public class PedidoCT {
 
     public void setSubproductosvista(List<SubProductoCosto_TO> subproductosvista) {
         this.subproductosvista = subproductosvista;
-    }
-
-    public SubProductoCosto_TO getSubproducto() {
-        return subproducto;
-    }
-
-    public void setSubproducto(SubProductoCosto_TO subproducto) {
-        this.subproducto = subproducto;
     }
 
     public boolean isBotonconfirmar() {
@@ -299,40 +288,28 @@ public class PedidoCT {
 
     //Metodos CRUD
     public void registrarPedido() {
-        ServiciosBarrios sb = new ServiciosBarrios();
-        ServiciosHorario sh = new ServiciosHorario();
-        ServiciosDescripcionPedido sdp = new ServiciosDescripcionPedido();
+        PedidoDao pedidoDao = new PedidoDao();
+        
+        pedidoDao.registrarPedidoCompleto(pedido);
+        pedido = pedidoDao.consultarUltimoPedidoCliente(Sesion.obtenerSesion());
 
-        pedido.setBarrioEntrega(sb.consultarBarrio(pedido.getBarrioEntrega().getIdBarrios(), pedido.getBarrioEntrega().getNombre()));
-        pedido.setBarrioRecogida(sb.consultarBarrio(pedido.getBarrioRecogida().getIdBarrios(), pedido.getBarrioRecogida().getNombre()));
-
-        pedido.setHoraInicio(sh.consultarHorario(pedido.getHoraInicio().getIdHorario(), pedido.getHoraInicio().getHorario()));
-        pedido.setHoraFinal(sh.consultarHorario(pedido.getHoraFinal().getIdHorario(), pedido.getHoraFinal().getHorario()));
-
-        pedido.setUsuario((Usuario_TO) Sesion.obtenerSesion());
-        servicios.registrarPedidoCompleto(pedido.getUsuario().getIdUsuario(),
-                new Date().toString(),
-                pedido.getHoraInicio().getIdHorario(),
-                pedido.getHoraFinal().getIdHorario(),
-                3, pedido.getFechaEntrega().toString(),
-                pedido.getDireccionRecogida(),
-                pedido.getDireccionEntrega(),
-                pedido.getFechaRecogida().toString(),
-                pedido.getQuienEntrega(),
-                pedido.getQuienRecibe(),
-                pedido.getBarrioRecogida().getIdBarrios(),
-                pedido.getBarrioEntrega().getIdBarrios());
-        pedido = servicios.consultarUltimoPedidoCliente(Sesion.obtenerSesion().getIdUsuario());
+        DescripcionPedidoDao dpd = new DescripcionPedidoDao();
         for (int i = 0; i < subproductos.size(); i++) {
-            sdp.registrarDescripcionPedido(3, pedido.getIdPedido(), subproductos.get(i).getIdSubProducto());
+            DescripcionPedido_TO dp = new DescripcionPedido_TO();
+            dp.setEstado(new Estado_TO(3));
+            dp.setPedido(pedido);
+            dp.setSubProducto(new SubProducto_TO(subproductos.get(i).getIdSubProducto()));
+            dpd.registrarDescripcionPedido(dp);
         }
 
         pedido = new Pedido_TO();
         subproductos = new ArrayList<>();
+        
         vista = 0;
         botonatras = false;
         botonsiguiente = true;
         botonconfirmar = false;
+        
         cantidadProductos = 0;
         Pedido.ReiniciarValores();
     }

@@ -5,10 +5,8 @@
  */
 package com.planit.lavappweb.controladores;
 
-import com.planit.lavappweb.modelos.Calificacion_TO;
-import com.planit.lavappweb.modelos.Pedido_TO;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosCalificacion;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosPedido;
+import com.planit.lavappweb.modelo.dao.CalificacionDao;
+import com.planit.lavappweb.modelo.dto.Calificacion_TO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,23 +16,20 @@ import javax.annotation.PostConstruct;
  *
  * @author SISTEMAS
  */
-
-public class CalificacionCT implements Serializable{
+public class CalificacionCT implements Serializable {
 
     private Calificacion_TO calificacionModelo;
     private List<Calificacion_TO> calificaciones;
-    private ServiciosCalificacion servicioModelo;
 
     private String nombreOperacion;
     protected int operacion; //Controla la operacion a ejecutar
 
 //    EJEMPLOS PARA RAITING
     private Integer rating;
-    
+
     public CalificacionCT() {
         calificacionModelo = new Calificacion_TO();
         calificaciones = new ArrayList<>();
-        servicioModelo = new ServiciosCalificacion();
         operacion = 0;
         nombreOperacion = "Registrar";
         rating = 5;
@@ -42,7 +37,8 @@ public class CalificacionCT implements Serializable{
 
     @PostConstruct
     public void init() {
-        calificaciones = servicioModelo.consultarCalificaciones();
+        CalificacionDao calificacionDao = new CalificacionDao();
+        calificaciones = calificacionDao.consultarCalificaciones();
     }
 
     public Calificacion_TO getCalificacionModelo() {
@@ -61,14 +57,6 @@ public class CalificacionCT implements Serializable{
         this.calificaciones = calificaciones;
     }
 
-    public ServiciosCalificacion getServicioModelo() {
-        return servicioModelo;
-    }
-
-    public void setServicioModelo(ServiciosCalificacion servicioModelo) {
-        this.servicioModelo = servicioModelo;
-    }
-
     public Integer getRating() {
         return rating;
     }
@@ -76,36 +64,25 @@ public class CalificacionCT implements Serializable{
     public void setRating(Integer rating) {
         this.rating = rating;
     }
-    
-    
+
 //    METODOS CRUD
     public void registrar() {
-        ServiciosPedido sP = new ServiciosPedido();
-//        calificacionModelo.setPedido(sP.consultarPedido(
-//                calificacionModelo.getPedido().getUsuario().getIdUsuario()));
-
-        calificacionModelo = servicioModelo.registrarCalificacion(calificacionModelo.getCalificacion(),
-                calificacionModelo.getObservacion(),
-                calificacionModelo.getPedido().getIdPedido());
-        calificaciones = servicioModelo.consultarCalificaciones();
+        CalificacionDao calificacionDao = new CalificacionDao();
+        calificacionModelo = calificacionDao.registrarCalificacion(calificacionModelo);
+        calificaciones = calificacionDao.consultarCalificaciones();
     }
 
     public void modificar() {
-        ServiciosPedido sP = new ServiciosPedido();
-//        calificacionModelo.setPedido(sP.consultarPedido(calificacionModelo.getPedido().getUsuario().getIdUsuario()));
-
-        calificacionModelo = servicioModelo.modificarCalificacion(calificacionModelo.getIdCalificacion(),
-                calificacionModelo.getCalificacion(),
-                calificacionModelo.getObservacion(),
-                calificacionModelo.getPedido().getIdPedido());
-        calificaciones = servicioModelo.consultarCalificaciones();
+        CalificacionDao calificacionDao = new CalificacionDao();
+        calificacionModelo = calificacionDao.modificarCalificacion(calificacionModelo);
+        calificaciones = calificacionDao.consultarCalificaciones();
 
     }
 
     public void eliminar() {
-        calificacionModelo = servicioModelo.eliminarCalificacion(calificacionModelo.getIdCalificacion());
-        calificaciones = servicioModelo.consultarCalificaciones();
-
+        CalificacionDao calificacionDao = new CalificacionDao();
+        calificacionModelo = calificacionDao.eliminarCalificacion(calificacionModelo);
+        calificaciones = calificacionDao.consultarCalificaciones();
     }
 
 //    METODOS
@@ -128,8 +105,9 @@ public class CalificacionCT implements Serializable{
     }
 
     public void cancelar() {
+        CalificacionDao calificacionDao = new CalificacionDao();
         calificacionModelo = new Calificacion_TO();
-        calificaciones = servicioModelo.consultarCalificaciones();
+        calificacionDao.consultarCalificaciones();
         operacion = 0;
         nombreOperacion = "Registrar";
     }

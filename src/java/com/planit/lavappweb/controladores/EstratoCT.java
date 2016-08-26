@@ -5,8 +5,8 @@
  */
 package com.planit.lavappweb.controladores;
 
-import com.planit.lavappweb.modelos.Estrato_TO;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosEstrato;
+import com.planit.lavappweb.modelo.dao.EstratoDao;
+import com.planit.lavappweb.modelo.dto.Estrato_TO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -20,8 +20,7 @@ public class EstratoCT {
 
     private Estrato_TO estrato;
     private List<Estrato_TO> estratos;
-    protected ServiciosEstrato servicios;
-    
+  
     //variables
     private String nombreOperacion;
     private int operacion;
@@ -30,7 +29,7 @@ public class EstratoCT {
     public EstratoCT() {
         estrato = new Estrato_TO();
         estratos = new ArrayList<>();
-        servicios = new ServiciosEstrato();
+        
         nombreOperacion = "Registrar";
         operacion = 0;
         buscar = null;
@@ -38,7 +37,8 @@ public class EstratoCT {
 
     @PostConstruct
     public void init() {
-        estratos = servicios.consultarEstratos();
+        EstratoDao estratoDao = new EstratoDao();
+        estratos = estratoDao.consultarEstratos();
     }
 
     //Getter & Setter
@@ -65,32 +65,34 @@ public class EstratoCT {
     public void setNombreOperacion(String nombreOperacion) {
         this.nombreOperacion = nombreOperacion;
     }
-
-    //Metodos
-    public void registrar() {
-        estrato = servicios.registrarEstrato(estrato.getNombre());
-        estratos = servicios.consultarEstratos();
-    }
-
-    public void modificar() {
-        estrato = servicios.editarEstrato(estrato.getIdEstrato(), estrato.getNombre());
-        estratos = servicios.consultarEstratos();
-    }
-
-    public void eliminar() {
-        estrato = servicios.eliminarEstrato(estrato.getIdEstrato());
-        estratos = servicios.consultarEstratos();
-    }
-
-    public String getBuscar() {
+    
+     public String getBuscar() {
         return buscar;
     }
 
     public void setBuscar(String buscar) {
         this.buscar = buscar;
     }
-    
-    
+
+    //Metodos
+    public void registrar() {
+        EstratoDao estratoDao = new EstratoDao();
+        estrato = estratoDao.registrarEstrato(estrato);
+        estratos = estratoDao.consultarEstratos();
+    }
+
+    public void modificar() {
+        EstratoDao estratoDao = new EstratoDao();
+        estrato = estratoDao.editarEstrato(estrato);
+        estratos = estratoDao.consultarEstratos();
+    }
+
+    public void eliminar() {
+        EstratoDao estratoDao = new EstratoDao();
+        estrato = estratoDao.eliminarEstrato(estrato);
+        estratos = estratoDao.consultarEstratos();
+    }   
+       
 
     //Metodos Propios
     public void metodo() {
@@ -112,18 +114,20 @@ public class EstratoCT {
     }
     
     public void cancelar(){
+        EstratoDao estratoDao = new EstratoDao();
         estrato = new Estrato_TO();
-        estratos = servicios.consultarEstratos();
+        estratos = estratoDao.consultarEstratos();
         operacion = 0;
         nombreOperacion = "Registrar";
     }
     
     public void buscarEstratos(){
+        EstratoDao estratoDao = new EstratoDao();
         estratos = new ArrayList<>();
         if(buscar == null){
-            estratos = servicios.consultarEstratos();
+            estratos = estratoDao.consultarEstratos();
         }else{
-            estratos = servicios.buscarEstratos(buscar);
+            estratos = estratoDao.buscarEstratos(buscar);
         }
     }
 

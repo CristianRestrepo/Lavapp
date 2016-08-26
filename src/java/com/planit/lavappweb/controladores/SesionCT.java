@@ -10,13 +10,10 @@ import com.planit.lavappweb.metodos.Sesion;
 import static com.planit.lavappweb.metodos.Sesion.cerrarHttpSesion;
 import static com.planit.lavappweb.metodos.Sesion.iniciarHttpSesion;
 import com.planit.lavappweb.metodos.Upload;
-import com.planit.lavappweb.modelos.Usuario_TO;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosBarrios;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosCiudad;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosEstado;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosLocalidad;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosRol;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosUsuario;
+import com.planit.lavappweb.modelo.dao.BarriosDao;
+import com.planit.lavappweb.modelo.dao.UsuarioDao;
+import com.planit.lavappweb.modelo.dto.Barrio_TO;
+import com.planit.lavappweb.modelo.dto.Usuario_TO;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -34,14 +31,12 @@ public class SesionCT implements Serializable {
 
     //variables
     private Usuario_TO usuario;
-    protected ServiciosUsuario serviciosUsuario;
     protected Upload ControladorArchivos;
     private String estadoFoto;
     private String nuevaContrasena;
 
     //Constructores
     public SesionCT() {
-        this.serviciosUsuario = new ServiciosUsuario();
         usuario = new Usuario_TO();
         ControladorArchivos = new Upload();
         estadoFoto = "";
@@ -75,17 +70,18 @@ public class SesionCT implements Serializable {
 
     //Metodos
     public String iniciarSesion() {
+        UsuarioDao usuarioDao = new UsuarioDao();
         FacesMessage message = new FacesMessage();
         String ruta = "";
         MD5 md = new MD5();
         String pass = md.getMD5(usuario.getContrasena());
-        usuario = serviciosUsuario.consultarUsuarioPorLogin(usuario.getEmail());
+        usuario = usuarioDao.consultarUsuarioPorLogin(usuario.getEmail());
 
         if (usuario.getIdUsuario() != 0) {
             if (usuario.getContrasena().equalsIgnoreCase(pass)) {
                 if (usuario.getEstado().getIdEstado() != 0) {
-                    ServiciosBarrios sb = new ServiciosBarrios();
-                    usuario.setBarrio(sb.consultarBarrio(usuario.getBarrio().getIdBarrios(), ""));
+                    BarriosDao bd = new BarriosDao();
+                    usuario.setBarrio(bd.consultarBarrio(new Barrio_TO(usuario.getBarrio().getIdBarrios(), "")));
                     iniciarHttpSesion(usuario);
                     switch (usuario.getRol().getIdRol()) {
                         case 1:
@@ -133,38 +129,18 @@ public class SesionCT implements Serializable {
     }
 
     public void editarPerfil() {
-
-        ServiciosBarrios sb = new ServiciosBarrios();
-        ServiciosRol sr = new ServiciosRol();
-        ServiciosEstado se = new ServiciosEstado();
-        ServiciosCiudad sc = new ServiciosCiudad();
-        ServiciosLocalidad sl = new ServiciosLocalidad();
-
-        usuario.setBarrio(sb.consultarBarrio(usuario.getBarrio().getIdBarrios(), usuario.getBarrio().getNombre()));
-        usuario.setEstado(se.consultarEstadoID(1, ""));
-        usuario.setRol(sr.consultarRol(usuario.getRol().getIdRol(), usuario.getRol().getNombre()));
-        usuario.getBarrio().setLocalidad(sl.consultarLocalidad(usuario.getBarrio().getLocalidad().getIdLocalidad(), ""));
-        usuario.setCiudad(sc.consultarCiudad(usuario.getBarrio().getLocalidad().getCiudad().getIdCiudad(), ""));
-
-        serviciosUsuario.editarUsuario(usuario.getIdUsuario(),
-                usuario.getNombre(),
-                usuario.getApellido(),
-                usuario.getGenero(),
-                usuario.getTelefono(),
-                usuario.getBarrio().getIdBarrios(),
-                usuario.getMovil(),
-                usuario.getDireccion(),
-                usuario.getCiudad().getIdCiudad(),
-                usuario.getIdentificacion(),
-                usuario.getRutaImagen());
+        UsuarioDao usuarioDao = new UsuarioDao();
+        usuarioDao.editarUsuario(usuario);
     }
 
     public void editarDatosSesion() {
+        UsuarioDao usuarioDao = new UsuarioDao();
         if (!nuevaContrasena.isEmpty()) {
-            serviciosUsuario.editarCorreoSesion(usuario.getIdUsuario(), usuario.getEmail());
-            serviciosUsuario.editarContrasenaSesion(usuario.getIdUsuario(), nuevaContrasena);
+            usuarioDao.editarCorreoSesion(usuario);
+            usuario.setContrasena(nuevaContrasena);
+            usuarioDao.editarContrasenaSesion(usuario);
         } else {
-            serviciosUsuario.editarCorreoSesion(usuario.getIdUsuario(), usuario.getEmail());
+            usuarioDao.editarCorreoSesion(usuario);
         }
         nuevaContrasena = "";
     }

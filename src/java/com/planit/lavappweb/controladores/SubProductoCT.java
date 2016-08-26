@@ -6,13 +6,14 @@
 package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.metodos.Upload;
-import com.planit.lavappweb.modelos.Costo_TO;
-import com.planit.lavappweb.modelos.SubProductoCosto_TO;
-import com.planit.lavappweb.modelos.SubProducto_TO;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosCosto;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosProducto;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosSubProductos;
-import com.planit.lavappweb.webservices.implementaciones.ServiciosZona;
+import com.planit.lavappweb.modelo.dao.CostoDao;
+import com.planit.lavappweb.modelo.dao.SubProductoDao;
+import com.planit.lavappweb.modelo.dao.ZonaDao;
+import com.planit.lavappweb.modelo.dto.Costo_TO;
+import com.planit.lavappweb.modelo.dto.Producto_TO;
+import com.planit.lavappweb.modelo.dto.SubProductoCosto_TO;
+import com.planit.lavappweb.modelo.dto.SubProducto_TO;
+import com.planit.lavappweb.modelo.dto.Zona_TO;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -39,8 +40,6 @@ public class SubProductoCT implements Serializable {
     private UploadedFile file;
     protected Upload ControladorArchivos;
 
-    protected ServiciosSubProductos serviciosSubProducto;
-    protected ServiciosCosto serviciosCosto;
     //Variables    
     private String nombreOperacion;
     protected int operacion;
@@ -50,11 +49,7 @@ public class SubProductoCT implements Serializable {
     public SubProductoCT() {
         subproducto = new SubProducto_TO();
         subproductos = new ArrayList<>();
-
-        serviciosSubProducto = new ServiciosSubProductos();
         subProductosConCosto = new ArrayList<>();
-
-        serviciosCosto = new ServiciosCosto();
         subProductosClasificados = new ArrayList<>();
 
         costo = new Costo_TO();
@@ -68,7 +63,8 @@ public class SubProductoCT implements Serializable {
 
     @PostConstruct
     public void init() {
-        subproductos = serviciosSubProducto.consultarSubProductos();
+        SubProductoDao subProductoDao = new SubProductoDao();
+        subproductos = subProductoDao.consultarSubProductos();
     }
 
     //Getter & Setter
@@ -146,37 +142,49 @@ public class SubProductoCT implements Serializable {
 
     //Metodos
     public void registrar() {
-        ServiciosProducto sp = new ServiciosProducto();
-        ServiciosZona sz = new ServiciosZona();
 
-        subproducto.setProducto(sp.consultarProducto(subproducto.getProducto().getIdProducto(), subproducto.getProducto().getNombre()));
-        serviciosSubProducto.registrarSubproducto(subproducto.getNombre(), subproducto.getDescripcion(), subproducto.getProducto().getIdProducto(), subproducto.getRutaImagen());
-        costo.setSubProducto((SubProducto_TO) serviciosSubProducto.consultarSubProducto(subproducto.getIdSubProducto(), subproducto.getNombre()));
-        costo = serviciosCosto.RegistrarCosto(costo.getValor(), costo.getSubProducto().getIdSubProducto(), sz.consultarZona(0, "Zona General").getIdZona());
+        SubProductoDao subProductoDao = new SubProductoDao();
+        ZonaDao zonaDao = new ZonaDao();
+        CostoDao costoDao = new CostoDao();
+
+        subProductoDao.registrarSubproducto(subproducto);
+        costo.setSubProducto(subProductoDao.consultarSubProducto(subproducto));
+        costo.setZona(zonaDao.consultarZona(new Zona_TO(0, "Zona General")));
+
+        costo = costoDao.RegistrarCosto(costo);
+
         subproducto = new SubProducto_TO();
-        subproductos = serviciosSubProducto.consultarSubProductos();
+        subproductos = subProductoDao.consultarSubProductos();
     }
 
     public void modificar() {
-        ServiciosProducto sp = new ServiciosProducto();
-        subproducto.setProducto(sp.consultarProducto(subproducto.getProducto().getIdProducto(), subproducto.getProducto().getNombre()));
-        serviciosSubProducto.editarSubProducto(subproducto.getIdSubProducto(), subproducto.getNombre(), subproducto.getDescripcion(), subproducto.getProducto().getIdProducto(), subproducto.getRutaImagen());
+        SubProductoDao subProductoDao = new SubProductoDao();
+        ZonaDao zonaDao = new ZonaDao();
+        CostoDao costoDao = new CostoDao();
+
+        subProductoDao.editarSubProducto(subproducto);
+
         costo.setSubProducto(subproducto);
-        costo = serviciosCosto.modificarCosto(costo.getIdCosto(), costo.getValor(), costo.getSubProducto().getIdSubProducto(), costo.getZona().getIdZona());
-        subproductos = serviciosSubProducto.consultarSubProductos();
+        costo.setZona(zonaDao.consultarZona(costo.getZona()));
+        costo = costoDao.modificarCosto(costo);
+        subproductos = subProductoDao.consultarSubProductos();
     }
 
     public void eliminar() {
-        costo = serviciosCosto.consultarCostoSubProducto(subproducto.getIdSubProducto());
-        costo = serviciosCosto.eliminarCosto(operacion);
-        subproducto = serviciosSubProducto.eliminarSubProducto(subproducto.getIdSubProducto());
-        subproductos = serviciosSubProducto.consultarSubProductos();
+        SubProductoDao subProductoDao = new SubProductoDao();
+        CostoDao costoDao = new CostoDao();
+
+        costo = costoDao.consultarCostoSubProducto(subproducto);
+        costo = costoDao.eliminarCosto(costo);
+        subproducto = subProductoDao.eliminarSubProducto(subproducto);
+        subproductos = subProductoDao.consultarSubProductos();
     }
 
-    public void consultarProductosSegunProducto(int idProducto) {
+    public void consultarProductosSegunProducto(Producto_TO producto) {
+        SubProductoDao subProductoDao = new SubProductoDao();
         subProductosClasificados = new ArrayList<>();
-        subProductosClasificados = serviciosSubProducto.consultarSubProductosSegunProducto(idProducto);
-        subProductosConCosto = serviciosSubProducto.consultarSubProductosConCostoSegunProducto(idProducto);
+        subProductosClasificados = subProductoDao.consultarSubProductosSegunProducto(producto);
+        subProductosConCosto = subProductoDao.consultarSubProductosConCostoSegunProducto(producto);
     }
 
     //Metodos Propios
@@ -200,9 +208,10 @@ public class SubProductoCT implements Serializable {
     }
 
     public void seleccionarCRUD(int i) {
+        CostoDao costoDao = new CostoDao();
         operacion = i;
         if (operacion == 1) {
-            costo = serviciosCosto.consultarCostoSubProducto(subproducto.getIdSubProducto());
+            costo = costoDao.consultarCostoSubProducto(subproducto);
             nombreOperacion = "Modificar";
             if (subproducto.getRutaImagen() != null) {
                 imagen = "El producto ya tiene imagen asignada";
@@ -214,8 +223,9 @@ public class SubProductoCT implements Serializable {
     }
 
     public void cancelar() {
+        SubProductoDao subProductoDao = new SubProductoDao();
         subproducto = new SubProducto_TO();
-        subproductos = serviciosSubProducto.consultarSubProductos();
+        subproductos = subProductoDao.consultarSubProductos();
         operacion = 0;
         nombreOperacion = "Registrar";
         imagen = "";
@@ -240,11 +250,12 @@ public class SubProductoCT implements Serializable {
     }
 
     public void buscarSubProductos() {
+        SubProductoDao subProductoDao = new SubProductoDao();
         subproductos = new ArrayList<>();
         if (buscar == null) {
-            subproductos = serviciosSubProducto.consultarSubProductos();
+            subproductos = subProductoDao.consultarSubProductos();
         } else {
-            subproductos = serviciosSubProducto.buscarSubProductos(buscar);
+            subproductos = subProductoDao.buscarSubProductos(buscar);
         }
     }
 }

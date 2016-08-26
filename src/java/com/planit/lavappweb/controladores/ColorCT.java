@@ -5,7 +5,7 @@
  */
 package com.planit.lavappweb.controladores;
 
-import com.planit.lavappweb.modelos.Color_TO;
+import com.planit.lavappweb.modelo.dto.Color_TO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
