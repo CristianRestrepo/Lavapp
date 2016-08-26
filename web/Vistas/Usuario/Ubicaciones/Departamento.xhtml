@@ -41,9 +41,9 @@
                                             <p:message for="formularioRegistro"/>
 
                                             <div class="form-group">
-                                                <p:outputLabel class="control-label" value="Departamento" for="SMPais"/>
+                                                <p:outputLabel class="control-label" value="Pais" for="SMPais"/>
                                                     <h:selectOneMenu class="form-control" id="SMPais" value="#{departamentoCT.departamento.pais.nombre}" style="width: 100%" required="true">
-                                                    <f:selectItem itemLabel="Seleccione departamento" noSelectionOption="true"/>
+                                                    <f:selectItem itemLabel="Seleccione Pais" noSelectionOption="true"/>
                                                     <f:selectItems value="#{paisCT.paises}" var="pais" itemLabel="#{pais.nombre}" itemValue="#{pais.nombre}"/> 
                                                 </h:selectOneMenu>
                                             </div>

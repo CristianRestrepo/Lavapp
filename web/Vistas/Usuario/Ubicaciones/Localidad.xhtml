@@ -43,7 +43,7 @@
                                             <p:message for="formularioRegistro"/>
 
                                             <div class="form-group">
-                                                <p:outputLabel value="Localidad" for="SMLocalidad" class="control-label"/>
+                                                <p:outputLabel value="Ciudad" for="SMLocalidad" class="control-label"/>
                                                 <h:selectOneMenu class="form-control" id="SMLocalidad" value="#{localidadCT.localidad.ciudad.nombre}" style="width: 100%" required="true" >
                                                     <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
                                                     <f:selectItems value="#{ciudadCT.ciudades}" var="ciudad" itemLabel="#{ciudad.nombre}" itemValue="#{ciudad.nombre}"/>

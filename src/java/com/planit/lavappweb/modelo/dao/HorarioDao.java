@@ -70,6 +70,7 @@ public class HorarioDao {
 
     public Horario_TO registrarHorario(Horario_TO horario) {
         JornadaDao jd = new JornadaDao();
+        horario.getJornada().setIdJornada(0);
         horario.setJornada(jd.consultarJornada(horario.getJornada()));
 
         ClienteRegistrarHorario cliente = new ClienteRegistrarHorario();

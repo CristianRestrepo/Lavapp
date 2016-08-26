@@ -18,40 +18,46 @@ import com.planit.lavappweb.webservices.clientes.ClienteRegistrarCosto;
  * @author Desarrollo_Planit
  */
 public class CostoDao {
-    
-    public Costo_TO consultarCosto(Costo_TO costo){
+
+    public Costo_TO consultarCosto(Costo_TO costo) {
         ClienteConsultarCosto cliente = new ClienteConsultarCosto();
         return cliente.consultarCosto(Costo_TO.class,
                 "" + costo.getIdCosto());
     }
-    
-    public Costo_TO consultarCostoSubProducto(SubProducto_TO subproducto){
+
+    public Costo_TO consultarCostoSubProducto(SubProducto_TO subproducto) {
         ClienteConsultarCostoSubProducto cliente = new ClienteConsultarCostoSubProducto();
         return cliente.consultarCostoSubProducto(Costo_TO.class,
                 "" + subproducto.getIdSubProducto());
     }
-    
-    public Costo_TO RegistrarCosto(Costo_TO costo){
+
+    public Costo_TO RegistrarCosto(Costo_TO costo) {
         SubProductoDao spd = new SubProductoDao();
+        ZonaDao zd = new ZonaDao();
         costo.setSubProducto(spd.consultarSubProducto(costo.getSubProducto()));
+        costo.setZona(zd.consultarZona(costo.getZona()));
+
         ClienteRegistrarCosto cliente = new ClienteRegistrarCosto();
         return cliente.registrarCosto(Costo_TO.class, "" + costo.getValor(),
-                "" + costo.getSubProducto().getIdSubProducto(), 
+                "" + costo.getSubProducto().getIdSubProducto(),
                 "" + costo.getZona().getIdZona());
     }
-    
-    public Costo_TO modificarCosto(Costo_TO costo){
+
+    public Costo_TO modificarCosto(Costo_TO costo) {
         SubProductoDao spd = new SubProductoDao();
+        ZonaDao zd = new ZonaDao();
         costo.setSubProducto(spd.consultarSubProducto(costo.getSubProducto()));
+        costo.setZona(zd.consultarZona(costo.getZona()));
+
         ClienteEditarCosto cliente = new ClienteEditarCosto();
         return cliente.editarCosto(Costo_TO.class,
                 "" + costo.getIdCosto(),
-                "" + costo.getValor(), 
-                "" + costo.getSubProducto().getIdSubProducto(), 
+                "" + costo.getValor(),
+                "" + costo.getSubProducto().getIdSubProducto(),
                 "" + costo.getZona().getIdZona());
     }
-    
-    public Costo_TO eliminarCosto(Costo_TO costo){
+
+    public Costo_TO eliminarCosto(Costo_TO costo) {
         ClienteEliminarCosto cliente = new ClienteEliminarCosto();
         return cliente.eliminarCosto(Costo_TO.class,
                 "" + costo.getIdCosto());

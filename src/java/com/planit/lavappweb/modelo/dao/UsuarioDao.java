@@ -84,7 +84,8 @@ public class UsuarioDao {
         CiudadDao cd = new CiudadDao();
         BarriosDao bd = new BarriosDao();
         LocalidadDao ld = new LocalidadDao();
-        
+
+        usuario.getBarrio().setIdBarrios(0);
         usuario.setBarrio(bd.consultarBarrio(new Barrio_TO(usuario.getBarrio().getIdBarrios(), usuario.getBarrio().getNombre())));
         usuario.getBarrio().setLocalidad(ld.consultarLocalidad(new Localidad_TO(usuario.getBarrio().getLocalidad().getIdLocalidad(), "")));
         usuario.setCiudad(cd.consultarCiudad(new Ciudad_TO(usuario.getBarrio().getLocalidad().getCiudad().getIdCiudad(), "")));

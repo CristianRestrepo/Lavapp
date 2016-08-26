@@ -47,8 +47,11 @@ public class BarriosDao {
         ZonaDao zd = new ZonaDao();
         EstratoDao ed = new EstratoDao();
 
+        barrio.getEstrato().setIdEstrato(0);
         barrio.setEstrato(ed.consultarEstrato(barrio.getEstrato()));
+        barrio.getLocalidad().setIdLocalidad(0);
         barrio.setLocalidad(ld.consultarLocalidad(barrio.getLocalidad()));
+        barrio.getZona().setIdZona(0);
         barrio.setZona(zd.consultarZona(barrio.getZona()));
 
         ClienteEditarBarrio cliente = new ClienteEditarBarrio();

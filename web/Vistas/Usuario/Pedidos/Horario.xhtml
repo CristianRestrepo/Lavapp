@@ -66,9 +66,28 @@
                                     </div>
                                     <div class="box-footer" align="right">
                                         <h:panelGrid columns="2">
-                                            <p:commandButton value="Cancelar" immediate="true" process="@this" action="#{horarioCT.cancelar()}" update=":formularioRegistro :formularioListaHorarios"  class="btn btn-danger"/>
-                                            <p:commandButton form="formularioRegistro" type="submit" update=":formularioRegistro :formularioListaHorarios" action="#{horarioCT.metodo()}" value="#{horarioCT.nombreOperacion}" class="btn btn-info"/>
+                                            <p:commandButton value="Cancelar" immediate="true" 
+                                                             process="@this" action="#{horarioCT.cancelar()}" 
+                                                             update=":formularioRegistro :formularioListaHorarios"  
+                                                             class="btn btn-danger"/>
+                                            <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);"  
+                                                             form="formularioRegistro" type="submit" 
+                                                             update=":formularioRegistro :formularioListaHorarios" 
+                                                             action="#{horarioCT.metodo()}" 
+                                                             value="#{horarioCT.nombreOperacion}" 
+                                                             class="btn btn-info"/>
                                         </h:panelGrid>
+                                        <script type="text/javascript">
+                                            function start() {
+                                                PF('statusDialog').show();
+                                            }
+                                            function stop() {
+                                                PF('statusDialog').hide();
+                                            }
+                                        </script>
+                                        <p:dialog  modal="true" widgetVar="statusDialog" header="Cargando" draggable="false" closable="false" resizable="false">
+                                            <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif"/>
+                                        </p:dialog>
                                     </div>
                                 </h:form>
                             </div>

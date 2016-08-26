@@ -165,8 +165,8 @@ public class SubProductoCT implements Serializable {
         subProductoDao.editarSubProducto(subproducto);
 
         costo.setSubProducto(subproducto);
-        costo.setZona(zonaDao.consultarZona(costo.getZona()));
         costo = costoDao.modificarCosto(costo);
+        
         subproductos = subProductoDao.consultarSubProductos();
     }
 
