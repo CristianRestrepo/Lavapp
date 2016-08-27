@@ -37,21 +37,23 @@
                                             <b:inputText id="txtNombreProd" placeholder="Nombre del Producto" 
                                                          required="true" requiredMessage="Ingrese nombre del Producto"  
                                                              value="#{productoCT.producto.nombre}"/>   
-                                            <p:message for="formularioRegistroProd"/>
+                                            <p:message for="txtNombreProd"/>
 
                                             <div class="form-group">
                                                 <h:inputTextarea class="form-control"  style="width: 100%" rows="3" required="true" requiredMessage="Ingrese descripcion del Producto"  
                                                                  value="#{productoCT.producto.descripcion}" id="txtDescripcion" >
                                                     <f:passThroughAttribute name="placeholder" value="Descripcion producto"/>
-                                                </h:inputTextarea> 
+                                                </h:inputTextarea>
+                                                <p:message for="txtDescripcion"/>
                                             </div>
 
                                             <div class="form-group">
                                                 <h:outputLabel class="control-label" for="DTSubServicio" value="Categoria"/>
-                                                <b:selectOneMenu value="#{productoCT.producto.subServicio.nombre}"  style="width: 100%" required="true" id="DTSubServicio">
+                                                <h:selectOneMenu  class="form-control" requiredMessage="Seleccione categoria de servicio" value="#{productoCT.producto.subServicio.nombre}"  style="width: 100%" required="true" id="DTSubServicio">
                                                     <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
                                                     <f:selectItems value="#{subServicioCT.subServicios}" var="subservicio" itemLabel="#{subservicio.nombre}" itemValue="#{subservicio.nombre}"/>
-                                                </b:selectOneMenu>
+                                                </h:selectOneMenu>
+                                                <p:message for="DTSubServicio"/>
                                             </div>
 
                                             <p:outputLabel value="#{productoCT.imagen}"/>

@@ -38,14 +38,16 @@
                                         <h:panelGrid id="PPais" columns="1" style="width: 100%">                                          
                                             <b:inputText id="txtNombreSubServicio" style="width: 100% " placeholder="Nombre del Subservicio..." 
                                                          required="true" requiredMessage="Ingrese nombre del Subservicio"  
-                                                         value="#{subServicioCT.subServicio.nombre}" />  
+                                                         value="#{subServicioCT.subServicio.nombre}" />
+                                            <p:message for="txtNombreSubServicio"/>
 
                                             <div class="form-group">
                                                 <h:outputLabel class="control-label" for="DTSubServ" value="Categoria del subservicio*"/>
-                                                <b:selectOneMenu id="DTSubServ" value="#{subServicioCT.subServicio.servicio.nombre}">
+                                                <h:selectOneMenu required="true" requiredMessage="Seleccione Categoria" id="DTSubServ" value="#{subServicioCT.subServicio.servicio.nombre}">
                                                     <f:selectItem itemLabel="Seleccione categoria" noSelectionOption="true"/>
                                                     <f:selectItems value="#{servicioCT.servicios}" var="servicio" itemLabel="#{servicio.nombre}" itemValue="#{servicio.nombre}"/>
-                                                </b:selectOneMenu>
+                                                </h:selectOneMenu>
+                                                <p:message for="DTSubServ"/>
                                             </div>
 
                                             <p:message for="formRegisSubServ"/>
