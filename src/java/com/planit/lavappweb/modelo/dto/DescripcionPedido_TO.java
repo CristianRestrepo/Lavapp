@@ -113,6 +113,20 @@ public class DescripcionPedido_TO {
         this.pedido = pedido;
         this.codigo = codigo;
     }
+
+    public DescripcionPedido_TO(int idDescripcionPedido, Estado_TO estado, SubProducto_TO subProducto, String descripcion, String observacionAsesor, String observacionAdministrador, Color_TO color, Pedido_TO pedido, String codigo) {
+        this.idDescripcionPedido = idDescripcionPedido;
+        this.estado = estado;
+        this.subProducto = subProducto;
+        this.descripcion = descripcion;
+        this.observacionAsesor = observacionAsesor;
+        this.observacionAdministrador = observacionAdministrador;
+        this.color = color;
+        this.pedido = pedido;
+        this.codigo = codigo;
+    }
+    
+    
  
 
     //Getter and Setter

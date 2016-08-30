@@ -5,7 +5,9 @@
  */
 package com.planit.lavappweb.controladores;
 
+import com.planit.lavappweb.modelo.dao.DescripcionPedidoDao;
 import com.planit.lavappweb.modelo.dto.DescripcionPedido_TO;
+import com.planit.lavappweb.modelo.dto.Pedido_TO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -14,7 +16,6 @@ import javax.annotation.PostConstruct;
  *
  * @author Desarrollo_Planit
  */
-
 public class DescripcionPedidoCT {
 
     private DescripcionPedido_TO productoPedido;
@@ -41,12 +42,12 @@ public class DescripcionPedidoCT {
     public List<DescripcionPedido_TO> getProductosPedido() {
         return productosPedido;
     }
-    
+
     public void setProductosPedido(List<DescripcionPedido_TO> productosPedido) {
         this.productosPedido = productosPedido;
     }
 
-    //Metodos
+    //Metodos       
     public void registrar() {
     }
 
@@ -54,6 +55,16 @@ public class DescripcionPedidoCT {
     }
 
     public void eliminar() {
+    }
+
+    public List<DescripcionPedido_TO> consultarDescripcionesSegunPedido(Pedido_TO pedido) {
+        DescripcionPedidoDao descripcionDao = new DescripcionPedidoDao();
+        return descripcionDao.consultarDescripcionPedidoSegunPedido(pedido);        
+    }
+
+    public List<DescripcionPedido_TO> consultarDescripcionesSinFotosSegunPedido(Pedido_TO pedido) {
+        DescripcionPedidoDao descripcionDao = new DescripcionPedidoDao();
+        return descripcionDao.consultarDescripcionesSinFotosSegunPedido(pedido);
     }
 
 }

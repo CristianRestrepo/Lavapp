@@ -53,6 +53,8 @@ public class PedidoCT {
         subproductosOrdenados = new ArrayList<>();
         subproductosvista = new ArrayList<>();
         pedidos = new ArrayList<>();
+        PedidoDao pedidoDao = new PedidoDao();
+        pedidos = pedidoDao.consultarPedidos();
     }
 
     @PostConstruct
@@ -73,6 +75,9 @@ public class PedidoCT {
                 botonconfirmar = false;
             }
         }
+        
+        //Carga de pedidos
+        
     }
 
     //Getter & Setter
@@ -312,5 +317,10 @@ public class PedidoCT {
         
         cantidadProductos = 0;
         Pedido.ReiniciarValores();
+    }
+    
+    public String verPedido(Pedido_TO ped){
+        pedido = ped;
+        return "DescripcionPedido";
     }
 }

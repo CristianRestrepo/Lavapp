@@ -27,37 +27,44 @@
                                     </div>
                                     <div class="box-body">
                                         <div class="form-group">
-                                            <p:inputText class="form-control" value="#{proveedorCT.proveedor.usuario.nombre}" required="true" placeholder="Nombres del usuario"  id="txtNombreUsuario"/>
+                                            <p:inputText class="form-control" value="#{proveedorCT.proveedor.usuario.nombre}" required="true" requiredMessage="Ingrese nombres" placeholder="Nombres del usuario"  id="txtNombreUsuario"/>
+                                            <p:message for="txtNombreUsuario"/>
                                         </div>
                                         <div class="form-group">
-                                            <p:inputText class="form-control" value="#{proveedorCT.proveedor.usuario.apellido}" required="true" placeholder="Apellidos del usuario"  id="txtApellidoUsuario"/>
+                                            <p:inputText class="form-control" value="#{proveedorCT.proveedor.usuario.apellido}" required="true" requiredMessage="Ingrese apellidos" placeholder="Apellidos del usuario"  id="txtApellidoUsuario"/>
+                                            <p:message for="txtApellidoUsuario"/>
                                         </div>
                                         <div class="form-group">
-                                            <p:inputText class="form-control" value="#{proveedorCT.proveedor.usuario.identificacion}" required="true" placeholder="identificacion" id="txtIdentificacion"/>
-                                        </div>
-
-
-                                        <div class="form-group">
-                                            <p:inputText class="form-control" value="#{proveedorCT.proveedor.usuario.email}" required="true" placeholder="Email" type="text" id="txtEmail"/>
+                                            <p:inputText class="form-control" value="#{proveedorCT.proveedor.usuario.identificacion}" required="true" requiredMessage="Indique numero de identificacion" placeholder="identificacion" id="txtIdentificacion"/>
+                                            <p:message for="txtIdentificacion"/>
                                         </div>
 
                                         <div class="form-group">
-                                            <p:inputText class="form-control" value="#{proveedorCT.proveedor.usuario.movil}" required="true" placeholder="Telefono movil" type="text" id="txtMovil"/>
+                                            <p:inputText validator="ValidatorEmailRegMod" class="form-control" value="#{proveedorCT.proveedor.usuario.email}" placeholder="Email" type="text" id="txtEmail">
+                                                <f:attribute name="operacion" value="#{proveedorCT.operacion}"/>
+                                                <f:attribute name="usuario" value="#{proveedorCT.proveedor.usuario}"/>
+                                            </p:inputText>
+                                            <p:message for="txtEmail"/>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <p:inputText class="form-control" value="#{proveedorCT.proveedor.usuario.movil}" placeholder="Telefono movil" type="text" id="txtMovil"/>
+                                            <p:message for="txtMovil"/>
                                         </div>
 
                                         <hr/>
 
                                         <div class="form-group">
                                             <label class="control-label" for="SMGenero">Genero<span class="required">*</span></label>
-                                            <h:selectOneMenu class="form-control" value="#{proveedorCT.proveedor.usuario.genero}" required="true" id="SMGenero">
+                                            <h:selectOneMenu class="form-control" value="#{proveedorCT.proveedor.usuario.genero}" requiredMessage="Seleccione genero" required="true" id="SMGenero">
                                                 <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
                                                 <f:selectItem itemLabel="Masculino" itemValue="M"/>
                                                 <f:selectItem itemLabel="Femenino" itemValue="F"/>
                                             </h:selectOneMenu>
+                                            <p:message for="SMGenero"/>
                                         </div>                                     
                                     </div>
-                                </div>                                 
-
+                                </div>                               
                             </b:column>
                             <b:column col-lg="6" col-md="6" col-xs="12" col-sm="12">                            
                                 <div class="box box-success">
@@ -67,33 +74,38 @@
                                     </div>
                                     <div class="box-body">
                                         <div class="form-group">
-                                            <p:inputText class="form-control" value="#{proveedorCT.proveedor.razonSocial}" required="true" placeholder="Razon social" type="text" id="txtRazonSocial"/>
+                                            <p:inputText class="form-control" value="#{proveedorCT.proveedor.razonSocial}" requiredMessage="Indique razon social" required="true" placeholder="Razon social" type="text" id="txtRazonSocial"/>
+                                            <p:message for="SMGenero"/>
                                         </div>
                                         <div class="form-group">
-                                            <p:inputText class="form-control" value="#{proveedorCT.proveedor.nit}" required="true" placeholder="NIT" type="text" id="txtNit"/>
+                                            <p:inputText class="form-control" requiredMessage="Indique nit de la empresa" value="#{proveedorCT.proveedor.nit}" required="true" placeholder="NIT" type="text" id="txtNit"/>
+                                            <p:message for="SMGenero"/>
                                         </div>                                    
                                         <div class="form-group">
-                                            <p:inputText class="form-control" value="#{proveedorCT.proveedor.telefono}" required="true" placeholder="Telefono" type="text" id="txtTelefonoProveedor"/>
+                                            <p:inputText class="form-control" value="#{proveedorCT.proveedor.telefono}" placeholder="Telefono" type="text" id="txtTelefonoProveedor"/>
+                                            <p:message for="SMGenero"/>
                                         </div>
 
-
                                         <hr/>
-                                        
+
                                         <div class="form-group">
                                             <label class="control-label" for="SMBarrio">Barrio<span class="required">*</span></label>
-                                            <h:selectOneMenu value="#{proveedorCT.proveedor.usuario.barrio.nombre}" class="form-control" id="SMBarrio">
+                                            <h:selectOneMenu required="true" requiredMessage="Seleccione barrio" value="#{proveedorCT.proveedor.usuario.barrio.nombre}" class="form-control" id="SMBarrio">
                                                 <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
                                                 <f:selectItems value="#{barrioCT.barrios}" var="barrio" itemLabel="#{barrio.nombre}" itemValue="#{barrio.nombre}"/>
                                             </h:selectOneMenu>
+                                            <p:message for="SMBarrio"/>
                                         </div>
                                         <div class="form-group">
                                             <label class="control-label" for="txtDireccionProveedor">Direccion<span class="required">*</span></label>
-                                            <p:inputText class="form-control" value="#{proveedorCT.proveedor.direccion}" required="true" placeholder="Direccion de la planta" type="text" id="txtDireccionProveedor"/>
+                                            <p:inputText class="form-control" value="#{proveedorCT.proveedor.direccion}" requiredMessage="Indique direccion de la planta" required="true" placeholder="Direccion de la planta" type="text" id="txtDireccionProveedor"/>
+                                            <p:message for="txtDireccionProveedor"/>
                                         </div>
                                         <hr/>
                                         <div class="form-group">
                                             <label class="control-label" for="txtCupo">Cupo<span class="required">*</span></label>
                                             <p:inputText class="form-control" value="#{proveedorCT.proveedor.cupo}" required="true" placeholder="Cupo maximo de prendas" type="text" id="txtCupo"/>
+                                            <p:message for="txtCupo"/>
                                         </div>
                                     </div>
                                     <div class="box-footer">

@@ -121,6 +121,11 @@
             <to-view-id>/Vistas/Usuario/Pedidos/Pedido.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+         <navigation-case>
+            <from-outcome>DescripcionPedido</from-outcome>
+            <to-view-id>/Vistas/Usuario/Pedidos/DescripcionPedido.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
         <navigation-case>
             <from-outcome>Login</from-outcome>
             <to-view-id>/login.xhtml</to-view-id>
@@ -163,7 +168,8 @@
             <to-view-id>/Vistas/Usuario/Perfil/PInformacionS.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
-    </navigation-rule>
+    </navigation-rule>   
+    
     <!--Managed Beans-->
     <managed-bean>
         <managed-bean-name>pedidoCT</managed-bean-name>
@@ -173,6 +179,11 @@
     <managed-bean>
         <managed-bean-name>paisCT</managed-bean-name>
         <managed-bean-class>com.planit.lavappweb.controladores.PaisCT</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>costoCT</managed-bean-name>
+        <managed-bean-class>com.planit.lavappweb.controladores.CostoCT</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <managed-bean>
@@ -290,4 +301,5 @@
         <managed-bean-class>com.planit.lavappweb.controladores.PaisCT</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    
 </faces-config>

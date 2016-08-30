@@ -94,7 +94,7 @@ public class PedidoDao {
                 "" + pedido.getBarrioEntrega().getIdBarrios());
     }
 
-    public List<Pedido_TO> consultarPedidos() throws ParseException {
+    public List<Pedido_TO> consultarPedidos() {
 
         ClienteConsultarPedidos cliente = new ClienteConsultarPedidos();
         List<LinkedHashMap> datos = cliente.consultarPedidos(List.class);
@@ -123,10 +123,10 @@ public class PedidoDao {
             usuario = ud.consultarUsuario(new Usuario_TO((int) mapUS.get("idUsuario")));
 //          HORARIO INICIO
             LinkedHashMap mapHI = (LinkedHashMap) datos.get(i).get("horaInicio");
-            horarioInicio = hd.consultarHorario(new Horario_TO((int) mapHI.get("horaInicio"), ""));
+            horarioInicio = hd.consultarHorario(new Horario_TO((int) mapHI.get("idHorario"), (String) mapHI.get("horario")));
 //          HORARIO FINAL
             LinkedHashMap mapHF = (LinkedHashMap) datos.get(i).get("horaFinal");
-            horarioFinal = hd.consultarHorario(new Horario_TO((int) mapHF.get("horaFinal"), ""));
+            horarioFinal = hd.consultarHorario(new Horario_TO((int) mapHF.get("idHorario"), (String) mapHF.get("horario")));
 //          ESTADO
             LinkedHashMap mapES = (LinkedHashMap) datos.get(i).get("estado");
             estado = ed.consultarEstadoID(new Estado_TO((int) mapES.get("idEstado"), ""));
@@ -145,7 +145,7 @@ public class PedidoDao {
             try {
                 pedidos.add(new Pedido_TO((int) datos.get(i).get("idPedido"),
                         usuario,
-                        formato.parse((String) datos.get(i).get("fechainicio")),
+                        formato.parse((String) datos.get(i).get("fechaInicio")),
                         horarioInicio,
                         horarioFinal,
                         estado,
@@ -159,7 +159,7 @@ public class PedidoDao {
                         barrioRecogida,
                         barrioEntrega));
             } catch (ParseException e) {
-                throw e;
+                e.getMessage();
             }
         }
         return pedidos;
@@ -195,10 +195,10 @@ public class PedidoDao {
             usuario = ud.consultarUsuario(new Usuario_TO((int) mapUS.get("idUsuario")));
 //          HORARIO INICIO
             LinkedHashMap mapHI = (LinkedHashMap) datos.get(i).get("horaInicio");
-            horarioInicio = hd.consultarHorario(new Horario_TO((int) mapHI.get("horaInicio"), ""));
+            horarioInicio = hd.consultarHorario(new Horario_TO((int) mapHI.get("idHorario"), (String) mapHI.get("horario")));
 //          HORARIO FINAL
             LinkedHashMap mapHF = (LinkedHashMap) datos.get(i).get("horaFinal");
-            horarioFinal = hd.consultarHorario(new Horario_TO((int) mapHF.get("horaFinal"), ""));
+            horarioFinal = hd.consultarHorario(new Horario_TO((int) mapHF.get("idHorario"), (String) mapHF.get("horario")));
 //          ESTADO
             LinkedHashMap mapES = (LinkedHashMap) datos.get(i).get("estado");
             estado = ed.consultarEstadoID(new Estado_TO((int) mapES.get("idEstado"), ""));
@@ -217,7 +217,7 @@ public class PedidoDao {
             try {
                 pedidos.add(new Pedido_TO((int) datos.get(i).get("idPedido"),
                         usuario,
-                        formato.parse((String) datos.get(i).get("fechainicio")),
+                        formato.parse((String) datos.get(i).get("fechaInicio")),
                         horarioInicio,
                         horarioFinal,
                         estado,

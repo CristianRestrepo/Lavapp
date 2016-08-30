@@ -6,12 +6,14 @@
 package com.planit.lavappweb.modelo.dao;
 
 import com.planit.lavappweb.modelo.dto.Costo_TO;
+import com.planit.lavappweb.modelo.dto.Pedido_TO;
 import com.planit.lavappweb.modelo.dto.SubProducto_TO;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarCosto;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarCostoSubProducto;
 import com.planit.lavappweb.webservices.clientes.ClienteEditarCosto;
 import com.planit.lavappweb.webservices.clientes.ClienteEliminarCosto;
 import com.planit.lavappweb.webservices.clientes.ClienteRegistrarCosto;
+import com.planit.lavappweb.webservices.clientes.ClienteConsultarCostoPedido;
 
 /**
  *
@@ -24,6 +26,11 @@ public class CostoDao {
         return cliente.consultarCosto(Costo_TO.class,
                 "" + costo.getIdCosto());
     }
+    
+    public String ConsultarCostoPedido(Pedido_TO pedido){
+        ClienteConsultarCostoPedido cliente = new ClienteConsultarCostoPedido();
+        return cliente.consultarCostoPedido(String.class, "" + pedido.getIdPedido());
+    } 
 
     public Costo_TO consultarCostoSubProducto(SubProducto_TO subproducto) {
         ClienteConsultarCostoSubProducto cliente = new ClienteConsultarCostoSubProducto();

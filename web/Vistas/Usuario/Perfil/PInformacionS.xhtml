@@ -42,7 +42,8 @@
                                         <h:panelGrid cellpadding="5" columns="3" id="seccionDatosSesion" style="width: 100%">
 
                                             <p:outputLabel value="Correo: "/>
-                                            <b:inputText label="Correo" id="TEmail" style="width: 100%" value="#{sesionCT.usuario.email}" placeholder="Contraseña de sesion">
+                                            <b:inputText label="Correo" id="TEmail" validator="ValidadorEmailMod" style="width: 100%" value="#{sesionCT.usuario.email}" placeholder="Contraseña de sesion">
+                                                <f:attribute name="usuario" value="#{sesionCT.usuario}"/>
                                                 <f:validateLength minimum="6"/>
                                             </b:inputText>
                                             <p:message for="TEmail"/>

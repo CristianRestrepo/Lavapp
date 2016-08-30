@@ -43,7 +43,7 @@
 
                                             <div class="form-group">
                                                 <h:outputLabel class="control-label" for="DTSubServ" value="Categoria del subservicio*"/>
-                                                <h:selectOneMenu required="true" requiredMessage="Seleccione Categoria" id="DTSubServ" value="#{subServicioCT.subServicio.servicio.nombre}">
+                                                <h:selectOneMenu class="form-control" required="true" requiredMessage="Seleccione Categoria" id="DTSubServ" value="#{subServicioCT.subServicio.servicio.nombre}">
                                                     <f:selectItem itemLabel="Seleccione categoria" noSelectionOption="true"/>
                                                     <f:selectItems value="#{servicioCT.servicios}" var="servicio" itemLabel="#{servicio.nombre}" itemValue="#{servicio.nombre}"/>
                                                 </h:selectOneMenu>

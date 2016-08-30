@@ -59,10 +59,11 @@
                                         </h:panelGrid>
                                        
                                         <label class="control-label" for="DTJornadas">Jornada<span class="required">*</span></label>
-                                        <h:selectOneMenu class="form-control" style="width: 100%" id="DTJornadas" value="#{horarioCT.horario.jornada.nombre}">
+                                        <h:selectOneMenu required="true" requiredMessage="Seleccione jornada" class="form-control" style="width: 100%" id="DTJornadas" value="#{horarioCT.horario.jornada.nombre}">
                                             <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
                                             <f:selectItems value="#{jornadaCT.jornadas}" var="jornada" itemLabel="#{jornada.nombre}" itemValue="#{jornada.nombre}"/>
                                         </h:selectOneMenu>
+                                        <p:message for="DTJornadas"/>
                                     </div>
                                     <div class="box-footer" align="right">
                                         <h:panelGrid columns="2">

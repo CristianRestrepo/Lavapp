@@ -28,7 +28,7 @@
                                         <h4 class="box-title">Registro de Asesor</h4>
                                     </div>
                                     <div class="box-body">
-                                        <h:panelGrid id="seccionDatosUsuario" cellpadding="5" columns="2" style="width: 100%;">
+                                        <h:panelGrid id="seccionDatosUsuario" cellpadding="5" columns="1" style="width: 100%;">
 
                                             <b:inputText maxlength="60" id="TNombres" required="true" requiredMessage="Ingrese nombres" placeholder="Nombres" value="#{usuarioCT.usuario.nombre}" style="width: 100%;"></b:inputText>                       
                                             <p:message for="TNombres"/>
@@ -36,12 +36,13 @@
                                             <b:inputText maxlength="60" id="TApellidos" required="true" requiredMessage="Ingrese apellidos" placeholder="apellidos" value="#{usuarioCT.usuario.apellido}" style="width: 100%;"></b:inputText>                       
                                             <p:message for="TApellidos"/>
 
-                                            <c:if test="#{usuarioCT.operacion == 0}">
-                                                <b:inputText maxlength="100"  id="TEmail" required="true" requiredMessage="Ingrese Email valido" placeholder="Direccion de correo electronico" value="#{usuarioCT.usuario.email}" style="width: 100%"/>
-                                                <p:message for="TEmail"/>      
-                                            </c:if>
+                                            <b:inputText maxlength="100" validator="ValidatorEmailRegMod" id="TEmail" required="true" requiredMessage="Ingrese Email valido" placeholder="Direccion de correo electronico" value="#{usuarioCT.usuario.email}" style="width: 100%">
+                                                <f:attribute name="operacion" value="#{usuarioCT.operacion}"/>
+                                                <f:attribute name="usuario" value="#{usuarioCT.usuario}"/>
+                                            </b:inputText>
+                                            <p:message for="TEmail"/>      
 
-                                            <b:inputText maxlength="45" id="TCc" tooltip="Numero de identificación" placeholder="Cedula de ciudadania" value="#{usuarioCT.usuario.identificacion}" style="width: 100%" ></b:inputText>
+                                            <b:inputText maxlength="45" required="true" requiredMessage="Ingrese identificacion" id="TCc" tooltip="Numero de identificación" placeholder="Cedula de ciudadania" value="#{usuarioCT.usuario.identificacion}" style="width: 100%" ></b:inputText>
                                             <p:message for="TCc"/>
 
                                             <b:inputText maxlength="45" id="TTel" tooltip="Telefono" placeholder="Telefono" value="#{usuarioCT.usuario.telefono}" style="width: 100%" ></b:inputText>
@@ -50,18 +51,24 @@
                                             <b:inputText maxlength="45" id="TMovil" tooltip="Movil" placeholder="Movil" value="#{usuarioCT.usuario.movil}" style="width: 100%" ></b:inputText>
                                             <p:message for="TMovil"/>
 
-                                            <b:selectOneMenu required="true" value="#{usuarioCT.usuario.genero}" requiredMessage="Seleccione Genero" id="SGenero" style="width: 100%">
-                                                <f:selectItem itemLabel="Seleccione Genero"/>
-                                                <f:selectItem itemLabel="Masculino" itemValue="M"/>
-                                                <f:selectItem itemLabel="Femenino" itemValue="F"/>
-                                            </b:selectOneMenu>
-                                            <p:message for="SGenero"/>
+                                            <div class="form-group">
+                                                <p:outputLabel for="SGenero" value="Genero" class="control-label"/>
+                                                <h:selectOneMenu class="form-control" required="true" value="#{usuarioCT.usuario.genero}" requiredMessage="Seleccione Genero" id="SGenero" style="width: 100%">
+                                                    <f:selectItem itemLabel="Seleccione Genero"/>
+                                                    <f:selectItem itemLabel="Masculino" itemValue="M"/>
+                                                    <f:selectItem itemLabel="Femenino" itemValue="F"/>
+                                                </h:selectOneMenu>
+                                                <p:message for="SGenero"/>
+                                            </div>
 
-                                            <b:selectOneMenu required="true" value="#{usuarioCT.usuario.barrio.nombre}" requiredMessage="Seleccione barrio" id="SBarrios" style="width: 100%">
-                                                <f:selectItem itemLabel="Seleccione Barrio"/>
-                                                <f:selectItems value="#{barrioCT.barrios}" var="barrio" itemLabel="#{barrio.nombre}" itemValue="#{barrio.nombre}"/>
-                                            </b:selectOneMenu>
-                                            <p:message for="SBarrios"/>
+                                            <div class="form-group">
+                                                <p:outputLabel for="SBarrios" value="Barrio" class="control-label"/>
+                                                <h:selectOneMenu class="form-control" required="true" value="#{usuarioCT.usuario.barrio.nombre}" requiredMessage="Seleccione barrio" id="SBarrios" style="width: 100%">
+                                                    <f:selectItem itemLabel="Seleccione Barrio"/>
+                                                    <f:selectItems value="#{barrioCT.barrios}" var="barrio" itemLabel="#{barrio.nombre}" itemValue="#{barrio.nombre}"/>
+                                                </h:selectOneMenu>
+                                                <p:message for="SBarrios"/>
+                                            </div>
                                         </h:panelGrid>
                                     </div>
                                     <div class="box-footer">

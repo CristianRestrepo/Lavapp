@@ -142,7 +142,6 @@ public class SubProductoCT implements Serializable {
 
     //Metodos
     public void registrar() {
-
         SubProductoDao subProductoDao = new SubProductoDao();
         ZonaDao zonaDao = new ZonaDao();
         CostoDao costoDao = new CostoDao();
@@ -159,14 +158,13 @@ public class SubProductoCT implements Serializable {
 
     public void modificar() {
         SubProductoDao subProductoDao = new SubProductoDao();
-        ZonaDao zonaDao = new ZonaDao();
         CostoDao costoDao = new CostoDao();
 
         subProductoDao.editarSubProducto(subproducto);
 
         costo.setSubProducto(subproducto);
         costo = costoDao.modificarCosto(costo);
-        
+
         subproductos = subProductoDao.consultarSubProductos();
     }
 
