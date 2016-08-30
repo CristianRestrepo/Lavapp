@@ -1,0 +1,43 @@
+input[type="text"] {
+    width: 20em;
+    height: 10em;
+    resize: auto;
+}
+.fielset{
+margin-top: auto;
+}
+.star {
+    font-size: 100px;
+    display: inline-block;
+}
+.star a {
+   text-decoration: none;
+  display: inline-block;
+  font-size: 50px;
+  font-size: 11rem;
+  
+  color: #888;
+}
+
+.star:hover a {
+  color: rgb(39, 130, 228);
+}
+.star > a:hover ~ a {
+  color: #888;
+}
+/*.boton{
+  font-size: 20px;
+  border-radius: 5px;
+}
+.boton:hover {
+  color: #888;
+}*/
+.submit{
+    margin: 0;
+    background-color: #5bc0de;
+    border-radius: 6px;
+    padding: .3em 1em;
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+}
