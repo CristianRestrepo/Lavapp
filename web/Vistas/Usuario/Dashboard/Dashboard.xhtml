@@ -7,8 +7,6 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-
-
     <ui:composition template="./../adminTemplate.xhtml">
         <ui:define name="content">
             <b:container fluid="true">
@@ -79,7 +77,7 @@
                                                         </h:panelGrid>
                                                     </td>
                                                     <td width="45%" align="right">
-                                                        <p:commandButton value="Ver" class="btn btn-success" style="height: 50px; width: 60%"/>
+                                                        <p:commandButton action="Cliente" value="Ver" class="btn btn-success" style="height: 50px; width: 60%"/>
                                                     </td>
                                                 </tr>                                    
                                             </table>
@@ -106,7 +104,7 @@
                                                         </h:panelGrid>
                                                     </td>
                                                     <td width="45%" align="right">
-                                                        <p:commandButton value="Ver" class="btn btn-success" style="height: 50px; width: 60%"/>
+                                                        <p:commandButton action="Asesor" value="Ver" class="btn btn-success" style="height: 50px; width: 60%"/>
 
                                                     </td>
                                                 </tr>                                    
@@ -133,7 +131,7 @@
                                                         </h:panelGrid>
                                                     </td>
                                                     <td width="45%" align="right">
-                                                        <p:commandButton value="Ver" class="btn btn-success" style="height: 50px; width: 60%"/>
+                                                        <p:commandButton action="Pedido" value="Ver" class="btn btn-success" style="height: 50px; width: 60%"/>
                                                     </td>
                                                 </tr>                                    
                                             </table>
@@ -160,7 +158,7 @@
                                                         </h:panelGrid>
                                                     </td>
                                                     <td width="45%" align="right">
-                                                        <p:commandButton value="Ver" class="btn btn-success" style="height: 50px; width: 60%"/>
+                                                        <p:commandButton action="Proveedor" value="Ver" class="btn btn-success" style="height: 50px; width: 60%"/>
                                                     </td>
                                                 </tr>                                    
                                             </table>
@@ -291,10 +289,7 @@
                                 </p:scrollPanel>
                             </h:form>
                         </b:row>
-                    </c:when>
-                    <c:when test="#{sesionCT.obtenerSesion().rol.idRol == 4}">
-
-                    </c:when>                   
+                    </c:when>                                      
                 </c:choose>
             </b:container>          
         </ui:define>

@@ -72,6 +72,7 @@ public class DepartamentoDao {
 
     public Departamento_TO editarDepartamento(Departamento_TO departamento) {
         PaisDao pd = new PaisDao();
+        departamento.getPais().setIdPais(0);
         departamento.setPais(pd.consultarPais(departamento.getPais()));
 
         ClienteEditarDepartamento cliente = new ClienteEditarDepartamento();

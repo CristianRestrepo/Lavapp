@@ -113,6 +113,7 @@ public class SubProductoDao {
 
     public SubProducto_TO editarSubProducto(SubProducto_TO subProducto) {
         ProductoDao pd = new ProductoDao();
+        subProducto.getProducto().setIdProducto(0);
         subProducto.setProducto(pd.consultarProducto(subProducto.getProducto()));
         ClienteEditarSubProducto cliente = new ClienteEditarSubProducto();
         return cliente.modificarSubProductos(SubProducto_TO.class,

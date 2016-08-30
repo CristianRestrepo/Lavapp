@@ -40,14 +40,15 @@
                                             <b:inputText style="width: 100%" id="txtNombreDepartamento" placeholder="Nombre de la Localidad..." 
                                                          required="true" requiredMessage="Ingrese nombre de la Localidad"  
                                                          value="#{localidadCT.localidad.nombre}"/>
-                                            <p:message for="formularioRegistro"/>
+                                            <p:message for="txtNombreDepartamento"/>
 
                                             <div class="form-group">
-                                                <p:outputLabel value="Localidad" for="SMLocalidad" class="control-label"/>
-                                                <h:selectOneMenu class="form-control" id="SMLocalidad" value="#{localidadCT.localidad.ciudad.nombre}" style="width: 100%" required="true" >
+                                                <p:outputLabel value="Ciudad" for="SMCiudad" class="control-label"/>
+                                                <h:selectOneMenu requiredMessage="Seleccione una ciudad" class="form-control" id="SMCiudad" value="#{localidadCT.localidad.ciudad.nombre}" style="width: 100%" required="true" >
                                                     <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
                                                     <f:selectItems value="#{ciudadCT.ciudades}" var="ciudad" itemLabel="#{ciudad.nombre}" itemValue="#{ciudad.nombre}"/>
                                                 </h:selectOneMenu>
+                                                 <p:message for="SMCiudad"/>
                                             </div>
                                         </h:panelGrid>
                                     </div>

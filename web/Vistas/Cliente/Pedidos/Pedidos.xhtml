@@ -63,7 +63,7 @@
                                                                 <div align="center" class="box-footer">
                                                                     <p:commandLink value="#{producto.nombre}">
                                                                         <f:setPropertyActionListener value="#{producto}" target="#{productoCT.producto}"/>
-                                                                        <p:ajax event="click" listener="#{subProductoCT.consultarProductosSegunProducto(producto.idProducto)}" update="@form"/>
+                                                                        <p:ajax event="click" listener="#{subProductoCT.consultarProductosSegunProducto(producto)}" update="@form"/>
                                                                     </p:commandLink>
                                                                 </div>
                                                             </div>                                

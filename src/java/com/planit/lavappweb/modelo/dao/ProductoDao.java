@@ -80,6 +80,7 @@ public class ProductoDao {
     public Producto_TO modificarProducto(Producto_TO producto) {
         
         SubServicioDao ssd = new SubServicioDao();
+        producto.getSubServicio().setIdSubServicio(0);
         producto.setSubServicio(ssd.consultarSubServicio(producto.getSubServicio()));
         
         ClienteEditarProducto cliente = new ClienteEditarProducto();

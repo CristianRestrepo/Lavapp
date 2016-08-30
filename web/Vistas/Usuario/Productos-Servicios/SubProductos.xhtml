@@ -39,24 +39,28 @@
 
                                             <b:inputText id="txtNombreSubProd" style="width: 100%" placeholder="Nombre del SubProducto..." 
                                                          required="true" requiredMessage="Ingrese nombre del SubProducto"  
-                                                         value="#{subProductoCT.subproducto.nombre}"/>  
+                                                         value="#{subProductoCT.subproducto.nombre}"/> 
+                                            <p:message id="txtNombreSubProd"/>
                                          
                                             <h:inputTextarea  rows="3" class="form-control" style="width: 100%" required="true" requiredMessage="Ingrese descripcion del SubProducto"  
                                                               value="#{subProductoCT.subproducto.descripcion}" id="txtAreaDec" >
                                                 <f:passThroughAttribute name="placeholder" value="Descripcion del subproducto"/>
                                             </h:inputTextarea>
+                                            <p:message id="stxtAreaDec"/>
 
                                             <div class="form-group">
                                                 <p:outputLabel for="SMProductos" class="control-label" value="Categoria"/>
-                                                <h:selectOneMenu class="form-control" id="SMProductos" value="#{subProductoCT.subproducto.producto.nombre}" style="width: 100%" required="true" >
+                                                <h:selectOneMenu requiredMessage="Seleccione categoria de la prenda" class="form-control" id="SMProductos" value="#{subProductoCT.subproducto.producto.nombre}" style="width: 100%" required="true" >
                                                     <f:selectItem itemLabel="Seleccione Categoria" noSelectionOption="true"/>
                                                     <f:selectItems value="#{productoCT.productos}" var="producto" itemLabel="#{producto.nombre}" itemValue="#{producto.nombre}"/>
                                                 </h:selectOneMenu>
+                                                 <p:message id="SMProductos"/>
                                             </div>
                                             
                                             <b:inputText id="txtCosto" style="width: 100%" placeholder="Costo del servicio" 
                                                          required="true" requiredMessage="Ingrese costo del servicio para esta prenda"  
-                                                         value="#{subProductoCT.costo.valor}"/>  
+                                                         value="#{subProductoCT.costo.valor}"/>
+                                            <p:message id="txtCosto"/>
 
                                             <p:outputLabel value="#{subProductoCT.imagen}"/>
                                             <label class="">Seleccionar Imagen del Producto:</label>

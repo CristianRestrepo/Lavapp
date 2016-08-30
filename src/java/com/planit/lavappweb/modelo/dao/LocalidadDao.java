@@ -35,6 +35,7 @@ public class LocalidadDao {
 
     public Localidad_TO modificarLocalidad(Localidad_TO localidad) {
         CiudadDao cd = new CiudadDao();
+        localidad.getCiudad().setIdCiudad(0);
         localidad.setCiudad(cd.consultarCiudad(localidad.getCiudad()));
 
         ClienteEditarLocalidad cliente = new ClienteEditarLocalidad();

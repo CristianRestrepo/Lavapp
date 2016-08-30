@@ -38,7 +38,6 @@ public class Upload {
     public static String getPath() {
         try {
             ExternalContext tmpEC;
-
             tmpEC = FacesContext.getCurrentInstance().getExternalContext();
             String realPath = tmpEC.getRealPath("/");
             return realPath;
@@ -53,7 +52,8 @@ public class Upload {
             HashMap<String, String> map = new HashMap<>();
             String path = getPathFotosProductos();
             map.put("path", path);
-            map.put("url", "/resources/images/upload/Productos/");
+//          map.put("url", "/resources/images/upload/Productos/");
+            map.put("url", "http://localhost:8084/LavappService/resources/images/upload/productos/");
             return map;
         } catch (Exception e) {
             e.getMessage();
@@ -63,13 +63,14 @@ public class Upload {
 
     public static String getPathFotosProductos() {
         try {
-            String path = getPath() + "/resources/images/upload/Productos/";
+//          String path = getPath() + "/resources/images/upload/Productos/";
+            String path = getPath() + "http://localhost:8084/LavappService/resources/images/upload/productos/";
             return path;
         } catch (Exception e) {
             throw e;
         }
     }
-    
+
     public static HashMap<String, String> getMapPathFotosSubProducto() {
         try {
             HashMap<String, String> map = new HashMap<>();
@@ -113,8 +114,7 @@ public class Upload {
             throw e;
         }
     }
-    
-    
+
     public static String getPathDefaultUsuario() {
 
         try {
@@ -125,6 +125,7 @@ public class Upload {
         }
         return null;
     }
+
     /**
      *
      * METODO QUE SUBE EL ARCHIVO =============================================

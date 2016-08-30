@@ -68,6 +68,7 @@ public class SubServicioDao {
 
     public SubServicio_TO editarSubServicio(SubServicio_TO subServicio) {
         ServicioDao sd = new ServicioDao();
+        subServicio.getServicio().setIdServicio(0);
         subServicio.setServicio(sd.consultarServicio(subServicio.getServicio()));
         
         ClienteEditarSubServicio cliente = new ClienteEditarSubServicio();

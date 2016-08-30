@@ -17,7 +17,6 @@
                         <div>
                             <h3>DEPARTAMENTOS <small> Departamentos donde funcionara el sistema.</small></h3>                            
                         </div>
-
                     </b:column>
 
                     <h:form id="formularioRegistro" enctype="multipart/form-data" >                         
@@ -34,18 +33,18 @@
                                 <div class="box-body">
                                     <div class="table-responsive">
                                         <h:panelGrid id="SubProductos" columns="1" style="width: 100%">  
-
-                                            <b:inputText style="width: 100%" id="txtNombreDepartamento" placeholder="Nombre del Departamento" 
+                                            <b:inputText style="width: 100%" required-message="Indique nombre del departamentos" id="txtNombreDepartamento" placeholder="Nombre del Departamento" 
                                                          required="true" requiredMessage="Ingrese nombre del Departamento"  
                                                          value="#{departamentoCT.departamento.nombre}"/>
-                                            <p:message for="formularioRegistro"/>
+                                            <p:message for="txtNombreDepartamento"/>
 
                                             <div class="form-group">
-                                                <p:outputLabel class="control-label" value="Departamento" for="SMPais"/>
-                                                    <h:selectOneMenu class="form-control" id="SMPais" value="#{departamentoCT.departamento.pais.nombre}" style="width: 100%" required="true">
-                                                    <f:selectItem itemLabel="Seleccione departamento" noSelectionOption="true"/>
+                                                <p:outputLabel class="control-label" value="Pais" for="SMPais"/>
+                                                <h:selectOneMenu requiredMessage="Seleccione Pais" class="form-control" id="SMPais" value="#{departamentoCT.departamento.pais.nombre}" style="width: 100%" required="true">
+                                                    <f:selectItem itemLabel="Seleccione Pais" noSelectionOption="true"/>
                                                     <f:selectItems value="#{paisCT.paises}" var="pais" itemLabel="#{pais.nombre}" itemValue="#{pais.nombre}"/> 
                                                 </h:selectOneMenu>
+                                                <p:message for="SMPais"/>
                                             </div>
                                         </h:panelGrid>                                        
                                     </div>
@@ -121,10 +120,6 @@
                             </div>
                         </b:column>
                     </h:form>
-
-
-
-
                 </b:row>
             </b:container>
 

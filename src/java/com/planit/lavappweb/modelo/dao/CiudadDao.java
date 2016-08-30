@@ -68,6 +68,7 @@ public class CiudadDao {
 
     public Ciudad_TO editarCiudad(Ciudad_TO ciudad) {
         DepartamentoDao dd = new DepartamentoDao();
+        ciudad.getDepartamento().setIdDepartamento(0);
         ciudad.setDepartamento(dd.consultarDepartamento(ciudad.getDepartamento()));
         
         ClienteEditarCiudad cliente = new ClienteEditarCiudad();

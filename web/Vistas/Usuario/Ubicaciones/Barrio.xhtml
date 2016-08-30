@@ -38,30 +38,32 @@
                                             <b:inputText style="width: 100%" id="txtNombreSubProd" placeholder="Nombre del Barrio..." 
                                                          required="true" requiredMessage="Ingrese nombre del Barrio"  
                                                          value="#{barrioCT.barrio.nombre}"/>    
-                                            <p:message for="formularioRegistro"/>                                                                                   
+                                            <p:message for="txtNombreSubProd"/>                                                                                   
 
                                             <div class="form-group">
                                                 <p:outputLabel for="SMLocalidad" value="Localidad" class="control-label"/>
-                                                <h:selectOneMenu class="form-control" id="SMLocalidad" value="#{barrioCT.barrio.localidad.nombre}" style="width: 100%" required="true" >
+                                                <h:selectOneMenu requiredMessage="Seleccione Localidad" class="form-control" id="SMLocalidad" value="#{barrioCT.barrio.localidad.nombre}" style="width: 100%" required="true" >
                                                     <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
                                                     <f:selectItems value="#{localidadCT.localidades}" var="localidad" itemLabel="#{localidad.nombre}" itemValue="#{localidad.nombre}"/>
                                                 </h:selectOneMenu>
+                                                <p:message for="SMLocalidad"/>      
                                             </div>
 
                                             <div class="form-group">
                                                 <p:outputLabel for="SMEstrato" value="Estrato" class="control-label"/>
-                                                <h:selectOneMenu class="form-control" id="SMEstrato" value="#{barrioCT.barrio.estrato.nombre}" style="width: 100%" required="true" >
+                                                <h:selectOneMenu requiredMessage="Seleccione Estrato" class="form-control" id="SMEstrato" value="#{barrioCT.barrio.estrato.nombre}" style="width: 100%" required="true" >
                                                     <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
                                                     <f:selectItems value="#{estratoCT.estratos}" var="Estrato" itemLabel="#{Estrato.nombre}" itemValue="#{Estrato.nombre}"/>
                                                 </h:selectOneMenu>
+                                                <p:message for="SMEstrato"/>      
                                             </div>
 
                                             <div class="form-group">
                                                 <p:outputLabel for="SMZona" value="Zona" class="control-label"/>
-                                                <h:selectOneMenu class="form-control" id="SMZona" value="#{barrioCT.barrio.zona.nombre}" style="width: 100%" required="true" >
-                                                    <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
+                                                <h:selectOneMenu requiredMessage="Selecccione Zona" class="form-control" id="SMZona" value="#{barrioCT.barrio.zona.nombre}" style="width: 100%" required="true" >
                                                     <f:selectItems value="#{zonaCT.zonas}" var="zona" itemLabel="#{zona.nombre}" itemValue="#{zona.nombre}"/>
                                                 </h:selectOneMenu>
+                                                <p:message for="SMZona"/>      
                                             </div>
                                         </h:panelGrid>
                                     </div>

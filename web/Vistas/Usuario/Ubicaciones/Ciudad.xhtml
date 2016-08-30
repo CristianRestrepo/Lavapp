@@ -43,15 +43,16 @@
                                             <b:inputText style="width: 100% " id="txtNombreCiudad" placeholder="Nombre de la Ciudad..." 
                                                          required="true" requiredMessage="Ingrese nombre del Ciudad"  
                                                          value="#{ciudadCT.ciudad.nombre}"/> 
+                                            <p:message for="txtNombreCiudad"/>
 
                                             <div class="form-group">
                                                 <p:outputLabel for="SMDepartamento" value="Departamento"/>
-                                                <h:selectOneMenu class="form-control" id="SMDepartamento" value="#{ciudadCT.ciudad.departamento.nombre}" style="width: 100%" required="true" >
+                                                <h:selectOneMenu requiredMessage="Seleccione Departamento" class="form-control" id="SMDepartamento" value="#{ciudadCT.ciudad.departamento.nombre}" style="width: 100%" required="true" >
                                                     <f:selectItem itemLabel="Seleccione departamento" noSelectionOption="true"/>
                                                     <f:selectItems value="#{departamentoCT.departamentos}" var="departamento" itemLabel="#{departamento.nombre}" itemValue="#{departamento.nombre}"/>
                                                 </h:selectOneMenu>
+                                                <p:message for="SMDepartamento"/>
                                             </div>
-                                            <p:message for="formularioRegistro"/>
                                         </h:panelGrid>
                                     </div>
                                     <div class="box-footer" align="right">

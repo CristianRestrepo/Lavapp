@@ -202,7 +202,7 @@ public class HorarioCT {
         horario.setHoraFinal(horafinal + ":" + minutofinal + ":" + segundofinal);
         horario.setHorario("" + horario.getHoraInicio() + "-" + horario.getHoraFinal());
         
-        horario = horarioDao.registrarHorario(horario);
+        horario = horarioDao.editarHorario(horario);
         horarios = horarioDao.consultarHorarios();
 
         horainicio = "00";
