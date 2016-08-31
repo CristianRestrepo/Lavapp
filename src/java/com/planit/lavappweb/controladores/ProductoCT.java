@@ -14,6 +14,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import static com.planit.lavappweb.metodos.Upload.getMapPathFotosProducto;
 import com.planit.lavappweb.modelo.dao.ProductoDao;
+import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.apache.commons.io.IOUtils;
@@ -23,7 +24,7 @@ import org.primefaces.model.UploadedFile;
  *
  * @author Desarrollo_Planit
  */
-public class ProductoCT {
+public class ProductoCT implements Serializable {
 
     private Producto_TO producto;
     private List<Producto_TO> productos;

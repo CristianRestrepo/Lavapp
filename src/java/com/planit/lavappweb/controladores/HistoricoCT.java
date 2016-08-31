@@ -7,6 +7,7 @@ package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.modelo.dao.HistoricoDao;
 import com.planit.lavappweb.modelo.dto.Historico_TO;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -15,7 +16,7 @@ import javax.annotation.PostConstruct;
  *
  * @author Desarrollo_Planit
  */
-public class HistoricoCT {
+public class HistoricoCT implements Serializable {
 
     private Historico_TO historico;
     private List<Historico_TO> historicos;

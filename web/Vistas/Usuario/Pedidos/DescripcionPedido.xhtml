@@ -39,7 +39,7 @@
                                                 <div class="media">
                                                     <div class="col-lg-4 col-md-4 col-sm-4">
                                                         <a class="pull-left" href="#" target="_parent">
-                                                            <p:graphicImage alt="image" value="#{pedidoCT.pedido.usuario.rutaImagen}" height="100%" width="200px" class="img-responsive"/>
+                                                            <p:graphicImage alt="image" value="#{pedidoCT.pedidoAuxiliar.usuario.rutaImagen}" height="100%" width="200px" class="img-responsive"/>
                                                         </a>                                                    
                                                     </div>
 
@@ -47,17 +47,17 @@
                                                         <div class="media-body fnt-smaller">
                                                             <a href="#" target="_parent"></a>
                                                             <div>
-                                                                <h3>#{pedidoCT.pedido.usuario.nombre} #{pedidoCT.pedido.usuario.apellido} <small> N° referencia: #{pedidoCT.pedido.idPedido}</small></h3>                            
+                                                                <h3>#{pedidoCT.pedidoAuxiliar.usuario.nombre} #{pedidoCT.pedidoAuxiliar.usuario.apellido} <small> N° referencia: #{pedidoCT.pedidoAuxiliar.idPedido}</small></h3>                            
                                                             </div>
 
                                                             <h4 class="media-heading">
-                                                                <a href="#" target="_parent">$#{costoCT.consultarCostoPedido(pedidoCT.pedido)} <small class="pull-right"><strong>Dirección Recogida: </strong>#{pedidoCT.pedido.direccionRecogida}
-                                                                        <strong style="margin-left: 20px">Cel: </strong>#{pedidoCT.pedido.usuario.movil}
+                                                                <a href="#" target="_parent">$#{costoCT.consultarCostoPedido(pedidoCT.pedidoAuxiliar)} <small class="pull-right"><strong>Dirección Recogida: </strong>#{pedidoCT.pedidoAuxiliar.direccionRecogida}
+                                                                        <strong style="margin-left: 20px">Cel: </strong>#{pedidoCT.pedidoAuxiliar.usuario.movil}
                                                                     </small></a></h4>
 
 
                                                             <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
-                                                                <c:forEach var="descripcion" items="#{descripcionPedidoCT.consultarDescripcionesSinFotosSegunPedido(pedidoCT.pedido)}" begin="0" end="#{descripcionPedidoCT.consultarDescripcionesSinFotosSegunPedido(pedidoCT.pedido).size()}">
+                                                                <c:forEach var="descripcion" items="#{descripcionPedidoCT.consultarDescripcionesSinFotosSegunPedido(pedidoCT.pedidoAuxiliar)}" begin="0" end="#{descripcionPedidoCT.consultarDescripcionesSinFotosSegunPedido(pedidoCT.pedidoAuxiliar).size()}">
                                                                     <li><strong>#{descripcion.subProducto.nombre}</strong></li>
                                                                     <li style="list-style: none">|</li>
                                                                 </c:forEach>
@@ -68,7 +68,6 @@
                                                                     <strong>Observacines:</strong> 
                                                                     Descripcion de observaciones acerca del pedido especifico, tipo de tela, 
                                                                     daños de la prenda, manchas, etc.
-
                                                                 </p>
                                                             </div>
                                                         </div>                                                    
@@ -125,10 +124,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </b:column>     
-
+                            </b:column>    
                         </h:form>
-
                     </b:row>
                 </b:container>
             </ui:define>

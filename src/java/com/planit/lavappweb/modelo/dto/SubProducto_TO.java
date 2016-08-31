@@ -5,11 +5,13 @@
  */
 package com.planit.lavappweb.modelo.dto;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Desarrollo_Planit
  */
-public class SubProducto_TO {
+public class SubProducto_TO implements Serializable{
 
     private int idSubProducto;
     private String nombre;

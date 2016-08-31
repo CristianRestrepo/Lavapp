@@ -13,6 +13,7 @@ import com.planit.lavappweb.modelo.dto.Estado_TO;
 import com.planit.lavappweb.modelo.dto.Proveedor_TO;
 import com.planit.lavappweb.modelo.dto.Rol_TO;
 import com.planit.lavappweb.modelo.dto.Usuario_TO;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -21,7 +22,7 @@ import javax.annotation.PostConstruct;
  *
  * @author Desarrollo_Planit
  */
-public class ProveedorCT {
+public class ProveedorCT implements Serializable {
 
     private Proveedor_TO proveedor;
     private List<Proveedor_TO> proveedores;

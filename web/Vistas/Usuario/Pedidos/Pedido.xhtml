@@ -18,104 +18,211 @@
                         </div>
                     </b:column>
 
-                    <h:form id="formularioRegistro" enctype="multipart/form-data" >                         
-                        <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
-                            <p:messages id="messages" closable="true"/>
-                        </b:column>
+                    <h:form id="formularioRegistro">  
+                        <c:choose>
+                            <c:when test="#{pedidoCT.vista == 0}">
+                                <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                                    <p:messages id="messages" closable="true"/>
+                                </b:column>
 
-                        <b:column col-lg="8" col-md="8" col-sm="12" col-xs="12">
-                            <div class="box pad-10" >
-                                <div class="box-body">
+                                <b:column col-lg="8" col-md="8" col-sm="12" col-xs="12">
+                                    <div class="box pad-10" >
+                                        <div class="box-body">
 
-                                </div>
-                            </div>
-                        </b:column>
+                                        </div>
+                                    </div>
+                                </b:column>
 
-                        <b:column col-lg="4" col-md="4" col-sm="12" col-xs="12">
-                            <div class="box pad-10" >
-                                <div class="box-body">
-                                    <b:dateTimePicker style="width: 100%" show-time="false" mode="inline"/>
-                                </div>
-                            </div>
-                        </b:column>
+                                <b:column col-lg="4" col-md="4" col-sm="12" col-xs="12">
+                                    <div class="box pad-10" >
+                                        <div class="box-body">
+                                            <b:dateTimePicker style="width: 100%" show-time="false" mode="inline"/>
+                                        </div>
+                                    </div>
+                                </b:column>
 
-                        <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
-                            <ol class="breadcrumb" style="width: 100%">
-                                <li><p>Pedidos</p></li>/                                
-                            </ol>                             
-                        </b:column>
-                     
-                        <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
-                            <div>                                
-                                <div>
-                                    <c:forEach var="pedido" items="#{pedidoCT.pedidos}" begin="0" end="#{pedidoCT.pedidos.size()}" >
-                                        <b:column col-lg="6" col-md="6" col-xs="12" col-sm="12">    
-                                            <div class="table-responsive">
-                                                <!-- Begin Listing: 609 W GRAVERS LN-->
-                                                <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing-pv">
-                                                    <div>
-                                                        <h5>Cliente: <small> #{pedido.usuario.nombre} #{pedido.usuario.apellido} </small></h5>                            
+                                <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                                    <ol class="breadcrumb" style="width: 100%">
+                                        <li><p>Pedidos</p></li>/                                
+                                    </ol>                             
+                                </b:column>
+
+                                <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">                            
+                                    <div>                                
+                                        <div>
+                                            <c:forEach var="pedido" items="#{pedidoCT.pedidos}" begin="0" end="#{pedidoCT.pedidos.size()}" >
+                                                <b:column col-lg="6" col-md="6" col-xs="12" col-sm="12">    
+                                                    <div class="table-responsive">
+                                                        <!-- Begin Listing: 609 W GRAVERS LN-->
+                                                        <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing-pv">
+                                                            <div>
+                                                                <h5>Cliente: <small> #{pedido.usuario.nombre} #{pedido.usuario.apellido} </small></h5>                            
+                                                            </div>
+
+                                                            <div class="media">
+                                                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                                                    <a class="pull-left" href="#" target="_parent">
+                                                                        <img alt="image" class="img-responsive " 
+                                                                             src="http://images.prd.mris.com/image/V2/1/Yu59d899Ocpyr_RnF0-8qNJX1oYibjwp9TiLy-bZvU9vRJ2iC1zSQgFwW-fTCs6tVkKrj99s7FFm5Ygwl88xIA.jpg" />
+                                                                    </a>                                                    
+                                                                </div>
+
+                                                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                                                    <div class="media-body fnt-smaller">
+                                                                        <a href="#" target="_parent"></a>
+
+                                                                        <h4 class="media-heading">
+                                                                            <a href="#" target="_parent">$#{costoCT.consultarCostoPedido(pedido)} <small class="pull-right">#{pedido.direccionRecogida}</small></a></h4>
+
+                                                                        <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
+                                                                            <c:forEach var="subProducto" items="#{pedidoCT.obtenerSubProductosPedidoOrdenados(descripcionPedidoCT.obtenerSubProductos(pedido))}" begin="0" end="1">
+                                                                                <li>#{subProducto.nombre} #{pedidoCT.calcularCantidadPrendas(pedidoCT.organizarSubProductos(descripcionPedidoCT.obtenerSubProductos(pedido)), subProducto)} <strong></strong></li>
+                                                                                <li style="list-style: none">|</li>
+                                                                            </c:forEach>
+
+                                                                            <li>
+                                                                                <p:commandLink class="btn btn-primary btn-xs" >
+                                                                                    <i class="fa fa-plus-square" /> 
+                                                                                </p:commandLink>
+                                                                            </li>
+                                                                        </ul>
+
+                                                                        <p class="hidden-xs">
+                                                                            <strong>Observacines:</strong> 
+                                                                            Descripcion de observaciones acerca del pedido especifico, tipo de tela, 
+                                                                            daños de la prenda, manchas, etc.
+                                                                            <p:commandButton value="Ver Pedido" update=":formularioRegistro" action="#{pedidoCT.verPedido(pedido)}" class="btn btn-primary btn-xs btn-block"/>
+                                                                        </p>
+                                                                        <span class="fnt-smaller fnt-lighter fnt-arial">
+                                                                            <div class="col-xs-6">
+                                                                                <strong>Recibido: </strong> #{pedido.fechaRecogida}                                                                
+                                                                            </div>
+                                                                            <div class="col-xs-6">
+                                                                                <strong>Entrega: </strong> #{pedido.fechaEntrega}                                                                                                                            
+                                                                            </div>
+                                                                        </span>
+                                                                    </div>                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div><!-- End Listing-->                                        
                                                     </div>
+                                                </b:column>
+                                            </c:forEach>
+                                        </div>
+                                    </div>                            
+                                </b:column>
+                            </c:when>
+                            <c:when test="#{pedidoCT.vista == 1}">
+                                <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                                    <p:messages id="messages" closable="true"/>
+                                </b:column>
+
+                                <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                                    <div class="box box-success">
+                                        <div class="box-header with-border">
+                                            <i class="fa fa-2x fa-globe"/>
+                                            <h4 class="box-title">Datos del Barrio</h4>
+                                        </div> 
+                                        <div class="box-body">
+                                            <div class="table-responsive">
+                                                <!-- VISTA DE PEDIDO POR PERSONA-->
+                                                <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing-pv">
 
                                                     <div class="media">
                                                         <div class="col-lg-4 col-md-4 col-sm-4">
                                                             <a class="pull-left" href="#" target="_parent">
-                                                                <img alt="image" class="img-responsive " 
-                                                                     src="http://images.prd.mris.com/image/V2/1/Yu59d899Ocpyr_RnF0-8qNJX1oYibjwp9TiLy-bZvU9vRJ2iC1zSQgFwW-fTCs6tVkKrj99s7FFm5Ygwl88xIA.jpg" />
+                                                                <p:graphicImage alt="image" value="#{pedidoCT.pedido.usuario.rutaImagen}" height="100%" width="200px" class="img-responsive"/>
                                                             </a>                                                    
                                                         </div>
 
                                                         <div class="col-lg-8 col-md-8 col-sm-8">
                                                             <div class="media-body fnt-smaller">
                                                                 <a href="#" target="_parent"></a>
+                                                                <div>
+                                                                    <h3>#{pedidoCT.pedido.usuario.nombre} #{pedidoCT.pedido.usuario.apellido} <small> N° referencia: #{pedidoCT.pedido.idPedido}</small></h3>                            
+                                                                </div>
 
                                                                 <h4 class="media-heading">
-                                                                    <a href="#" target="_parent">$#{costoCT.consultarCostoPedido(pedido)} <small class="pull-right">#{pedido.direccionRecogida}</small></a></h4>
+                                                                    <a href="#" target="_parent">$#{costoCT.consultarCostoPedido(pedidoCT.pedido)} <small class="pull-right"><strong>Dirección Recogida: </strong>#{pedidoCT.pedido.direccionRecogida}
+                                                                            <strong style="margin-left: 20px">Cel: </strong>#{pedidoCT.pedido.usuario.movil}
+                                                                        </small></a></h4>
+
 
                                                                 <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
-                                                                    <c:forEach var="descripcion" items="#{descripcionPedidoCT.consultarDescripcionesSinFotosSegunPedido(pedido)}" begin="0" end="1">
-                                                                        <li>#{descripcion.subProducto.nombre}</li>
+                                                                    <c:forEach var="descripcion" items="#{descripcionPedidoCT.consultarDescripcionesSinFotosSegunPedido(pedidoCT.pedido)}" begin="0" end="#{descripcionPedidoCT.consultarDescripcionesSinFotosSegunPedido(pedidoCT.pedido).size()}">
+                                                                        <li><strong>#{descripcion.subProducto.nombre}</strong></li>
                                                                         <li style="list-style: none">|</li>
                                                                     </c:forEach>
-
-                                                                    <li>
-                                                                        <p:commandLink class="btn btn-primary btn-xs" >
-                                                                            <i class="fa fa-plus-square" /> más 
-                                                                        </p:commandLink>
-                                                                    </li>
                                                                 </ul>
 
-                                                                <p class="hidden-xs">
-                                                                    <strong>Observacines:</strong> 
-                                                                    Descripcion de observaciones acerca del pedido especifico, tipo de tela, 
-                                                                    daños de la prenda, manchas, etc.
-                                                                    <p:commandLink action="#{pedidoCT.verPedido(pedido)}" class="btn btn-primary btn-xs btn-block" >
-                                                                        <i class="fa fa-file-text" /> Ver Pedido
-                                                                    </p:commandLink>
-                                                                </p>
-                                                                <span class="fnt-smaller fnt-lighter fnt-arial">
-                                                                    <div class="col-xs-6">
-                                                                        <strong>Recibido: </strong> #{pedido.fechaRecogida}                                                                
-                                                                    </div>
-                                                                    <div class="col-xs-6">
-                                                                        <strong>Entrega: </strong> #{pedido.fechaEntrega}                                                                                                                            
-                                                                    </div>
-                                                                </span>
+                                                                <div class="mrg-desc-prod">
+                                                                    <p class="hidden-xs">
+                                                                        <strong>Observacines:</strong> 
+                                                                        Descripcion de observaciones acerca del pedido especifico, tipo de tela, 
+                                                                        daños de la prenda, manchas, etc.
+                                                                    </p>
+                                                                </div>
                                                             </div>                                                    
                                                         </div>
                                                     </div>
-                                                </div><!-- End Listing-->                                        
+                                                </div><!-- End Listing-->
+
+                                                <div>
+                                                    <h4 class="mrg-titles">Prendas del Pedido<small> N° #{pedidoCT.pedido.idPedido}</small></h4>                            
+                                                </div>
+
+                                                <
+                                                c:forEach items="#{descripcionPedidoCT.consultarDescripcionesSinFotosSegunPedido(pedidoCT.pedido)}" var="producto" begin="0" end="#{descripcionPedidoCT.consultarDescripcionesSinFotosSegunPedido(pedidoCT.pedido).size()}">
+                                                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                                                        <!-- LISTA DE PRODUCTOS POR PEDIDOS-->
+                                                        <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing-pv">
+                                                            <div class="media">
+                                                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                                                    <a class="pull-left" href="#" target="_parent">
+                                                                        <p:graphicImage value="#{producto.subProducto.rutaImagen}" width="150px" height="150px"/>
+                                                                    </a>                                                    
+                                                                </div>
+
+                                                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                                                    <div class="media-body fnt-smaller">
+                                                                        <a href="#" target="_parent"></a>
+
+                                                                        <h4 class="media-heading">
+                                                                            <a href="#" target="_parent">$#{costoCT.consultarCostoSubProducto(producto)}</a></h4>
+
+
+                                                                        <ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
+                                                                            <li>4,820 SqFt</li>
+
+                                                                            <li style="list-style: none">|</li>
+
+                                                                            <li>5 Beds</li>
+
+                                                                            <li style="list-style: none">|</li>
+
+                                                                            <li>5 Baths</li>
+                                                                        </ul>
+
+                                                                        <p class="hidden-xs">Situated between fairmount
+                                                                            park and the prestigious philadelphia cricket
+                                                                            club, this beautiful 2+ acre property is truly
+                                                                            ...</p><span class="fnt-smaller fnt-lighter fnt-arial">Courtesy of HS Fox  Roach-Chestnut Hill
+                                                                            Evergreen</span>
+                                                                    </div>                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div><!-- End Listing-->
+                                                    </div>  
+                                                </c:forEach>
                                             </div>
-                                        </b:column>
-                                    </c:forEach>
-                                </div>
-                            </div>
-                        </b:column>     
+                                        </div>
+                                    </div>
+                                </b:column>    
+                            </c:when>
+                        </c:choose>
                     </h:form>
                 </b:row>
             </b:container>         
         </ui:define>
     </ui:composition>
-
-
 </html>

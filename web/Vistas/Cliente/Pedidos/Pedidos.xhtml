@@ -482,7 +482,7 @@
 
 
                 <p:commandButton id="numPrendas" icon="fa fa-pencil-square-o fa-2x pos-info-btn ico-forma" update=":modal" class="btn-num-prendas"  value="#{pedidoCT.cantidadProductos}">
-                    <p:ajax event="click" listener="#{pedidoCT.organizarSubProductosPedido()}"/>
+                    <p:ajax event="click" listener="#{pedidoCT.organizarSubProductosPedido(pedidoCT.subproductos)}"/>
                     <f:passThroughAttribute name="data-toggle" value="modal"/>
                     <f:passThroughAttribute name="data-target" value="#myModal"/>
                 </p:commandButton>
@@ -497,7 +497,7 @@
                             </div>
                             <div class="modal-body">
                                 <h:form id="modal"> 
-                                    <c:forEach begin="0" end="#{pedidoCT.subproductosOrdenados.size()}" items="#{pedidoCT.subproductosvista}" var="subProducto"> 
+                                    <c:forEach begin="0" end="#{pedidoCT.organizarSubProductos(pedidoCT.subproductos).size()}" items="#{pedidoCT.obtenerSubProductosPedidoOrdenados(pedidoCT.subproductos)}" var="subProducto"> 
                                         <div class="esp-prenda">
                                             <div class="row border-r">
                                                 <table>
@@ -511,7 +511,7 @@
                                                             <div style="padding-left: 50px"  class="col-xs-8 pad-content">
                                                                 <h3 class="title-prenda">#{subProducto.nombre}</h3>
                                                                 <p class="txt-justify">#{subProducto.descripcion}</p>
-                                                                <h4 style="font-size: xx-large">#{pedidoCT.calcularCantidadPrendas(subProducto)}</h4>
+                                                                <h4 style="font-size: xx-large">#{pedidoCT.calcularCantidadPrendas(pedidoCT.organizarSubProductos(pedidoCT.subproductos), subProducto)}</h4>
                                                                 <!-- INICION DE CONTADOR -->
                                                                 <div align="left">
                                                                     <h:panelGrid  width="80%" columns="2">                                                 

@@ -6,6 +6,7 @@
 package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.modelo.dto.Descuento_TO;
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 
@@ -14,7 +15,7 @@ import javax.annotation.PostConstruct;
  * @author Desarrollo_Planit
  */
 
-public class DescuentoCT {
+public class DescuentoCT implements Serializable {
 
     private Descuento_TO descuento;
     private List<Descuento_TO> descuentos;

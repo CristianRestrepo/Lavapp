@@ -7,6 +7,7 @@ package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.modelo.dao.FacturaDao;
 import com.planit.lavappweb.modelo.dto.Factura_TO;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -15,7 +16,7 @@ import javax.annotation.PostConstruct;
  *
  * @author Desarrollo_Planit
  */
-public class FacturaCT {
+public class FacturaCT implements Serializable {
 
     private Factura_TO factura;
     private List<Factura_TO> facturas;
