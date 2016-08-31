@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./../adminTemplate.xhtml">
+            <ui:define name="content">
+                <b:container fluid="true">
+                   <b:row>
+                        <b:column col-lg="12"><!-- primer titulo columna izquierda  -->
+                        <div>
+                            <h3> RELACIONA <small> Relaciona un comercial con un asesor con las zonas correspondientes.</small></h3>                            
+                        </div>
+                    </b:column>
+                       <h:form id="formularioagente" enctype="multipart/form-data" >   
+                          
+                           <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                            <p:messages id="messages" closable="true"/>
+                        </b:column>
+                            <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
+                            <!-- primer contenido de formulario o lo que sea  columna izquierda  -->
+                           <h4 class="box-title">Selecciona Un Agente</h4>
+                            <div class="box box-success">
+                                
+                                </div> 
+                                <div class="box-body">
+                                    <div class="table-responsive">
+                                        <!-- espacio para lista de agentes  -->
+                                    </div>
+                                    <div class="box-footer" align="center">
+                                         <input type="checkbox" id="check1" checked="checked">
+                                        <label for="check1">Primer agente</label></input>
+                                         <input type="checkbox" id="check2">
+                                         <label for="check2">Segundo agente</label></input>
+                                         <input type="checkbox" id="check3">
+                                         <label for="check3">Tercer Agente</label></input>
+                                       <!-- <h:panelGrid columns="2">
+                                            <input type="submit" value="Enviar"> </input>                                            
+                                       </h:panelGrid>-->
+                                    </div>
+                                </div>
+                        </b:column>    <!-- termina primer contenido  columna izquierda  -->                    
+                    </h:form> <!-- primer titulo columna derecha  -->
+                       <h:form id="eligezona">
+                          
+                        <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12"> 
+                            <h4 class="box-title">Selecciona las Zonas</h4>
+                            <div class="box box-info" aling="center">
+                               <i class="" aria-hidden="true"></i> 
+                                <div class="box-header with-border">
+                                  <!--  <i class="fa fa-star" aria-hidden="true"></i>-->
+                                    
+                                </div> 
+                                <div class="star" align="rigth" > <!-- primer contenido columna izquierda  -->
+                                     <!-- espacio para check box  -->  
+                                     
+                            </div><div class="box-footer" align="center"> <!-- segundo contenido columna izquierda  -->
+                                        <h:panelGrid columns="2">
+                                            <input type="submit" value="Guardar"> </input>                                            
+                                       </h:panelGrid>
+                                    </div>
+                           
+                            </div>
+                             <!-- fin de contenidos  -->
+                        </b:column>
+                    </h:form>
+                   </b:row>
+               </b:container>
+            </ui:define>
+
+        </ui:composition>
+</html>
