@@ -7,13 +7,14 @@ package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.modelo.dao.PaisDao;
 import com.planit.lavappweb.modelo.dto.Pais_TO;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author Desarrollo_Planit
  */
-public class PaisCT {
+public class PaisCT implements Serializable {
 
     private Pais_TO pais;
     private List<Pais_TO> paises;

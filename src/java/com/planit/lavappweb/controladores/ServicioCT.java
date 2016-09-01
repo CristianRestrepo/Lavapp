@@ -7,6 +7,7 @@ package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.modelo.dao.ServicioDao;
 import com.planit.lavappweb.modelo.dto.Servicio_TO;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -15,7 +16,7 @@ import javax.annotation.PostConstruct;
  *
  * @author Desarrollo_Planit
  */
-public class ServicioCT {
+public class ServicioCT implements Serializable {
 
     private Servicio_TO servicio;
     private List<Servicio_TO> servicios;

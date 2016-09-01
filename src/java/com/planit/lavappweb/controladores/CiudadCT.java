@@ -7,6 +7,7 @@ package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.modelo.dao.CiudadDao;
 import com.planit.lavappweb.modelo.dto.Ciudad_TO;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import javax.annotation.PostConstruct;
  *
  * @author Desarrollo_Planit
  */
-public class CiudadCT {
+public class CiudadCT implements Serializable {
 
     private Ciudad_TO ciudad;
     private List<Ciudad_TO> ciudades;

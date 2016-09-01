@@ -5,6 +5,7 @@
  */
 package com.planit.lavappweb.modelo.dto;
 
+import java.io.Serializable;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -16,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Planit
  */
 @XmlRootElement
-public class Horario_TO {
+public class Horario_TO implements Serializable {
 
     /**
      *

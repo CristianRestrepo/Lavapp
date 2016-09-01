@@ -7,6 +7,7 @@ package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.modelo.dao.JornadaDao;
 import com.planit.lavappweb.modelo.dto.Jornada_TO;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -15,7 +16,7 @@ import javax.annotation.PostConstruct;
  *
  * @author Desarrollo_Planit
  */
-public class JornadaCT {
+public class JornadaCT implements Serializable{
 
     private Jornada_TO jornada;
     private List<Jornada_TO> jornadas;

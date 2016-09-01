@@ -9,6 +9,7 @@ import com.planit.lavappweb.modelo.dao.CostoDao;
 import com.planit.lavappweb.modelo.dto.Costo_TO;
 import com.planit.lavappweb.modelo.dto.Pedido_TO;
 import com.planit.lavappweb.modelo.dto.SubProducto_TO;
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -17,7 +18,7 @@ import javax.faces.bean.RequestScoped;
  * @author Desarrollo_Planit
  */
 
-public class CostoCT {
+public class CostoCT implements Serializable {
 
     private Costo_TO costo;
     

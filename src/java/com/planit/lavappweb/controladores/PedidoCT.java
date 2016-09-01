@@ -14,9 +14,8 @@ import com.planit.lavappweb.modelo.dto.Estado_TO;
 import com.planit.lavappweb.modelo.dto.Pedido_TO;
 import com.planit.lavappweb.modelo.dto.SubProductoCosto_TO;
 import com.planit.lavappweb.modelo.dto.SubProducto_TO;
-import com.planit.lavappweb.modelo.dto.Usuario_TO;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 
@@ -24,15 +23,13 @@ import javax.annotation.PostConstruct;
  *
  * @author Desarrollo_Planit
  */
-public class PedidoCT {
+public class PedidoCT implements Serializable {
 
     private Pedido_TO pedido;
     private List<Pedido_TO> pedidos;
 
     private List<SubProductoCosto_TO> subproductos;
-    private List<List<SubProductoCosto_TO>> subproductosOrdenados;
 
-    private List<SubProductoCosto_TO> subproductosvista;
     private int vista;
     private int cantidadProductos;
 
@@ -50,8 +47,6 @@ public class PedidoCT {
         botonsiguiente = true;
         botonconfirmar = false;
 
-        subproductosOrdenados = new ArrayList<>();
-        subproductosvista = new ArrayList<>();
         pedidos = new ArrayList<>();
         PedidoDao pedidoDao = new PedidoDao();
         pedidos = pedidoDao.consultarPedidos();
@@ -75,9 +70,7 @@ public class PedidoCT {
                 botonconfirmar = false;
             }
         }
-        
         //Carga de pedidos
-        
     }
 
     //Getter & Setter
@@ -135,22 +128,6 @@ public class PedidoCT {
 
     public void setSubproductos(List<SubProductoCosto_TO> subproductos) {
         this.subproductos = subproductos;
-    }
-
-    public List<List<SubProductoCosto_TO>> getSubproductosOrdenados() {
-        return subproductosOrdenados;
-    }
-
-    public void setSubproductosOrdenados(List<List<SubProductoCosto_TO>> subproductosOrdenados) {
-        this.subproductosOrdenados = subproductosOrdenados;
-    }
-
-    public List<SubProductoCosto_TO> getSubproductosvista() {
-        return subproductosvista;
-    }
-
-    public void setSubproductosvista(List<SubProductoCosto_TO> subproductosvista) {
-        this.subproductosvista = subproductosvista;
     }
 
     public boolean isBotonconfirmar() {
@@ -215,86 +192,10 @@ public class PedidoCT {
         cantidadProductos = subproductos.size();
     }
 
-    public void eliminarproducto(SubProductoCosto_TO sp) {
-        boolean bandera = false;
-        int i = 0;
-        while (!bandera) {
-            if (subproductos.get(i).getIdSubProducto() == sp.getIdSubProducto()) {
-                subproductos.remove(i);
-                bandera = true;
-            }
-            i++;
-        }
-        cantidadProductos = subproductos.size();
-        organizarSubProductosPedido();
-    }
-
-    public void insertionSortSubProductos() {
-        SubProductoCosto_TO aux;
-        int c1;
-        int c2;
-
-        for (c1 = 1; c1 < subproductos.size(); c1++) {
-            aux = subproductos.get(c1);
-            for (c2 = c1 - 1; c2 >= 0 && subproductos.get(c2).getIdSubProducto() > aux.getIdSubProducto(); c2--) {
-                subproductos.set(c2 + 1, subproductos.get(c2));
-                subproductos.set(c2, aux);
-            }
-        }
-    }
-
-    public void organizarSubProductosPedido() {
-        subproductosOrdenados = new ArrayList<>();
-        subproductosvista = new ArrayList<>();
-        insertionSortSubProductos();
-        int tipo;
-        List<Integer> productosAgregados;
-        productosAgregados = new ArrayList<>();
-        boolean existe;
-        //Agrupo productos del pedido
-        for (int i = 0; i < subproductos.size(); i++) {
-            existe = false;
-            tipo = subproductos.get(i).getIdSubProducto();
-            for (int h = 0; h < productosAgregados.size(); h++) {
-                if (tipo == productosAgregados.get(h)) {
-                    existe = true;
-                }
-            }
-            if (!existe) {
-                productosAgregados.add(tipo);
-                List<SubProductoCosto_TO> aux = new ArrayList<>();
-                for (int j = 0; j < subproductos.size(); j++) {
-                    if (subproductos.get(i).getIdSubProducto() == subproductos.get(j).getIdSubProducto()) {
-                        aux.add(subproductos.get(j));
-                    }
-                }
-                subproductosOrdenados.add(aux);
-            }
-        }
-
-        for (int i = 0; i < subproductosOrdenados.size(); i++) {
-            subproductosvista.add(subproductosOrdenados.get(i).get(0));
-        }
-    }
-
-    public String calcularCantidadPrendas(SubProductoCosto_TO subProducto) {
-        int i = 0;
-        int cantidad = 0;
-        while (true) {
-            if (subproductosOrdenados.get(i).get(0).getIdSubProducto() == subProducto.getIdSubProducto()) {
-                cantidad = subproductosOrdenados.get(i).size();
-                break;
-            } else {
-                i++;
-            }
-        }
-        return "X" + cantidad;
-    }
-
     //Metodos CRUD
     public void registrarPedido() {
         PedidoDao pedidoDao = new PedidoDao();
-        
+
         pedidoDao.registrarPedidoCompleto(pedido);
         pedido = pedidoDao.consultarUltimoPedidoCliente(Sesion.obtenerSesion());
 
@@ -309,18 +210,103 @@ public class PedidoCT {
 
         pedido = new Pedido_TO();
         subproductos = new ArrayList<>();
-        
+
         vista = 0;
         botonatras = false;
         botonsiguiente = true;
         botonconfirmar = false;
-        
+
         cantidadProductos = 0;
         Pedido.ReiniciarValores();
     }
-    
-    public String verPedido(Pedido_TO ped){
-        pedido = ped;
-        return "DescripcionPedido";
+
+    public void eliminarproducto(SubProductoCosto_TO sp) {
+        boolean bandera = false;
+        int i = 0;
+        while (!bandera) {
+            if (subproductos.get(i).getIdSubProducto() == sp.getIdSubProducto()) {
+                subproductos.remove(i);
+                bandera = true;
+            }
+            i++;
+        }
+        cantidadProductos = subproductos.size();
+    }
+
+    //Metodos para el manejo de los productos del pedido
+    public List<SubProductoCosto_TO> insertionSortSubProductos(List<SubProductoCosto_TO> lista) {
+        SubProductoCosto_TO aux;
+        int c1;
+        int c2;
+
+        for (c1 = 1; c1 < lista.size(); c1++) {
+            aux = lista.get(c1);
+            for (c2 = c1 - 1; c2 >= 0 && lista.get(c2).getIdSubProducto() > aux.getIdSubProducto(); c2--) {
+                lista.set(c2 + 1, lista.get(c2));
+                lista.set(c2, aux);
+            }
+        }
+
+        return lista;
+    }
+
+    public List<List<SubProductoCosto_TO>> organizarSubProductos(List<SubProductoCosto_TO> lista) {
+        List<List<SubProductoCosto_TO>> subproductosOrdenados = new ArrayList<>();
+        lista = insertionSortSubProductos(lista);
+        int tipo;
+        List<Integer> productosAgregados;
+        productosAgregados = new ArrayList<>();
+        boolean existe;
+        //Agrupo productos del pedido
+        for (int i = 0; i < lista.size(); i++) {
+            existe = false;
+            tipo = lista.get(i).getIdSubProducto();
+            for (int h = 0; h < productosAgregados.size(); h++) {
+                if (tipo == productosAgregados.get(h)) {
+                    existe = true;
+                }
+            }
+            if (!existe) {
+                productosAgregados.add(tipo);
+                List<SubProductoCosto_TO> aux = new ArrayList<>();
+                for (int j = 0; j < lista.size(); j++) {
+                    if (lista.get(i).getIdSubProducto() == lista.get(j).getIdSubProducto()) {
+                        aux.add(lista.get(j));
+                    }
+                }
+                subproductosOrdenados.add(aux);
+            }
+        }
+        return subproductosOrdenados;
+    }
+
+    public List<SubProductoCosto_TO> obtenerSubProductosPedidoOrdenados(List<SubProductoCosto_TO> lista) {
+        List<List<SubProductoCosto_TO>> subproductosOrdenados = new ArrayList<>();
+        List<SubProductoCosto_TO> subproductosvista = new ArrayList<>();
+        subproductosOrdenados = organizarSubProductos(lista);
+        for (int i = 0; i < subproductosOrdenados.size(); i++) {
+            subproductosvista.add(subproductosOrdenados.get(i).get(0));
+        }
+        return subproductosvista;
+    }
+
+    public String calcularCantidadPrendas(List<List<SubProductoCosto_TO>> subproductosOrdenados, SubProductoCosto_TO subProducto) {
+        int i = 0;
+        int cantidad = 0;
+        while (true) {
+            if (subproductosOrdenados.get(i).get(0).getIdSubProducto() == subProducto.getIdSubProducto()) {
+                cantidad = subproductosOrdenados.get(i).size();
+                break;
+            } else {
+                i++;
+            }
+        }
+        return "X" + cantidad;
+    }
+
+    //Otros
+    public void verPedido(Pedido_TO pedido) {
+        this.pedido = pedido;
+        vista = 1;
     }
 }

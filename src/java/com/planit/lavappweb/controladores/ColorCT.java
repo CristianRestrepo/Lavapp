@@ -6,6 +6,7 @@
 package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.modelo.dto.Color_TO;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -15,7 +16,7 @@ import javax.annotation.PostConstruct;
  * @author Desarrollo_Planit
  */
 
-public class ColorCT {
+public class ColorCT implements Serializable {
 
     private Color_TO color;
     private List<Color_TO> colores;

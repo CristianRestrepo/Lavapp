@@ -5,6 +5,7 @@
  */
 package com.planit.lavappweb.modelo.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -17,7 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Planit
  */
 @XmlRootElement
-public class Descuento_TO {
+public class Descuento_TO implements Serializable{
 
     /**
      *

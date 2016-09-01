@@ -7,6 +7,7 @@ package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.modelo.dao.BarriosDao;
 import com.planit.lavappweb.modelo.dto.Barrio_TO;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -15,7 +16,7 @@ import javax.annotation.PostConstruct;
  *
  * @author Desarrollo_Planit
  */
-public class BarrioCT {
+public class BarrioCT implements Serializable{
 
     private Barrio_TO barrio;
     private List<Barrio_TO> barrios;

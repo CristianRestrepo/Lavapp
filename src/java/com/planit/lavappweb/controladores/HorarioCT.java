@@ -7,6 +7,7 @@ package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.modelo.dao.HorarioDao;
 import com.planit.lavappweb.modelo.dto.Horario_TO;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import javax.annotation.PostConstruct;
  *
  * @author Desarrollo_Planit
  */
-public class HorarioCT {
+public class HorarioCT implements Serializable{
 
     private Horario_TO horario;
     private List<Horario_TO> horarios;

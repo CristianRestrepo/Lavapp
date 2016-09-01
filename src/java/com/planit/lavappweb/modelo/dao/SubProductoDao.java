@@ -135,4 +135,11 @@ public class SubProductoDao {
                 "" + subProducto.getIdSubProducto(),
                 subProducto.getNombre());
     }
+    
+    public SubProductoCosto_TO consultarSubProductoConCosto(SubProducto_TO subProducto) {
+        ClienteConsultarSubProducto cliente = new ClienteConsultarSubProducto();
+        return cliente.consultarSubProducto(SubProductoCosto_TO.class, 
+                "" + subProducto.getIdSubProducto(),
+                subProducto.getNombre());
+    }
 }

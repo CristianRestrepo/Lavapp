@@ -6,8 +6,11 @@
 package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.modelo.dao.DescripcionPedidoDao;
+import com.planit.lavappweb.modelo.dao.SubProductoDao;
 import com.planit.lavappweb.modelo.dto.DescripcionPedido_TO;
 import com.planit.lavappweb.modelo.dto.Pedido_TO;
+import com.planit.lavappweb.modelo.dto.SubProductoCosto_TO;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -16,7 +19,7 @@ import javax.annotation.PostConstruct;
  *
  * @author Desarrollo_Planit
  */
-public class DescripcionPedidoCT {
+public class DescripcionPedidoCT implements Serializable {
 
     private DescripcionPedido_TO productoPedido;
     private List<DescripcionPedido_TO> productosPedido;
@@ -59,12 +62,24 @@ public class DescripcionPedidoCT {
 
     public List<DescripcionPedido_TO> consultarDescripcionesSegunPedido(Pedido_TO pedido) {
         DescripcionPedidoDao descripcionDao = new DescripcionPedidoDao();
-        return descripcionDao.consultarDescripcionPedidoSegunPedido(pedido);        
+        List<DescripcionPedido_TO> lista = descripcionDao.consultarDescripcionPedidoSegunPedido(pedido);
+        return lista;
     }
 
     public List<DescripcionPedido_TO> consultarDescripcionesSinFotosSegunPedido(Pedido_TO pedido) {
         DescripcionPedidoDao descripcionDao = new DescripcionPedidoDao();
-        return descripcionDao.consultarDescripcionesSinFotosSegunPedido(pedido);
+        List<DescripcionPedido_TO> lista = descripcionDao.consultarDescripcionesSinFotosSegunPedido(pedido);
+        return lista;
+    }
+        
+    public List<SubProductoCosto_TO> obtenerSubProductos(Pedido_TO pedido){
+        List<DescripcionPedido_TO> lista = consultarDescripcionesSinFotosSegunPedido(pedido);
+        List<SubProductoCosto_TO> subproductos = new ArrayList<>();
+        SubProductoDao subProductosDao = new SubProductoDao();
+        for (int i = 0; i < lista.size(); i++) {
+            subproductos.add((subProductosDao.consultarSubProductoConCosto(lista.get(i).getSubProducto())));
+        }
+        return subproductos;
     }
 
 }

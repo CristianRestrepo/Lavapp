@@ -7,6 +7,7 @@ package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.modelo.dao.ZonaDao;
 import com.planit.lavappweb.modelo.dto.Zona_TO;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -15,7 +16,7 @@ import javax.annotation.PostConstruct;
  *
  * @author Desarrollo_Planit
  */
-public class ZonaCT {
+public class ZonaCT implements Serializable {
 
     private Zona_TO zona;
     private List<Zona_TO> zonas;

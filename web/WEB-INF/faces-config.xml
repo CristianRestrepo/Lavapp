@@ -120,12 +120,7 @@
             <from-outcome>Pedido</from-outcome>
             <to-view-id>/Vistas/Usuario/Pedidos/Pedido.xhtml</to-view-id>
             <redirect/>
-        </navigation-case>
-         <navigation-case>
-            <from-outcome>DescripcionPedido</from-outcome>
-            <to-view-id>/Vistas/Usuario/Pedidos/DescripcionPedido.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
+        </navigation-case>        
         <navigation-case>
             <from-outcome>Login</from-outcome>
             <to-view-id>/login.xhtml</to-view-id>
@@ -178,8 +173,15 @@
             <to-view-id>/Vistas/Usuario/Perfil/PInformacionS.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
-    </navigation-rule>   
-    
+    </navigation-rule> 
+    <navigation-rule>
+        <from-view-id>/Vistas/Usuario/Pedidos/Pedido.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>DescripcionPedido</from-outcome>
+            <to-view-id>/Vistas/Usuario/Pedidos/DescripcionPedido.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule> 
+      
     <!--Managed Beans-->
     <managed-bean>
         <managed-bean-name>pedidoCT</managed-bean-name>
