@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./../adminTemplate.xhtml">
+            <ui:define name="content">
+                <b:container fluid="true">
+                   <b:row>
+                        <b:column col-lg="12"><!-- primer titulo columna izquierda  -->
+                        <div>
+                            <h3> TUS PEDIDOS <small>Visualiza tus pedidos.</small></h3>                            
+                        </div>
+                    </b:column>
+                       <h:form id="formularioagente" enctype="multipart/form-data" >   
+                          
+                           <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                            <p:messages id="messages" closable="true"/>
+                        </b:column>
+                            <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
+                            <!-- primer contenido de formulario o lo que sea  columna izquierda  -->
+                           
+                            <h4 class="box-title">Pedidos</h4>
+                            <div class="box box-success" aling="center"></div>
+                             <i class="" aria-hidden="true"></i> 
+                                <div class="box-body">
+                                    <div class="table-responsive">
+                                        <!-- espacio para lista de agentes  -->
+                                    <div id="galeria">
+                                <div id="galeria_imagen">
+                                <img id="imgGaleria" src="../Lavapp/Lavapp/web/resources/images/prendas/hombre1/.jpg" /></div>
+                                <div id="galeria_miniaturas">
+                                <img class="miniatura" onclick="javascript:document.getElementById('imgGaleria').src='../Lavapp/Lavapp/web/resources/images/prendas/hombre/1.jpg';" src="../Lavapp/Lavapp/web/resources/images/prendas/hombre/1.jpg" />
+                                <img class="miniatura" onclick="javascript:document.getElementById('imgGaleria').src='images/prendas/hombre/2.jpg';" src="images/prendas/hombre/2.jpg'" />
+                                <img class="miniatura" onclick="javascript:document.getElementById('imgGaleria').src='images/prendas/hombre/3.jpg';" src="images/prendas/hombre/3.jpg'" />
+                                <img class="miniatura" onclick="javascript:document.getElementById('imgGaleria').src='images/prendas/hombre/4.jpg';" src="images/prendas/hombre/4.jpg'" />
+                                <img class="miniatura" onclick="javascript:document.getElementById('imgGaleria').src='images/prendas/hombre/5.jpg';" src="images/prendas/hombre/5.jpg'" />
+                                </div>
+                                </div>
+                                  </div>
+                                    </div>
+                        </b:column>    <!-- termina primer contenido  columna izquierda  -->                    
+                    </h:form> <!-- primer titulo columna derecha  -->
+                       <h:form id="eligezona">
+                        <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12"> 
+                            <h4 class="box-title">Descripcion de tu pedido</h4>
+                            <div class="box box-info" aling="center">
+                                <div class="content-descp">
+                              </div>
+                                 <i class="" aria-hidden="true"></i>  <div class="table-responsive">
+                                        <!-- espacio para lista de agentes  -->
+                                    </div> 
+                                <div class="box-footer" align="center"> <!-- segundo contenido columna izquierda  -->
+                                       <table class="tab-desc">
+                                            <tr class="descp1">Camisa manga larga </tr>
+                                            <tr></tr>
+                                            <tr class="descp2"> color azul</tr>
+                                            <tr class="descp3">lavado, planchado</tr>
+                                           
+                               </table>      <h:panelGrid columns="2">
+                                                                               
+                                       </h:panelGrid>
+                                    </div>
+                           
+                            </div>
+                             <!-- fin de contenidos  -->
+                        </b:column>
+                    </h:form>
+                   </b:row>
+               </b:container>
+            </ui:define>
+
+        </ui:composition>
+</html>
