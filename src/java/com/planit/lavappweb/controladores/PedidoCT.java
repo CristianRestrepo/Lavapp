@@ -36,6 +36,8 @@ public class PedidoCT implements Serializable {
     private boolean botonatras;
     private boolean botonsiguiente;
     private boolean botonconfirmar;
+    
+    private String buscar;
 
     public PedidoCT() {
 
@@ -46,8 +48,8 @@ public class PedidoCT implements Serializable {
         botonatras = false;
         botonsiguiente = true;
         botonconfirmar = false;
-
-        pedidos = new ArrayList<>();
+        buscar = null;
+      
         PedidoDao pedidoDao = new PedidoDao();
         pedidos = pedidoDao.consultarPedidos();
     }
@@ -69,8 +71,7 @@ public class PedidoCT implements Serializable {
                 botonsiguiente = true;
                 botonconfirmar = false;
             }
-        }
-        //Carga de pedidos
+        }        
     }
 
     //Getter & Setter
@@ -138,6 +139,15 @@ public class PedidoCT implements Serializable {
         this.botonconfirmar = botonconfirmar;
     }
 
+    public String getBuscar() {
+        return buscar;
+    }
+
+    public void setBuscar(String buscar) {
+        this.buscar = buscar;
+    }
+
+    
     //Metodos para las vistas 
     public void atras() {
         if (vista > 0) {
@@ -309,4 +319,19 @@ public class PedidoCT implements Serializable {
         this.pedido = pedido;
         vista = 1;
     }
+    
+    public void volverPedidos(){
+        vista = 0;
+    }    
+    
+    public void buscarPedido(){
+        PedidoDao pedidoDao = new PedidoDao();
+        pedidos = new ArrayList<>();
+        if(buscar != null){
+            pedidos = pedidoDao.BuscarPedidos(buscar);
+        }else{
+           pedidos = pedidoDao.consultarPedidos();
+        }
+    }
+    
 }
