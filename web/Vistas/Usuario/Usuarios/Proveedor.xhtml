@@ -7,186 +7,186 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:b="http://bootsfaces.net/ui">
 
-            <ui:composition template="./../adminTemplate.xhtml">
-            <ui:define name="content">
-                <b:container fluid="true">
-                    <b:row>
-                        <b:column col-lg="12">
-                            <div>
-                                <h3>PROVEEDORES<small> Plantas de lavado e informacion de sus representantes.</small></h3>                            
-                            </div>
-                        </b:column>
+    <ui:composition template="./../adminTemplate.xhtml">
+        <ui:define name="content">
+            <b:container fluid="true">
+                <b:row>
+                    <b:column col-lg="12">
+                        <div>
+                            <h3>PROVEEDORES<small> Plantas de lavado e informacion de sus representantes.</small></h3>                            
+                        </div>
+                    </b:column>
 
-                        <h:form id="formularioProveedor">
-                            <b:column col-lg="6" col-md="6" col-xs="12" col-sm="12">                            
-                                <div class="box box-success">
-                                    <div class="box-header with-border">
-                                        <i class="fa fa-2x fa-globe"/>
-                                        <h4 class="box-title">Datos del Representante</h4>
-                                    </div>
-                                    <div class="box-body">
-                                        <div class="form-group">
-                                            <p:inputText class="form-control" value="#{proveedorCT.proveedor.usuario.nombre}" required="true" requiredMessage="Ingrese nombres" placeholder="Nombres del usuario"  id="txtNombreUsuario"/>
-                                            <p:message for="txtNombreUsuario"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <p:inputText class="form-control" value="#{proveedorCT.proveedor.usuario.apellido}" required="true" requiredMessage="Ingrese apellidos" placeholder="Apellidos del usuario"  id="txtApellidoUsuario"/>
-                                            <p:message for="txtApellidoUsuario"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <p:inputText class="form-control" value="#{proveedorCT.proveedor.usuario.identificacion}" required="true" requiredMessage="Indique numero de identificacion" placeholder="identificacion" id="txtIdentificacion"/>
-                                            <p:message for="txtIdentificacion"/>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <p:inputText validator="ValidatorEmailRegMod" class="form-control" value="#{proveedorCT.proveedor.usuario.email}" placeholder="Email" type="text" id="txtEmail">
-                                                <f:attribute name="operacion" value="#{proveedorCT.operacion}"/>
-                                                <f:attribute name="usuario" value="#{proveedorCT.proveedor.usuario}"/>
-                                            </p:inputText>
-                                            <p:message for="txtEmail"/>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <p:inputText class="form-control" value="#{proveedorCT.proveedor.usuario.movil}" placeholder="Telefono movil" type="text" id="txtMovil"/>
-                                            <p:message for="txtMovil"/>
-                                        </div>
-
-                                        <hr/>
-
-                                        <div class="form-group">
-                                            <label class="control-label" for="SMGenero">Genero<span class="required">*</span></label>
-                                            <h:selectOneMenu class="form-control" value="#{proveedorCT.proveedor.usuario.genero}" requiredMessage="Seleccione genero" required="true" id="SMGenero">
-                                                <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
-                                                <f:selectItem itemLabel="Masculino" itemValue="M"/>
-                                                <f:selectItem itemLabel="Femenino" itemValue="F"/>
-                                            </h:selectOneMenu>
-                                            <p:message for="SMGenero"/>
-                                        </div>                                     
-                                    </div>
-                                </div>                               
-                            </b:column>
-                            <b:column col-lg="6" col-md="6" col-xs="12" col-sm="12">                            
-                                <div class="box box-success">
-                                    <div class="box-header with-border"> 
-                                        <i class="fa fa-2x fa fa-industry"/>
-                                        <h4 class="box-title">Datos de la planta</h4>
-                                    </div>
-                                    <div class="box-body">
-                                        <div class="form-group">
-                                            <p:inputText class="form-control" value="#{proveedorCT.proveedor.razonSocial}" requiredMessage="Indique razon social" required="true" placeholder="Razon social" type="text" id="txtRazonSocial"/>
-                                            <p:message for="SMGenero"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <p:inputText class="form-control" requiredMessage="Indique nit de la empresa" value="#{proveedorCT.proveedor.nit}" required="true" placeholder="NIT" type="text" id="txtNit"/>
-                                            <p:message for="SMGenero"/>
-                                        </div>                                    
-                                        <div class="form-group">
-                                            <p:inputText class="form-control" value="#{proveedorCT.proveedor.telefono}" placeholder="Telefono" type="text" id="txtTelefonoProveedor"/>
-                                            <p:message for="SMGenero"/>
-                                        </div>
-
-                                        <hr/>
-
-                                        <div class="form-group">
-                                            <label class="control-label" for="SMBarrio">Barrio<span class="required">*</span></label>
-                                            <h:selectOneMenu required="true" requiredMessage="Seleccione barrio" value="#{proveedorCT.proveedor.usuario.barrio.nombre}" class="form-control" id="SMBarrio">
-                                                <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
-                                                <f:selectItems value="#{barrioCT.barrios}" var="barrio" itemLabel="#{barrio.nombre}" itemValue="#{barrio.nombre}"/>
-                                            </h:selectOneMenu>
-                                            <p:message for="SMBarrio"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label" for="txtDireccionProveedor">Direccion<span class="required">*</span></label>
-                                            <p:inputText class="form-control" value="#{proveedorCT.proveedor.direccion}" requiredMessage="Indique direccion de la planta" required="true" placeholder="Direccion de la planta" type="text" id="txtDireccionProveedor"/>
-                                            <p:message for="txtDireccionProveedor"/>
-                                        </div>
-                                        <hr/>
-                                        <div class="form-group">
-                                            <label class="control-label" for="txtCupo">Cupo<span class="required">*</span></label>
-                                            <p:inputText class="form-control" value="#{proveedorCT.proveedor.cupo}" required="true" placeholder="Cupo maximo de prendas" type="text" id="txtCupo"/>
-                                            <p:message for="txtCupo"/>
-                                        </div>
-                                    </div>
-                                    <div class="box-footer">
-                                        <p:commandButton  value="Cancelar" immediate="true" process="@this" 
-                                                          update=":formularioProveedor" action="#{proveedorCT.cancelar()}"
-                                                          class="btn btn-primary"/>
-                                        <p:commandButton  onclick="PrimeFaces.monitorDownload(start, stop);"  type="submit" update=":formularioProveedor :formularioListaProveedores" 
-                                                          action="#{proveedorCT.metodo()}" value="#{proveedorCT.nombreOperacion}" 
-                                                          class="btn btn-success"/>
-                                        <script type="text/javascript">
-                                            function start() {
-                                                PF('statusDialog').show();
-                                            }
-                                            function stop() {
-                                                PF('statusDialog').hide();
-                                            }
-                                        </script>
-                                        <p:dialog  modal="true" widgetVar="statusDialog" header="Cargando" draggable="false" closable="false" resizable="false">
-                                            <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif"/>
-                                        </p:dialog>
-                                    </div>
-                                </div>
-                            </b:column>
-                        </h:form>
-                    </b:row>
-                    <b:row>
-                        <b:column col-lg="12" col-md="12" col-xs="12" col-sm="12">
-                            <div class="box box-info">
+                    <h:form id="formularioProveedor">
+                        <b:column col-lg="6" col-md="6" col-xs="12" col-sm="12">                            
+                            <div class="box box-success">
                                 <div class="box-header with-border">
-                                    <i class="fa fa-2x fa fa-list"/>
-                                    <h4 class="box-title">Lista de proveedores</h4>
+                                    <i class="fa fa-2x fa-globe"/>
+                                    <h4 class="box-title">Datos del Representante</h4>
                                 </div>
                                 <div class="box-body">
-                                    <h:form id="formularioListaProveedores">
-                                        <p:inputText value="#{proveedorCT.buscar}" style="width: 100%" placeholder="Buscar..." class="form-control">
-                                            <p:ajax event="keyup" listener="#{proveedorCT.buscarProveedores()}" process="@this" update="DTProveedores" />
+                                    <div class="form-group">
+                                        <p:inputText class="form-control" value="#{proveedorCT.proveedor.usuario.nombre}" required="true" requiredMessage="Ingrese nombres" placeholder="Nombres del usuario"  id="txtNombreUsuario"/>
+                                        <p:message for="txtNombreUsuario"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <p:inputText class="form-control" value="#{proveedorCT.proveedor.usuario.apellido}" required="true" requiredMessage="Ingrese apellidos" placeholder="Apellidos del usuario"  id="txtApellidoUsuario"/>
+                                        <p:message for="txtApellidoUsuario"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <p:inputText class="form-control" value="#{proveedorCT.proveedor.usuario.identificacion}" required="true" requiredMessage="Indique numero de identificacion" placeholder="identificacion" id="txtIdentificacion"/>
+                                        <p:message for="txtIdentificacion"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <p:inputText validator="ValidatorEmailRegMod" class="form-control" value="#{proveedorCT.proveedor.usuario.email}" placeholder="Email" type="text" id="txtEmail">
+                                            <f:attribute name="operacion" value="#{proveedorCT.operacion}"/>
+                                            <f:attribute name="usuario" value="#{proveedorCT.proveedor.usuario}"/>
                                         </p:inputText>
-                                        <hr/>
-                                        <p:dataTable id="DTProveedores" style="width: 100%" var="Proveedor" value="#{proveedorCT.proveedores}" class="table-responsive table table-striped" rows="10"
-                                                     paginator="true" emptyMessage="No existen planta registradas"
-                                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                     rowsPerPageTemplate="5,10,15">
-                                            <p:column headerText="Razon Social">
-                                                <p:outputLabel value="#{Proveedor.razonSocial}" />         
-                                            </p:column>
+                                        <p:message for="txtEmail"/>
+                                    </div>
 
-                                            <p:column headerText="NIT">
-                                                <p:outputLabel value="#{Proveedor.nit}"/>         
-                                            </p:column>
+                                    <div class="form-group">
+                                        <p:inputText class="form-control" value="#{proveedorCT.proveedor.usuario.movil}" placeholder="Telefono movil" type="text" id="txtMovil"/>
+                                        <p:message for="txtMovil"/>
+                                    </div>
 
-                                            <p:column headerText="Telefono">
-                                                <p:outputLabel value="#{Proveedor.telefono}"/>         
-                                            </p:column>
+                                    <hr/>
 
-                                            <p:column headerText="Nombre Representante">
-                                                <p:outputLabel value="#{Proveedor.usuario.nombre}"/>         
-                                            </p:column>
+                                    <div class="form-group">
+                                        <label class="control-label" for="SMGenero">Genero<span class="required">*</span></label>
+                                        <h:selectOneMenu class="form-control" value="#{proveedorCT.proveedor.usuario.genero}" requiredMessage="Seleccione genero" required="true" id="SMGenero">
+                                            <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
+                                            <f:selectItem itemLabel="Masculino" itemValue="M"/>
+                                            <f:selectItem itemLabel="Femenino" itemValue="F"/>
+                                        </h:selectOneMenu>
+                                        <p:message for="SMGenero"/>
+                                    </div>                                     
+                                </div>
+                            </div>                               
+                        </b:column>
+                        <b:column col-lg="6" col-md="6" col-xs="12" col-sm="12">                            
+                            <div class="box box-success">
+                                <div class="box-header with-border"> 
+                                    <i class="fa fa-2x fa fa-industry"/>
+                                    <h4 class="box-title">Datos de la planta</h4>
+                                </div>
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <p:inputText class="form-control" value="#{proveedorCT.proveedor.razonSocial}" requiredMessage="Indique razon social" required="true" placeholder="Razon social" type="text" id="txtRazonSocial"/>
+                                        <p:message for="SMGenero"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <p:inputText class="form-control" requiredMessage="Indique nit de la empresa" value="#{proveedorCT.proveedor.nit}" required="true" placeholder="NIT" type="text" id="txtNit"/>
+                                        <p:message for="SMGenero"/>
+                                    </div>                                    
+                                    <div class="form-group">
+                                        <p:inputText class="form-control" value="#{proveedorCT.proveedor.telefono}" placeholder="Telefono" type="text" id="txtTelefonoProveedor"/>
+                                        <p:message for="SMGenero"/>
+                                    </div>
 
-                                            <p:column headerText="Apellido Representante">
-                                                <p:outputLabel value="#{Proveedor.usuario.apellido}"/>         
-                                            </p:column>
+                                    <hr/>
 
-                                            <p:column  style="width: 60px" headerText="">
-                                                <p:commandLink style="color: white; width: 100%" process="@this" update=":formularioProveedor" action="#{proveedorCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
-                                                    <f:setPropertyActionListener value="#{Proveedor}" target="#{proveedorCT.proveedor}"/>
-                                                    <i class="fa fa-pencil"/> 
-                                                </p:commandLink>
-                                            </p:column>
-
-                                            <p:column  style="width: 60px" headerText="">
-                                                <p:commandLink style="color: white; width: 100%" action="#{proveedorCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
-                                                    <f:setPropertyActionListener value="#{Proveedor}" target="#{proveedorCT.proveedor}"/>
-                                                    <i class="fa fa-trash"/>                                                     
-                                                </p:commandLink>
-                                            </p:column>
-                                        </p:dataTable>
-                                    </h:form>
+                                    <div class="form-group">
+                                        <label class="control-label" for="SMBarrio">Barrio<span class="required">*</span></label>
+                                        <h:selectOneMenu required="true" requiredMessage="Seleccione barrio" value="#{proveedorCT.proveedor.usuario.barrio.nombre}" class="form-control" id="SMBarrio">
+                                            <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
+                                            <f:selectItems value="#{barrioCT.barrios}" var="barrio" itemLabel="#{barrio.nombre}" itemValue="#{barrio.nombre}"/>
+                                        </h:selectOneMenu>
+                                        <p:message for="SMBarrio"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label" for="txtDireccionProveedor">Direccion<span class="required">*</span></label>
+                                        <p:inputText class="form-control" value="#{proveedorCT.proveedor.direccion}" requiredMessage="Indique direccion de la planta" required="true" placeholder="Direccion de la planta" type="text" id="txtDireccionProveedor"/>
+                                        <p:message for="txtDireccionProveedor"/>
+                                    </div>
+                                    <hr/>
+                                    <div class="form-group">
+                                        <label class="control-label" for="txtCupo">Cupo<span class="required">*</span></label>
+                                        <p:inputText class="form-control" value="#{proveedorCT.proveedor.cupo}" required="true" placeholder="Cupo maximo de prendas" type="text" id="txtCupo"/>
+                                        <p:message for="txtCupo"/>
+                                    </div>
+                                </div>
+                                <div class="box-footer">
+                                    <p:commandButton  value="Cancelar" immediate="true" process="@this" 
+                                                      update=":formularioProveedor" action="#{proveedorCT.cancelar()}"
+                                                      class="btn btn-primary"/>
+                                    <p:commandButton  onclick="PrimeFaces.monitorDownload(start, stop);"  type="submit" update=":formularioProveedor :formularioListaProveedores" 
+                                                      action="#{proveedorCT.metodo()}" value="#{proveedorCT.nombreOperacion}" 
+                                                      class="btn btn-success"/>
+                                    <script type="text/javascript">
+                                        function start() {
+                                            PF('statusDialog').show();
+                                        }
+                                        function stop() {
+                                            PF('statusDialog').hide();
+                                        }
+                                    </script>
+                                    <p:dialog  modal="true" widgetVar="statusDialog" header="Cargando" draggable="false" closable="false" resizable="false">
+                                        <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif"/>
+                                    </p:dialog>
                                 </div>
                             </div>
                         </b:column>
-                    </b:row>
-                </b:container>   
-            </ui:define>
-        </ui:composition>    
+                    </h:form>
+                </b:row>
+                <b:row>
+                    <b:column col-lg="12" col-md="12" col-xs="12" col-sm="12">
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+                                <i class="fa fa-2x fa fa-list"/>
+                                <h4 class="box-title">Lista de proveedores</h4>
+                            </div>
+                            <div class="box-body">
+                                <h:form id="formularioListaProveedores">
+                                    <p:inputText value="#{proveedorCT.buscar}" style="width: 100%" placeholder="Buscar..." class="form-control">
+                                        <p:ajax event="keyup" listener="#{proveedorCT.buscarProveedores()}" process="@this" update="DTProveedores" />
+                                    </p:inputText>
+                                    <hr/>
+                                    <p:dataTable id="DTProveedores" style="width: 100%" var="Proveedor" value="#{proveedorCT.proveedores}" class="table-responsive table table-striped" rows="10"
+                                                 paginator="true" emptyMessage="No existen planta registradas"
+                                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="5,10,15">
+                                        <p:column headerText="Razon Social">
+                                            <p:outputLabel value="#{Proveedor.razonSocial}" />         
+                                        </p:column>
+
+                                        <p:column headerText="NIT">
+                                            <p:outputLabel value="#{Proveedor.nit}"/>         
+                                        </p:column>
+
+                                        <p:column headerText="Telefono">
+                                            <p:outputLabel value="#{Proveedor.telefono}"/>         
+                                        </p:column>
+
+                                        <p:column headerText="Nombre Representante">
+                                            <p:outputLabel value="#{Proveedor.usuario.nombre}"/>         
+                                        </p:column>
+
+                                        <p:column headerText="Apellido Representante">
+                                            <p:outputLabel value="#{Proveedor.usuario.apellido}"/>         
+                                        </p:column>
+
+                                        <p:column  style="width: 60px" headerText="">
+                                            <p:commandLink style="color: white; width: 100%" process="@this" update=":formularioProveedor" action="#{proveedorCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
+                                                <f:setPropertyActionListener value="#{Proveedor}" target="#{proveedorCT.proveedor}"/>
+                                                <i class="fa fa-pencil"/> 
+                                            </p:commandLink>
+                                        </p:column>
+
+                                        <p:column  style="width: 60px" headerText="">
+                                            <p:commandLink style="color: white; width: 100%" action="#{proveedorCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
+                                                <f:setPropertyActionListener value="#{Proveedor}" target="#{proveedorCT.proveedor}"/>
+                                                <i class="fa fa-trash"/>                                                     
+                                            </p:commandLink>
+                                        </p:column>
+                                    </p:dataTable>
+                                </h:form>
+                            </div>
+                        </div>
+                    </b:column>
+                </b:row>
+            </b:container>   
+        </ui:define>
+    </ui:composition>    
 </html>

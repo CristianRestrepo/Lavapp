@@ -124,7 +124,7 @@ public class LocalidadCT implements Serializable{
     public void buscarLocalidades(){
         LocalidadDao localidadDao = new LocalidadDao();
         localidades = new ArrayList<>();
-        if(buscar == null){
+        if(buscar.isEmpty()){
             localidades = localidadDao.consultarLocalidades();
         }else{
             localidades = localidadDao.BuscarLocalidades(buscar);

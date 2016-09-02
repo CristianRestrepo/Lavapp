@@ -68,7 +68,7 @@ public class CalificacionDao {
         try {
             for (int i = 0; i < datos.size(); i++) {
                 LinkedHashMap map = (LinkedHashMap) datos.get(i).get("pedido");
-                pedidoModelo = pd.consultarPedido(new Pedido_TO((int) map.get("idPedido")));
+                pedidoModelo = pd.consultarPedidoWeb(new Pedido_TO((int) map.get("idPedido")));
 
                 try {
                     calificaciones.add(new Calificacion_TO((int) datos.get(i).get("idCalificacion"),

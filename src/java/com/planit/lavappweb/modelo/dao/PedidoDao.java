@@ -14,6 +14,7 @@ import com.planit.lavappweb.modelo.dto.Proveedor_TO;
 import com.planit.lavappweb.modelo.dto.Usuario_TO;
 import com.planit.lavappweb.webservices.clientes.ClienteBuscarPedido;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarPedido;
+import com.planit.lavappweb.webservices.clientes.ClienteConsultarPedidoWeb;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarPedidos;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarPedidosCliente;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarUltimoPedidoCliente;
@@ -61,6 +62,12 @@ public class PedidoDao {
         ClienteConsultarPedido cliente = new ClienteConsultarPedido();
         return cliente.consultarPedido(Pedido_TO.class, "" + pedido.getIdPedido());
     }
+    
+     public Pedido_TO consultarPedidoWeb(Pedido_TO pedido) {
+         ClienteConsultarPedidoWeb cliente = new ClienteConsultarPedidoWeb();
+        return cliente.consultarPedidoWeb(Pedido_TO.class, "" + pedido.getIdPedido());
+    }
+
 
     public Pedido_TO consultarUltimoPedidoCliente(Usuario_TO usuario) {
         ClienteConsultarUltimoPedidoCliente cliente = new ClienteConsultarUltimoPedidoCliente();

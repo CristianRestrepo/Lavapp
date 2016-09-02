@@ -123,7 +123,7 @@ public class SubServicioCT implements Serializable {
     public void buscarSubServicios() {
         SubServicioDao subServicioDao = new SubServicioDao();
         subServicios = new ArrayList<>();
-        if (buscar == null) {
+        if (buscar.isEmpty()) {
             subServicios = subServicioDao.consultarSubServicios();
         } else {
             subServicios = subServicioDao.buscarSubServicios(buscar);

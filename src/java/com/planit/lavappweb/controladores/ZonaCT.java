@@ -122,7 +122,7 @@ public class ZonaCT implements Serializable {
     public void buscarZonas() {
         ZonaDao zonadao = new ZonaDao();
         zonas = new ArrayList<>();
-        if (buscar == null) {
+        if (buscar.isEmpty()) {
             zonas = zonadao.consultarZonas();
         } else {
             zonas = zonadao.buscarZonas(buscar);

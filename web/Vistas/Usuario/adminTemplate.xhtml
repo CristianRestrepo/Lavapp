@@ -80,7 +80,7 @@
                                             </div>
                                             <div class="pull-right">
                                                 <h:form>
-                                                    <p:commandButton value="Cerrar Sesion" immediate="true" action="#{sesionCT.cerrarSesion()}" class="btn btn-default btn-block "/>
+                                                    <p:commandButton value="Cerrar Sesion" process="@this" immediate="true" ajax="false" action="#{sesionCT.cerrarSesion()}" class="btn btn-default btn-block "/>
                                                 </h:form> 
                                             </div>
                                         </li>

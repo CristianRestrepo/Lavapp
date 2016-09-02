@@ -122,7 +122,7 @@ public class DepartamentoCT implements Serializable{
     public void buscarDepartamentos() {
         DepartamentoDao departamentoDao = new DepartamentoDao();
         departamentos = new ArrayList<>();
-        if (buscar == null) {
+        if (buscar.isEmpty()) {
             departamentos = departamentoDao.consultarDepartamentos();
         } else {
             departamentos = departamentoDao.buscarDepartamentos(buscar);

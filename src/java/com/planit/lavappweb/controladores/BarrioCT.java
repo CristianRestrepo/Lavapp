@@ -120,7 +120,7 @@ public class BarrioCT implements Serializable{
     public void buscarBarrios() {
         BarriosDao barrioDao = new BarriosDao();
         barrios = new ArrayList<>();
-        if (buscar == null) {
+        if (buscar.isEmpty()) {
             barrios = barrioDao.consultarBarrios();
         } else {
             barrios = barrioDao.buscarBarrio(buscar);

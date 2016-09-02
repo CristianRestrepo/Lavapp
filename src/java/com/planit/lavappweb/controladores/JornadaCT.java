@@ -122,7 +122,7 @@ public class JornadaCT implements Serializable{
     public void buscarJornadas(){
         JornadaDao jornadaDao = new JornadaDao();
         jornadas = new ArrayList<>();
-        if(buscar == null){
+        if(buscar.isEmpty()){
             jornadas = jornadaDao.consultarJornadas();
         }else{
             jornadas = jornadaDao.buscarJornadas(buscar);

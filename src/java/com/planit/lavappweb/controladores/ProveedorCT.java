@@ -167,7 +167,7 @@ public class ProveedorCT implements Serializable {
     public void buscarProveedores() {
         ProveedorDao proveedorDao = new ProveedorDao();
         proveedores = new ArrayList<>();
-        if (buscar == null) {
+        if (buscar.isEmpty()) {
             proveedores = proveedorDao.consultarProveedores();
         } else {
             proveedores = proveedorDao.buscarProveedores(buscar);

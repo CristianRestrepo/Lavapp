@@ -3,9 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:b="http://bootsfaces.net/ui"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -68,12 +66,10 @@
                                                 </li>
                                             </c:when>
                                             <c:when test="#{sesionCT.obtenerSesion().rol.idRol != null}">
-                                                <li style="margin-top: 7px;">
-                                               
-                                                    <h:link class="btn-pedido btn-primary">
-                                                        <p:ajax event="click" update="@all" listener="#{sesionCT.cerrarSesion()}" />
+                                                <li style="margin-top: 7px;">                                               
+                                                    <h:commandLink action="#{sesionCT.cerrarSesion()}" class="btn-pedido btn-primary">
                                                         <i style="font-size: 18px ; margin-right: 11px;" class="fa fa-2 fa-desktop"/>Cerrar Sesion                                          
-                                                    </h:link>
+                                                    </h:commandLink>
                                                 </li>
                                             </c:when>
                                         </c:choose>

@@ -122,7 +122,7 @@ public class CiudadCT implements Serializable {
     public void buscarCiudades() {
         CiudadDao ciudadDao = new CiudadDao();
         ciudades = new ArrayList<>();
-        if (buscar == null) {
+        if (buscar.isEmpty()) {
             ciudades = ciudadDao.consultarCiudades();
         } else {
             ciudades = ciudadDao.buscarCiudades(buscar);

@@ -195,7 +195,7 @@ public class ProductoCT implements Serializable {
     public void buscarProductos() {
         ProductoDao productoDao = new ProductoDao();
         productos = new ArrayList<>();
-        if (buscar == null) {
+        if (buscar.isEmpty()) {
             productos = productoDao.consultarProductos();
         } else {
             productos = productoDao.BuscarProductos(buscar);

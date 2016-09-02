@@ -125,7 +125,7 @@ public class EstratoCT implements Serializable {
     public void buscarEstratos(){
         EstratoDao estratoDao = new EstratoDao();
         estratos = new ArrayList<>();
-        if(buscar == null){
+        if(buscar.isEmpty()){
             estratos = estratoDao.consultarEstratos();
         }else{
             estratos = estratoDao.buscarEstratos(buscar);

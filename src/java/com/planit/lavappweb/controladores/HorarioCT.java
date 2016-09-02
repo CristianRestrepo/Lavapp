@@ -329,7 +329,7 @@ public class HorarioCT implements Serializable{
     public void buscarHorario() {
         HorarioDao horarioDao = new HorarioDao();
         horarios = new ArrayList<>();
-        if (buscar == null) {
+        if (buscar.isEmpty()) {
             horarios = horarioDao.consultarHorarios();
         } else {
             horarios = horarioDao.buscarBarrios(buscar);

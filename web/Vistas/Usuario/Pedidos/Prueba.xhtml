@@ -14,66 +14,7 @@
             <ui:define name="content">
                 
                <b:container fluid="true">
-                   <b:row>
-                        <b:column col-lg="12">
-                        <div>
-                            <h3> CALIFICANOS <small> Calificanos y envianos tus comentarios.</small></h3>                            
-                        </div>
-                    </b:column>
-                       <h:form id="formularioComentarios" enctype="multipart/form-data" >                         
-                        <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
-                            <p:messages id="messages" closable="true"/>
-                        </b:column>
-
-                        <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
-                            <div class="box box-success">
-                                <div class="box-header with-border">
-                                    <i class="fa fa-comments" aria-hidden="true"></i>
-                                    <h4 class="box-title">Comentarios..</h4>
-                                </div> 
-                                <div class="box-body">
-                                    <div class="table-responsive">
-                                        <h:panelGrid id="SubProductos" columns="1" style="width: 100%">  
-                                            <b:inputText style="width: 100%" id="txtcomentario" placeholder="Comentarios..." 
-                                                         required="true" requiredMessage="Ingrese comentarios"  
-                                                         value="#{Coment.comentarios.comenta}"/> 
-                                            <p:message for="formularioComentarios"/>
-                                        </h:panelGrid>
-                                    </div>
-                                    <div class="box-footer" align="center">
-                                        <h:panelGrid columns="2">
-                                            <input type="submit" value="Enviar"> </input>                                            
-                                       </h:panelGrid>
-                                    </div>
-                                </div>
-                            </div>
-                        </b:column>                        
-                    </h:form>
-                       <h:form id="formularioCalifica">
-                        <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12">
-                            <div class="box box-info" aling="center">
-                                <div class="box-header with-border">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <h4 class="box-title">Danos tu calificacion</h4>
-                                </div> 
-                                <div class="star" align="rigth" >
-                                     <!-- <a href="#" title="votar con 0 estrellas">&#9734;</a>-->
-                                      <a href="#" title="Votar con 1 estrellas">&#9733;</a> 
-                                      <a href="#" title="Votar con 2 estrellas">&#9733;</a> 
-                                      <a href="#" title="Votar con 3 estrellas">&#9733;</a> 
-                                      <a href="#" title="Votar con 4 estrellas">&#9733;</a> 
-                                      <a href="#" title="Votar con 5 estrellas">&#9733;</a>                        
-                            </div><div class="box-footer" align="center">
-                                        <h:panelGrid columns="2">
-                                            <input type="submit" value="Enviar"> </input>                                            
-                                       </h:panelGrid>
-                                    </div>
-                           
-                            </div>
-                             
-                        </b:column>
-                    </h:form>
-                   </b:row>
+                   
                </b:container>
             </ui:define>
         </ui:composition>

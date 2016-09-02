@@ -207,7 +207,7 @@ public class UsuarioCT implements Serializable {
     public void buscarClientes() {
           UsuarioDao usuarioDao = new UsuarioDao();
         clientes = new ArrayList<>();
-        if (buscar == null) {
+        if (buscar.isEmpty()) {
             clientes = usuarioDao.consultarUsuariosPorRol(new Rol_TO(4));
         } else {
             clientes = usuarioDao.buscarClientes(buscar);

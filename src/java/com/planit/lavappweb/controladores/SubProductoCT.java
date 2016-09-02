@@ -250,7 +250,7 @@ public class SubProductoCT implements Serializable {
     public void buscarSubProductos() {
         SubProductoDao subProductoDao = new SubProductoDao();
         subproductos = new ArrayList<>();
-        if (buscar == null) {
+        if (buscar.isEmpty()) {
             subproductos = subProductoDao.consultarSubProductos();
         } else {
             subproductos = subProductoDao.buscarSubProductos(buscar);

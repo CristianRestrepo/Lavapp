@@ -122,7 +122,7 @@ public class ServicioCT implements Serializable {
     public void buscarServicios() {
         ServicioDao servicioDao = new ServicioDao();
         servicios = new ArrayList<>();
-        if (buscar == null) {
+        if (buscar.isEmpty()) {
             servicios = servicioDao.consultarServicios();
         } else {
             servicios = servicioDao.BuscarServicios(buscar);
