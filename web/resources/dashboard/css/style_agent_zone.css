@@ -1,4 +1,4 @@
-.check{
+/*.check{
   font-family: 'Lily Script One', cursive;
  background-color: #423a3a;
   margin: 30px;
@@ -32,47 +32,14 @@ label.check {
 label.check input {
   position: absolute;
   left: -9999px;
-}
-label.check.c_on {
+}label.check.c_on {
  background: url('https://dl.dropboxusercontent.com/u/3522/check_on.png')  left center no-repeat;
   color: graytext;
 }
  .check {
       text-decoration: none;
       color: inherit;
-    }
-    /*-----------------------*/
-    
- /*.sel-agent{
-  font-family: 'Lily Script One', cursive;
-   margin: 50px;
-   cursor:pointer;
-   position:relative;
-}
-.sel-agent:hover{
-  color: red;
-  cursor: pointer;
-  line-height: 20px;
-  padding-top:26px;
-  font-size: 15px;
-  transition: .3s;
-  
-}
-
-.sel-agent.check {
-  display: block;
-  cursor: pointer;
-  line-height: 20px;
-  padding-left: 26px;
-  font-size: 15px;
-  color: #423a3a;
-  transition: .3s;
-}
-.qqq{
-    border-right: 8px;
-    border-color: red;
-}*/
-		.a-table a
+ }		.a-table a
 		{
 			text-decoration: none;
 			color: inherit;
@@ -94,4 +61,4 @@ label.check.c_on {
 		}
                 
               
-	
+	*/

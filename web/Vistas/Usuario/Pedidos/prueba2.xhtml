@@ -63,6 +63,71 @@
                                     <label class="check"><input type="checkbox" checked="checked"></input>Zona 1</label>
                                     <label class="check"><input type="checkbox" checked="checked"></input>Zona 2</label>
                                     <label class="check"><input type="checkbox" checked="checked"></input>Zona 3</label>
+                                                   <style>
+                                                  .check{
+                                                  font-family: 'Lily Script One', cursive;
+                                                 background-color: #423a3a;
+                                                  margin: 30px;
+                                                }
+                                                a {
+                                                  color: black;
+                                                  text-shadow: #423a3a 2px 2px 1px;
+                                                }
+
+                                                fieldset {
+                                                  border: 2px solid green;
+                                                  border-radius: 6px;
+                                                }
+                                                legend {
+                                                  color: #fff;
+                                                  text-shadow: #34495e 2px 2px 1px;
+                                                  padding: 0 4px;
+                                                  font-size: 20px;
+                                                  text-align: right;
+                                                }
+                                                label.check {
+                                                  display: block;
+                                                  cursor: pointer;
+                                                  line-height: 20px;
+                                                  padding-left: 26px;
+                                                  font-size: 15px;
+                                                  color: #423a3a;
+                                                  transition: .3s;
+                                                  background: url('https://dl.dropboxusercontent.com/u/3522/check_off.png') left center no-repeat;
+                                                }
+                                                label.check input {
+                                                  position: absolute;
+                                                  left: -9999px;
+                                                }label.check.c_on {
+                                                 background: url('https://dl.dropboxusercontent.com/u/3522/check_on.png')  left center no-repeat;
+                                                  color: graytext;
+                                                }
+                                                 .check {
+                                                      text-decoration: none;
+                                                      color: inherit;
+                                                 }		.a-table a
+                                                                {
+                                                                        text-decoration: none;
+                                                                        color: inherit;
+                                                                        cursor:pointer;
+                                                                }
+                                                                .a-table tr:nth-child(odd){background-color:gray}
+                                                               .a-table tr:hover{
+                                                                        background-color: lightgray;
+                                                                        color: gray;
+                                                                }
+                                                                .a-table th:hover{
+                                                                    color: gray;
+                                                                }
+                                                                .a-table
+                                                                {
+                                                                        border-spacing: 0;
+                                                                        border-collapse: collapse;
+                                                                        border: transparent;
+                                                                }
+                                                     </style>   
+
+        
                                     <script>
                                         var input = document.querySelectorAll("label.check input");
                                         if (input !== null) {
@@ -94,6 +159,6 @@
                 </b:row>
             </b:container>
         </ui:define>
-
+       
     </ui:composition>
 </html>
