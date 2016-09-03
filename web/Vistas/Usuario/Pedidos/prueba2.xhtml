@@ -10,15 +10,13 @@
     <ui:composition template="./../adminTemplate.xhtml">
         <ui:define name="content">
             <b:container fluid="true">
-                <b:row>
+                <b:row>                  
                     <b:column col-lg="12"><!-- primer titulo columna izquierda  -->
                         <div>
                             <h3> RELACIONA <small> Relaciona un comercial con un asesor con las zonas correspondientes.</small></h3>                            
                         </div>
-
                     </b:column>
-                    <h:form id="formularioagente" enctype="multipart/form-data" >   
-
+                    <h:form id="formularioagente">  
                         <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
                             <p:messages id="messages" closable="true"/>
                         </b:column>
@@ -30,20 +28,19 @@
                                 </div>
                                 <div class="box-body">
                                     <div class="table-responsive">                                   
-                                        <p:dataTable id="eventsDT" var="Nombre" value="">
+                                        <p:dataTable id="eventsDT" var="asesor" value="#{usuarioCT.asesores}" selection="#{asesorZonaCT.usuario}" selectionMode="single">
                                             <f:facet name="header">
-
+                                                Asesores
                                             </f:facet>
                                             <p:column headerText="Nombre">
-                                                <h:outputText value="" />
+                                                <h:outputText value="#{asesor.nombre}" />
                                             </p:column>
                                             <p:column headerText="Apellido">
-                                                <h:outputText value="" />
+                                                <h:outputText value="#{asesor.apellido}" />
                                             </p:column>
                                             <p:column headerText="Numero Indentificacion">
-                                                <h:outputText value="" />
+                                                <h:outputText value="#{asesor.identificacion}" />
                                             </p:column>
-
                                         </p:dataTable>
                                     </div>
                                 </div>
@@ -55,106 +52,36 @@
                     </h:form> <!-- primer titulo columna derecha  -->
                     <h:form id="eligezona">
                         <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12"> 
-
                             <div class="box box-info" aling="center">                                
                                 <div class="box-header with-border" aling="center">
                                     <h4 class="box-title">Selecciona las Zonas</h4>
                                 </div>
 
-                                <div class="box-body">     
-                                    <label class="check"><input type="checkbox" checked="checked"></input>Zona 1</label>
-                                    <label class="check"><input type="checkbox" checked="checked"></input>Zona 2</label>
-                                    <label class="check"><input type="checkbox" checked="checked"></input>Zona 3</label>
-                                    <style>
-                                        .check{
-                                            font-family: 'Lily Script One', cursive;
-                                            background-color: #423a3a;
-                                            margin: 30px;
-                                        }
-                                        a {
-                                            color: black;
-                                            text-shadow: #423a3a 2px 2px 1px;
-                                        }
-
-                                        fieldset {
-                                            border: 2px solid green;
-                                            border-radius: 6px;
-                                        }
-                                        legend {
-                                            color: #fff;
-                                            text-shadow: #34495e 2px 2px 1px;
-                                            padding: 0 4px;
-                                            font-size: 20px;
-                                            text-align: right;
-                                        }
-                                        label.check {
-                                            display: block;
-                                            cursor: pointer;
-                                            line-height: 20px;
-                                            padding-left: 26px;
-                                            font-size: 15px;
-                                            color: #423a3a;
-                                            transition: .3s;
-                                            background: url('https://dl.dropboxusercontent.com/u/3522/check_off.png') left center no-repeat;
-                                        }
-                                        label.check input {
-                                            position: absolute;
-                                            left: -9999px;
-                                        }label.check.c_on {
-                                            background: url('https://dl.dropboxusercontent.com/u/3522/check_on.png')  left center no-repeat;
-                                            color: graytext;
-                                        }
-                                        .check {
-                                            text-decoration: none;
-                                            color: inherit;
-                                        }		.a-table a
-                                        {
-                                            text-decoration: none;
-                                            color: inherit;
-                                            cursor:pointer;
-                                        }
-                                        .a-table tr:nth-child(odd){background-color:gray}
-                                        .a-table tr:hover{
-                                            background-color: lightgray;
-                                            color: gray;
-                                        }
-                                        .a-table th:hover{
-                                            color: gray;
-                                        }
-                                        .a-table
-                                        {
-                                            border-spacing: 0;
-                                            border-collapse: collapse;
-                                            border: transparent;
-                                        }
-                                    </style>   
-
-
-                                    <script>
-                                        var input = document.querySelectorAll("label.check input");
-                                        if (input !== null) {
-                                            [].forEach.call(input, function (el) {
-                                                if (el.checked) {
-                                                    el.parentNode.classList.add('c_on');
-                                                }
-                                                el.addEventListener("click", function (event) {
-                                                    event.preventDefault();
-                                                    el.parentNode.classList.toggle('c_on');
-                                                }, false);
-                                            });
-                                        }
-                                    </script>
+                                <div class="box-body">
+                                    <p:dataTable var="zona" value="#{zonaCT.zonas}" 
+                                                 selection="#{asesorZonaCT.zonas}" 
+                                                 rowKey="#{zona.idZona}" rowIndexVar="rowIndex" selectionMode="multiple">
+                                        <f:facet name="header">
+                                            Zonas
+                                        </f:facet>                                                        
+                                        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                                        <p:column headerText="Zona">
+                                            <h:outputText value="#{zona.nombre}" />
+                                        </p:column>
+                                        <p:column headerText="Descripcion">
+                                            <h:outputText value="#{zona.descripcion}" />
+                                        </p:column>                                 
+                                    </p:dataTable>
                                 </div>                                
                                 <div class="box-footer" align="center"> <!-- segundo contenido columna izquierda  -->
                                     <h:panelGrid columns="2">
                                         <input type="submit" value="Guardar"> </input>                                            
                                     </h:panelGrid>
                                 </div>
-
                             </div>
                             <!-- fin de contenidos  -->
                         </b:column>
-                    </h:form>
+                    </h:form>                         
                 </b:row>
             </b:container>
         </ui:define>
