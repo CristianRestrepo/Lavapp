@@ -17,6 +17,6 @@ public class AsesorZonaDao {
 
     public Usuario_TO AsociarAsesorZona(Usuario_TO usuario, Zona_TO zona) {
         ClienteAsociarAsesorZona cliente = new ClienteAsociarAsesorZona();
-        return cliente.asignarAsesorPedido(Usuario_TO.class, "" + usuario.getIdUsuario(), "" + zona.getIdZona());
+        return cliente.asociarAsesorZona(Usuario_TO.class, "" + usuario.getIdUsuario(), "" + zona.getIdZona());
     }
 }

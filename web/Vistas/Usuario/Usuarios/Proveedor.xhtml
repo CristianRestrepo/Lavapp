@@ -106,6 +106,14 @@
                                         <p:inputText class="form-control" value="#{proveedorCT.proveedor.cupo}" required="true" placeholder="Cupo maximo de prendas" type="text" id="txtCupo"/>
                                         <p:message for="txtCupo"/>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="control-label" for="SMZona">Zona<span class="required">*</span></label>
+                                        <h:selectOneMenu class="form-control" value="#{proveedorCT.proveedor.zona.nombre}" requiredMessage="Seleccione Zona" required="true" id="SMZona">
+                                            <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
+                                            <f:selectItems value="#{zonaCT.zonas}" var="zona" itemLabel="#{zona.nombre}" itemValue="#{zona.nombre}"/>
+                                        </h:selectOneMenu>
+                                        <p:message for="SMGenero"/>
+                                    </div> 
                                 </div>
                                 <div class="box-footer">
                                     <p:commandButton  value="Cancelar" immediate="true" process="@this" 

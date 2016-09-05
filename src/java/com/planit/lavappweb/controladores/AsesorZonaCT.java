@@ -8,6 +8,7 @@ package com.planit.lavappweb.controladores;
 import com.planit.lavappweb.modelo.dao.AsesorZonaDao;
 import com.planit.lavappweb.modelo.dto.Usuario_TO;
 import com.planit.lavappweb.modelo.dto.Zona_TO;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
  *
  * @author Desarrollo_Planit
  */
-public class AsesorZonaCT {
+public class AsesorZonaCT implements Serializable {
 
     Usuario_TO usuario = new Usuario_TO();
     Zona_TO zona = new Zona_TO();
@@ -53,8 +54,13 @@ public class AsesorZonaCT {
 
     //CRUD
     public void asociar() {
-        AsesorZonaDao asesorZonaDao = new AsesorZonaDao();
-        asesorZonaDao.AsociarAsesorZona(usuario, zona);
+        for (int i = 0; i < zonas.size(); i++) {
+            AsesorZonaDao asesorZonaDao = new AsesorZonaDao();
+            asesorZonaDao.AsociarAsesorZona(usuario, zonas.get(i));
+        }
+        
+        zonas = new ArrayList<>();
+        usuario = new Usuario_TO();
     }
 
 }

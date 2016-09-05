@@ -17,13 +17,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Planit
  */
 @XmlRootElement
-public class Zona_TO implements Serializable{
+public class Zona_TO implements Serializable {
 
     /**
      *
      * Columna idZona
      */
-    private int idZona;
+    private Integer idZona;
 
     /**
      *
@@ -36,9 +36,8 @@ public class Zona_TO implements Serializable{
      * Columna descripcion
      */
     private String descripcion;
-    
-    //Constructores
 
+    //Constructores
     public Zona_TO() {
         idZona = 0;
     }
@@ -50,23 +49,21 @@ public class Zona_TO implements Serializable{
     public Zona_TO(int idZona, String nombre) {
         this.idZona = idZona;
         this.nombre = nombre;
-    }    
-     
-    
+    }
+
     //Constructor general
     public Zona_TO(int idZona, String nombre, String descripcion) {
         this.idZona = idZona;
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
-    
-    //Getter and Setter
 
-    public int getIdZona() {
+    //Getter and Setter
+    public Integer getIdZona() {
         return idZona;
     }
 
-    public void setIdZona(int idZona) {
+    public void setIdZona(Integer idZona) {
         this.idZona = idZona;
     }
 
@@ -90,5 +87,5 @@ public class Zona_TO implements Serializable{
     public String toString() {
         return "Zona_TO{" + "idZona=" + idZona + ", nombre=" + nombre + ", descripcion=" + descripcion + '}';
     }
-    
+
 }

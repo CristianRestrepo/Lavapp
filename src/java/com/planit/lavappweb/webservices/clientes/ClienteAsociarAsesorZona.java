@@ -9,10 +9,11 @@ import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
+import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
 /**
- * Jersey REST client generated for REST resource:we [asignarAsesorPedido]<br>
+ * Jersey REST client generated for REST resource:we [asociarAsesorZona]<br>
  * USAGE:
  * <pre>
  *        ClienteAsociarAsesorZona client = new ClienteAsociarAsesorZona();
@@ -30,18 +31,18 @@ public class ClienteAsociarAsesorZona {
 
     public ClienteAsociarAsesorZona() {
         client = ResteasyClientBuilder.newBuilder().build();
-        webTarget = client.target(BASE_URI).path("asignarAsesorPedido");
+        webTarget = client.target(BASE_URI).path("asociarAsesorZona");
     }
 
     /**
      * @param responseType Class representing the response
      * @param idUsuario query parameter
-     * @param idPedido query parameter
+     * @param idZona query parameter
      * @return response object (instance of responseType class)
      */
-    public <T> T asignarAsesorPedido(Class<T> responseType, String idUsuario, String idPedido) throws ClientErrorException {
-        String[] queryParamNames = new String[]{"idUsuario", "idPedido"};
-        String[] queryParamValues = new String[]{idUsuario, idPedido};
+    public <T> T asociarAsesorZona(Class<T> responseType, String idUsuario, String idZona) throws ClientErrorException {
+        String[] queryParamNames = new String[]{"idUsuario", "idZona"};
+        String[] queryParamValues = new String[]{idUsuario, idZona};
         ;
         javax.ws.rs.core.Form form = getQueryOrFormParams(queryParamNames, queryParamValues);
         javax.ws.rs.core.MultivaluedMap<String, String> map = form.asMap();

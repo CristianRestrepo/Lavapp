@@ -16,7 +16,7 @@
                             <h3> RELACIONA <small> Relaciona un comercial con un asesor con las zonas correspondientes.</small></h3>                            
                         </div>
                     </b:column>
-                    <h:form id="formularioagente">  
+                    <h:form id="formularioAsociacion">  
                         <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
                             <p:messages id="messages" closable="true"/>
                         </b:column>
@@ -28,7 +28,10 @@
                                 </div>
                                 <div class="box-body">
                                     <div class="table-responsive">                                   
-                                        <p:dataTable id="eventsDT" var="asesor" value="#{usuarioCT.asesores}" selection="#{asesorZonaCT.usuario}" selectionMode="single">
+                                        <p:dataTable rowKey="#{asesor.idUsuario}" id="eventsDT" 
+                                                     var="asesor" 
+                                                     value="#{usuarioCT.asesores}" 
+                                                     selection="#{asesorZonaCT.usuario}" selectionMode="single">
                                             <f:facet name="header">
                                                 Asesores
                                             </f:facet>
@@ -49,35 +52,46 @@
                                 </div>
                             </div>
                         </b:column>    <!-- termina primer contenido  columna izquierda  -->                    
-                    </h:form> <!-- primer titulo columna derecha  -->
-                    <h:form id="eligezona">
                         <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12"> 
                             <div class="box box-info" aling="center">                                
                                 <div class="box-header with-border" aling="center">
                                     <h4 class="box-title">Selecciona las Zonas</h4>
                                 </div>
-
                                 <div class="box-body">
-                                    <p:dataTable var="zona" value="#{zonaCT.zonas}" 
-                                                 selection="#{asesorZonaCT.zonas}" 
-                                                 rowKey="#{zona.idZona}" rowIndexVar="rowIndex" selectionMode="multiple">
-                                        <f:facet name="header">
-                                            Zonas
-                                        </f:facet>                                                        
-                                        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                                    <p:dataTable  rowKey="#{zona.idZona}"
+                                                  rows="5" var="zona" value="#{zonaCT.zonas}" 
+                                                  selection="#{asesorZonaCT.zonas}" 
+                                                  paginator="true"
+                                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                  rowsPerPageTemplate="5,10,15">
+                                        <p:column selectionMode="multiple" style="width:25px;text-align:center">
+                                        </p:column>                                               
+
                                         <p:column headerText="Zona">
                                             <h:outputText value="#{zona.nombre}" />
                                         </p:column>
+
                                         <p:column headerText="Descripcion">
                                             <h:outputText value="#{zona.descripcion}" />
                                         </p:column>                                 
                                     </p:dataTable>
                                 </div>                                
                                 <div class="box-footer" align="center"> <!-- segundo contenido columna izquierda  -->
-                                    <h:panelGrid columns="2">
-                                        <input type="submit" value="Guardar"> </input>                                            
-                                    </h:panelGrid>
+                                    <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);"
+                                                     action="#{asesorZonaCT.asociar()}" update=":formularioAsociacion" 
+                                                     value="Asociar" class="btn btn-success" style="width: 40%" />
                                 </div>
+                                <script type="text/javascript">
+                                    function start() {
+                                        PF('statusDialog').show();
+                                    }
+                                    function stop() {
+                                        PF('statusDialog').hide();
+                                    }
+                                </script>
+                                <p:dialog  modal="true" widgetVar="statusDialog" header="Cargando" draggable="false" closable="false" resizable="false">
+                                    <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif"/>
+                                </p:dialog>
                             </div>
                             <!-- fin de contenidos  -->
                         </b:column>

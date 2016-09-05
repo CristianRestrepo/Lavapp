@@ -24,8 +24,8 @@
         <h:outputStylesheet name="./dashboard/adminLT/css/bootstrap3-wysihtml5.css"/>
         <h:outputStylesheet name="./dashboard/css/style_qualification.css" />
         <h:outputStylesheet name="./dashboard/css/style_agent_zone.css" />
-         <h:outputStylesheet name="./dashboard/css/style_galery.css" />
-        
+        <h:outputStylesheet name="./dashboard/css/style_galery.css" />
+
         <title>Dashboard | LavApp</title>
     </h:head>
 
@@ -275,17 +275,7 @@
                                                             <h:link outcome="Calificacion">
                                                                 <i class="fa fa-circle-o"></i> Calificacion
                                                             </h:link>
-                                                        </li>
-                                                        <li>
-                                                            <h:link outcome="Prueba">
-                                                                <i class="fa fa-circle-o"></i> Prueba
-                                                            </h:link>
-                                                        </li>
-                                                         <li>
-                                                            <h:link outcome="Prueba2">
-                                                                <i class="fa fa-circle-o"></i> Prueba2
-                                                            </h:link>
-                                                        </li>
+                                                        </li>                                                       
                                                         <li>
                                                             <h:link outcome="Prueba3">
                                                                 <i class="fa fa-circle-o"></i> Prueba3
@@ -293,6 +283,20 @@
                                                         </li>
                                                     </ul>
                                                 </li> 
+
+                                                <li class="treeview">
+                                                    <a href="#">
+                                                        <i class="fa fa-gear"></i>
+                                                        <span>Administracion</span><i class="fa fa-angle-left pull-right"></i>
+                                                    </a>
+                                                    <ul class="treeview-menu">
+                                                        <li class="active">
+                                                            <h:link outcome="Asociacion">
+                                                                <i class="fa fa-circle-o"></i> Asociacion asesor zona
+                                                            </h:link>
+                                                        </li>                                                      
+                                                    </ul>
+                                                </li>
                                             </ul>
                                         </c:when>
                                         <c:when test="#{sesionCT.obtenerSesion().rol.idRol == 3}">
