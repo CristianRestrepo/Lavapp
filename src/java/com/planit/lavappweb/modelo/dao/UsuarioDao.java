@@ -56,10 +56,9 @@ public class UsuarioDao {
         RolDao rd = new RolDao();
 
         usuario.setBarrio(bd.consultarBarrio(new Barrio_TO(usuario.getBarrio().getIdBarrios(), usuario.getBarrio().getNombre())));
-        usuario.getBarrio().setLocalidad(ld.consultarLocalidad(new Localidad_TO(usuario.getBarrio().getLocalidad().getIdLocalidad(), "")));
-        usuario.setCiudad(cd.consultarCiudad(new Ciudad_TO(usuario.getBarrio().getLocalidad().getCiudad().getIdCiudad(), "")));
-        usuario.setRol(rd.consultarRol(new Rol_TO(usuario.getRol().getIdRol(),
-                usuario.getRol().getNombre())));
+        usuario.getBarrio().setLocalidad(ld.consultarLocalidad(new Localidad_TO(usuario.getBarrio().getLocalidad().getIdLocalidad(), usuario.getBarrio().getLocalidad().getNombre())));
+        usuario.setCiudad(cd.consultarCiudad(new Ciudad_TO(usuario.getBarrio().getLocalidad().getCiudad().getIdCiudad(), usuario.getBarrio().getLocalidad().getCiudad().getNombre())));
+        usuario.setRol(rd.consultarRol(new Rol_TO(usuario.getRol().getIdRol(), usuario.getRol().getNombre())));
         usuario.setEstado(new Estado_TO(1, "Activo"));
 
         ClienteRegistrarUsuario cliente = new ClienteRegistrarUsuario();
@@ -87,8 +86,8 @@ public class UsuarioDao {
 
         usuario.getBarrio().setIdBarrios(0);
         usuario.setBarrio(bd.consultarBarrio(new Barrio_TO(usuario.getBarrio().getIdBarrios(), usuario.getBarrio().getNombre())));
-        usuario.getBarrio().setLocalidad(ld.consultarLocalidad(new Localidad_TO(usuario.getBarrio().getLocalidad().getIdLocalidad(), "")));
-        usuario.setCiudad(cd.consultarCiudad(new Ciudad_TO(usuario.getBarrio().getLocalidad().getCiudad().getIdCiudad(), "")));
+        usuario.getBarrio().setLocalidad(ld.consultarLocalidad(new Localidad_TO(usuario.getBarrio().getLocalidad().getIdLocalidad(), usuario.getBarrio().getLocalidad().getNombre())));
+        usuario.setCiudad(cd.consultarCiudad(new Ciudad_TO(usuario.getBarrio().getLocalidad().getCiudad().getIdCiudad(), usuario.getBarrio().getLocalidad().getCiudad().getNombre())));
 
         ClienteEditarUsuario cliente = new ClienteEditarUsuario();
         return cliente.editarUsuario(Usuario_TO.class,

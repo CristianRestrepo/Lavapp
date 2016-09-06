@@ -170,14 +170,14 @@
                                                     <h4 class="mrg-titles">Prendas del Pedido<small> N° #{pedidoCT.pedido.idPedido}</small></h4>                            
                                                 </div>
 
-                                                <c:forEach items="#{descripcionPedidoCT.consultarDescripcionesSinFotosSegunPedido(pedidoCT.pedido)}" var="producto" begin="0" end="#{descripcionPedidoCT.consultarDescripcionesSinFotosSegunPedido(pedidoCT.pedido).size()}">
+                                                <c:forEach items="#{descripcionPedidoCT.consultarDescripcionesSinFotosSegunPedido(pedidoCT.pedido)}" var="descripcion" begin="0" end="#{descripcionPedidoCT.consultarDescripcionesSinFotosSegunPedido(pedidoCT.pedido).size()}">
                                                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                                                         <!-- LISTA DE PRODUCTOS POR PEDIDOS-->
                                                         <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing-pv">
                                                             <div class="media">
                                                                 <div class="col-lg-4 col-md-4 col-sm-4">
                                                                     <a class="pull-left" href="#" target="_parent">
-                                                                        <p:graphicImage value="#{producto.subProducto.rutaImagen}" width="150px" height="150px"/>
+                                                                        <p:graphicImage value="#{descripcion.subProducto.rutaImagen}" width="150px" height="150px"/>
                                                                     </a>                                                    
                                                                 </div>
 
@@ -185,13 +185,13 @@
                                                                     <div class="media-body fnt-smaller">
                                                                         <a href="#" target="_parent"></a>
                                                                         <div>
-                                                                            <h3>#{producto.subProducto.nombre} 
+                                                                            <h3>#{descripcion.subProducto.nombre} 
                                                                                 <small> 
-                                                                                    <a href="#" target="_parent">$#{costoCT.consultarCostoSubProducto(producto.subProducto)}</a>
+                                                                                    <a href="#" target="_parent">$#{costoCT.consultarCostoSubProducto(descripcion.subProducto)}</a>
                                                                                 </small>
                                                                             </h3>                            
                                                                         </div>
-                                                                        <p class="hidden-xs">#{producto.subProducto.descripcion}</p><span class="fnt-smaller fnt-lighter fnt-arial"></span>
+                                                                        <p class="hidden-xs">#{descripcion.subProducto.descripcion}</p><span class="fnt-smaller fnt-lighter fnt-arial"></span>
                                                                         <div align="center">
                                                                             <p:commandButton style="width: 60%" class="btn btn-primary btn-xs btn-block" value="Ver Prenda"/>
                                                                         </div>

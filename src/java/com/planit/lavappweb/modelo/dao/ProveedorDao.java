@@ -93,7 +93,7 @@ public class ProveedorDao {
         BarriosDao bd = new BarriosDao();
 
         proveedor.getUsuario().setBarrio(bd.consultarBarrio(new Barrio_TO(proveedor.getUsuario().getBarrio().getIdBarrios(), proveedor.getUsuario().getBarrio().getNombre())));
-        proveedor.setZona(zd.consultarZona(new Zona_TO(proveedor.getUsuario().getBarrio().getZona().getIdZona(), proveedor.getUsuario().getBarrio().getZona().getNombre())));
+        proveedor.setZona(zd.consultarZona(new Zona_TO(proveedor.getZona().getIdZona(), proveedor.getZona().getNombre())));
 
         ClienteRegistrarProveedor cliente = new ClienteRegistrarProveedor();
         return cliente.registrarProveedor(Proveedor_TO.class,
@@ -112,7 +112,7 @@ public class ProveedorDao {
         BarriosDao bd = new BarriosDao();
 
         proveedor.getUsuario().setBarrio(bd.consultarBarrio(new Barrio_TO(proveedor.getUsuario().getBarrio().getIdBarrios(), proveedor.getUsuario().getBarrio().getNombre())));
-        proveedor.setZona(zd.consultarZona(new Zona_TO(proveedor.getUsuario().getBarrio().getZona().getIdZona(), proveedor.getUsuario().getBarrio().getZona().getNombre())));
+        proveedor.setZona(zd.consultarZona(new Zona_TO(proveedor.getZona().getIdZona(), proveedor.getZona().getNombre())));
 
         ClienteEditarProveedor cliente = new ClienteEditarProveedor();
         return cliente.editarProveedor(Proveedor_TO.class, 

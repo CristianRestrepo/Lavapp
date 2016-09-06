@@ -77,9 +77,9 @@
                                                              value="Cancelar"/>
 
                                             <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" 
-                                                             update=":formSubProd :formListSubProduc " 
+                                                             update=":formSubProd :formListSubProduc:DTSubProductos " 
                                                              action="#{subProductoCT.metodo()}"  value="#{subProductoCT.nombreOperacion}"
-                                                             class="btn btn-info"  type="submit" ajax="false"/>                                       
+                                                             class="btn btn-info"  type="submit" ajax="true"/>                                       
                                         </h:panelGrid>
                                         <script type="text/javascript">
                                             function start() {

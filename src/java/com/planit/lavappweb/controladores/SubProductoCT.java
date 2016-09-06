@@ -161,19 +161,17 @@ public class SubProductoCT implements Serializable {
         CostoDao costoDao = new CostoDao();
 
         subProductoDao.editarSubProducto(subproducto);
-
         costo.setSubProducto(subproducto);
+        
         costo = costoDao.modificarCosto(costo);
 
+        subproducto = new SubProducto_TO();
         subproductos = subProductoDao.consultarSubProductos();
     }
 
     public void eliminar() {
         SubProductoDao subProductoDao = new SubProductoDao();
-        CostoDao costoDao = new CostoDao();
-
-        costo = costoDao.consultarCostoSubProducto(subproducto);
-        costo = costoDao.eliminarCosto(costo);
+        
         subproducto = subProductoDao.eliminarSubProducto(subproducto);
         subproductos = subProductoDao.consultarSubProductos();
     }

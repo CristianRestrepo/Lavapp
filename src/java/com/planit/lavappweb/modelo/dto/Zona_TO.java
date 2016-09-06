@@ -39,7 +39,7 @@ public class Zona_TO implements Serializable {
 
     //Constructores
     public Zona_TO() {
-        idZona = 0;
+        idZona = 1;
     }
 
     public Zona_TO(int idZona) {
