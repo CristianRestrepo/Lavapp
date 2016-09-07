@@ -58,19 +58,6 @@ body {
     min-height: 1418px;
 }
 
-#right {
-    //float: right;
-    // background-color: #ece3a5;
-    //padding: 5px;
-    // width: 150px;
-}
-
-.center_content {
-    // position: relative;
-    //background-color: #dddddd;
-    //padding: 5px;
-}
-
 .left-content-cliente {
     background-color: #ecf0f5;
     top: -20px;
@@ -85,12 +72,6 @@ body {
     margin-bottom: -30px;
     margin-left: 24%;
     min-height: 803px !important;
-}
-
-.right_content {
-    //  background-color: #dddddd;
-    //padding: 5px;
-    //margin: 0px 170px 0px 170px;
 }
 
 #top a:link, #top a:visited {
