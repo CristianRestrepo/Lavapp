@@ -193,7 +193,9 @@
                                                                         </div>
                                                                         <p class="hidden-xs">#{descripcion.subProducto.descripcion}</p><span class="fnt-smaller fnt-lighter fnt-arial"></span>
                                                                         <div align="center">
-                                                                            <p:commandButton style="width: 60%" class="btn btn-primary btn-xs btn-block" value="Ver Prenda"/>
+                                                                            <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" style="width: 60%" class="btn btn-primary btn-xs btn-block" value="Ver Prenda">
+                                                                                <p:ajax event="click" listener="#{pedidoCT.verPrenda(descripcion)}" update=":formularioRegistro"/>
+                                                                            </p:commandButton>
                                                                         </div>
                                                                     </div>                                                    
                                                                 </div>
@@ -209,6 +211,75 @@
                                         </div>
                                     </div>
                                 </b:column>    
+                            </c:when>
+                            <c:when test="#{pedidoCT.vista == 2}">
+                                <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                                    <div class="box box-default">
+                                        <div class="box-header with-border">
+                                        </div>
+                                        <div class="box-body">
+                                            <b:column offset="1" col-lg="10">
+                                                <div class="box box-info">
+                                                    <div class="box-body">
+                                                        <table width="100%">
+                                                            <tr>
+                                                                <td width="50%" align="center">
+                                                                    <p:graphicImage value="#{pedidoCT.descripcionPedido.subProducto.rutaImagen}" width="250px" height="280px"/> 
+                                                                </td>
+                                                                <td width="50%" >
+                                                                    <h:panelGrid columns="1" width="100%">
+
+                                                                        <p:outputLabel value="Estado" for="TEstado"/>
+                                                                        <p:inputText class="form-control" maxlength="60" id="TEstado" placeholder="Estado" value="#{pedidoCT.descripcionPedido.estado.nombre}" style="width: 100%;"></p:inputText>                       
+                                                                        <p:message for="TEstado"/>
+
+                                                                        <p:outputLabel value="Codigo" for="TCodigo"/>
+                                                                        <p:inputText class="form-control" maxlength="60" id="TCodigo" required="true" requiredMessage="Ingrese nombres" placeholder="Codigo de la prenda" value="#{pedidoCT.descripcionPedido.codigo}" style="width: 100%;"></p:inputText>                       
+                                                                        <p:message for="TCodigo"/>
+
+                                                                        <p:outputLabel value="Color" for="SMColor"/>
+                                                                        <h:selectOneMenu value="#{pedidoCT.descripcionPedido.color.nombre}" id="SMColor" class="form-control">
+                                                                            <f:selectItem itemLabel="Seleccione Color" noSelectionOption="true"/>
+                                                                            <f:selectItems value="#{colorCT.colores}" var="color" itemLabel="#{color.nombre}" itemValue="#{color.nombre}"/>
+                                                                        </h:selectOneMenu>
+                                                                        <p:message for="SMColor"/>
+
+                                                                        <p:outputLabel value="Descripcion" for="TDescripcion"/>
+                                                                        <p:inputTextarea class="form-control" rows="4" maxlength="200" id="TDescripcion" required="true" requiredMessage="Ingrese Descripcion" placeholder="Descripcion de la prenda" value="#{pedidoCT.descripcionPedido.descripcion}" style="width: 100%;"></p:inputTextarea>                       
+                                                                        <p:message for="TDescripcion"/>
+                                                                    </h:panelGrid>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </b:column>
+                                            <b:column offset="1" col-lg="10">
+                                                <div class="box box-success">
+                                                    <div align="center" class="box-body">
+                                                        <p:galleria value="#{imagesView.images}" var="image" panelWidth="500" panelHeight="313" showCaption="true">
+                                                            <p:graphicImage name="demo/images/nature/#{image}" alt="Image Description for #{image}" title="#{image}"/>
+                                                        </p:galleria>
+                                                        <h:panelGrid width="100%" columns="1">
+                                                            <p:outputLabel value="Observacion Asesor" for="TObservacionA"/>
+                                                            <p:inputTextarea class="form-control" rows="4" maxlength="200" id="TObservacionA" required="true" requiredMessage="Ingrese Descripcion" placeholder="Observacion del asesor" value="#{pedidoCT.descripcionPedido.observacionAsesor}" style="width: 100%;"></p:inputTextarea>                       
+                                                            <p:message for="TObservacionA"/>
+
+                                                            <p:outputLabel value="Observacion Planta" for="TObservacionP"/>
+                                                            <p:inputTextarea  class="form-control" rows="4" maxlength="200" id="TObservacionP" required="true" requiredMessage="Ingrese Descripcion" placeholder="Observacion de la planta" value="#{pedidoCT.descripcionPedido.observacionAdministrador}" style="width: 100%;"></p:inputTextarea>                       
+                                                            <p:message for="TObservacionP"/>
+                                                        </h:panelGrid>                                                
+                                                    </div>
+                                                </div>                                                
+                                            </b:column>
+                                        </div>
+                                        <div class="box-footer">
+                                            <p:commandButton immediate="true" icon="fa fa-arrow-left" onclick="PrimeFaces.monitorDownload(start, stop);" 
+                                                             action="#{pedidoCT.volverPedido()}" update=":formularioRegistro" value="Regresar" style="width: 20%" class="btn btn-info"/>
+
+                                        </div>
+                                    </div>
+                                </b:column>
                             </c:when>
                         </c:choose>
                         <script type="text/javascript">

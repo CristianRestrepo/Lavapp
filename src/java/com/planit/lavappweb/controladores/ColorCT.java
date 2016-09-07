@@ -5,6 +5,7 @@
  */
 package com.planit.lavappweb.controladores;
 
+import com.planit.lavappweb.modelo.dao.ColorDao;
 import com.planit.lavappweb.modelo.dto.Color_TO;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,7 +29,8 @@ public class ColorCT implements Serializable {
 
     @PostConstruct
     public void init() {
-
+        ColorDao colorDao = new ColorDao();
+        colores = colorDao.consultarColores();
     }
 
     //Getters & Setter

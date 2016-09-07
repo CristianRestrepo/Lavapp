@@ -144,17 +144,7 @@
         <navigation-case>
             <from-outcome>registroPedido</from-outcome>
             <to-view-id>/registro.xhtml</to-view-id>            
-        </navigation-case>   
-        <navigation-case>
-            <from-outcome>Prueba</from-outcome>
-            <to-view-id>/Vistas/Usuario/Pedidos/Prueba.xhtml</to-view-id>
-            <redirect/>           
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>Prueba3</from-outcome>
-            <to-view-id>/Vistas/Usuario/Pedidos/Prueba3.xhtml</to-view-id>
-            <redirect/>           
-        </navigation-case> 
+        </navigation-case>           
         <navigation-case>
             <from-outcome>Asociacion</from-outcome>
             <to-view-id>/Vistas/Usuario/Administracion/Asociacion.xhtml</to-view-id>

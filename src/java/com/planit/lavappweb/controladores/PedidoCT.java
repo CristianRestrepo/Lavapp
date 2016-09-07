@@ -26,6 +26,7 @@ import javax.annotation.PostConstruct;
 public class PedidoCT implements Serializable {
 
     private Pedido_TO pedido;
+    private DescripcionPedido_TO descripcionPedido;
     private List<Pedido_TO> pedidos;
 
     private List<SubProductoCosto_TO> subproductos;
@@ -43,6 +44,7 @@ public class PedidoCT implements Serializable {
 
         vista = 0;
         pedido = new Pedido_TO();
+        descripcionPedido = new DescripcionPedido_TO();
         subproductos = new ArrayList<>();
         cantidadProductos = 0;
         botonatras = false;
@@ -145,6 +147,14 @@ public class PedidoCT implements Serializable {
 
     public void setBuscar(String buscar) {
         this.buscar = buscar;
+    }
+
+    public DescripcionPedido_TO getDescripcionPedido() {
+        return descripcionPedido;
+    }
+
+    public void setDescripcionPedido(DescripcionPedido_TO descripcionPedido) {
+        this.descripcionPedido = descripcionPedido;
     }
 
     //Metodos para las vistas 
@@ -319,14 +329,23 @@ public class PedidoCT implements Serializable {
         vista = 1;
     }
 
+    public void verPrenda(DescripcionPedido_TO prenda) {
+        this.descripcionPedido = prenda;
+        vista = 2;
+    }
+
     public void volverPedidos() {
         vista = 0;
     }
 
+    public void volverPedido() {
+        vista = 1;
+    }
+    
     public void buscarPedido() {
         PedidoDao pedidoDao = new PedidoDao();
         pedidos = new ArrayList<>();
-       if (buscar.isEmpty()) {
+        if (buscar.isEmpty()) {
             pedidos = pedidoDao.consultarPedidos();
         } else {
             pedidos = pedidoDao.BuscarPedidos(buscar);
