@@ -9,13 +9,13 @@ import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
-import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
 /**
- * Jersey REST client generated for REST resource:we [buscarPedido]<br>
+ * Jersey REST client generated for REST resource:we
+ * [consultarPedidosSegunPlanta]<br>
  * USAGE:
  * <pre>
- *        ClienteBuscarPedido client = new ClienteBuscarPedido();
+ *        ClienteConsultarPedidosSegunPlanta client = new ClienteConsultarPedidosSegunPlanta();
  *        Object response = client.XXX(...);
  *        // do whatever with response
  *        client.close();
@@ -23,25 +23,24 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
  *
  * @author VaioDevelopment
  */
-public class ClienteBuscarPedido {
+public class ClienteConsultarPedidosSegunPlanta {
     private WebTarget webTarget;
     private Client client;
     private static final String BASE_URI = "http://localhost:8084/LavappService/webresources/";
 
-    public ClienteBuscarPedido() {
-        client = ResteasyClientBuilder.newBuilder().build();
-        webTarget = client.target(BASE_URI).path("buscarPedido");
+    public ClienteConsultarPedidosSegunPlanta() {
+        client = javax.ws.rs.client.ClientBuilder.newClient();
+        webTarget = client.target(BASE_URI).path("consultarPedidosSegunPlanta");
     }
 
     /**
      * @param responseType Class representing the response
-     * @param valor query parameter
-     * @param idusuario query parameter
+     * @param idProveedor query parameter
      * @return response object (instance of responseType class)
      */
-    public <T> T buscarPedido(Class<T> responseType, String valor, String idusuario) throws ClientErrorException {
-        String[] queryParamNames = new String[]{"valor", "idusuario"};
-        String[] queryParamValues = new String[]{valor, idusuario};
+    public <T> T consultarPedidosSegunPlanta(Class<T> responseType, String idProveedor) throws ClientErrorException {
+        String[] queryParamNames = new String[]{"idProveedor"};
+        String[] queryParamValues = new String[]{idProveedor};
         ;
         javax.ws.rs.core.Form form = getQueryOrFormParams(queryParamNames, queryParamValues);
         javax.ws.rs.core.MultivaluedMap<String, String> map = form.asMap();

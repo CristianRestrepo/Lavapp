@@ -119,7 +119,17 @@
                                     <div class="box box-success">
                                         <div class="box-header with-border">
                                             <i class="fa fa-2x fa-globe"/>
-                                            <h4 class="box-title">Datos del Barrio</h4>
+                                            <h4 class="box-title">Datos del Pedido</h4>
+                                            <c:if test="#{sesionCT.obtenerSesion().rol.idRol == 2}">
+                                                <div class="box-tools">
+                                                    <h:panelGrid columns="2">
+                                                        <h:selectOneMenu class="form-control">
+                                                            <f:selectItem itemLabel="Seleccione estado"/>
+                                                        </h:selectOneMenu>
+                                                        <p:commandButton style="float: right" class="btn btn-warning" value="Cambiar Estado"/>
+                                                    </h:panelGrid>
+                                                </div>
+                                            </c:if>
                                         </div> 
                                         <div class="box-body">
                                             <div class="table-responsive">
@@ -136,8 +146,41 @@
                                                         <div class="col-lg-8 col-md-8 col-sm-8">
                                                             <div class="media-body fnt-smaller">
                                                                 <a href="#" target="_parent"></a>
+                                                                <c:choose>
+                                                                    <c:when test="#{pedidoCT.pedido.estado.idEstado == 3}">
+                                                                        <div class="callout callout-info" >
+                                                                            <i class=" fa fa-4x fa-tag"/>
+                                                                            <h4 style="float:right; vertical-align: central">Servicio Solicitado</h4>
+                                                                        </div>
+                                                                    </c:when>
+                                                                    <c:when test="#{pedidoCT.pedido.estado.idEstado == 4}">
+                                                                        <div class="callout callout-success" >
+                                                                            <i class=" fa fa-4x fa-check-square"/>
+                                                                            <h4 style="float:right; vertical-align: central">Prendas Recibidas</h4>
+                                                                        </div>
+                                                                    </c:when>
+                                                                    <c:when test="#{pedidoCT.pedido.estado.idEstado == 5}">
+                                                                        <div class="callout callout-warning" >
+                                                                            <i class=" fa fa-4x fa-building"/>
+                                                                            <h4 style="float:right; vertical-align: central">En Planta</h4>
+                                                                        </div>
+                                                                    </c:when>
+                                                                    <c:when test="#{pedidoCT.pedido.estado.idEstado == 6}">
+                                                                        <div class="callout callout-info" >
+                                                                            <i class=" fa fa-4x fa-tint"/>
+                                                                            <h4 style="float:right; vertical-align: central">Lavado</h4>
+                                                                        </div>
+                                                                    </c:when>
+                                                                    <c:when test="#{pedidoCT.pedido.estado.idEstado == 7}">
+                                                                        <div class="callout callout-info" >
+                                                                            <i class=" fa fa-4x fa-check"/>
+                                                                            <h4 style="float:right; vertical-align: central">Entregado</h4>
+                                                                        </div>
+                                                                    </c:when>                                                                    
+                                                                </c:choose>
+
                                                                 <div>
-                                                                    <h3>#{pedidoCT.pedido.usuario.nombre} #{pedidoCT.pedido.usuario.apellido} <small> N° referencia: #{pedidoCT.pedido.idPedido}</small></h3>                            
+                                                                    <h3>#{pedidoCT.pedido.usuario.nombre} #{pedidoCT.pedido.usuario.apellido} <small> N° de Pedido: #{pedidoCT.pedido.idPedido}</small></h3>                            
                                                                 </div>
 
                                                                 <h4 class="media-heading">
@@ -188,10 +231,11 @@
                                                                             <h3>#{descripcion.subProducto.nombre} 
                                                                                 <small> 
                                                                                     <a href="#" target="_parent">$#{costoCT.consultarCostoSubProducto(descripcion.subProducto)}</a>
-                                                                                </small>
+                                                                                </small>                                                                                
                                                                             </h3>                            
                                                                         </div>
                                                                         <p class="hidden-xs">#{descripcion.subProducto.descripcion}</p><span class="fnt-smaller fnt-lighter fnt-arial"></span>
+                                                                        <p class="hidden-xs">#{descripcion.codigo}</p><span class="fnt-smaller fnt-lighter fnt-arial"></span>
                                                                         <div align="center">
                                                                             <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" style="width: 60%" class="btn btn-primary btn-xs btn-block" value="Ver Prenda">
                                                                                 <p:ajax event="click" listener="#{pedidoCT.verPrenda(descripcion)}" update=":formularioRegistro"/>
@@ -216,8 +260,52 @@
                                 <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
                                     <div class="box box-default">
                                         <div class="box-header with-border">
+                                            <c:if test="#{sesionCT.obtenerSesion().rol.idRol == 2}">
+                                                <div class="box-tools">
+                                                    <h:panelGrid columns="2">
+                                                        <h:selectOneMenu class="form-control">
+                                                            <f:selectItem itemLabel="Seleccione estado"/>
+                                                        </h:selectOneMenu>
+                                                        <p:commandButton style="float: right" class="btn btn-warning" value="Cambiar Estado"/>
+                                                    </h:panelGrid>
+                                                </div>
+                                            </c:if>
                                         </div>
-                                        <div class="box-body">
+                                        <div class="box-body">                                            
+                                            <b:column offset="1" col-lg="10">
+                                                <c:choose>
+                                                    <c:when test="#{pedidoCT.descripcionPedido.estado.idEstado == 3}">
+                                                        <div class="callout callout-info" >
+                                                            <i class=" fa fa-4x fa-tag"/>
+                                                            <h4 style="float:right; vertical-align: central">Servicio Solicitado</h4>
+                                                        </div>
+                                                    </c:when>
+                                                    <c:when test="#{pedidoCT.descripcionPedido.estado.idEstado == 4}">
+                                                        <div class="callout callout-success" >
+                                                            <i class=" fa fa-4x fa-check-square"/>
+                                                            <h4 style="float:right; vertical-align: central">Prendas Recibidas</h4>
+                                                        </div>
+                                                    </c:when>
+                                                    <c:when test="#{pedidoCT.descripcionPedido.estado.idEstado == 5}">
+                                                        <div class="callout callout-warning" >
+                                                            <i class=" fa fa-4x fa-building"/>
+                                                            <h4 style="float:right; vertical-align: central">En Planta</h4>
+                                                        </div>
+                                                    </c:when>
+                                                    <c:when test="#{pedidoCT.descripcionPedido.estado.idEstado == 6}">
+                                                        <div class="callout callout-info" >
+                                                            <i class=" fa fa-4x fa-tint"/>
+                                                            <h4 style="float:right; vertical-align: central">Lavado</h4>
+                                                        </div>
+                                                    </c:when>
+                                                    <c:when test="#{pedidoCT.descripcionPedido.estado.idEstado == 7}">
+                                                        <div class="callout callout-info" >
+                                                            <i class=" fa fa-4x fa-check"/>
+                                                            <h4 style="float:right; vertical-align: central">Entregado</h4>
+                                                        </div>
+                                                    </c:when>                                                                    
+                                                </c:choose>
+                                            </b:column>
                                             <b:column offset="1" col-lg="10">
                                                 <div class="box box-info">
                                                     <div class="box-body">
@@ -276,7 +364,6 @@
                                         <div class="box-footer">
                                             <p:commandButton immediate="true" icon="fa fa-arrow-left" onclick="PrimeFaces.monitorDownload(start, stop);" 
                                                              action="#{pedidoCT.volverPedido()}" update=":formularioRegistro" value="Regresar" style="width: 20%" class="btn btn-info"/>
-
                                         </div>
                                     </div>
                                 </b:column>

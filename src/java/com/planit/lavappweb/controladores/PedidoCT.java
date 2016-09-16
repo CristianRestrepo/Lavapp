@@ -9,15 +9,23 @@ import com.planit.lavappweb.metodos.Pedido;
 import com.planit.lavappweb.metodos.Sesion;
 import com.planit.lavappweb.modelo.dao.DescripcionPedidoDao;
 import com.planit.lavappweb.modelo.dao.PedidoDao;
+import com.planit.lavappweb.modelo.dao.ProveedorDao;
 import com.planit.lavappweb.modelo.dto.DescripcionPedido_TO;
 import com.planit.lavappweb.modelo.dto.Estado_TO;
 import com.planit.lavappweb.modelo.dto.Pedido_TO;
 import com.planit.lavappweb.modelo.dto.SubProductoCosto_TO;
 import com.planit.lavappweb.modelo.dto.SubProducto_TO;
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 
 /**
  *
@@ -53,7 +61,24 @@ public class PedidoCT implements Serializable {
         buscar = null;
 
         PedidoDao pedidoDao = new PedidoDao();
-        pedidos = pedidoDao.consultarPedidos();
+        if (Sesion.obtenerSesion() != null) {
+            if (Sesion.obtenerSesion().getRol().getIdRol() == 1) {
+                pedidos = pedidoDao.consultarPedidos();
+            } else if (Sesion.obtenerSesion().getRol().getIdRol() == 2) {
+                ProveedorDao proveedorDao = new ProveedorDao();
+                try {
+                    pedidos = pedidoDao.consultarPedidosSegunPlanta(proveedorDao.consultarProveedorSegunUsuario(Sesion.obtenerSesion()));
+                } catch (ParseException ex) {
+                    Logger.getLogger(PedidoCT.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else if (Sesion.obtenerSesion().getRol().getIdRol() == 4) {
+                try {
+                    pedidos = pedidoDao.consultarPedidosCliente(Sesion.obtenerSesion());
+                } catch (ParseException ex) {
+                    Logger.getLogger(PedidoCT.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
     }
 
     @PostConstruct
@@ -68,6 +93,10 @@ public class PedidoCT implements Serializable {
                 botonatras = true;
                 botonsiguiente = false;
                 botonconfirmar = false;
+                if (vista == 1) {
+                    cargarDatosUsuario();
+                    botonsiguiente = true;
+                }
             } else {
                 botonatras = false;
                 botonsiguiente = true;
@@ -162,6 +191,7 @@ public class PedidoCT implements Serializable {
         if (vista > 0) {
             vista--;
             botonsiguiente = true;
+            GuardarDatosPedido();
         }
         if (vista == 1) {
             botonconfirmar = false;
@@ -177,8 +207,17 @@ public class PedidoCT implements Serializable {
 
     public void siguiente() {
         if (vista < 3) {
-            vista++;
-            botonatras = true;
+            if (!subproductos.isEmpty()) {
+                vista++;
+                botonatras = true;
+            } else {
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "No ha agregado ningun producto", "");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            }
+            GuardarDatosPedido();
+        }
+        if (vista == 1) {
+            cargarDatosUsuario();
         }
         if (vista == 2) {
             botonsiguiente = false;
@@ -211,20 +250,43 @@ public class PedidoCT implements Serializable {
         cantidadProductos = subproductos.size();
     }
 
+    public void cargarDatosUsuario() {
+        if (Sesion.obtenerSesion() != null) {
+            if (Sesion.obtenerSesion().getDireccion() != null) {
+                pedido.setDireccionRecogida(Sesion.obtenerSesion().getDireccion());
+                pedido.setDireccionEntrega(Sesion.obtenerSesion().getDireccion());
+            }
+            pedido.setBarrioEntrega(Sesion.obtenerSesion().getBarrio());
+            pedido.setBarrioRecogida(Sesion.obtenerSesion().getBarrio());
+            pedido.setQuienEntrega(Sesion.obtenerSesion().getNombre() + " " + Sesion.obtenerSesion().getApellido());
+            pedido.setQuienRecibe(Sesion.obtenerSesion().getNombre() + " " + Sesion.obtenerSesion().getApellido());
+        }
+    }
+
+    public void GuardarDatosPedido() {
+        Pedido.pedidoUsuario = pedido;
+        Pedido.subproductos = subproductos;
+        Pedido.vista = vista;
+    }
+
     //Metodos CRUD
     public void registrarPedido() {
         PedidoDao pedidoDao = new PedidoDao();
-
         pedidoDao.registrarPedidoCompleto(pedido);
         pedido = pedidoDao.consultarUltimoPedidoCliente(Sesion.obtenerSesion());
 
         DescripcionPedidoDao dpd = new DescripcionPedidoDao();
-        for (int i = 0; i < subproductos.size(); i++) {
-            DescripcionPedido_TO dp = new DescripcionPedido_TO();
-            dp.setEstado(new Estado_TO(3));
-            dp.setPedido(pedido);
-            dp.setSubProducto(new SubProducto_TO(subproductos.get(i).getIdSubProducto()));
-            dpd.registrarDescripcionPedido(dp);
+        if (pedido.getIdPedido() != 0) {
+            for (int i = 0; i < subproductos.size(); i++) {
+                DescripcionPedido_TO dp = new DescripcionPedido_TO();
+                dp.setEstado(new Estado_TO(3));
+                dp.setPedido(pedido);
+                dp.setSubProducto(new SubProducto_TO(subproductos.get(i).getIdSubProducto()));
+                dpd.registrarDescripcionPedido(dp);
+            }
+
+            FacesMessage fmsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Pedido Registrado Exitosamente", "");
+            FacesContext.getCurrentInstance().addMessage(null, fmsg);
         }
 
         pedido = new Pedido_TO();
@@ -253,11 +315,11 @@ public class PedidoCT implements Serializable {
     }
 
     //Metodos para el manejo de los productos del pedido
+    //Ordena ascendentemente los productos en la lista basado en su id
     public List<SubProductoCosto_TO> insertionSortSubProductos(List<SubProductoCosto_TO> lista) {
         SubProductoCosto_TO aux;
         int c1;
         int c2;
-
         for (c1 = 1; c1 < lista.size(); c1++) {
             aux = lista.get(c1);
             for (c2 = c1 - 1; c2 >= 0 && lista.get(c2).getIdSubProducto() > aux.getIdSubProducto(); c2--) {
@@ -265,11 +327,11 @@ public class PedidoCT implements Serializable {
                 lista.set(c2, aux);
             }
         }
-
         return lista;
     }
 
-    public List<List<SubProductoCosto_TO>> organizarSubProductos(List<SubProductoCosto_TO> lista) {
+    //Agrupa los productos en una lista de listas de productos del mismo tipo
+    public List<List<SubProductoCosto_TO>> organizarSubProductos(List<SubProductoCosto_TO> lista) { 
         List<List<SubProductoCosto_TO>> subproductosOrdenados = new ArrayList<>();
         lista = insertionSortSubProductos(lista);
         int tipo;
@@ -299,6 +361,7 @@ public class PedidoCT implements Serializable {
         return subproductosOrdenados;
     }
 
+    //Obtiene una lista de productos deferenciados segun el tipo, obtiene 1 producto por tipo
     public List<SubProductoCosto_TO> obtenerSubProductosPedidoOrdenados(List<SubProductoCosto_TO> lista) {
         List<List<SubProductoCosto_TO>> subproductosOrdenados = new ArrayList<>();
         List<SubProductoCosto_TO> subproductosvista = new ArrayList<>();
@@ -309,6 +372,7 @@ public class PedidoCT implements Serializable {
         return subproductosvista;
     }
 
+    //Obtiene la cantidad de prendas del mismo tipo que se han seleccionado
     public String calcularCantidadPrendas(List<List<SubProductoCosto_TO>> subproductosOrdenados, SubProductoCosto_TO subProducto) {
         int i = 0;
         int cantidad = 0;
@@ -323,7 +387,16 @@ public class PedidoCT implements Serializable {
         return "X" + cantidad;
     }
 
-    //Otros
+    //Obtiene la sumatoria del valor de las prendas que se estan escogiendo en el pedido
+    public int calcularCostoPedido(List<List<SubProductoCosto_TO>> subproductosOrdenados){
+        int costo = 0;
+        for (int i = 0; i < subproductosOrdenados.size(); i++) {
+            costo += subproductosOrdenados.get(i).size() * subproductosOrdenados.get(i).get(0).getCosto().getValor();
+        }
+        return costo;
+    }
+    
+    //Metodos para el control de vista pedido en dashboard
     public void verPedido(Pedido_TO pedido) {
         this.pedido = pedido;
         vista = 1;
@@ -341,14 +414,29 @@ public class PedidoCT implements Serializable {
     public void volverPedido() {
         vista = 1;
     }
-    
+
     public void buscarPedido() {
         PedidoDao pedidoDao = new PedidoDao();
         pedidos = new ArrayList<>();
         if (buscar.isEmpty()) {
-            pedidos = pedidoDao.consultarPedidos();
+            if (Sesion.obtenerSesion().getRol().getIdRol() == 1) {
+                pedidos = pedidoDao.consultarPedidos();
+            } else if (Sesion.obtenerSesion().getRol().getIdRol() == 2) {
+                ProveedorDao proveedorDao = new ProveedorDao();
+                try {
+                    pedidos = pedidoDao.consultarPedidosSegunPlanta(proveedorDao.consultarProveedorSegunUsuario(Sesion.obtenerSesion()));
+                } catch (ParseException ex) {
+                    Logger.getLogger(PedidoCT.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else if (Sesion.obtenerSesion().getRol().getIdRol() == 4) {
+                try {
+                    pedidos = pedidoDao.consultarPedidosCliente(Sesion.obtenerSesion());
+                } catch (ParseException ex) {
+                    Logger.getLogger(PedidoCT.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         } else {
-            pedidos = pedidoDao.BuscarPedidos(buscar);
+            pedidos = pedidoDao.BuscarPedidos(buscar, Sesion.obtenerSesion());
         }
     }
 

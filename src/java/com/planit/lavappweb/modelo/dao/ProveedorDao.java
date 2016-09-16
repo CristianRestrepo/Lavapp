@@ -12,6 +12,7 @@ import com.planit.lavappweb.modelo.dto.Usuario_TO;
 import com.planit.lavappweb.modelo.dto.Zona_TO;
 import com.planit.lavappweb.webservices.clientes.ClienteBuscarProveedores;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarProveedor;
+import com.planit.lavappweb.webservices.clientes.ClienteConsultarProveedorSegunUsuario;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarProveedores;
 import com.planit.lavappweb.webservices.clientes.ClienteEditarProveedor;
 import com.planit.lavappweb.webservices.clientes.ClienteEliminarProveedor;
@@ -129,5 +130,10 @@ public class ProveedorDao {
     public Proveedor_TO eliminarProveedor(Proveedor_TO proveedor) {
         ClienteEliminarProveedor cliente = new ClienteEliminarProveedor();
         return cliente.eliminarProveedor(Proveedor_TO.class, "" + proveedor.getIdProveedor());
+    }
+    
+    public Proveedor_TO consultarProveedorSegunUsuario(Usuario_TO usuario){
+        ClienteConsultarProveedorSegunUsuario cliente = new ClienteConsultarProveedorSegunUsuario();
+        return cliente.consultarProveedorSegunUsuario(Proveedor_TO.class, "" + usuario.getIdUsuario());
     }
 }

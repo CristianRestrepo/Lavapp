@@ -60,13 +60,13 @@
                                                                 <b:inputText maxlength="100" validator="EmailValido" id="TEmailCli" required="true" requiredMessage="Ingrese Email valido" placeholder="Direccion de correo electronico" value="#{usuarioCT.usuario.email}" style="width: 100%"/>
                                                                 <p:message for="TEmailCli"/>                                                                     
 
-                                                                <b:inputText maxlength="45" id="TCcCli" tooltip="Numero de identificación" placeholder="Cedula de ciudadania" value="#{usuarioCT.usuario.identificacion}" style="width: 100%" ></b:inputText>
+                                                                <b:inputText maxlength="45" required="true" required-message="Ingrese numero de documento" id="TCcCli" tooltip="Numero de identificación" placeholder="Cedula de ciudadania" value="#{usuarioCT.usuario.identificacion}" style="width: 100%" ></b:inputText>
                                                                 <p:message for="TCcCli"/>
 
-                                                                <b:inputText maxlength="45" id="TTel" tooltip="Telefono" placeholder="Telefono" value="#{usuarioCT.usuario.telefono}" style="width: 100%" ></b:inputText>
+                                                                <b:inputText maxlength="45" required="true" required-message="Ingrese numero de telefono" id="TTel" tooltip="Telefono" placeholder="Telefono" value="#{usuarioCT.usuario.telefono}" style="width: 100%" ></b:inputText>
                                                                 <p:message for="TTel"/>
 
-                                                                <b:inputText maxlength="45" id="TMovil" tooltip="Movil" placeholder="Movil" value="#{usuarioCT.usuario.movil}" style="width: 100%" ></b:inputText>
+                                                                <b:inputText maxlength="45" required="true" required-message="Ingrese numero de celular" id="TMovil" tooltip="Movil" placeholder="Movil" value="#{usuarioCT.usuario.movil}" style="width: 100%" ></b:inputText>
                                                                 <p:message for="TMovil"/>
 
                                                                 <b:selectOneMenu required="true" value="#{usuarioCT.usuario.genero}" requiredMessage="Seleccione Genero" id="SGenero" style="width: 100%">
@@ -81,6 +81,9 @@
                                                                     <f:selectItems value="#{barrioCT.barrios}" var="barrio" itemLabel="#{barrio.nombre}" itemValue="#{barrio.nombre}"/>
                                                                 </b:selectOneMenu>
                                                                 <p:message for="SBarrios"/>
+                                                                
+                                                                <b:inputText required="true" requiredMessage="Ingrese direccion de residencia" maxlength="45" id="TDireccion" tooltip="Direccion de residencia" placeholder="Direccion de residencia" value="#{usuarioCT.usuario.direccion}" style="width: 100%" ></b:inputText>
+                                                                <p:message for="TMovil"/>
                                                             </h:panelGrid>
                                                         </div>
                                                     </div>

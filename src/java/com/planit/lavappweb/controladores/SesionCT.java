@@ -6,6 +6,7 @@
 package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.metodos.MD5;
+import com.planit.lavappweb.metodos.Pedido;
 import com.planit.lavappweb.metodos.Sesion;
 import static com.planit.lavappweb.metodos.Sesion.cerrarHttpSesion;
 import static com.planit.lavappweb.metodos.Sesion.iniciarHttpSesion;
@@ -115,6 +116,7 @@ public class SesionCT implements Serializable {
 
     public String cerrarSesion() {
         String ruta = "Principal";
+        Pedido.ReiniciarValores();
         cerrarHttpSesion();
         return ruta;
     }

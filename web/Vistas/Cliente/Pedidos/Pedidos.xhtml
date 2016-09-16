@@ -45,17 +45,17 @@
                 <!-- BANNER END -->             
                 <!-- CONTENIDO -->
                 <h:form id="formularioContenido" target="#{pedidoCT.pedido}">
-                    <p:growl id="msg" life="2500"/>
+                    <p:growl id="msg" showDetail="true" life="2500"/>
                     <c:choose>
                         <c:when test="${pedidoCT.vista == 0}">
                             <div>
                                 <section class="alt-catego">
                                     <div class="container-fluid alt-catego" >
                                         <div class="row alt-catego" >
-                                            <div class="col-sm-12 enlinea ">                     
-                                                <ul class="nav nav-pills">
+                                            <div class="col-sm-12 enlinea">                     
+                                                <ul class="nav nav-pills" style="alignment-adjust: central">
                                                     <c:forEach var="producto" begin="0" items="#{productoCT.productos}" end="#{productoCT.productos.size()}">
-                                                        <li>
+                                                        <li style="width: 10%">
                                                             <div class="box box-widget">
                                                                 <div align="center" class="box-body">
                                                                     <p:graphicImage value="#{producto.rutaImagen}"/>
@@ -63,13 +63,13 @@
                                                                 <div align="center" class="box-footer">
                                                                     <p:commandLink value="#{producto.nombre}">
                                                                         <f:setPropertyActionListener value="#{producto}" target="#{productoCT.producto}"/>
-                                                                        <p:ajax event="click" listener="#{subProductoCT.consultarProductosSegunProducto(producto)}" update="@form"/>
+                                                                        <p:ajax event="click" listener="#{subProductoCT.consultarSubProductosSegunProducto(producto)}" update="@form"/>
                                                                     </p:commandLink>
                                                                 </div>
                                                             </div>                                
-                                                        </li>
+                                                        </li>                                                        
                                                     </c:forEach>
-                                                </ul>                                                
+                                                </ul>   
                                             </div>
                                         </div>             
                                     </div>
@@ -81,7 +81,7 @@
                                     <div class="container pad-container">
                                         <div class="row">                                            
                                             <c:forEach items="#{subProductoCT.subProductosConCosto}" var="subproducto" begin="0" end="#{subProductoCT.subProductosConCosto.size()}">
-                                                <div class="col-md-6 col-sm-6 col-xs-10 esp-prenda">
+                                                <div class="col-md-6 col-sm-6 col-xs-10 esp-prenda" style="height: 340px">
                                                     <div class="row border-r">
                                                         <div class="col-xs-4" >
                                                             <p:graphicImage value="#{subproducto.rutaImagen}" width="180px" height="220px"/>
@@ -95,7 +95,7 @@
                                                             <div align="left">
                                                                 <h:panelGrid  width="80%" columns="2">                                                 
                                                                     <h:commandButton id="btnAgregar" value="Agregar" class="btn btn-info">
-                                                                        <p:ajax event="click" update="numPrendas" listener="#{pedidoCT.agregarproductos(subproducto)}"/>
+                                                                        <p:ajax event="click" update=":formularioModal" listener="#{pedidoCT.agregarproductos(subproducto)}"/>
                                                                     </h:commandButton>                                                
                                                                 </h:panelGrid><br/>
                                                             </div><!-- INICION DE CONTADOR -->
@@ -117,94 +117,107 @@
                                              col-lg-offset-1 col-md-offset-1 col-sm-offset-1  pos-form ">
                                             <div class="row ">                                                
                                                 <div class="col-xs-12 col-md-6"><!-- inicion / fin columnas -->
-                                                    <div class="pedido">                               
-
+                                                    <div class="pedido">                              
                                                         <div class="form-group">
                                                             <label class="label-lv" for="">Calendario para Pedido</label>
-                                                            <b:dateTimePicker value="#{pedidoCT.pedido.fechaRecogida}" show-time="false"/>
+                                                            <b:dateTimePicker binding="#{FRecogida}" placeholder="YYYY/MM/DD" id="TFechaRec" required="true" required-message="Por favor, Seleccione fecha" value="#{pedidoCT.pedido.fechaRecogida}" show-time="false"/>
+                                                            <p:message for="TFechaRec"/>
                                                             <span class="help-block"><em>* Define la fecha de recogida de la prendas. </em></span>								
                                                         </div>   
+
                                                         <div class="form-group">
                                                             <label class="label-lv" for="">Zona Horaria</label>
-                                                            <h:selectOneMenu value="#{pedidoCT.pedido.horaInicio.horario}" class="form-control input-lg input-lg-lv">
-                                                                <f:selectItem itemLabel="Horario" noSelectionOption="true"/>
+                                                            <h:selectOneMenu binding="#{HRecogida}" id="SMHorarioRec" required="true" requiredMessage="Seleccione horario de recogida" value="#{pedidoCT.pedido.horaInicio.horario}" class="form-control input-lg input-lg-lv">
+                                                                <f:selectItem itemLabel="Seleccion horario de recogida" noSelectionOption="true"/>
                                                                 <f:selectItems value="#{horarioCT.horarios}" var="horario" itemLabel="#{horario.horario}" itemValue="#{horario.horario}"/>
                                                             </h:selectOneMenu>
+                                                            <p:message for="SMHorarioRec"/>
                                                             <span class="help-block"><em>* Define horario de recogida de las prendas.</em></span>							
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label class="label-lv" for="">Barrio</label>
-                                                            <h:selectOneMenu value="#{pedidoCT.pedido.barrioRecogida.nombre}" class="form-control input-lg input-lg-lv">
-                                                                <f:selectItem itemLabel="Barrios" noSelectionOption="true"/>
+                                                            <h:selectOneMenu id="SMBarrioRec" required="true" requiredMessage="Seleccione barrio de recogida" value="#{pedidoCT.pedido.barrioRecogida.nombre}" class="form-control input-lg input-lg-lv">
+                                                                <f:selectItem itemLabel="Seleccione barrio donde sera recogido el pedido" noSelectionOption="true"/>
                                                                 <f:selectItems value="#{barrioCT.barrios}" var="barrio" itemLabel="#{barrio.nombre}" itemValue="#{barrio.nombre}"/>
                                                             </h:selectOneMenu>
+                                                            <p:message for="SMBarrioRec"/>
                                                             <span class="help-block"><em>* Define barrio de residencia para la recogida de las prendas.</em></span>                                        
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label class="label-lv" for="">Dirección de residencia </label>
-                                                            <p:inputText type="text" value="#{pedidoCT.pedido.direccionRecogida}" class="form-control input-lg input-lg-lv" placeholder="Direccion de pedido" />
+                                                            <h:inputText required="true" requiredMessage="Por favor, ingrese direccion de recogida del pedido" id="TDirRec"  value="#{pedidoCT.pedido.direccionRecogida}" class="form-control input-lg input-lg-lv">
+                                                                <f:passThroughAttribute name="placeholder" value="Direccion de pedido"/>
+                                                            </h:inputText>                                                                                                                               
                                                             <span class="help-block"><em>* Direccion de la residencia donde seran recogidas las prendas.</em></span>	
+                                                            <p:message for="TDirRec"/>
                                                         </div>
 
                                                         <div class="form-grup">
                                                             <label for="" class="label-lv">Quien entrega?</label>
-                                                            <p:inputText type="text" class="form-control input-lg input-lg-lv" value="#{pedidoCT.pedido.quienEntrega}" placeholder="Nombre de la persona que entrega las prendas..." />
+                                                            <h:inputText id="TQERec" required="true" requiredMessage="Por favor, ingrese nombre de la persona que entregar las prendas" class="form-control input-lg input-lg-lv" value="#{pedidoCT.pedido.quienEntrega}">
+                                                                <f:passThroughAttribute name="placeholder" value="Nombre de la persona que entrega las prendas..."/>
+                                                            </h:inputText>
+                                                            <p:message for="TQERec"/>
                                                             <span class="help-block"><em>* Nombre de la persona que entregara las prendas.</em></span>	
                                                         </div>                              
                                                     </div>
                                                 </div><!-- fin columnas -->
 
                                                 <div class="col-xs-12 col-md-6"><!-- inicion / fin columnas -->
-                                                    <div class="entrega">                               
-
+                                                    <div class="entrega">                              
                                                         <div class="form-group">
                                                             <label class="label-lv" for="">Calendario para Entrega</label>
-                                                            <b:dateTimePicker value="#{pedidoCT.pedido.fechaEntrega}" show-time="false"/>
+                                                            <b:dateTimePicker binding="#{FEntrega}" placeholder="YYYY/MM/DD" id="TFechaEnt" required="true" requiredMessage="Por favor, seleccione fecha de entrega" value="#{pedidoCT.pedido.fechaEntrega}" show-time="false">
+                                                            </b:dateTimePicker>
+                                                            <p:message for="TFechaEnt"/>
                                                             <span class="help-block"><em>* Define la fecha de entrega de la prendas. </em></span>								
                                                         </div>
+
                                                         <div class="form-group">
                                                             <label class="label-lv" for="">Zona Horaria</label>
-                                                            <h:selectOneMenu value="#{pedidoCT.pedido.horaFinal.horario}" class="form-control input-lg input-lg-lv">
-                                                                <f:selectItem itemLabel="Horario" noSelectionOption="true"/>
+                                                            <h:selectOneMenu id="SMHorarioEnt" required="true" requiredMessage="Seleccione horario de entrega" value="#{pedidoCT.pedido.horaFinal.horario}" class="form-control input-lg input-lg-lv">
+                                                                <f:selectItem itemLabel="Seleccione horario de entrega" noSelectionOption="true"/>
                                                                 <f:selectItems value="#{horarioCT.horarios}" var="horario" itemLabel="#{horario.horario}" itemValue="#{horario.horario}"/>
+                                                                <f:attribute name="fechaRecogida" value="#{FRecogida.value}"/>
+                                                                <f:attribute name="fechaEntrega" value="#{FEntrega.value}"/>
+                                                                <f:attribute name="horarioRecogida" value="#{HRecogida.value}"/>
+                                                                <f:validator validatorId="ValidadorFechasHorariosPedido"/>
                                                             </h:selectOneMenu>
+                                                            <p:message for="SMHorarioEnt"/>
                                                             <span class="help-block"><em>* Define horario de entrega de las prendas.</em></span>							
                                                         </div>                                   
 
                                                         <div class="form-group">
                                                             <label class="label-lv" for="">Barrio</label>
-                                                            <h:selectOneMenu value="#{pedidoCT.pedido.barrioEntrega.nombre}" class="form-control input-lg input-lg-lv">
-                                                                <f:selectItem itemLabel="Barrios" noSelectionOption="true"/>
+                                                            <h:selectOneMenu required="true" requiredMessage="Seleccione barrio de entrega" id="SMBarrioEnt" value="#{pedidoCT.pedido.barrioEntrega.nombre}" class="form-control input-lg input-lg-lv">
+                                                                <f:selectItem itemLabel="Seleccione barrio donde sera entregado el pedido" noSelectionOption="true"/>
                                                                 <f:selectItems value="#{barrioCT.barrios}" var="barrio" itemLabel="#{barrio.nombre}" itemValue="#{barrio.nombre}"/>
                                                             </h:selectOneMenu> 
+                                                            <p:message for="SMBarrioEnt"/>
                                                             <span class="help-block"><em>* Define barrio de residencia para la entrega de las prendas.</em></span>                                       
                                                         </div>
 
-                                                        <div class="form-group">
+                                                        <div class="form-group">s
                                                             <label class="label-lv" for="">Dirección de entrega</label>
-                                                            <p:inputText type="text" value="#{pedidoCT.pedido.direccionEntrega}" class="form-control input-lg input-lg-lv" placeholder="Direccion de entrega de las prendas" />
+                                                            <h:inputText id="TDirEnt" required="true" requiredMessage="Por favor, ingrese direccion de entrega del pedido" value="#{pedidoCT.pedido.direccionEntrega}" class="form-control input-lg input-lg-lv">
+                                                                <f:passThroughAttribute name="placeholder" value="Direccion de entrega de las prendas"/>
+                                                            </h:inputText>
+                                                            <p:message for="TDirEnt"/>
                                                             <span class="help-block"><em>* Direccion de la residencia donde seran entregadas las prendas.</em></span>
                                                         </div>
 
                                                         <div class="form-grup">
                                                             <label for="" class="label-lv">Quien recibe?</label>
-                                                            <p:inputText type="text" value="#{pedidoCT.pedido.quienRecibe}" class="form-control input-lg input-lg-lv" placeholder="Nombre de la persona que recibe las prendas..."/>
+                                                            <h:inputText id="TQEEnt" required="true" requiredMessage="Por favor, ingrese nombre de la persona que recibe las prendas" value="#{pedidoCT.pedido.quienRecibe}" class="form-control input-lg input-lg-lv">
+                                                                <f:passThroughAttribute name="placeholder" value="Nombre de la persona que recibe las prendas..."/>
+                                                            </h:inputText>
+                                                            <p:message for="TQEEnt"/>
                                                             <span class="help-block"><em>* Nombre de la persona que recibira las prendas.</em></span>	
                                                         </div>                               
                                                     </div>
                                                 </div><!-- fin columnas -->                                                
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xs-12 col-md-12" style="padding-top: 26px">
-                                                    <div class="recomendaciones">
-                                                        <div class="form-grup">
-                                                            <label for="" class="label-lv">Recomendaciones y Comentarios</label>
-                                                            <h:inputTextarea rows="3" class="form-control input-lg-lv"/>                                    	
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div><!-- ROW PRINCIPAL -->
@@ -221,9 +234,8 @@
                                             <div class="row">
                                                 <div class="col-xs-12 col-md-12" >
                                                     <div class="bcg-color-pagos">
-
                                                         <div class="title wow fadeInRight animated ">
-                                                            <h2 class="txt-title-form">Detalles del Contacto</h2>							
+                                                            <h2 class="txt-title-form">Confirmacion del pedido</h2>							
                                                         </div>
 
                                                         <div class="row">
@@ -278,7 +290,6 @@
                                                                                    value="#{pedidoCT.pedido.direccionEntrega}"/>
                                                                 </div>                                                            
                                                             </div>
-
 
                                                             <div class="col-xs-8 col-xs-offset-2 " style="padding: 20px 0px;" >
                                                                 <div class="col-sm-6" >
@@ -416,8 +427,8 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <p:commandButton value="PAGAR" style="width: 150px" class="btn btn-success active">
-                                                                    <p:ajax event="click" listener="#{pedidoCT.registrarPedido()}" update=":formularioContenido numPrendas"/>
+                                                                <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" value="PAGAR" style="width: 150px" class="btn btn-success active">
+                                                                    <p:ajax event="click" listener="#{pedidoCT.registrarPedido()}" update=":formularioContenido :formularioModal"/>
                                                                 </p:commandButton>                                                                
                                                             </div>
                                                         </div>
@@ -464,7 +475,7 @@
                                 <div class="col-md-12 col-xs-12 ">
                                     <div class="col-md-6  col-xs-6  mrg-table">
                                         <div align="left">
-                                            <p:commandButton class="btn btn-lg btn-primary" rendered="#{pedidoCT.botonatras}" update=":formularioContenido"  action="#{pedidoCT.atras()}" value="Atras" />
+                                            <p:commandButton class="btn btn-lg btn-primary" immediate="true" rendered="#{pedidoCT.botonatras}" update=":formularioContenido"  action="#{pedidoCT.atras()}" value="Atras" />
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-xs-6 mrg-table" >
@@ -477,16 +488,27 @@
                             </div>
                         </div>
                     </section>
+
+                    <script type="text/javascript">
+                        function start() {
+                            PF('statusDialog').show();
+                        }
+                        function stop() {
+                            PF('statusDialog').hide();
+                        }
+                    </script>
+                    <p:dialog modal="true" widgetVar="statusDialog"  header="Registrando pedido, espere" draggable="false" closable="false" resizable="false">
+                        <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif" />
+                    </p:dialog>
                 </h:form>
                 <!-- CONTENIDO END-->
 
-
-                <p:commandButton id="numPrendas" icon="fa fa-pencil-square-o fa-2x pos-info-btn ico-forma" update=":modal" class="btn-num-prendas"  value="#{pedidoCT.cantidadProductos}">
-                    <p:ajax event="click" listener="#{pedidoCT.organizarSubProductosPedido(pedidoCT.subproductos)}"/>
-                    <f:passThroughAttribute name="data-toggle" value="modal"/>
-                    <f:passThroughAttribute name="data-target" value="#myModal"/>
-                </p:commandButton>
-
+                <h:form id="formularioModal">
+                    <button type="button" data-toggle="modal" data-target="#myModal" id="numPrendas" class="btn-num-prendas">
+                        #{pedidoCT.cantidadProductos}
+                        <p:ajax event="click" update=":modal"/>                   
+                    </button>
+                </h:form>
 
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                     <div class="modal-dialog" role="document">
@@ -515,7 +537,7 @@
                                                                 <!-- INICION DE CONTADOR -->
                                                                 <div align="left">
                                                                     <h:panelGrid  width="80%" columns="2">                                                 
-                                                                        <p:commandButton id="btnAgregar" action="#{pedidoCT.eliminarproducto(subProducto)}" update="numPrendas :modal" value="Eliminar" class="btn btn-danger">
+                                                                        <p:commandButton id="btnAgregar" action="#{pedidoCT.eliminarproducto(subProducto)}" update=":formularioModal :modal" value="Eliminar" class="btn btn-danger">
                                                                         </p:commandButton>
                                                                     </h:panelGrid><br/>
                                                                 </div><!-- INICION DE CONTADOR -->
@@ -529,7 +551,8 @@
                                     </c:forEach>                                  
                                 </h:form>
                             </div>
-                            <div class="modal-footer">
+                            <div class="modal-footer" style="vertical-align: central">
+                                <h4 style="font-size: xx-large; float: left">$#{pedidoCT.calcularCostoPedido(pedidoCT.organizarSubProductos(pedidoCT.subproductos))}</h4>                             
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                             </div>
                         </div>

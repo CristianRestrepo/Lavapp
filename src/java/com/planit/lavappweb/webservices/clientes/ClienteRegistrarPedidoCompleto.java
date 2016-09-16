@@ -22,7 +22,7 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
  *        client.close();
  * </pre>
  *
- * @author Desarrollo_Planit
+ * @author VaioDevelopment
  */
 public class ClienteRegistrarPedidoCompleto {
     private WebTarget webTarget;
@@ -37,7 +37,6 @@ public class ClienteRegistrarPedidoCompleto {
     /**
      * @param responseType Class representing the response
      * @param idUsuario query parameter
-     * @param fechaInicio query parameter
      * @param idHoraInicio query parameter
      * @param idHoraFinal query parameter
      * @param idEstado query parameter
@@ -51,9 +50,9 @@ public class ClienteRegistrarPedidoCompleto {
      * @param idBarrioEntrega query parameter
      * @return response object (instance of responseType class)
      */
-    public <T> T registrarPedidoWeb(Class<T> responseType, String idUsuario, String fechaInicio, String idHoraInicio, String idHoraFinal, String idEstado, String fechaEntrega, String direccionEntrega, String direccionRecogida, String fechaRecogida, String quienEntrega, String quienRecibe, String idBarrioRecogida, String idBarrioEntrega) throws ClientErrorException {
-        String[] queryParamNames = new String[]{"idUsuario", "fechaInicio", "idHoraInicio", "idHoraFinal", "idEstado", "fechaEntrega", "direccionEntrega", "direccionRecogida", "fechaRecogida", "quienEntrega", "quienRecibe", "idBarrioRecogida", "idBarrioEntrega"};
-        String[] queryParamValues = new String[]{idUsuario, fechaInicio, idHoraInicio, idHoraFinal, idEstado, fechaEntrega, direccionEntrega, direccionRecogida, fechaRecogida, quienEntrega, quienRecibe, idBarrioRecogida, idBarrioEntrega};
+    public <T> T registrarPedidoCompleto(Class<T> responseType, String idUsuario, String idHoraInicio, String idHoraFinal, String idEstado, String fechaEntrega, String direccionEntrega, String direccionRecogida, String fechaRecogida, String quienEntrega, String quienRecibe, String idBarrioRecogida, String idBarrioEntrega) throws ClientErrorException {
+        String[] queryParamNames = new String[]{"idUsuario", "idHoraInicio", "idHoraFinal", "idEstado", "fechaEntrega", "direccionEntrega", "direccionRecogida", "fechaRecogida", "quienEntrega", "quienRecibe", "idBarrioRecogida", "idBarrioEntrega"};
+        String[] queryParamValues = new String[]{idUsuario, idHoraInicio, idHoraFinal, idEstado, fechaEntrega, direccionEntrega, direccionRecogida, fechaRecogida, quienEntrega, quienRecibe, idBarrioRecogida, idBarrioEntrega};
         ;
         javax.ws.rs.core.Form form = getQueryOrFormParams(queryParamNames, queryParamValues);
         javax.ws.rs.core.MultivaluedMap<String, String> map = form.asMap();

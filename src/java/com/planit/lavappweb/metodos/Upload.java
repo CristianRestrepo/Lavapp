@@ -118,7 +118,7 @@ public class Upload {
     public static String getPathDefaultUsuario() {
 
         try {
-            String path = "/resources/images/upload/Usuarios/user.png";
+            String path = "/resources/images/upload/Usuarios/user.jpg";
             return path;
         } catch (Exception e) {
             e.getMessage();
