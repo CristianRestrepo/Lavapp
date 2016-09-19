@@ -79,6 +79,7 @@ public class PedidoDao {
         HorarioDao hd = new HorarioDao();
         BarriosDao bd = new BarriosDao();
         EstadoDao ed = new EstadoDao();
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         
         pedido.setEstado(ed.consultarEstadoID(new Estado_TO(3)));
         pedido.setBarrioEntrega(bd.consultarBarrio(pedido.getBarrioEntrega()));
@@ -94,10 +95,10 @@ public class PedidoDao {
                 "" + pedido.getHoraInicio().getIdHorario(),
                 "" + pedido.getHoraFinal().getIdHorario(),
                 "" + pedido.getEstado().getIdEstado(),
-                "" + pedido.getFechaEntrega(),
+                formato.format(pedido.getFechaEntrega()),
                 pedido.getDireccionEntrega(),
                 pedido.getDireccionRecogida(),
-                "" + pedido.getFechaRecogida(),
+                formato.format(pedido.getFechaRecogida()),
                 pedido.getQuienEntrega(),
                 pedido.getQuienRecibe(),
                 "" + pedido.getBarrioRecogida().getIdBarrios(),

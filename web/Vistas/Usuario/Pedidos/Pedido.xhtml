@@ -120,16 +120,29 @@
                                         <div class="box-header with-border">
                                             <i class="fa fa-2x fa-globe"/>
                                             <h4 class="box-title">Datos del Pedido</h4>
-                                            <c:if test="#{sesionCT.obtenerSesion().rol.idRol == 2}">
-                                                <div class="box-tools">
-                                                    <h:panelGrid columns="2">
-                                                        <h:selectOneMenu class="form-control">
-                                                            <f:selectItem itemLabel="Seleccione estado"/>
-                                                        </h:selectOneMenu>
-                                                        <p:commandButton style="float: right" class="btn btn-warning" value="Cambiar Estado"/>
-                                                    </h:panelGrid>
-                                                </div>
-                                            </c:if>
+                                            <c:choose>
+                                                <c:when test="#{sesionCT.obtenerSesion().rol.idRol == 2}">
+                                                    <div class="box-tools">
+                                                        <h:panelGrid columns="3">
+                                                            <h:selectOneMenu class="form-control">
+                                                                <f:selectItem itemLabel="Seleccione estado"/>
+                                                            </h:selectOneMenu>
+                                                            <p:commandButton icon="fa fa-pencil-square-o" iconPos="right" style="float: right" class="btn btn-success" value="Cambiar Estado"/>
+                                                            <p:commandButton icon="fa fa-star" iconPos="right" style="float: right" class="btn btn-warning" value="Ver Calificacion"/>
+                                                        </h:panelGrid>
+                                                    </div>
+                                                </c:when>
+                                                <c:when test="#{sesionCT.obtenerSesion().rol.idRol == 4}">
+                                                    <div class="box-tools">
+                                                        <h:panelGrid columns="2">                                                        
+                                                            <p:commandButton icon="fa fa-star" action="Calificacion" iconPos="right" style="float: right" class="btn btn-warning" value="Calificar">
+                                                                <f:setPropertyActionListener value="#{pedidoCT.pedido}" target="#{calificacionCT.calificacionModelo.pedido}"/>
+                                                            </p:commandButton>
+                                                        </h:panelGrid>
+                                                    </div>
+                                                </c:when>
+                                            </c:choose>
+
                                         </div> 
                                         <div class="box-body">
                                             <div class="table-responsive">
@@ -196,14 +209,6 @@
                                                                         <a href="#" target="_parent">$#{costoCT.consultarCostoPedido(pedidoCT.pedido)}</a>
                                                                     </small>
                                                                 </h4>
-
-                                                                <div class="mrg-desc-prod">
-                                                                    <p class="hidden-xs">
-                                                                        <strong>Observacines:</strong> 
-                                                                        Descripcion de observaciones acerca del pedido especifico, tipo de tela, 
-                                                                        daños de la prenda, manchas, etc.
-                                                                    </p>
-                                                                </div>
                                                             </div>                                                    
                                                         </div>
                                                     </div>
@@ -266,7 +271,7 @@
                                                         <h:selectOneMenu class="form-control">
                                                             <f:selectItem itemLabel="Seleccione estado"/>
                                                         </h:selectOneMenu>
-                                                        <p:commandButton style="float: right" class="btn btn-warning" value="Cambiar Estado"/>
+                                                        <p:commandButton icon="fa fa-pencil-square-o" iconPos="right" style="float: right" class="btn btn-warning" value="Cambiar Estado"/>
                                                     </h:panelGrid>
                                                 </div>
                                             </c:if>
@@ -315,26 +320,24 @@
                                                                     <p:graphicImage value="#{pedidoCT.descripcionPedido.subProducto.rutaImagen}" width="250px" height="280px"/> 
                                                                 </td>
                                                                 <td width="50%" >
-                                                                    <h:panelGrid columns="1" width="100%">
-
-                                                                        <p:outputLabel value="Estado" for="TEstado"/>
-                                                                        <p:inputText class="form-control" maxlength="60" id="TEstado" placeholder="Estado" value="#{pedidoCT.descripcionPedido.estado.nombre}" style="width: 100%;"></p:inputText>                       
-                                                                        <p:message for="TEstado"/>
-
+                                                                    <h:panelGrid columns="1" width="100%">                                                                        
                                                                         <p:outputLabel value="Codigo" for="TCodigo"/>
-                                                                        <p:inputText class="form-control" maxlength="60" id="TCodigo" required="true" requiredMessage="Ingrese nombres" placeholder="Codigo de la prenda" value="#{pedidoCT.descripcionPedido.codigo}" style="width: 100%;"></p:inputText>                       
+                                                                        <p:inputText class="form-control" maxlength="60" disabled="#{pedidoCT.descripcionPrenda}" id="TCodigo" required="true" requiredMessage="Ingrese nombres" placeholder="Codigo de la prenda" value="#{pedidoCT.descripcionPedido.codigo}" style="width: 100%;"></p:inputText>                       
                                                                         <p:message for="TCodigo"/>
 
                                                                         <p:outputLabel value="Color" for="SMColor"/>
-                                                                        <h:selectOneMenu value="#{pedidoCT.descripcionPedido.color.nombre}" id="SMColor" class="form-control">
+                                                                        <h:selectOneMenu disabled="#{pedidoCT.descripcionPrenda}" value="#{pedidoCT.descripcionPedido.color.nombre}" id="SMColor" class="form-control">
                                                                             <f:selectItem itemLabel="Seleccione Color" noSelectionOption="true"/>
                                                                             <f:selectItems value="#{colorCT.colores}" var="color" itemLabel="#{color.nombre}" itemValue="#{color.nombre}"/>
                                                                         </h:selectOneMenu>
                                                                         <p:message for="SMColor"/>
 
                                                                         <p:outputLabel value="Descripcion" for="TDescripcion"/>
-                                                                        <p:inputTextarea class="form-control" rows="4" maxlength="200" id="TDescripcion" required="true" requiredMessage="Ingrese Descripcion" placeholder="Descripcion de la prenda" value="#{pedidoCT.descripcionPedido.descripcion}" style="width: 100%;"></p:inputTextarea>                       
+                                                                        <p:inputTextarea disabled="#{pedidoCT.descripcionPrenda}" class="form-control" rows="4" maxlength="200" id="TDescripcion" required="true" requiredMessage="Ingrese Descripcion" placeholder="Descripcion de la prenda" value="#{pedidoCT.descripcionPedido.descripcion}" style="width: 100%;"></p:inputTextarea>                       
                                                                         <p:message for="TDescripcion"/>
+
+                                                                        <p:separator/>
+                                                                        <p:commandButton icon="fa fa-calendar" iconPos="right" style="float: right" class="btn btn-warning" value="Ver Historico"/>
                                                                     </h:panelGrid>
                                                                 </td>
                                                             </tr>

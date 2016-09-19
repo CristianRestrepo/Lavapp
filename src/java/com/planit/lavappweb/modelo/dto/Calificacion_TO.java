@@ -46,6 +46,7 @@ public class Calificacion_TO implements Serializable{
     //Constructores
     public Calificacion_TO() {
         pedido = new Pedido_TO();
+        calificacion = 1;
     }
 
     public Calificacion_TO(int calificacion, String observacion, Pedido_TO pedido) {

@@ -26,7 +26,7 @@ public class CalificacionDao {
 
         ClienteRegistrarCalificacion clieModelo = new ClienteRegistrarCalificacion();
         return clieModelo.registrarCalificacion(Calificacion_TO.class,
-                "" + calificacion.getIdCalificacion(),
+                "" + calificacion.getCalificacion(),
                 calificacion.getObservacion(),
                 "" + calificacion.getPedido().getIdPedido());
     }

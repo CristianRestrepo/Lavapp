@@ -1,23 +1,44 @@
 
 .fielset{
-margin-top: auto;
+    margin-top: auto;
 }
 .star {
     font-size: 100px;
     display: inline-block;
 }
 .star a {
-   text-decoration: none;
-  display: inline-block;
-  font-size: 50px;
-  font-size: 11rem;
-  
-  color: #888;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 50px;
+    font-size: 11rem;  
+    color: #888;
 }
 
 .star:hover a {
-  color: rgb(39, 130, 228);
+    color: rgb(39, 130, 228);
 }
 .star > a:hover ~ a {
-  color: #888;
+    color: #888;
+}
+
+.rating {
+    overflow: hidden;
+    display: inline-block;
+}
+.rating-input {
+    float: right;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    margin: 0 0 0 -16px;
+    opacity: 0;
+}
+.rating-star {
+    display: block;
+    width: 16px;
+    height: 16px;
+    background: url('star.png') 0 -16px;
+}
+.rating-star:hover {
+    background-position: 0 0;
 }

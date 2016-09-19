@@ -170,6 +170,10 @@
             <from-outcome>DescripcionPedido</from-outcome>
             <to-view-id>/Vistas/Usuario/Pedidos/DescripcionPedido.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>Calificar</from-outcome>
+            <to-view-id>/Vistas/Usuario/Pedidos/Calificacion.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule> 
       
     <!--Managed Beans-->
@@ -296,7 +300,7 @@
     <managed-bean>
         <managed-bean-name>calificacionCT</managed-bean-name>
         <managed-bean-class>com.planit.lavappweb.controladores.CalificacionCT</managed-bean-class>
-        <managed-bean-scope>view</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>pedidoCT</managed-bean-name>

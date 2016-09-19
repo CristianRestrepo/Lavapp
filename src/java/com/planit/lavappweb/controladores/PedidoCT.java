@@ -18,14 +18,13 @@ import com.planit.lavappweb.modelo.dto.SubProducto_TO;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.validator.ValidatorException;
+import javax.swing.text.StyledEditorKit;
 
 /**
  *
@@ -47,6 +46,7 @@ public class PedidoCT implements Serializable {
     private boolean botonconfirmar;
 
     private String buscar;
+    private Boolean descripcionPrenda;
 
     public PedidoCT() {
 
@@ -64,6 +64,7 @@ public class PedidoCT implements Serializable {
         if (Sesion.obtenerSesion() != null) {
             if (Sesion.obtenerSesion().getRol().getIdRol() == 1) {
                 pedidos = pedidoDao.consultarPedidos();
+                descripcionPrenda = false;
             } else if (Sesion.obtenerSesion().getRol().getIdRol() == 2) {
                 ProveedorDao proveedorDao = new ProveedorDao();
                 try {
@@ -71,12 +72,14 @@ public class PedidoCT implements Serializable {
                 } catch (ParseException ex) {
                     Logger.getLogger(PedidoCT.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                descripcionPrenda = false;
             } else if (Sesion.obtenerSesion().getRol().getIdRol() == 4) {
                 try {
                     pedidos = pedidoDao.consultarPedidosCliente(Sesion.obtenerSesion());
                 } catch (ParseException ex) {
                     Logger.getLogger(PedidoCT.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                descripcionPrenda = true;
             }
         }
     }
@@ -185,6 +188,16 @@ public class PedidoCT implements Serializable {
     public void setDescripcionPedido(DescripcionPedido_TO descripcionPedido) {
         this.descripcionPedido = descripcionPedido;
     }
+
+    public Boolean getDescripcionPrenda() {
+        return descripcionPrenda;
+    }
+
+    public void setDescripcionPrenda(Boolean descripcionPrenda) {
+        this.descripcionPrenda = descripcionPrenda;
+    }
+    
+    
 
     //Metodos para las vistas 
     public void atras() {
