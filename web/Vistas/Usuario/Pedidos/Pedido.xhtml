@@ -135,9 +135,7 @@
                                                 <c:when test="#{sesionCT.obtenerSesion().rol.idRol == 4}">
                                                     <div class="box-tools">
                                                         <h:panelGrid columns="2">                                                        
-                                                            <p:commandButton icon="fa fa-star" action="Calificacion" iconPos="right" style="float: right" class="btn btn-warning" value="Calificar">
-                                                                <f:setPropertyActionListener value="#{pedidoCT.pedido}" target="#{calificacionCT.calificacionModelo.pedido}"/>
-                                                            </p:commandButton>
+                                                            <p:commandButton icon="fa fa-star" action="#{calificacionCT.verCalificacion(pedidoCT.pedido)}" iconPos="right" style="float: right" class="btn btn-warning" value="Calificar"/>
                                                         </h:panelGrid>
                                                     </div>
                                                 </c:when>
@@ -313,6 +311,8 @@
                                             </b:column>
                                             <b:column offset="1" col-lg="10">
                                                 <div class="box box-info">
+                                                    <div class="box-header">                                                        
+                                                    </div>
                                                     <div class="box-body">
                                                         <table width="100%">
                                                             <tr>
@@ -337,7 +337,7 @@
                                                                         <p:message for="TDescripcion"/>
 
                                                                         <p:separator/>
-                                                                        <p:commandButton icon="fa fa-calendar" iconPos="right" style="float: right" class="btn btn-warning" value="Ver Historico"/>
+                                                                        <p:commandButton icon="fa fa-calendar" immediate="true" iconPos="right" action="#{historicoCT.verHistoricoPrenda(pedidoCT.descripcionPedido)}" style="float: right" class="btn btn-warning" value="Ver Historico"/>
                                                                     </h:panelGrid>
                                                                 </td>
                                                             </tr>
@@ -348,9 +348,9 @@
                                             <b:column offset="1" col-lg="10">
                                                 <div class="box box-success">
                                                     <div align="center" class="box-body">
-                                                        <p:galleria value="#{imagesView.images}" var="image" panelWidth="500" panelHeight="313" showCaption="true">
-                                                            <p:graphicImage name="demo/images/nature/#{image}" alt="Image Description for #{image}" title="#{image}"/>
-                                                        </p:galleria>
+                                                        <!--                                                        <p:galleria value="" var="" panelWidth="500" panelHeight="313" showCaption="true">
+                                                                                                                    <p:graphicImage name="" alt="" title=""/>
+                                                                                                                </p:galleria>-->
                                                         <h:panelGrid width="100%" columns="1">
                                                             <p:outputLabel value="Observacion Asesor" for="TObservacionA"/>
                                                             <p:inputTextarea class="form-control" rows="4" maxlength="200" id="TObservacionA" required="true" requiredMessage="Ingrese Descripcion" placeholder="Observacion del asesor" value="#{pedidoCT.descripcionPedido.observacionAsesor}" style="width: 100%;"></p:inputTextarea>                       

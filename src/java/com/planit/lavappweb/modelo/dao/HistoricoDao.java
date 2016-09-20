@@ -6,11 +6,17 @@
 package com.planit.lavappweb.modelo.dao;
 
 import com.planit.lavappweb.modelo.dto.DescripcionPedido_TO;
+import com.planit.lavappweb.modelo.dto.Estado_TO;
 import com.planit.lavappweb.modelo.dto.Historico_TO;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarHistorico;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarHistoricoDescripcion;
 import com.planit.lavappweb.webservices.clientes.ClienteEliminarHistorico;
 import com.planit.lavappweb.webservices.clientes.ClienteRegistrarHistorico;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  *
@@ -28,9 +34,29 @@ public class HistoricoDao {
         return cliente.eliminarHistorico(Historico_TO.class, "" + historico.getIdHistorico());
     }
 
-    public Historico_TO consultarHistoricoDescripcion(DescripcionPedido_TO descripcionPedido) {
+    public List<Historico_TO> consultarHistoricoDescripcion(DescripcionPedido_TO descripcionPedido) {
         ClienteConsultarHistoricoDescripcion cliente = new ClienteConsultarHistoricoDescripcion();
-        return cliente.consultarHistoricoDescripcion(Historico_TO.class, "" + descripcionPedido.getIdDescripcionPedido());
+        List<HashMap> datos = cliente.consultarHistoricoDescripcion(List.class, "" + descripcionPedido.getIdDescripcionPedido());
+        List<Historico_TO> historico = new ArrayList<>();
+
+        DescripcionPedidoDao descripcionPedidoDao = new DescripcionPedidoDao();
+        EstadoDao estadoDao = new EstadoDao();
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+
+        for (int i = 0; i < datos.size(); i++) {
+            HashMap estado = (HashMap) datos.get(i).get("estado");
+
+            try {
+                historico.add(new Historico_TO((int) datos.get(i).get("idHistorico"),
+                        descripcionPedidoDao.consultarDescripcionPedido(descripcionPedido),
+                        estadoDao.consultarEstadoID(new Estado_TO((int) estado.get("idEstado"))),
+                        formato.parse((String) datos.get(i).get("fechaString"))));
+            } catch (ParseException e) {
+                e.getMessage();
+            }
+           
+        }
+        return historico;
     }
 
     public Historico_TO consultarHistorico(Historico_TO historico) {

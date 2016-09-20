@@ -6,11 +6,15 @@
 package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.modelo.dao.HistoricoDao;
+import com.planit.lavappweb.modelo.dto.DescripcionPedido_TO;
 import com.planit.lavappweb.modelo.dto.Historico_TO;
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -56,5 +60,11 @@ public class HistoricoCT implements Serializable {
     public void eliminar() {
         HistoricoDao historicoDao = new HistoricoDao();
         historico = historicoDao.eliminarHistorico(historico);
+    }
+
+    public String verHistoricoPrenda(DescripcionPedido_TO descripcionPedido){
+        HistoricoDao historicoDao = new HistoricoDao();
+        historicos = historicoDao.consultarHistoricoDescripcion(descripcionPedido);
+        return "Historico";
     }
 }

@@ -7,6 +7,7 @@ package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.modelo.dao.CalificacionDao;
 import com.planit.lavappweb.modelo.dto.Calificacion_TO;
+import com.planit.lavappweb.modelo.dto.Pedido_TO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class CalificacionCT implements Serializable {
         calificacionModelo = new Calificacion_TO();
         calificaciones = new ArrayList<>();
         operacion = 0;
-        nombreOperacion = "Registrar";
+        nombreOperacion = "Enviar Calificacion";
         rating = 5;
     }
 
@@ -65,11 +66,23 @@ public class CalificacionCT implements Serializable {
         this.rating = rating;
     }
 
+    public String getNombreOperacion() {
+        return nombreOperacion;
+    }
+
+    public void setNombreOperacion(String nombreOperacion) {
+        this.nombreOperacion = nombreOperacion;
+    }
+
+    
 //    METODOS CRUD
     public void registrar() {
         CalificacionDao calificacionDao = new CalificacionDao();
         calificacionModelo = calificacionDao.registrarCalificacion(calificacionModelo);
         calificaciones = calificacionDao.consultarCalificaciones();
+        
+        operacion = 1;
+        nombreOperacion = "Modificar Calificacion";
     }
 
     public void modificar() {
@@ -92,7 +105,7 @@ public class CalificacionCT implements Serializable {
         } else if (operacion == 1) {
             modificar();
             //Reiniciamos banderas
-            nombreOperacion = "Registrar";
+            nombreOperacion = "Enviar Calificacion";
             operacion = 0;
         }
     }
@@ -100,7 +113,7 @@ public class CalificacionCT implements Serializable {
     public void seleccionarCRUD(int i) {
         operacion = i;
         if (operacion == 1) {
-            nombreOperacion = "Modificar";
+            nombreOperacion = "Modificar Calificacion";
         }
     }
 
@@ -109,7 +122,22 @@ public class CalificacionCT implements Serializable {
         calificacionModelo = new Calificacion_TO();
         calificacionDao.consultarCalificaciones();
         operacion = 0;
-        nombreOperacion = "Registrar";
+        nombreOperacion = "Enviar Calificacion";
     }
 
+
+    //Otros
+    public String verCalificacion(Pedido_TO pedido) {
+        CalificacionDao calificacionDao = new CalificacionDao();
+        if (calificacionDao.consultarCalificacionPorPedido(pedido).getIdCalificacion() != 0) {
+            calificacionModelo = calificacionDao.consultarCalificacionPorPedido(pedido);
+            nombreOperacion = "Modificar Calificacion";
+            operacion = 1;
+        } else {
+            calificacionModelo.setPedido(pedido);
+            operacion = 0;
+            nombreOperacion = "Enviar Calificacion";
+        }
+        return "Calificacion";
+    }
 }

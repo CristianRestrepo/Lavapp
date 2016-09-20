@@ -8,10 +8,12 @@ package com.planit.lavappweb.controladores;
 import com.planit.lavappweb.metodos.Pedido;
 import com.planit.lavappweb.metodos.Sesion;
 import com.planit.lavappweb.modelo.dao.DescripcionPedidoDao;
+import com.planit.lavappweb.modelo.dao.HistoricoDao;
 import com.planit.lavappweb.modelo.dao.PedidoDao;
 import com.planit.lavappweb.modelo.dao.ProveedorDao;
 import com.planit.lavappweb.modelo.dto.DescripcionPedido_TO;
 import com.planit.lavappweb.modelo.dto.Estado_TO;
+import com.planit.lavappweb.modelo.dto.Historico_TO;
 import com.planit.lavappweb.modelo.dto.Pedido_TO;
 import com.planit.lavappweb.modelo.dto.SubProductoCosto_TO;
 import com.planit.lavappweb.modelo.dto.SubProducto_TO;
@@ -196,8 +198,6 @@ public class PedidoCT implements Serializable {
     public void setDescripcionPrenda(Boolean descripcionPrenda) {
         this.descripcionPrenda = descripcionPrenda;
     }
-    
-    
 
     //Metodos para las vistas 
     public void atras() {
@@ -289,6 +289,8 @@ public class PedidoCT implements Serializable {
         pedido = pedidoDao.consultarUltimoPedidoCliente(Sesion.obtenerSesion());
 
         DescripcionPedidoDao dpd = new DescripcionPedidoDao();
+        HistoricoDao hd = new HistoricoDao();
+        Historico_TO historico = new Historico_TO();
         if (pedido.getIdPedido() != 0) {
             for (int i = 0; i < subproductos.size(); i++) {
                 DescripcionPedido_TO dp = new DescripcionPedido_TO();
@@ -296,6 +298,16 @@ public class PedidoCT implements Serializable {
                 dp.setPedido(pedido);
                 dp.setSubProducto(new SubProducto_TO(subproductos.get(i).getIdSubProducto()));
                 dpd.registrarDescripcionPedido(dp);
+
+            }
+
+            List<DescripcionPedido_TO> descripciones = new ArrayList<>();
+            descripciones = dpd.consultarDescripcionesSinFotosSegunPedido(pedido);///Cambiar funcion cuando traigamos fotos
+            for (int i = 0; i < descripciones.size(); i++) {
+                historico = new Historico_TO();
+                historico.setDescripcionPedido(descripciones.get(i));
+                historico.setEstado(new Estado_TO(3));
+                hd.registrarHistorico(historico);
             }
 
             FacesMessage fmsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Pedido Registrado Exitosamente", "");
@@ -344,7 +356,7 @@ public class PedidoCT implements Serializable {
     }
 
     //Agrupa los productos en una lista de listas de productos del mismo tipo
-    public List<List<SubProductoCosto_TO>> organizarSubProductos(List<SubProductoCosto_TO> lista) { 
+    public List<List<SubProductoCosto_TO>> organizarSubProductos(List<SubProductoCosto_TO> lista) {
         List<List<SubProductoCosto_TO>> subproductosOrdenados = new ArrayList<>();
         lista = insertionSortSubProductos(lista);
         int tipo;
@@ -401,14 +413,14 @@ public class PedidoCT implements Serializable {
     }
 
     //Obtiene la sumatoria del valor de las prendas que se estan escogiendo en el pedido
-    public int calcularCostoPedido(List<List<SubProductoCosto_TO>> subproductosOrdenados){
+    public int calcularCostoPedido(List<List<SubProductoCosto_TO>> subproductosOrdenados) {
         int costo = 0;
         for (int i = 0; i < subproductosOrdenados.size(); i++) {
             costo += subproductosOrdenados.get(i).size() * subproductosOrdenados.get(i).get(0).getCosto().getValor();
         }
         return costo;
     }
-    
+
     //Metodos para el control de vista pedido en dashboard
     public void verPedido(Pedido_TO pedido) {
         this.pedido = pedido;

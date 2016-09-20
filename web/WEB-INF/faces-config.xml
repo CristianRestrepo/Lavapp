@@ -245,7 +245,7 @@
     <managed-bean>
         <managed-bean-name>historicoCT</managed-bean-name>
         <managed-bean-class>com.planit.lavappweb.controladores.HistoricoCT</managed-bean-class>
-        <managed-bean-scope>view</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>horarioCT</managed-bean-name>

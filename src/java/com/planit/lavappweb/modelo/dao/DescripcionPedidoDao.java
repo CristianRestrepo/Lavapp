@@ -10,6 +10,7 @@ import com.planit.lavappweb.modelo.dto.DescripcionPedido_TO;
 import com.planit.lavappweb.modelo.dto.Estado_TO;
 import com.planit.lavappweb.modelo.dto.Pedido_TO;
 import com.planit.lavappweb.modelo.dto.SubProducto_TO;
+import com.planit.lavappweb.webservices.clientes.ClienteConsultarDescripcionPedido;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarDescripcionPedidoSegunPedido;
 import com.planit.lavappweb.webservices.clientes.ClienteEliminarDescripcionPedido;
 import com.planit.lavappweb.webservices.clientes.ClienteEliminarDescripcionesSegunPedido;
@@ -100,6 +101,11 @@ public class DescripcionPedidoDao {
     public DescripcionPedido_TO eliminarDescripcionesSegunPedido(Pedido_TO pedido) {
         ClienteEliminarDescripcionesSegunPedido cliente = new ClienteEliminarDescripcionesSegunPedido();
         return cliente.eliminarDescripcionesSegunPedido(DescripcionPedido_TO.class, "" + pedido.getIdPedido());
+    }
+    
+    public DescripcionPedido_TO consultarDescripcionPedido(DescripcionPedido_TO descripcion){
+        ClienteConsultarDescripcionPedido cliente = new ClienteConsultarDescripcionPedido();
+        return cliente.consultarDescripcionPedido(DescripcionPedido_TO.class, "" + descripcion.getIdDescripcionPedido());
     }
 
 }
