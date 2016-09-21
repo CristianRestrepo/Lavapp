@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../adminTemplate.xhtml">
+
+            <ui:define name="content">
+
+                <b:container fluid="true">
+                    <b:row>
+                        <div class="col-lg-12 col-md-12">
+                            <div align="center">
+                                <h3>Calificaciones<small> Lista de pedidos para ver si calificacion.</small></h3>                            
+                            </div>
+                        </div>
+
+                        <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                            <h:form>
+                                <div class="box">                                  
+                                    <div class="box-body">
+                                        <div align="right">
+                                            <p:inputText placeholder="Buscar" style="width: 50%" class="form-control">
+                                            </p:inputText>
+                                        </div><hr/>
+                                        <p:dataTable var="calificacion" value="#{calificacionCT.calificaciones}" rows="10"
+                                                     paginator="true"
+                                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                     rowsPerPageTemplate="5,10,15">
+                                            <p:column style="width: 100px;text-align: center" headerText="REF Pedido">
+                                                <p:outputLabel value="#{calificacion.pedido.idPedido}" />
+                                            </p:column>
+
+                                            <c:if  test="#{sesionCT.obtenerSesion().rol.idRol != 4}">
+                                                <p:column style="text-align: center" headerText="Nombre Cliente">
+                                                    <p:outputLabel value="#{calificacion.pedido.usuario.nombre} #{calificacion.pedido.usuario.apellido}"/>
+                                                </p:column>
+                                            </c:if>
+
+                                            <p:column style="text-align: center" headerText="Fecha de solicitud">
+                                                <p:outputLabel value="#{calificacion.pedido.fechaInicio.toLocaleString()}"/>
+                                            </p:column>
+
+                                            <p:column style="text-align: center" headerText="Fecha de recogida del pedido">
+                                                <p:outputLabel value="#{calificacion.pedido.fechaEntrega.toLocaleString()}"/>
+                                            </p:column>
+
+                                            <p:column headerText="Ver" style="width: 80px">
+                                                <p:commandLink style="color: white; width: 100%" action="#{calificacionCT.verCalificacion(calificacion.pedido)}" process="@this" update="@form" title="Ver" class="btn btn-block btn-warning">
+                                                    <f:setPropertyActionListener value="#{calificacion}" target="#{calificacionCT.calificacionModelo}"/>
+                                                    <f:setPropertyActionListener value="1" target="#{calificacionCT.vistaAnterior}"/>
+                                                    <i class="fa fa-arrow-right"/>                                                     
+                                                </p:commandLink>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </div>
+                                    <div class="box-footer">
+
+                                    </div>
+                                </div>
+                            </h:form>
+                        </b:column>
+
+                    </b:row>
+                </b:container>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -97,6 +97,11 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <from-outcome>Calificaciones</from-outcome>
+            <to-view-id>/Vistas/Usuario/Pedidos/ListaCalificaciones.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>Facturas</from-outcome>
             <to-view-id>/Vistas/Usuario/Pedidos/Facturas.xhtml</to-view-id>
             <redirect/>

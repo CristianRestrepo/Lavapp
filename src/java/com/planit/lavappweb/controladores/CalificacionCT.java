@@ -24,6 +24,7 @@ public class CalificacionCT implements Serializable {
 
     private String nombreOperacion;
     protected int operacion; //Controla la operacion a ejecutar
+    private int vistaAnterior;
 
 //    EJEMPLOS PARA RAITING
     private Integer rating;
@@ -34,6 +35,7 @@ public class CalificacionCT implements Serializable {
         operacion = 0;
         nombreOperacion = "Enviar Calificacion";
         rating = 5;
+        vistaAnterior = 0;
     }
 
     @PostConstruct
@@ -74,6 +76,15 @@ public class CalificacionCT implements Serializable {
         this.nombreOperacion = nombreOperacion;
     }
 
+    public int getVistaAnterior() {
+        return vistaAnterior;
+    }
+
+    public void setVistaAnterior(int vistaAnterior) {
+        this.vistaAnterior = vistaAnterior;
+    }
+
+    
     
 //    METODOS CRUD
     public void registrar() {
@@ -139,5 +150,15 @@ public class CalificacionCT implements Serializable {
             nombreOperacion = "Enviar Calificacion";
         }
         return "Calificacion";
+    }
+    
+    public String regresar(){
+        String ruta = "";
+        if(vistaAnterior == 0 ){
+            ruta = "Pedido"; 
+        }else if(vistaAnterior == 1){
+            ruta = "Calificaciones";
+        }
+        return ruta;
     }
 }
