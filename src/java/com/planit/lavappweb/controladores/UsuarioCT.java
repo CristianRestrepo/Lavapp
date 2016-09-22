@@ -6,8 +6,10 @@
 package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.metodos.GenerarPassword;
+import com.planit.lavappweb.metodos.Sesion;
 import com.planit.lavappweb.metodos.Upload;
 import static com.planit.lavappweb.metodos.Upload.getPathDefaultUsuario;
+import com.planit.lavappweb.modelo.dao.CorreoDao;
 import com.planit.lavappweb.modelo.dao.UsuarioDao;
 import com.planit.lavappweb.modelo.dto.Rol_TO;
 import com.planit.lavappweb.modelo.dto.Usuario_TO;
@@ -117,7 +119,10 @@ public class UsuarioCT implements Serializable {
         SesionCT ss = new SesionCT();
         ss.setUsuario(usuario);
         ss.iniciarSesion();
-
+        
+        CorreoDao correoDao = new CorreoDao();
+        correoDao.enviarMensajeBienvenida(Sesion.obtenerSesion());
+        
         usuario = new Usuario_TO();
         return "Principal";
     }
