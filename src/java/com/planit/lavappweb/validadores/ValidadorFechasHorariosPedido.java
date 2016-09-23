@@ -109,7 +109,7 @@ public class ValidadorFechasHorariosPedido implements Validator {
                     FacesMessage fmsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "La fecha de entrega de su pedido debe ser minimo un dia despues de la fecha de recogida");
                     throw new ValidatorException(fmsg);
                 }
-            } else if (fechaEntrega.before(fechaActual)) {
+            } else if (fechaRecogida.before(fechaActual)) {
                 FacesMessage fmsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "La fecha de recogida es anterior a la fecha actual");
                 throw new ValidatorException(fmsg);
             }

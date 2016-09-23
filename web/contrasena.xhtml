@@ -48,13 +48,13 @@
                                                             <p align="center">Ingrese su correo electronico para recibir una nueva contraseña.</p>
                                                             <b:inputText  placeholder="Ingrese correo electronico" 
                                                                           required="true" requiredMessage="Por favor, ingrese correo electronico" 
-                                                                          value="#{usuarioBean.usuarioView.usuarioEmail}" style="width: 100%; margin-bottom: 12px">
+                                                                          value="#{sesionCT.usuario.email}" style="width: 100%; margin-bottom: 12px">
                                                             </b:inputText>
                                                         </div>                                           
                                                         <p:commandButton  onclick="PrimeFaces.monitorDownload(start, stop);"
                                                                           update="@form" ajax="false"
                                                                           class="btn btn-lg btn-block btn-danger" 
-                                                                          action="#{usuarioBean.generarNuevaContraseñaDeSesion()}"
+                                                                          action="#{sesionCT.generarNuevaContraseñaDeSesion()}"
                                                                           value="Solicitar nueva contraseña"
                                                                           />                                                       
                                                         <div align="center"> 

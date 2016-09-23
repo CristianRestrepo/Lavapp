@@ -9,7 +9,17 @@
 
     <ui:composition template="./../adminTemplate.xhtml">
         <ui:define name="content">
+            <ol class="breadcrumb">
+                <i class="fa fa-dashboard"/>               
+                <li class="active">Dashboard</li>
+                <li></li>
+            </ol>
             <b:container fluid="true">
+
+                <h:form>
+                    <p:messages autoUpdate="true" closable="true"/>
+                </h:form>
+
                 <c:choose>
                     <c:when test="#{sesionCT.obtenerSesion().rol.idRol == 1}">
                         <b:row>
@@ -274,76 +284,26 @@
                             </h:form>
                         </b:row>
                     </c:when>
-                     <c:when test="#{sesionCT.obtenerSesion().rol.idRol == 4}">
-                        <b:row>
-                            <h:form>
-                                <b:column col-lg="12" col-md="12" col-xs="12" col-sm="12">
-                                    <div>
-                                        <h4>Dashboard</h4>
-                                    </div>
-                                </b:column>
-
-                                <b:column col-lg="8" col-md="8" col-xs="8" col-sm="8">
-                                    <div class="box box-info">
-                                        <div class="box-header with-border">
-                                            <h4 class="box-title">informacion</h4>       
-                                        </div>
-                                        <div class="box-body">
-                                            <table width="100%">
-                                                <tr>
-                                                    <td width="20%" align="center">
-                                                        <p:graphicImage height="150px" width="150px"/>
-                                                    </td>
-                                                    <td align="center" style="vertical-align: central">
-                                                        <h:panelGrid columns="1">
-                                                            <h4 class="title" style="font-size: xx-large">Cupos</h4>
-                                                            <p>Texto planos</p>
-                                                        </h:panelGrid>
-                                                    </td>    
-                                                    <td align="center">
-                                                        <p:knob max="100" step="50" value="20"></p:knob>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>                            
-                                    </div>
-                                </b:column>
-
-                                <b:column col-lg="4" col-md="4" col-xs="6" col-sm="6">
-                                    <div class="box box-success">
-                                        <div class="box-header with-border">
-                                            <h4 class="box-title">Fecha</h4>                                
-                                        </div>
-                                        <div class="box-body">
-                                            <b:dateTimePicker style="width: 100%" show-time="false" mode="inline"/>
-                                        </div>                            
-                                    </div>
-                                </b:column>
-                            </h:form>
-                        </b:row>
-                        <hr/>
+                    <c:when test="#{sesionCT.obtenerSesion().rol.idRol == 4}">
 
                         <b:row>
-                            <h:form>
+                            <h:form>                               
                                 <b:column  col-lg="6" col-md="6" col-sm="12" col-xs="12">                       
-                                    <div class="box box-primary">
-                                        <div class="box-header with-border">
-
-                                        </div>
+                                    <div class="box box-success">
                                         <div class="box-body">
                                             <table width="100%">
                                                 <tr>
                                                     <td width="20%" align="center">
-                                                        <p:graphicImage height="150px" width="150px"/>
+                                                        <i class="fa fa-5x fa-check-square-o"/>
                                                     </td>
                                                     <td width="35%" align="center">
                                                         <h:panelGrid columns="1" width="100%">
                                                             <h4 style="font-size: xx-large" class="title"> Pedidos</h4>
-                                                            <p>Texto plano</p>
+                                                            <p>Tus pedidos</p>
                                                         </h:panelGrid>
                                                     </td>
                                                     <td width="45%" align="right">
-                                                        <p:commandButton action="Pedido" value="Ver" class="btn btn-success" style="height: 50px; width: 60%"/>
+                                                        <p:commandButton action="Pedido" icon="fa fa-arrow-right" iconPos="right" value="Ver" class="btn btn-info" style="height: 50px; width: 60%"/>
                                                     </td>
                                                 </tr>                                    
                                             </table>
@@ -353,24 +313,21 @@
 
 
                                 <b:column  col-lg="6" col-md="6" col-sm="12" col-xs="12">
-                                    <div class="box box-warning">
-                                        <div class="box-header with-border">
-
-                                        </div>
+                                    <div class="box box-success">                                        
                                         <div class="box-body">
                                             <table width="100%">
                                                 <tr>
                                                     <td width="20%" align="center">
-                                                        <p:graphicImage height="150px" width="150px"/>
+                                                        <i class="fa fa-5x fa-star-half-o"/>
                                                     </td>
                                                     <td width="35%">
                                                         <h:panelGrid columns="1" width="100%">
                                                             <h4 style="font-size: xx-large" class="title"> Calificaciones</h4>
-                                                            <p>Texto plano</p>
+                                                            <p>Califica los servicios solicitados</p>
                                                         </h:panelGrid>
                                                     </td>
                                                     <td width="45%" align="right">
-                                                        <p:commandButton action="Calificaciones" immediate="true" value="Ver" class="btn btn-success" style="height: 50px; width: 60%"/>
+                                                        <p:commandButton action="Calificaciones" icon="fa fa-arrow-right" iconPos="right" immediate="true" value="Ver" class="btn btn-info" style="height: 50px; width: 60%"/>
                                                     </td>
                                                 </tr>                                    
                                             </table>
@@ -379,6 +336,51 @@
                                 </b:column>
                             </h:form>
                         </b:row>
+                        
+                        <hr/>
+                        
+                        <b:row>
+                            <h:form>
+
+
+                                <b:column col-lg="3" col-md="3" col-xs="3" col-sm="3">
+                                    <div class="box box-default">
+                                        <div class="box-header with-border">
+                                            <h4 class="box-title">Pedidos</h4>
+                                        </div>
+                                        <div class="box-body" align="center">
+                                            <p:knob value="10" max="25" min="0" step="1"></p:knob>
+                                        </div>
+                                    </div>                                  
+                                </b:column>
+
+                                <b:column col-lg="6" col-md="6" col-xs="12" col-sm="12">
+                                    <div class="box box-success">
+                                        <div class="box-header with-border">
+                                            <h4 class="box-title">Pedido listo para entrega</h4>                                
+                                        </div>
+                                        <div class="box-body">
+
+                                        </div>                            
+                                    </div>
+                                </b:column>
+
+                                <b:column col-lg="3" col-md="3" col-xs="12" col-sm="12">
+                                    <div class="box ">
+                                        <div class="box-header with-border">
+                                            <h4 class="box-title">Fecha</h4>                                
+                                        </div>
+                                        <div class="box-body">
+                                            <b:dateTimePicker style="width: 100%" show-time="false" mode="inline"/>
+                                        </div>                            
+                                    </div>
+                                </b:column>                             
+
+                            </h:form>
+                        </b:row>
+                        <hr/>
+
+
                     </c:when>              
                 </c:choose>
             </b:container>          

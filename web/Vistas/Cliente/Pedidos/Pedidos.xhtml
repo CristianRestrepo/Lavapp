@@ -120,7 +120,9 @@
                                                     <div class="pedido">                              
                                                         <div class="form-group">
                                                             <label class="label-lv" for="">Calendario para Pedido</label>
-                                                            <b:dateTimePicker binding="#{FRecogida}" placeholder="YYYY/MM/DD" id="TFechaRec" required="true" required-message="Por favor, Seleccione fecha" value="#{pedidoCT.pedido.fechaRecogida}" show-time="false"/>
+                                                            <b:dateTimePicker binding="#{FRecogida}" placeholder="YYYY/MM/DD" id="TFechaRec" required="true" required-message="Por favor, Seleccione fecha" value="#{pedidoCT.pedido.fechaRecogida}" show-time="false">
+                                                                <f:validator validatorId="validadorFechaRecogida"/>
+                                                            </b:dateTimePicker>
                                                             <p:message for="TFechaRec"/>
                                                             <span class="help-block"><em>* Define la fecha de recogida de la prendas. </em></span>								
                                                         </div>   
@@ -130,6 +132,8 @@
                                                             <h:selectOneMenu binding="#{HRecogida}" id="SMHorarioRec" required="true" requiredMessage="Seleccione horario de recogida" value="#{pedidoCT.pedido.horaInicio.horario}" class="form-control input-lg input-lg-lv">
                                                                 <f:selectItem itemLabel="Seleccion horario de recogida" noSelectionOption="true"/>
                                                                 <f:selectItems value="#{horarioCT.horarios}" var="horario" itemLabel="#{horario.horario}" itemValue="#{horario.horario}"/>
+                                                                <f:attribute name="fechaRecogida" value="#{FRecogida.value}"/> 
+                                                                <f:validator validatorId="validadorHorarioRecogida"/>
                                                             </h:selectOneMenu>
                                                             <p:message for="SMHorarioRec"/>
                                                             <span class="help-block"><em>* Define horario de recogida de las prendas.</em></span>							
@@ -170,6 +174,8 @@
                                                         <div class="form-group">
                                                             <label class="label-lv" for="">Calendario para Entrega</label>
                                                             <b:dateTimePicker binding="#{FEntrega}" placeholder="YYYY/MM/DD" id="TFechaEnt" required="true" requiredMessage="Por favor, seleccione fecha de entrega" value="#{pedidoCT.pedido.fechaEntrega}" show-time="false">
+                                                                <f:attribute name="fechaRecogida" value="#{FRecogida.value}"/> 
+                                                                <f:validator validatorId="validadorFechaEntrega"/>
                                                             </b:dateTimePicker>
                                                             <p:message for="TFechaEnt"/>
                                                             <span class="help-block"><em>* Define la fecha de entrega de la prendas. </em></span>								
@@ -183,7 +189,7 @@
                                                                 <f:attribute name="fechaRecogida" value="#{FRecogida.value}"/>
                                                                 <f:attribute name="fechaEntrega" value="#{FEntrega.value}"/>
                                                                 <f:attribute name="horarioRecogida" value="#{HRecogida.value}"/>
-                                                                <f:validator validatorId="ValidadorFechasHorariosPedido"/>
+                                                                <f:validator validatorId="validadorHorarioEntrega"/>
                                                             </h:selectOneMenu>
                                                             <p:message for="SMHorarioEnt"/>
                                                             <span class="help-block"><em>* Define horario de entrega de las prendas.</em></span>							

@@ -5,6 +5,7 @@
  */
 package com.planit.lavappweb.controladores;
 
+import com.planit.lavappweb.metodos.GenerarPassword;
 import com.planit.lavappweb.metodos.MD5;
 import com.planit.lavappweb.metodos.Pedido;
 import com.planit.lavappweb.metodos.Sesion;
@@ -12,6 +13,7 @@ import static com.planit.lavappweb.metodos.Sesion.cerrarHttpSesion;
 import static com.planit.lavappweb.metodos.Sesion.iniciarHttpSesion;
 import com.planit.lavappweb.metodos.Upload;
 import com.planit.lavappweb.modelo.dao.BarriosDao;
+import com.planit.lavappweb.modelo.dao.CorreoDao;
 import com.planit.lavappweb.modelo.dao.UsuarioDao;
 import com.planit.lavappweb.modelo.dto.Barrio_TO;
 import com.planit.lavappweb.modelo.dto.Usuario_TO;
@@ -145,6 +147,30 @@ public class SesionCT implements Serializable {
             usuarioDao.editarCorreoSesion(usuario);
         }
         nuevaContrasena = "";
+    }
+
+    //Generar nueva contraseña
+    public void generarNuevaContraseñaDeSesion() throws IOException {
+        GenerarPassword gpassword = new GenerarPassword();
+        CorreoDao correoDao = new CorreoDao();
+        UsuarioDao usuarioDao = new UsuarioDao();
+
+        String pass = gpassword.generarPass(6);
+        usuario = usuarioDao.consultarUsuarioPorLogin(usuario.getEmail());
+        usuario.setContrasena(pass);
+
+        usuarioDao.editarContrasenaSesion(usuario);
+        int respuesta = correoDao.enviarMensajeNuevaContrasena(usuario);
+        usuario = new Usuario_TO();
+        
+        FacesMessage message = new FacesMessage();
+        
+        if (respuesta == 0) {
+            message  = new FacesMessage(FacesMessage.SEVERITY_INFO, "Fue imposible enviarle una nueva contraseña, intentelo de nuevo.", null);
+        } else if (respuesta == 1) {
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "La nueva contraseña ha sido enviada, por favor revise su correo.", null);
+        }
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     //Subida de archivos

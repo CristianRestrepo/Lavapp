@@ -9,15 +9,19 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="./../adminTemplate.xhtml">
-
         <ui:define name="content">
+            <ol class="breadcrumb">
+                <i class="fa fa-dashboard"/>               
+                <li><a href="#">Dashboard</a></li>
+                <li class="active">Pedidos</li>
+            </ol>
             <b:container fluid="true">
                 <b:row>
-                    <b:column col-lg="12">
-                        <div align="center">
-                            <h3>Pedidos<small> Listado de Pedidos segun usuario.</small></h3>                            
-                        </div>
-                    </b:column>
+                    <!--                    <b:column col-lg="12">
+                                            <div align="center">
+                                                <h3>Pedidos<small> Listado de Pedidos segun usuario.</small></h3>                            
+                                            </div>
+                                        </b:column>-->
 
                     <h:form id="formularioRegistro">  
                         <c:choose>
@@ -62,69 +66,58 @@
                                     </b:column>
                                 </b:column>                                
 
-                                <b:column col-lg="8" col-md="8" col-sm="12" col-xs="12">                                       
-                                    <b:column col-lg="12">
-                                        <div class="box">
-                                            <div class="box-header with-border" align="center">
-                                                <h4 class="box-title"><strong>Pedidos</strong></h4>
-                                            </div>
-                                            <div class="box-body">
-                                                <p:inputText class="form-control" value="#{pedidoCT.buscar}" style="width: 100%" type="text" placeholder="Buscar...">
-                                                    <p:ajax event="keyup" listener="#{pedidoCT.buscarPedido()}" update="DTPedidos"/>
-                                                </p:inputText><hr/>
-                                                <p:dataScroller scrollHeight="500" id="DTPedidos" style="width: 100%" chunkSize="3" value="#{pedidoCT.pedidos}" mode="inline" var="pedido">
-                                                    <p:separator/>
-                                                    <b:column col-lg="12" col-md="12" col-xs="12" col-sm="12">    
-                                                        <div class="table-responsive">
+                                <b:column col-lg="8" col-md="8" col-sm="12" col-xs="12">                                      
+                                    <div class="box">
+                                        <div class="box-header with-border" align="center">
+                                            <h4 class="box-title"><strong>Pedidos</strong></h4>
+                                        </div>
+                                        <div class="box-body">
+                                            <p:inputText class="form-control" value="#{pedidoCT.buscar}" style="width: 100%" type="text" placeholder="Buscar...">
+                                                <p:ajax event="keyup" listener="#{pedidoCT.buscarPedido()}" update="DTPedidos"/>
+                                            </p:inputText><hr/>
+                                            <p:dataScroller scrollHeight="500" id="DTPedidos" style="width: 100%;" chunkSize="4" value="#{pedidoCT.pedidos}" mode="inline" var="pedido">
+                                                <b:column col-lg="6" col-md="6" col-xs="12" col-sm="12">    
+                                                    <div class="table-responsive">
 
-                                                            <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing-pv">
-                                                                <div>
-                                                                    <h5>Cliente: <small> #{pedido.usuario.nombre} #{pedido.usuario.apellido} </small></h5>                            
+                                                        <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing-pv">
+                                                            <div align="right">
+                                                                <i class="fa fa-2x fa-tag"></i>
+                                                            </div>
+                                                            <div>
+                                                                <h5>Pedido N°: <small> #{pedido.idPedido} </small></h5>                                                                
+                                                            </div>
+
+                                                            <div class="media">                                                               
+                                                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                    <div class="media-body fnt-smaller">
+                                                                        <a href="#" target="_parent"></a>
+
+                                                                        <h4 class="media-heading">
+                                                                            <a href="#" target="_parent">$#{costoCT.consultarCostoPedido(pedido)} <small class="pull-right">#{pedido.direccionRecogida}</small></a></h4>
+                                                                        <h4 class="media-heading"> Cliente: <small> #{pedido.usuario.nombre} #{pedido.usuario.apellido} </small></h4>
+                                                                        <p class="hidden-xs">                                                                           
+                                                                            <h:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" style="width: 100%" value="Ver Pedido" class="btn btn-success btn-block">
+                                                                                <p:ajax event="click" listener="#{pedidoCT.verPedido(pedido)}" update=":formularioRegistro"/>
+                                                                            </h:commandButton>
+                                                                        </p>
+                                                                        <span class="fnt-smaller fnt-lighter fnt-arial">
+                                                                            <div class="col-xs-6">
+                                                                                <strong>Recibido: </strong> #{pedido.fechaRecogida}                                                                
+                                                                            </div>
+                                                                            <div class="col-xs-6">
+                                                                                <strong>Entrega: </strong> #{pedido.fechaEntrega}                                                                                                                            
+                                                                            </div>
+                                                                        </span>
+                                                                    </div>                                                    
                                                                 </div>
+                                                            </div>
+                                                        </div><!-- End Listing--> 
+                                                    </div>
+                                                </b:column> 
 
-                                                                <div class="media">
-                                                                    <div class="col-lg-4 col-md-4 col-sm-4">
-                                                                        <a class="pull-left" href="#" target="_parent">
-                                                                            <img alt="image" class="img-responsive " 
-                                                                                 src="http://images.prd.mris.com/image/V2/1/Yu59d899Ocpyr_RnF0-8qNJX1oYibjwp9TiLy-bZvU9vRJ2iC1zSQgFwW-fTCs6tVkKrj99s7FFm5Ygwl88xIA.jpg" />
-                                                                        </a>                                                    
-                                                                    </div>
-
-                                                                    <div class="col-lg-8 col-md-8 col-sm-8">
-                                                                        <div class="media-body fnt-smaller">
-                                                                            <a href="#" target="_parent"></a>
-
-                                                                            <h4 class="media-heading">
-                                                                                <a href="#" target="_parent">$#{costoCT.consultarCostoPedido(pedido)} <small class="pull-right">#{pedido.direccionRecogida}</small></a></h4>
-
-                                                                            <p class="hidden-xs">
-                                                                                <strong>Observacines:</strong> 
-                                                                                Descripcion de observaciones acerca del pedido especifico, tipo de tela, 
-                                                                                daños de la prenda, manchas, etc.
-                                                                                <h:commandButton  onclick="PrimeFaces.monitorDownload(start, stop);" style="width: 80%" value="Ver Pedido" class="btn btn-success btn-block">
-                                                                                    <p:ajax event="click" listener="#{pedidoCT.verPedido(pedido)}" update=":formularioRegistro"/>
-                                                                                </h:commandButton>
-
-                                                                            </p>
-                                                                            <span class="fnt-smaller fnt-lighter fnt-arial">
-                                                                                <div class="col-xs-6">
-                                                                                    <strong>Recibido: </strong> #{pedido.fechaRecogida}                                                                
-                                                                                </div>
-                                                                                <div class="col-xs-6">
-                                                                                    <strong>Entrega: </strong> #{pedido.fechaEntrega}                                                                                                                            
-                                                                                </div>
-                                                                            </span>
-                                                                        </div>                                                    
-                                                                    </div>
-                                                                </div>
-                                                            </div><!-- End Listing--> 
-                                                        </div>
-                                                    </b:column> 
-
-                                                </p:dataScroller>
-                                            </div>
-                                        </div>      
-                                    </b:column>
+                                            </p:dataScroller>
+                                        </div>
+                                    </div>    
                                 </b:column>
                             </c:when>
                             <c:when test="#{pedidoCT.vista == 1}">
