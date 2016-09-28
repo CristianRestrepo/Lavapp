@@ -464,5 +464,11 @@ public class PedidoCT implements Serializable {
             pedidos = pedidoDao.BuscarPedidos(buscar, Sesion.obtenerSesion());
         }
     }
+    
+    public List<Pedido> consultarPedidosDia(){
+        List<Pedido> pedidosDia = new ArrayList<>();
+        return pedidosDia;
+    }
+
 
 }

@@ -53,7 +53,7 @@ public class Upload {
             String path = getPathFotosProductos();
             map.put("path", path);
 //          map.put("url", "/resources/images/upload/Productos/");
-            map.put("url", "http://localhost:8084/LavappService/resources/images/upload/productos/");
+            map.put("url", "http://localhost:8084/LavappService/resources/images/upload/Productos/");
             return map;
         } catch (Exception e) {
             e.getMessage();
@@ -64,7 +64,7 @@ public class Upload {
     public static String getPathFotosProductos() {
         try {
 //          String path = getPath() + "/resources/images/upload/Productos/";
-            String path = getPath() + "http://localhost:8084/LavappService/resources/images/upload/productos/";
+            String path = getPath() + "http://localhost:8084/LavappService/resources/images/upload/Productos/";
             return path;
         } catch (Exception e) {
             throw e;

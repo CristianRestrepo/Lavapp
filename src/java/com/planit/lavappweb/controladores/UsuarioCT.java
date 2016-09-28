@@ -6,6 +6,7 @@
 package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.metodos.GenerarPassword;
+import com.planit.lavappweb.metodos.Pedido;
 import com.planit.lavappweb.metodos.Sesion;
 import com.planit.lavappweb.metodos.Upload;
 import static com.planit.lavappweb.metodos.Upload.getPathDefaultUsuario;
@@ -218,4 +219,5 @@ public class UsuarioCT implements Serializable {
             clientes = usuarioDao.buscarClientes(buscar);
         }
     }
+    
 }
