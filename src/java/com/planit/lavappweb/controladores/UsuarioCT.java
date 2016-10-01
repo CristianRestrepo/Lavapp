@@ -112,20 +112,21 @@ public class UsuarioCT implements Serializable {
         UsuarioDao usuarioDao = new UsuarioDao();
 
         usuario.setRol(new Rol_TO(4, ""));
-        usuario.setRutaImagen(getPathDefaultUsuario());
+        usuario.setRutaImagen(getPathDefaultUsuario());//Seteo de imagen default
 
-        usuarioDao.registrarUsuario(usuario);
-        clientes = usuarioDao.consultarUsuariosPorRol(new Rol_TO(4));
+        usuarioDao.registrarUsuario(usuario);//Registro de usuario en la BD
+        clientes = usuarioDao.consultarUsuariosPorRol(new Rol_TO(4));//Actualizamos la lista de clientes registrados en el sistema
 
         SesionCT ss = new SesionCT();
         ss.setUsuario(usuario);
-        ss.iniciarSesion();
+        ss.iniciarSesion();//Inicio de sesion de usuario
         
+        //Envio de correo de bienvenida
         CorreoDao correoDao = new CorreoDao();
         correoDao.enviarMensajeBienvenida(Sesion.obtenerSesion());
         
         usuario = new Usuario_TO();
-        return "Principal";
+        return "Principal"; // retornamos a vista principal
     }
 
     public void modificarCliente() {

@@ -275,16 +275,7 @@
                                 <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
                                     <div class="box box-default">
                                         <div class="box-header with-border">
-                                            <c:if test="#{sesionCT.obtenerSesion().rol.idRol == 2}">
-                                                <div class="box-tools">
-                                                    <h:panelGrid columns="2">
-                                                        <h:selectOneMenu class="form-control">
-                                                            <f:selectItem itemLabel="Seleccione estado"/>
-                                                        </h:selectOneMenu>
-                                                        <p:commandButton icon="fa fa-pencil-square-o" iconPos="right" style="float: right" class="btn btn-warning" value="Cambiar Estado"/>
-                                                    </h:panelGrid>
-                                                </div>
-                                            </c:if>
+
                                         </div>
                                         <div class="box-body">                                            
                                             <b:column offset="1" col-lg="10">
@@ -349,7 +340,17 @@
                                                                         <p:message for="TDescripcion"/>
 
                                                                         <p:separator/>
-                                                                        <p:commandButton icon="fa fa-calendar" immediate="true" iconPos="right" action="#{historicoCT.verHistoricoPrenda(pedidoCT.descripcionPedido)}" style="float: right" class="btn btn-warning" value="Ver Historico"/>
+                                                                        <h:panelGrid columns="2">
+                                                                            <c:if test="#{sesionCT.obtenerSesion().rol.idRol == 2}">                                                                               
+                                                                                <h:panelGrid columns="2">
+                                                                                    <h:selectOneMenu style="width: 100%" class="form-control">
+                                                                                        <f:selectItem itemLabel="Seleccione estado"/>
+                                                                                    </h:selectOneMenu>
+                                                                                    <p:commandButton icon="fa fa-pencil-square-o" iconPos="right" style="float: right" class="btn btn-success" value="Cambiar Estado"/>
+                                                                                </h:panelGrid>                                                                                
+                                                                            </c:if>
+                                                                            <p:commandButton icon="fa fa-calendar" immediate="true" iconPos="right" action="#{historicoCT.verHistoricoPrenda(pedidoCT.descripcionPedido)}" style="float: right" class="btn btn-warning" value="Ver Historico"/>
+                                                                        </h:panelGrid>
                                                                     </h:panelGrid>
                                                                 </td>
                                                             </tr>

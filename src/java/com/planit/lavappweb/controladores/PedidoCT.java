@@ -465,8 +465,17 @@ public class PedidoCT implements Serializable {
         }
     }
     
-    public List<Pedido> consultarPedidosDia(){
-        List<Pedido> pedidosDia = new ArrayList<>();
+    public List<Pedido_TO> consultarPedidosDiaEntrega(){
+        List<Pedido_TO> pedidosDia = new ArrayList<>();
+        PedidoDao pedidoDao = new PedidoDao();
+        pedidosDia = pedidoDao.consultarPedidosDiaEntrega();
+        return pedidosDia;
+    }
+    
+    public List<Pedido_TO> consultarPedidosDiaRecogida(){
+        List<Pedido_TO> pedidosDia = new ArrayList<>();
+        PedidoDao pedidoDao = new PedidoDao();
+        pedidosDia = pedidoDao.consultarPedidosDiaRecogida();
         return pedidosDia;
     }
 
