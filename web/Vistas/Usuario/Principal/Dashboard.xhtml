@@ -123,7 +123,7 @@
                                                 <h4 class="box-title">Cantidad de clientes</h4>  
                                             </div>
                                             <div class="box-body" align="center">
-                                                <p:knob max="100" step="50" value="20"></p:knob>
+                                                <p:knob max="100" disabled="true" step="1" value="#{usuarioCT.clientes.size()}"></p:knob>
                                                 <p:commandButton action="Cliente" icon="fa fa-arrow-right" iconPos="right" value="Ver" class="btn btn-success"></p:commandButton>
                                             </div>
                                         </div>
@@ -318,9 +318,9 @@
                     </c:when>
                     <c:when test="#{sesionCT.obtenerSesion().rol.idRol == 4}">
 
-                       <b:row>
+                        <b:row>
                             <h:form>                               
-                                <b:column  col-lg="4" col-md="4" col-sm="12" col-xs="12">                       
+                                <b:column  col-lg="6" col-md="6" col-sm="12" col-xs="12">                       
                                     <div class="box box-success">
                                         <div class="box-body">
                                             <table width="100%">
@@ -344,7 +344,7 @@
                                 </b:column>
 
 
-                                <b:column  col-lg="4" col-md="4" col-sm="12" col-xs="12">
+                                <b:column  col-lg="6" col-md="6" col-sm="12" col-xs="12">
                                     <div class="box box-success">                                        
                                         <div class="box-body">
                                             <table width="100%">
@@ -365,31 +365,7 @@
                                             </table>
                                         </div>
                                     </div>
-                                </b:column>
-                                
-                                 <b:column  col-lg="4" col-md="4" col-sm="12" col-xs="12">
-                                    <div class="box box-success">                                        
-                                        <div class="box-body">
-                                            <table width="100%">
-                                                <tr>
-                                                    <td width="20%" align="center">
-                                                        <i class="fa fa-5x fa-star-half-o"/>
-                                                    </td>
-                                                    <td width="35%">
-                                                        <h:panelGrid columns="1" width="100%">
-                                                            <h4 style="font-size: xx-large" class="title"> Volver</h4>
-                                                            <p>Volver a la vista principal</p>
-                                                        </h:panelGrid>
-                                                    </td>
-                                                    <td width="45%" align="right">
-                                                        <p:commandButton action="Calificaciones" icon="fa fa-arrow-right" iconPos="right" immediate="true" value="Ver" class="btn btn-info" style="height: 50px; width: 60%"/>
-                                                    </td>
-                                                </tr>                                    
-                                            </table>
-                                        </div>
-                                    </div>
-                                </b:column>
-                                
+                                </b:column>                              
                             </h:form>
                         </b:row>
 
@@ -397,8 +373,12 @@
                             <h:form>
                                 <b:column col-lg="8" col-md="8" col-sm="12" col-xs="12">
                                     <div class="box box-info">                                        
+                                        <div class="box-header with-border">
+                                            <i class="fa fa-list"/>
+                                            <h4 class="box-title">Pedidos en planta</h4>
+                                        </div>
                                         <div class="box-body">                                           
-                                            <p:dataTable emptyMessage="Sin pedidos que recoger" var="pedido" value="#{pedidoCT.consultarPedidosDiaRecogida()}" class="table table-responsive">
+                                            <p:dataTable emptyMessage="Sin pedidos en planta" var="pedido" value="#{pedidoCT.consultarPedidosEnplantaSegunCliente()}" class="table table-responsive">
                                                 <p:column headerText="Cliente">
                                                     <h:outputText value="#{pedido.usuario.nombre} #{pedido.usuario.apellido}"></h:outputText>
                                                 </p:column>
@@ -407,7 +387,10 @@
                                                 </p:column>
                                                 <p:column headerText="Horario Recogida">
                                                     <h:outputText value="#{pedido.horaInicio.horario}"></h:outputText>
-                                                </p:column>                                                
+                                                </p:column>
+                                                <p:column headerText="Planta">
+                                                    <h:outputText value="#{pedido.proveedor.razonSocial}"></h:outputText>
+                                                </p:column>
                                                 <p:column headerText="ver">
 
                                                 </p:column>
@@ -417,9 +400,13 @@
 
                                     <p:separator/>
 
-                                    <div class="box box-info">                                        
+                                    <div class="box box-info">
+                                        <div class="box-header with-border">
+                                            <i class="fa fa-list"/>
+                                            <h4 class="box-title">Pedidos listos para entrega</h4>
+                                        </div>
                                         <div class="box-body">                                           
-                                            <p:dataTable emptyMessage="Sin pedido que entregar" var="pedido" value="#{pedidoCT.consultarPedidosDiaEntrega()}" class="table table-responsive" >
+                                            <p:dataTable emptyMessage="Sin pedidos para recibir" var="pedido" value="#{pedidoCT.consultarPedidosPorRecibirSegunCliente()}" class="table table-responsive" >
                                                 <p:column headerText="Cliente">
                                                     <h:outputText value="#{pedido.usuario.nombre} #{pedido.usuario.apellido}"></h:outputText>
                                                 </p:column>
@@ -428,7 +415,10 @@
                                                 </p:column>
                                                 <p:column headerText="Horario Entrega">
                                                     <h:outputText value="#{pedido.horaFinal.horario}"></h:outputText>
-                                                </p:column>                                                
+                                                </p:column>     
+                                                <p:column headerText="Planta">
+                                                    <h:outputText value="#{pedido.proveedor.razonSocial}"></h:outputText>
+                                                </p:column>
                                                 <p:column headerText="Ver">
 
                                                 </p:column>
@@ -440,11 +430,10 @@
                                     <b:column col-lg="12" col-md="12" col-sm="6" col-xs="6">
                                         <div class="box box-success">
                                             <div class="box-header with-border">
-                                                <h4 class="box-title">Cantidad de clientes</h4>  
+                                                <h4 class="box-title">Cantidad de pedidos</h4>  
                                             </div>
                                             <div class="box-body" align="center">
-                                                <p:knob max="100" step="50" value="20"></p:knob>
-                                                <p:commandButton action="Cliente" icon="fa fa-arrow-right" iconPos="right" value="Ver" class="btn btn-success"></p:commandButton>
+                                                <p:knob max="100" step="1" disabled="true" value="#{pedidoCT.pedidos.size()}"></p:knob>
                                             </div>
                                         </div>
                                     </b:column>
@@ -452,6 +441,28 @@
                                         <div class="box box-success">                                        
                                             <div class="box-body">
                                                 <b:dateTimePicker style="width: 100%" show-time="false" mode="inline"/>
+                                            </div>
+                                        </div>
+                                    </b:column>
+                                    <b:column  col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                                        <div class="box box-success">                                        
+                                            <div class="box-body">
+                                                <table width="100%">
+                                                    <tr>
+                                                        <td width="20%" align="center">
+                                                            <i class="fa fa-5x fa-home"/>
+                                                        </td>
+                                                        <td width="35%">
+                                                            <h:panelGrid columns="1" width="100%">
+                                                                <h4 style="font-size: xx-large" class="title"> Volver</h4>
+                                                                <p>Volver a la vista principal</p>
+                                                            </h:panelGrid>
+                                                        </td>
+                                                        <td width="45%" align="right">
+                                                            <p:commandButton action="Principal" icon="fa fa-arrow-right" iconPos="right" immediate="true" value="Ir" class="btn btn-info" style="height: 50px; width: 60%"/>
+                                                        </td>
+                                                    </tr>                                    
+                                                </table>
                                             </div>
                                         </div>
                                     </b:column>

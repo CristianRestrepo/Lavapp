@@ -26,7 +26,6 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.swing.text.StyledEditorKit;
 
 /**
  *
@@ -338,7 +337,16 @@ public class PedidoCT implements Serializable {
         }
         cantidadProductos = subproductos.size();
     }
+    
+    public void modificarPedido(){
+         PedidoDao pedidoDao = new PedidoDao();
+         pedidoDao.modificaPedido(pedido);
+    }
 
+    public void editarEstadoPedido(){
+        PedidoDao pedidoDao = new PedidoDao();
+        pedidoDao.editarEstadoPedido(pedido);
+    }
     //Metodos para el manejo de los productos del pedido
     //Ordena ascendentemente los productos en la lista basado en su id
     public List<SubProductoCosto_TO> insertionSortSubProductos(List<SubProductoCosto_TO> lista) {
@@ -477,6 +485,20 @@ public class PedidoCT implements Serializable {
         PedidoDao pedidoDao = new PedidoDao();
         pedidosDia = pedidoDao.consultarPedidosDiaRecogida();
         return pedidosDia;
+    }
+    
+    public List<Pedido_TO> consultarPedidosEnplantaSegunCliente(){
+        List<Pedido_TO> pedidosEntrega = new ArrayList<>();
+        PedidoDao pedidoDao = new PedidoDao();
+        pedidosEntrega = pedidoDao.consultarPedidosEnPlantaSegunCliente(Sesion.obtenerSesion());
+        return pedidosEntrega;
+    }
+    
+    public List<Pedido_TO> consultarPedidosPorRecibirSegunCliente(){
+        List<Pedido_TO> pedidosRecibir = new ArrayList<>();
+        PedidoDao pedidoDao = new PedidoDao();
+        pedidosRecibir = pedidoDao.consultarPedidosPorRecibirSegunCliente(Sesion.obtenerSesion());
+        return pedidosRecibir;
     }
 
 

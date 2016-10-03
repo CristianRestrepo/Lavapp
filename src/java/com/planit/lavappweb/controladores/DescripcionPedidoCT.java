@@ -59,6 +59,11 @@ public class DescripcionPedidoCT implements Serializable {
 
     public void eliminar() {
     }
+    
+    public void editarEstadoDescripcion(DescripcionPedido_TO descripcion){
+        DescripcionPedidoDao descripcionPedidoDao = new DescripcionPedidoDao();
+        descripcionPedidoDao.editarEstadoDescripcionPedido(descripcion);
+    }
 
     public List<DescripcionPedido_TO> consultarDescripcionesSegunPedido(Pedido_TO pedido) {
         DescripcionPedidoDao descripcionDao = new DescripcionPedidoDao();

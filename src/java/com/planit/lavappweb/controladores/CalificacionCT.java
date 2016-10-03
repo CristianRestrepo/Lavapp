@@ -12,6 +12,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -84,14 +86,12 @@ public class CalificacionCT implements Serializable {
         this.vistaAnterior = vistaAnterior;
     }
 
-    
-    
 //    METODOS CRUD
     public void registrar() {
         CalificacionDao calificacionDao = new CalificacionDao();
         calificacionModelo = calificacionDao.registrarCalificacion(calificacionModelo);
         calificaciones = calificacionDao.consultarCalificaciones();
-        
+
         operacion = 1;
         nombreOperacion = "Modificar Calificacion";
     }
@@ -113,8 +113,12 @@ public class CalificacionCT implements Serializable {
     public void metodo() {
         if (operacion == 0) {
             registrar();
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Calificacion Registrada", "Su Calificacion has sido guardada exitosamente");
+            FacesContext.getCurrentInstance().addMessage(null, message);
         } else if (operacion == 1) {
             modificar();
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Calificacion Modificada", "Su Calificacion has sido modificada exitosamente");
+            FacesContext.getCurrentInstance().addMessage(null, message);
             //Reiniciamos banderas
             nombreOperacion = "Enviar Calificacion";
             operacion = 0;
@@ -136,7 +140,6 @@ public class CalificacionCT implements Serializable {
         nombreOperacion = "Enviar Calificacion";
     }
 
-
     //Otros
     public String verCalificacion(Pedido_TO pedido) {
         CalificacionDao calificacionDao = new CalificacionDao();
@@ -151,12 +154,12 @@ public class CalificacionCT implements Serializable {
         }
         return "Calificacion";
     }
-    
-    public String regresar(){
+
+    public String regresar() {
         String ruta = "";
-        if(vistaAnterior == 0 ){
-            ruta = "Pedido"; 
-        }else if(vistaAnterior == 1){
+        if (vistaAnterior == 0) {
+            ruta = "Pedido";
+        } else if (vistaAnterior == 1) {
             ruta = "Calificaciones";
         }
         return ruta;

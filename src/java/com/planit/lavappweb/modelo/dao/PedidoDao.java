@@ -19,8 +19,11 @@ import com.planit.lavappweb.webservices.clientes.ClienteConsultarPedidos;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarPedidosCliente;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarPedidosDiaEntrega;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarPedidosDiaRecogida;
+import com.planit.lavappweb.webservices.clientes.ClienteConsultarPedidosEnPlantaSegunCliente;
+import com.planit.lavappweb.webservices.clientes.ClienteConsultarPedidosPorRecibirSegunCliente;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarPedidosSegunPlanta;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarUltimoPedidoCliente;
+import com.planit.lavappweb.webservices.clientes.ClienteEditarEstadoPedido;
 import com.planit.lavappweb.webservices.clientes.ClienteEditarPedido;
 import com.planit.lavappweb.webservices.clientes.ClienteEliminarPedido;
 import com.planit.lavappweb.webservices.clientes.ClienteRegistrarPedidoCompleto;
@@ -35,21 +38,27 @@ import java.util.List;
  * @author Desarrollo_Planit
  */
 public class PedidoDao {
+    
+    public Pedido_TO editarEstadoPedido(Pedido_TO pedido){
+        ClienteEditarEstadoPedido cliente = new ClienteEditarEstadoPedido();
+        return cliente.editarEstadoPedido(Pedido_TO.class, "" + pedido.getIdPedido(), "" + pedido.getEstado().getIdEstado());
+    }
 
     public Pedido_TO modificaPedido(Pedido_TO pedido) {
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
         ClienteEditarPedido clienteModelo = new ClienteEditarPedido();
         return clienteModelo.modificarPedido(Pedido_TO.class,
                 "" + pedido.getIdPedido(),
                 "" + pedido.getUsuario().getIdUsuario(),
-                "" + pedido.getFechaInicio(),
+                "" + formato.format(pedido.getFechaInicio()),
                 "" + pedido.getHoraInicio(),
                 "" + pedido.getHoraFinal(),
                 "" + pedido.getEstado().getIdEstado(),
                 "" + pedido.getProveedor().getIdProveedor(),
-                "" + pedido.getFechaEntrega(),
+                "" + formato.format(pedido.getFechaEntrega()),
                 pedido.getDireccionRecogida(),
                 pedido.getDireccionEntrega(),
-                "" + pedido.getFechaRecogida(),
+                "" + formato.format(pedido.getFechaRecogida()),
                 pedido.getQuienEntrega(),
                 pedido.getQuienRecibe(),
                 "" + pedido.getBarrioRecogida().getIdBarrios(),
@@ -464,6 +473,147 @@ public class PedidoDao {
     public List<Pedido_TO> consultarPedidosDiaRecogida(){
         ClienteConsultarPedidosDiaRecogida cliente = new ClienteConsultarPedidosDiaRecogida();
         List<LinkedHashMap> datos = cliente.consultarPedidosDiaRecogida(List.class);
+        List<Pedido_TO> pedidos = new ArrayList<>();
+
+//      MODELOS PARA PASO ED PARAMETROS EN CICLO FOR
+        Usuario_TO usuario = new Usuario_TO();
+        Horario_TO horarioInicio = new Horario_TO();
+        Horario_TO horarioFinal = new Horario_TO();
+        Estado_TO estado = new Estado_TO();
+        Proveedor_TO proveedor = new Proveedor_TO();
+        Barrio_TO barrioRecogida = new Barrio_TO();
+        Barrio_TO barrioEntrega = new Barrio_TO();
+
+//      SERVICIOS DE CADA MODELO
+        UsuarioDao ud = new UsuarioDao();
+        HorarioDao hd = new HorarioDao();
+        EstadoDao ed = new EstadoDao();
+        ProveedorDao pd = new ProveedorDao();
+        BarriosDao bd = new BarriosDao();
+
+        for (int i = 0; i < datos.size(); i++) {
+
+//          USUARIO
+            LinkedHashMap mapUS = (LinkedHashMap) datos.get(i).get("usuario");
+            usuario = ud.consultarUsuario(new Usuario_TO((int) mapUS.get("idUsuario")));
+//          HORARIO INICIO
+            LinkedHashMap mapHI = (LinkedHashMap) datos.get(i).get("horaInicio");
+            horarioInicio = hd.consultarHorario(new Horario_TO((int) mapHI.get("idHorario"), (String) mapHI.get("horario")));
+//          HORARIO FINAL
+            LinkedHashMap mapHF = (LinkedHashMap) datos.get(i).get("horaFinal");
+            horarioFinal = hd.consultarHorario(new Horario_TO((int) mapHF.get("idHorario"), (String) mapHF.get("horario")));
+//          ESTADO
+            LinkedHashMap mapES = (LinkedHashMap) datos.get(i).get("estado");
+            estado = ed.consultarEstadoID(new Estado_TO((int) mapES.get("idEstado"), ""));
+//          PROVEEDOR
+            LinkedHashMap mapPR = (LinkedHashMap) datos.get(i).get("proveedor");
+            proveedor = pd.consultarProveedor(new Proveedor_TO((int) mapPR.get("idProveedor")));
+//          BARRIO RECOGIDA
+            LinkedHashMap mapBR = (LinkedHashMap) datos.get(i).get("barrioRecogida");
+            barrioRecogida = bd.consultarBarrio(new Barrio_TO((int) mapBR.get("idBarrios"), ""));
+//          BARRIO ENTREGA
+            mapBR = (LinkedHashMap) datos.get(i).get("barrioEntrega");
+            barrioEntrega = bd.consultarBarrio(new Barrio_TO((int) mapBR.get("idBarrios"), ""));
+
+//          INGERSO DE DATOS A LISTA DE OBJETO PEDIDO
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                pedidos.add(new Pedido_TO((int) datos.get(i).get("idPedido"),
+                        usuario,
+                        formato.parse((String) datos.get(i).get("fechaInicio")),
+                        horarioInicio,
+                        horarioFinal,
+                        estado,
+                        proveedor,
+                        formato.parse((String) datos.get(i).get("fechaEntrega")),
+                        (String) datos.get(i).get("direccionRecogida"),
+                        (String) datos.get(i).get("direccionEntrega"),
+                        formato.parse((String) datos.get(i).get("fechaRecogida")),
+                        (String) datos.get(i).get("quienEntrega"),
+                        (String) datos.get(i).get("quienRecibe"),
+                        barrioRecogida,
+                        barrioEntrega));
+            } catch (ParseException e) {
+                e.getMessage();
+            }
+        }
+        return pedidos;
+    }
+    
+    
+    public List<Pedido_TO> consultarPedidosEnPlantaSegunCliente(Usuario_TO u){
+        ClienteConsultarPedidosEnPlantaSegunCliente cliente = new ClienteConsultarPedidosEnPlantaSegunCliente();
+        List<LinkedHashMap> datos = cliente.consultarPedidosEnPlantaSegunCliente(List.class, "" + u.getIdUsuario());
+        List<Pedido_TO> pedidos = new ArrayList<>();
+
+//      MODELOS PARA PASO ED PARAMETROS EN CICLO FOR
+        Usuario_TO usuario = new Usuario_TO();
+        Horario_TO horarioInicio = new Horario_TO();
+        Horario_TO horarioFinal = new Horario_TO();
+        Estado_TO estado = new Estado_TO();
+        Proveedor_TO proveedor = new Proveedor_TO();
+        Barrio_TO barrioRecogida = new Barrio_TO();
+        Barrio_TO barrioEntrega = new Barrio_TO();
+
+//      SERVICIOS DE CADA MODELO
+        UsuarioDao ud = new UsuarioDao();
+        HorarioDao hd = new HorarioDao();
+        EstadoDao ed = new EstadoDao();
+        ProveedorDao pd = new ProveedorDao();
+        BarriosDao bd = new BarriosDao();
+
+        for (int i = 0; i < datos.size(); i++) {
+
+//          USUARIO
+            LinkedHashMap mapUS = (LinkedHashMap) datos.get(i).get("usuario");
+            usuario = ud.consultarUsuario(new Usuario_TO((int) mapUS.get("idUsuario")));
+//          HORARIO INICIO
+            LinkedHashMap mapHI = (LinkedHashMap) datos.get(i).get("horaInicio");
+            horarioInicio = hd.consultarHorario(new Horario_TO((int) mapHI.get("idHorario"), (String) mapHI.get("horario")));
+//          HORARIO FINAL
+            LinkedHashMap mapHF = (LinkedHashMap) datos.get(i).get("horaFinal");
+            horarioFinal = hd.consultarHorario(new Horario_TO((int) mapHF.get("idHorario"), (String) mapHF.get("horario")));
+//          ESTADO
+            LinkedHashMap mapES = (LinkedHashMap) datos.get(i).get("estado");
+            estado = ed.consultarEstadoID(new Estado_TO((int) mapES.get("idEstado"), ""));
+//          PROVEEDOR
+            LinkedHashMap mapPR = (LinkedHashMap) datos.get(i).get("proveedor");
+            proveedor = pd.consultarProveedor(new Proveedor_TO((int) mapPR.get("idProveedor")));
+//          BARRIO RECOGIDA
+            LinkedHashMap mapBR = (LinkedHashMap) datos.get(i).get("barrioRecogida");
+            barrioRecogida = bd.consultarBarrio(new Barrio_TO((int) mapBR.get("idBarrios"), ""));
+//          BARRIO ENTREGA
+            mapBR = (LinkedHashMap) datos.get(i).get("barrioEntrega");
+            barrioEntrega = bd.consultarBarrio(new Barrio_TO((int) mapBR.get("idBarrios"), ""));
+
+//          INGERSO DE DATOS A LISTA DE OBJETO PEDIDO
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                pedidos.add(new Pedido_TO((int) datos.get(i).get("idPedido"),
+                        usuario,
+                        formato.parse((String) datos.get(i).get("fechaInicio")),
+                        horarioInicio,
+                        horarioFinal,
+                        estado,
+                        proveedor,
+                        formato.parse((String) datos.get(i).get("fechaEntrega")),
+                        (String) datos.get(i).get("direccionRecogida"),
+                        (String) datos.get(i).get("direccionEntrega"),
+                        formato.parse((String) datos.get(i).get("fechaRecogida")),
+                        (String) datos.get(i).get("quienEntrega"),
+                        (String) datos.get(i).get("quienRecibe"),
+                        barrioRecogida,
+                        barrioEntrega));
+            } catch (ParseException e) {
+                e.getMessage();
+            }
+        }
+        return pedidos;
+    }
+    
+     public List<Pedido_TO> consultarPedidosPorRecibirSegunCliente(Usuario_TO u){
+         ClienteConsultarPedidosPorRecibirSegunCliente cliente = new ClienteConsultarPedidosPorRecibirSegunCliente();
+        List<LinkedHashMap> datos = cliente.consultarPedidosPorRecibirSegunCliente(List.class, "" + u.getIdUsuario());
         List<Pedido_TO> pedidos = new ArrayList<>();
 
 //      MODELOS PARA PASO ED PARAMETROS EN CICLO FOR

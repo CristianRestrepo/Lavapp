@@ -50,6 +50,10 @@
                                                 </p:column>
                                             </c:if>
 
+                                            <p:column style="text-align: center" headerText="Calificacion">
+                                                <p:outputLabel value="#{calificacion.calificacion}"/>
+                                            </p:column>
+
                                             <p:column style="text-align: center" headerText="Fecha de solicitud">
                                                 <p:outputLabel value="#{calificacion.pedido.fechaInicio.toLocaleString()}"/>
                                             </p:column>

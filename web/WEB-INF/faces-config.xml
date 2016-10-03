@@ -98,7 +98,7 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>Calificaciones</from-outcome>
-            <to-view-id>/Vistas/Usuario/Pedidos/ListaCalificaciones.xhtml</to-view-id>
+            <to-view-id>/Vistas/Usuario/Pedidos/Calificaciones.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
@@ -317,5 +317,9 @@
         <managed-bean-class>com.planit.lavappweb.controladores.PaisCT</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
-    
+    <managed-bean>
+        <managed-bean-name>estadoCT</managed-bean-name>
+        <managed-bean-class>com.planit.lavappweb.controladores.EstadoCT</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
 </faces-config>

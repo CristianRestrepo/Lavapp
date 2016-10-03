@@ -16,13 +16,7 @@
                 <li class="active">Pedidos</li>
             </ol>
             <b:container fluid="true">
-                <b:row>
-                    <!--                    <b:column col-lg="12">
-                                            <div align="center">
-                                                <h3>Pedidos<small> Listado de Pedidos segun usuario.</small></h3>                            
-                                            </div>
-                                        </b:column>-->
-
+                <b:row>                    
                     <h:form id="formularioRegistro">  
                         <c:choose>
                             <c:when test="#{pedidoCT.vista == 0}">
@@ -133,14 +127,11 @@
                                             <c:choose>
                                                 <c:when test="#{sesionCT.obtenerSesion().rol.idRol == 2}">
                                                     <div class="box-tools">
-                                                        <h:panelGrid columns="3">
-                                                            <h:selectOneMenu class="form-control">
-                                                                <f:selectItem itemLabel="Seleccione estado"/>
-                                                            </h:selectOneMenu>
-                                                            <p:commandButton icon="fa fa-pencil-square-o" iconPos="right" style="float: right" class="btn btn-success" value="Cambiar Estado"/>
+                                                        <h:panelGrid columns="3">                                                            
+                                                            <p:commandButton icon="fa fa-pencil-square-o" iconPos="right"  onclick="PF('dlg').show();" style="float: right" class="btn btn-success" value="Cambiar Estado"/>
                                                             <p:commandButton icon="fa fa-star" iconPos="right" style="float: right" class="btn btn-warning" value="Ver Calificacion"/>
                                                         </h:panelGrid>
-                                                    </div>
+                                                    </div>                                                    
                                                 </c:when>
                                                 <c:when test="#{sesionCT.obtenerSesion().rol.idRol == 4}">
                                                     <div class="box-tools">
@@ -197,7 +188,7 @@
                                                                     <c:when test="#{pedidoCT.pedido.estado.idEstado == 7}">
                                                                         <div class="callout callout-info" >
                                                                             <i class=" fa fa-4x fa-check"/>
-                                                                            <h4 style="float:right; vertical-align: central">Entregado</h4>
+                                                                            <h4 style="float:right; vertical-align: central">Listo para entrega</h4>
                                                                         </div>
                                                                     </c:when>                                                                    
                                                                 </c:choose>
@@ -307,7 +298,7 @@
                                                     <c:when test="#{pedidoCT.descripcionPedido.estado.idEstado == 7}">
                                                         <div class="callout callout-info" >
                                                             <i class=" fa fa-4x fa-check"/>
-                                                            <h4 style="float:right; vertical-align: central">Entregado</h4>
+                                                            <h4 style="float:right; vertical-align: central">Listo para entrega</h4>
                                                         </div>
                                                     </c:when>                                                                    
                                                 </c:choose>
@@ -342,11 +333,8 @@
                                                                         <p:separator/>
                                                                         <h:panelGrid columns="2">
                                                                             <c:if test="#{sesionCT.obtenerSesion().rol.idRol == 2}">                                                                               
-                                                                                <h:panelGrid columns="2">
-                                                                                    <h:selectOneMenu style="width: 100%" class="form-control">
-                                                                                        <f:selectItem itemLabel="Seleccione estado"/>
-                                                                                    </h:selectOneMenu>
-                                                                                    <p:commandButton icon="fa fa-pencil-square-o" iconPos="right" style="float: right" class="btn btn-success" value="Cambiar Estado"/>
+                                                                                <h:panelGrid columns="2">                                                                                   
+                                                                                    <p:commandButton icon="fa fa-pencil-square-o" onclick="PF('dlg2').show();" iconPos="right" style="float: right" class="btn btn-success" value="Cambiar Estado"/>
                                                                                 </h:panelGrid>                                                                                
                                                                             </c:if>
                                                                             <p:commandButton icon="fa fa-calendar" immediate="true" iconPos="right" action="#{historicoCT.verHistoricoPrenda(pedidoCT.descripcionPedido)}" style="float: right" class="btn btn-warning" value="Ver Historico"/>
@@ -361,9 +349,6 @@
                                             <b:column offset="1" col-lg="10">
                                                 <div class="box box-success">
                                                     <div align="center" class="box-body">
-                                                        <!--                                                        <p:galleria value="" var="" panelWidth="500" panelHeight="313" showCaption="true">
-                                                                                                                    <p:graphicImage name="" alt="" title=""/>
-                                                                                                                </p:galleria>-->
                                                         <h:panelGrid width="100%" columns="1">
                                                             <p:outputLabel value="Observacion Asesor" for="TObservacionA"/>
                                                             <p:inputTextarea class="form-control" rows="4" maxlength="200" id="TObservacionA" required="true" requiredMessage="Ingrese Descripcion" placeholder="Observacion del asesor" value="#{pedidoCT.descripcionPedido.observacionAsesor}" style="width: 100%;"></p:inputTextarea>                       
@@ -397,6 +382,34 @@
                         </script>
                         <p:dialog id="dialog" modal="true" widgetVar="statusDialog" header="Cargando..." draggable="false" closable="false" resizable="false">
                             <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif" />
+                        </p:dialog>
+
+                        <p:dialog modal="true" header="Estado del pedido" widgetVar="dlg" style="width: 30%" resizable="false">
+                            <h:panelGrid style="width: 100%" columns="1" cellpadding="5">
+                                <h:outputLabel for="SEstadosPlanta" value="Estado:" />
+                                <h:selectOneMenu style="width: 100%" value="#{pedidoCT.pedido.estado.idEstado}" class="form-control" id="SEstadosPlanta">
+                                    <f:selectItem itemLabel="Seleccione Estado" noSelectionOption="true"/>
+                                    <f:selectItems value="#{estadoCT.estadosPlanta()}" var="estado" itemLabel="#{estado.nombre}" itemValue="#{estado.idEstado}"/>
+                                </h:selectOneMenu>
+
+                                <f:facet name="footer">
+                                    <p:commandButton immediate="true" class="btn btn-block" onclick="PrimeFaces.monitorDownload(start, stop);" update=":formularioRegistro" value="Modificar" actionListener="#{pedidoCT.editarEstadoPedido()}"/>                                                      
+                                </f:facet>  
+                            </h:panelGrid>
+                        </p:dialog>
+
+                        <p:dialog modal="true" header="Estado del pedido" widgetVar="dlg2" style="width: 30%" resizable="false">
+                            <h:panelGrid style="width: 100%" columns="1" cellpadding="5">
+                                <h:outputLabel for="SEstadosPrenda" value="Estado:" />
+                                <h:selectOneMenu style="width: 100%" value="#{pedidoCT.descripcionPedido.estado.idEstado}" class="form-control" id="SEstadosPrenda">
+                                    <f:selectItem itemLabel="Seleccione Estado" noSelectionOption="true"/>
+                                    <f:selectItems value="#{estadoCT.estadosPlanta()}" var="estado" itemLabel="#{estado.nombre}" itemValue="#{estado.idEstado}"/>
+                                </h:selectOneMenu>
+
+                                <f:facet name="footer">
+                                    <p:commandButton immediate="true" class="btn btn-block" onclick="PrimeFaces.monitorDownload(start, stop);" update=":formularioRegistro" value="Modificar" actionListener="#{descripcionPedidoCT.editarEstadoDescripcion(pedidoCT.descripcionPedido)}"/>                                                      
+                                </f:facet>  
+                            </h:panelGrid>
                         </p:dialog>
                     </h:form>
                 </b:row>
