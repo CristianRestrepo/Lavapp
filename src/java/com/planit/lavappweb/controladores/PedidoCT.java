@@ -36,7 +36,8 @@ public class PedidoCT implements Serializable {
     private Pedido_TO pedido;
     private DescripcionPedido_TO descripcionPedido;
     private List<Pedido_TO> pedidos;
-
+    private Estado_TO estado;
+    
     private List<SubProductoCosto_TO> subproductos;
 
     private int vista;
@@ -50,7 +51,6 @@ public class PedidoCT implements Serializable {
     private Boolean descripcionPrenda;
 
     public PedidoCT() {
-
         vista = 0;
         pedido = new Pedido_TO();
         descripcionPedido = new DescripcionPedido_TO();
@@ -60,6 +60,7 @@ public class PedidoCT implements Serializable {
         botonsiguiente = true;
         botonconfirmar = false;
         buscar = null;
+        estado = new Estado_TO();
 
         PedidoDao pedidoDao = new PedidoDao();
         if (Sesion.obtenerSesion() != null) {
@@ -198,6 +199,15 @@ public class PedidoCT implements Serializable {
         this.descripcionPrenda = descripcionPrenda;
     }
 
+    public Estado_TO getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado_TO estado) {
+        this.estado = estado;
+    }   
+    
+
     //Metodos para las vistas 
     public void atras() {
         if (vista > 0) {
@@ -282,6 +292,10 @@ public class PedidoCT implements Serializable {
     }
 
     //Metodos CRUD
+    public void cambiarEstado(Estado_TO estado){
+        this.estado = estado;
+    }
+    
     public void registrarPedido() {
         PedidoDao pedidoDao = new PedidoDao();
         pedidoDao.registrarPedidoCompleto(pedido);
@@ -345,8 +359,16 @@ public class PedidoCT implements Serializable {
 
     public void editarEstadoPedido(){
         PedidoDao pedidoDao = new PedidoDao();
+        DescripcionPedidoDao dd = new DescripcionPedidoDao();
+        List<DescripcionPedido_TO> prendas = dd.consultarDescripcionesSinFotosSegunPedido(pedido);
+        pedido.setEstado(estado);
         pedidoDao.editarEstadoPedido(pedido);
+        for (int i = 0; i < prendas.size(); i++) {
+            prendas.get(i).setEstado(pedido.getEstado());
+            dd.editarEstadoDescripcionPedido(prendas.get(i));
+        }
     }
+    
     //Metodos para el manejo de los productos del pedido
     //Ordena ascendentemente los productos en la lista basado en su id
     public List<SubProductoCosto_TO> insertionSortSubProductos(List<SubProductoCosto_TO> lista) {

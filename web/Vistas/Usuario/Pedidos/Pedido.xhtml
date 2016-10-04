@@ -389,28 +389,37 @@
                                 <h:outputLabel for="SEstadosPlanta" value="Estado:" />
                                 <h:selectOneMenu style="width: 100%" value="#{pedidoCT.pedido.estado.idEstado}" class="form-control" id="SEstadosPlanta">
                                     <f:selectItem itemLabel="Seleccione Estado" noSelectionOption="true"/>
-                                    <f:selectItems value="#{estadoCT.estadosPlanta()}" var="estado" itemLabel="#{estado.nombre}" itemValue="#{estado.idEstado}"/>
+                                    <f:selectItems value="#{estadoCT.estadosPlanta()}" var="estado" itemLabel="#{estado.nombre}" itemValue="#{estado.idEstado}"/>                                    
                                 </h:selectOneMenu>
 
                                 <f:facet name="footer">
-                                    <p:commandButton immediate="true" class="btn btn-block" onclick="PrimeFaces.monitorDownload(start, stop);" update=":formularioRegistro" value="Modificar" actionListener="#{pedidoCT.editarEstadoPedido()}"/>                                                      
+                                    <p:commandButton process="@this" class="btn btn-block" update=":formularioRegistro" value="Modificar" action="#{pedidoCT.editarEstadoPedido()}">
+                                        <p:confirm header="Confirmation" message="Si actualiza el estado del pedido, actualizara el estado de todas las prendas, esta seguro?" icon="ui-icon-alert" />
+                                    </p:commandButton>                                                      
                                 </f:facet>  
                             </h:panelGrid>
                         </p:dialog>
 
-                        <p:dialog modal="true" header="Estado del pedido" widgetVar="dlg2" style="width: 30%" resizable="false">
+                        <p:dialog modal="true" header="Estado de la prenda" widgetVar="dlg2" style="width: 30%" resizable="false">
                             <h:panelGrid style="width: 100%" columns="1" cellpadding="5">
                                 <h:outputLabel for="SEstadosPrenda" value="Estado:" />
                                 <h:selectOneMenu style="width: 100%" value="#{pedidoCT.descripcionPedido.estado.idEstado}" class="form-control" id="SEstadosPrenda">
                                     <f:selectItem itemLabel="Seleccione Estado" noSelectionOption="true"/>
-                                    <f:selectItems value="#{estadoCT.estadosPlanta()}" var="estado" itemLabel="#{estado.nombre}" itemValue="#{estado.idEstado}"/>
+                                    <f:selectItems value="#{estadoCT.estadosPlanta()}" var="estado1" itemLabel="#{estado1.nombre}" itemValue="#{estado1}"/>                                    
                                 </h:selectOneMenu>
 
                                 <f:facet name="footer">
-                                    <p:commandButton immediate="true" class="btn btn-block" onclick="PrimeFaces.monitorDownload(start, stop);" update=":formularioRegistro" value="Modificar" actionListener="#{descripcionPedidoCT.editarEstadoDescripcion(pedidoCT.descripcionPedido)}"/>                                                      
+                                    <p:commandButton class="btn btn-block" onclick="PrimeFaces.monitorDownload(start, stop);" update=":formularioRegistro" value="Modificar" action="#{descripcionPedidoCT.editarEstadoDescripcion(pedidoCT.descripcionPedido)}">
+                                        <f:setPropertyActionListener value="#{estado1}" target="#{pedidoCT.descripcionPedido.estado.idEstado}"/>
+                                    </p:commandButton>                                                      
                                 </f:facet>  
                             </h:panelGrid>
                         </p:dialog>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton  onclick="PrimeFaces.monitorDownload(start, stop);"  value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog> 
                     </h:form>
                 </b:row>
             </b:container>         
