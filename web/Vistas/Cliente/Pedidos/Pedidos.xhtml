@@ -52,11 +52,11 @@
                                 <section class="alt-catego">
                                     <div class="container-fluid alt-catego" >
                                         <div class="row alt-catego" >
-                                            <div class="col-sm-12 enlinea">                     
+                                            <div class="col-sm-12 enlinea" style="height: 120px">                     
                                                 <ul class="nav nav-pills" style="alignment-adjust: central">
                                                     <c:forEach var="producto" begin="0" items="#{productoCT.productos}" end="#{productoCT.productos.size()}">
-                                                        <li style="width: 10%">
-                                                            <div class="box box-widget">
+                                                        <li style="width: 10%;  ">
+                                                            <div class="box box-widget" style="">
                                                                 <div align="center" class="box-body">
                                                                     <p:graphicImage value="#{producto.rutaImagen}"/>
                                                                 </div>
