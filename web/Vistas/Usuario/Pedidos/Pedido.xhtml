@@ -124,15 +124,7 @@
                                         <div class="box-header with-border">
                                             <i class="fa fa-2x fa-globe"/>
                                             <h4 class="box-title">Datos del Pedido</h4>
-                                            <c:choose>
-                                                <c:when test="#{sesionCT.obtenerSesion().rol.idRol == 2}">
-                                                    <div class="box-tools">
-                                                        <h:panelGrid columns="3">                                                            
-                                                            <p:commandButton icon="fa fa-pencil-square-o" iconPos="right"  onclick="PF('dlg').show();" style="float: right" class="btn btn-success" value="Cambiar Estado"/>
-                                                            <p:commandButton icon="fa fa-star" iconPos="right" style="float: right" class="btn btn-warning" value="Ver Calificacion"/>
-                                                        </h:panelGrid>
-                                                    </div>                                                    
-                                                </c:when>
+                                            <c:choose>                                                
                                                 <c:when test="#{sesionCT.obtenerSesion().rol.idRol == 4}">
                                                     <div class="box-tools">
                                                         <h:panelGrid columns="2">                                                        
@@ -334,7 +326,21 @@
                                                                         <h:panelGrid columns="2">
                                                                             <c:if test="#{sesionCT.obtenerSesion().rol.idRol == 2}">                                                                               
                                                                                 <h:panelGrid columns="2">                                                                                   
-                                                                                    <p:commandButton icon="fa fa-pencil-square-o" onclick="PF('dlg2').show();" iconPos="right" style="float: right" class="btn btn-success" value="Cambiar Estado"/>
+                                                                                    <p:commandButton disabled="#{pedidoCT.descripcionPedido.estado.idEstado eq 7}" immediate="true" icon="fa fa-pencil-square-o" update=":formularioRegistro" action="#{descripcionPedidoCT.editarEstadoDescripcion(pedidoCT.descripcionPedido)}" iconPos="right" style="float: right" class="btn btn-success" value="Cambiar Estado">
+                                                                                        <c:choose>
+                                                                                            <c:when test="${pedidoCT.descripcionPedido.estado.idEstado == 4}">
+                                                                                                <p:confirm header="Confirmation" message="Cambiara el estado de la prenda a estado en 'En Plnta', Esta seguro?" icon="ui-icon-alert" />
+                                                                                            </c:when>
+                                                                                            <c:when test="${pedidoCT.descripcionPedido.estado.idEstado == 5}">
+                                                                                                <p:confirm header="Confirmation" message="Cambiara el estado de la prenda a estado 'Lavado', Esta seguro?" icon="ui-icon-alert" />
+                                                                                            </c:when>
+                                                                                            <c:when test="${pedidoCT.descripcionPedido.estado.idEstado == 6}">
+                                                                                                <p:confirm header="Confirmation" message="Cambiara el estado de la prenda a estado 'Listo Para Entrega', Esta seguro?" icon="ui-icon-alert" />
+                                                                                            </c:when>
+                                                                                            <c:otherwise>                                                                                               
+                                                                                            </c:otherwise>
+                                                                                        </c:choose>
+                                                                                    </p:commandButton>
                                                                                 </h:panelGrid>                                                                                
                                                                             </c:if>
                                                                             <p:commandButton icon="fa fa-calendar" immediate="true" iconPos="right" action="#{historicoCT.verHistoricoPrenda(pedidoCT.descripcionPedido)}" style="float: right" class="btn btn-warning" value="Ver Historico"/>
@@ -384,42 +390,11 @@
                             <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif" />
                         </p:dialog>
 
-                        <p:dialog modal="true" header="Estado del pedido" widgetVar="dlg" style="width: 30%" resizable="false">
-                            <h:panelGrid style="width: 100%" columns="1" cellpadding="5">
-                                <h:outputLabel for="SEstadosPlanta" value="Estado:" />
-                                <h:selectOneMenu style="width: 100%" value="#{pedidoCT.pedido.estado.idEstado}" class="form-control" id="SEstadosPlanta">
-                                    <f:selectItem itemLabel="Seleccione Estado" noSelectionOption="true"/>
-                                    <f:selectItems value="#{estadoCT.estadosPlanta()}" var="estado" itemLabel="#{estado.nombre}" itemValue="#{estado.idEstado}"/>                                    
-                                </h:selectOneMenu>
-
-                                <f:facet name="footer">
-                                    <p:commandButton process="@this" class="btn btn-block" update=":formularioRegistro" value="Modificar" action="#{pedidoCT.editarEstadoPedido()}">
-                                        <p:confirm header="Confirmation" message="Si actualiza el estado del pedido, actualizara el estado de todas las prendas, esta seguro?" icon="ui-icon-alert" />
-                                    </p:commandButton>                                                      
-                                </f:facet>  
-                            </h:panelGrid>
-                        </p:dialog>
-
-                        <p:dialog modal="true" header="Estado de la prenda" widgetVar="dlg2" style="width: 30%" resizable="false">
-                            <h:panelGrid style="width: 100%" columns="1" cellpadding="5">
-                                <h:outputLabel for="SEstadosPrenda" value="Estado:" />
-                                <h:selectOneMenu style="width: 100%" value="#{pedidoCT.descripcionPedido.estado.idEstado}" class="form-control" id="SEstadosPrenda">
-                                    <f:selectItem itemLabel="Seleccione Estado" noSelectionOption="true"/>
-                                    <f:selectItems value="#{estadoCT.estadosPlanta()}" var="estado1" itemLabel="#{estado1.nombre}" itemValue="#{estado1}"/>                                    
-                                </h:selectOneMenu>
-
-                                <f:facet name="footer">
-                                    <p:commandButton class="btn btn-block" onclick="PrimeFaces.monitorDownload(start, stop);" update=":formularioRegistro" value="Modificar" action="#{descripcionPedidoCT.editarEstadoDescripcion(pedidoCT.descripcionPedido)}">
-                                        <f:setPropertyActionListener value="#{estado1}" target="#{pedidoCT.descripcionPedido.estado.idEstado}"/>
-                                    </p:commandButton>                                                      
-                                </f:facet>  
-                            </h:panelGrid>
-                        </p:dialog>
 
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton  onclick="PrimeFaces.monitorDownload(start, stop);"  value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                        </p:confirmDialog> 
+                            <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="NO" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>                                              
                     </h:form>
                 </b:row>
             </b:container>         

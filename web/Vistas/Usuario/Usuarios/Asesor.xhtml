@@ -10,13 +10,20 @@
     <body>
         <ui:composition template="./../adminTemplate.xhtml">
             <ui:define name="content">
+                <ol class="breadcrumb">
+                    <i class="fa fa-dashboard"/>               
+                    <li class="active">Dashboard</li>
+                    <li></li>
+                </ol>
                 <b:container fluid="true">
                     <b:row>
                         <b:column col-lg="12">
-                            <div>
-                                <h3>ASESORES<small> Asesores y recolectores</small></h3>                            
-                            </div>
+                            <div class="col-lg-4">
+                                <h3 style="font-size: x-large"><strong>ASESORES</strong><small> Asesores y recolectores</small></h3>                        
+                                <p:separator />
+                            </div>                           
                         </b:column>
+
                         <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
                             <h:form id="formularioAsesor">
                                 <div class="box box-success">
@@ -68,10 +75,10 @@
                                             </div>
                                         </h:panelGrid>
                                     </div>
-                                    <div class="box-footer">
+                                    <div class="box-footer" align="right">
                                         <p:commandButton  value="Cancelar" immediate="true" process="@this" 
                                                           update=":formularioAsesor" action="#{usuarioCT.cancelarAsesor()}"
-                                                          class="btn btn-primary"/>
+                                                          class="btn btn-info"/>
                                         <p:commandButton  onclick="PrimeFaces.monitorDownload(start, stop);"  type="submit" update=":formularioAsesor :formularioListaAsesores" 
                                                           action="#{usuarioCT.metodoAsesor()}" value="#{usuarioCT.nombreOperacion}" 
                                                           class="btn btn-success"/>
@@ -91,7 +98,7 @@
                             </h:form>
                         </b:column>
                         <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12">
-                            <div class="box box-success">
+                            <div class="box box-info">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-list"/>
                                     <h4 class="box-title">Lista de asesores</h4>
@@ -139,6 +146,34 @@
                                     </h:form>
                                 </div>
                             </div>
+
+
+
+                            <div class="box box-warning">
+                                <div class="box-body">
+                                    <h:form>
+                                        <table width="100%">
+                                            <tr>
+                                                <td width="20%" align="center">
+                                                    <i class="fa fa-5x fa-cogs"/>
+                                                </td>
+                                                <td width="35%" align="center">
+                                                    <h:panelGrid columns="1" width="100%">
+                                                        <h4 style="font-size: xx-large" class="title"> Asociar</h4>
+                                                        <p>Asociar asesores con zonas de trabajo</p>
+                                                    </h:panelGrid>
+                                                </td>
+                                                <td width="45%" align="right">
+                                                    <p:commandButton action="Asociacion" icon="fa fa-arrow-right" iconPos="right" value="Ver" class="btn btn-info" style="height: 50px; width: 60%"/>
+                                                </td>
+                                            </tr>                                    
+                                        </table>
+                                    </h:form>
+                                </div>
+                            </div>                       
+
+
+
                         </b:column>
                     </b:row>
                 </b:container>

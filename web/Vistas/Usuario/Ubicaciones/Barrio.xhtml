@@ -8,17 +8,19 @@
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="./../adminTemplate.xhtml">
-        <ui:define name="content">
-            <!--        ================================================================
-                           NUEVA PLANTILLA
-                           ================================================================-->
-
+        <ui:define name="content">           
+             <ol class="breadcrumb">
+                <i class="fa fa-dashboard"/>               
+                <li class="active">Dashboard</li>
+                <li></li>
+            </ol>
             <b:container fluid="true">
                 <b:row>
                     <b:column col-lg="12">
-                        <div>
-                            <h3>BARRIOS<small> localizacion y nombre de los barrios por ciudad.</small></h3>                            
-                        </div>
+                        <div class="col-lg-4">
+                            <h3 style="font-size: x-large"><strong>BARRIOS</strong><small> Barrios donde se presta el servicio</small></h3>                        
+                            <p:separator />
+                        </div>  
                     </b:column>
 
                     <h:form id="formularioRegistro" enctype="multipart/form-data" >                         
@@ -70,7 +72,7 @@
                                     <div class="box-footer" align="right">
                                         <h:panelGrid columns="2">
                                             <p:commandButton id="BarrCancelar"  process="@this" 
-                                                             immediate="true" class="btn btn-danger" 
+                                                             immediate="true" class="btn btn-info" 
                                                              update=":formularioRegistro :formularioListaBarrios"
                                                              action="#{barrioCT.cancelar()}"
                                                              value="Cancelar" />
@@ -78,7 +80,7 @@
                                             <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" 
                                                              update=":formularioRegistro :formularioListaBarrios"
                                                              action="#{barrioCT.metodo()}" value="#{barrioCT.nombreOperacion}"
-                                                             class="btn btn-info"  type="submit"/>                                       
+                                                             class="btn btn-success"  type="submit"/>                                       
                                         </h:panelGrid>
                                         <script type="text/javascript">
                                             function start() {

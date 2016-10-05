@@ -35,9 +35,8 @@ public class PedidoCT implements Serializable {
 
     private Pedido_TO pedido;
     private DescripcionPedido_TO descripcionPedido;
-    private List<Pedido_TO> pedidos;
-    private Estado_TO estado;
-    
+    private List<Pedido_TO> pedidos; 
+
     private List<SubProductoCosto_TO> subproductos;
 
     private int vista;
@@ -59,8 +58,7 @@ public class PedidoCT implements Serializable {
         botonatras = false;
         botonsiguiente = true;
         botonconfirmar = false;
-        buscar = null;
-        estado = new Estado_TO();
+        buscar = null;        
 
         PedidoDao pedidoDao = new PedidoDao();
         if (Sesion.obtenerSesion() != null) {
@@ -197,16 +195,7 @@ public class PedidoCT implements Serializable {
 
     public void setDescripcionPrenda(Boolean descripcionPrenda) {
         this.descripcionPrenda = descripcionPrenda;
-    }
-
-    public Estado_TO getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Estado_TO estado) {
-        this.estado = estado;
-    }   
-    
+    }  
 
     //Metodos para las vistas 
     public void atras() {
@@ -292,10 +281,6 @@ public class PedidoCT implements Serializable {
     }
 
     //Metodos CRUD
-    public void cambiarEstado(Estado_TO estado){
-        this.estado = estado;
-    }
-    
     public void registrarPedido() {
         PedidoDao pedidoDao = new PedidoDao();
         pedidoDao.registrarPedidoCompleto(pedido);
@@ -351,24 +336,17 @@ public class PedidoCT implements Serializable {
         }
         cantidadProductos = subproductos.size();
     }
-    
-    public void modificarPedido(){
-         PedidoDao pedidoDao = new PedidoDao();
-         pedidoDao.modificaPedido(pedido);
+
+    public void modificarPedido() {
+        PedidoDao pedidoDao = new PedidoDao();
+        pedidoDao.modificaPedido(pedido);
     }
 
-    public void editarEstadoPedido(){
+    public void editarEstadoPedido() {
         PedidoDao pedidoDao = new PedidoDao();
-        DescripcionPedidoDao dd = new DescripcionPedidoDao();
-        List<DescripcionPedido_TO> prendas = dd.consultarDescripcionesSinFotosSegunPedido(pedido);
-        pedido.setEstado(estado);
         pedidoDao.editarEstadoPedido(pedido);
-        for (int i = 0; i < prendas.size(); i++) {
-            prendas.get(i).setEstado(pedido.getEstado());
-            dd.editarEstadoDescripcionPedido(prendas.get(i));
-        }
     }
-    
+
     //Metodos para el manejo de los productos del pedido
     //Ordena ascendentemente los productos en la lista basado en su id
     public List<SubProductoCosto_TO> insertionSortSubProductos(List<SubProductoCosto_TO> lista) {
@@ -494,34 +472,33 @@ public class PedidoCT implements Serializable {
             pedidos = pedidoDao.BuscarPedidos(buscar, Sesion.obtenerSesion());
         }
     }
-    
-    public List<Pedido_TO> consultarPedidosDiaEntrega(){
+
+    public List<Pedido_TO> consultarPedidosDiaEntrega() {
         List<Pedido_TO> pedidosDia = new ArrayList<>();
         PedidoDao pedidoDao = new PedidoDao();
         pedidosDia = pedidoDao.consultarPedidosDiaEntrega();
         return pedidosDia;
     }
-    
-    public List<Pedido_TO> consultarPedidosDiaRecogida(){
+
+    public List<Pedido_TO> consultarPedidosDiaRecogida() {
         List<Pedido_TO> pedidosDia = new ArrayList<>();
         PedidoDao pedidoDao = new PedidoDao();
         pedidosDia = pedidoDao.consultarPedidosDiaRecogida();
         return pedidosDia;
     }
-    
-    public List<Pedido_TO> consultarPedidosEnplantaSegunCliente(){
+
+    public List<Pedido_TO> consultarPedidosEnplantaSegunCliente() {
         List<Pedido_TO> pedidosEntrega = new ArrayList<>();
         PedidoDao pedidoDao = new PedidoDao();
         pedidosEntrega = pedidoDao.consultarPedidosEnPlantaSegunCliente(Sesion.obtenerSesion());
         return pedidosEntrega;
     }
-    
-    public List<Pedido_TO> consultarPedidosPorRecibirSegunCliente(){
+
+    public List<Pedido_TO> consultarPedidosPorRecibirSegunCliente() {
         List<Pedido_TO> pedidosRecibir = new ArrayList<>();
         PedidoDao pedidoDao = new PedidoDao();
         pedidosRecibir = pedidoDao.consultarPedidosPorRecibirSegunCliente(Sesion.obtenerSesion());
         return pedidosRecibir;
     }
-
 
 }

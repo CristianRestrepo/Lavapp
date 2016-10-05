@@ -12,12 +12,18 @@
         <ui:composition template="./../adminTemplate.xhtml">
 
             <ui:define name="content">
+                <ol class="breadcrumb">
+                    <i class="fa fa-dashboard"/>               
+                    <li class="active">Dashboard</li>
+                    <li></li>
+                </ol>
                 <b:container fluid="true">
                     <b:row>                  
                         <b:column col-lg="12"><!-- primer titulo columna izquierda  -->
-                            <div>
-                                <h3> RELACIONA <small> Relaciona un comercial con un asesor con las zonas correspondientes.</small></h3>                            
-                            </div>
+                            <div class="col-lg-5">
+                                <h3 style="font-size: x-large"><strong>ASOCIACION</strong><small> Asesores y zonas de la ciudad</small></h3>                        
+                                <p:separator />
+                            </div>   
                         </b:column>
                         <h:form id="formularioAsociacion">  
                             <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
@@ -34,7 +40,7 @@
                                             <p:dataTable rowKey="#{asesor.idUsuario}" id="eventsDT" 
                                                          var="asesor" 
                                                          value="#{usuarioCT.asesores}" 
-                                                         selection="#{asesorZonaCT.usuario}" selectionMode="single">
+                                                         selection="#{asesorZonaCT.usuario}"  selectionMode="single">
                                                 <f:facet name="header">
                                                     Asesores
                                                 </f:facet>
@@ -47,6 +53,8 @@
                                                 <p:column headerText="Numero Indentificacion">
                                                     <h:outputText value="#{asesor.identificacion}" />
                                                 </p:column>
+                                                <p:ajax event="rowSelect" listener="#{asesorZonaCT.consultarZonasAsesor}" update=":formularioAsociacion:DTZonas"/>
+                                                <p:ajax event="rowUnselect" listener="#{asesorZonaCT.LimpiarZonas}" update=":formularioAsociacion:DTZonas"/>
                                             </p:dataTable>
                                         </div>
                                     </div>
@@ -61,7 +69,7 @@
                                         <h4 class="box-title">Selecciona las Zonas</h4>
                                     </div>
                                     <div class="box-body">
-                                        <p:dataTable  rowKey="#{zona.idZona}"
+                                        <p:dataTable  id="DTZonas" rowKey="#{zona.idZona}"
                                                       rows="5" var="zona" value="#{zonaCT.zonas}" 
                                                       selection="#{asesorZonaCT.zonas}" 
                                                       paginator="true"
@@ -97,6 +105,12 @@
                                     </p:dialog>
                                 </div>
                                 <!-- fin de contenidos  -->
+                            </b:column>
+                            
+                            <b:column col-lg="12">
+                                <div class="col-lg-3">
+                                    <p:commandButton class="btn btn-block btn-info" immediate="true" value="Regresar" icon="fa fa-arrow-left" iconPos="left" action="Asesor"/>
+                                </div>
                             </b:column>
                         </h:form>                         
                     </b:row>

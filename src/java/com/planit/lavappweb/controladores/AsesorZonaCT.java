@@ -6,11 +6,14 @@
 package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.modelo.dao.AsesorZonaDao;
+import com.planit.lavappweb.modelo.dao.ZonaDao;
 import com.planit.lavappweb.modelo.dto.Usuario_TO;
 import com.planit.lavappweb.modelo.dto.Zona_TO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 
 /**
  *
@@ -57,10 +60,18 @@ public class AsesorZonaCT implements Serializable {
         for (int i = 0; i < zonas.size(); i++) {
             AsesorZonaDao asesorZonaDao = new AsesorZonaDao();
             asesorZonaDao.AsociarAsesorZona(usuario, zonas.get(i));
-        }
-        
+        }        
         zonas = new ArrayList<>();
         usuario = new Usuario_TO();
+    }
+    
+    public void consultarZonasAsesor(SelectEvent e){
+        ZonaDao zonaDao = new ZonaDao();
+        zonas = zonaDao.consultarZonasAsesor(usuario);        
+    }
+    
+    public void LimpiarZonas(UnselectEvent e){
+        zonas = new ArrayList<>();
     }
 
 }

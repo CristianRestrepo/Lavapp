@@ -10,13 +10,18 @@
     <body>
         <ui:composition template="./../adminTemplate.xhtml">
             <ui:define name="content">
+                <ol class="breadcrumb">
+                    <i class="fa fa-dashboard"/>               
+                    <li class="active">Dashboard</li>
+                    <li></li>
+                </ol>
                 <b:container fluid="true">
                     <b:row>
                         <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
-                            <div class="espacio-arriba" style="text-align: left" align="left">
-                               <h4 style="font-size: x-large">Clientes</h4>
-                               <p>Te damos la bienvenida, #{sesionCT.obtenerSesion().nombre}</p>
-                            </div>
+                            <div align="left" class="col-lg-4">
+                                <h3 style="font-size: x-large"><strong>CLIENTES</strong><small> Clientes de nuestra plataforma</small></h3>                              
+                                <p:separator/>
+                            </div>                           
                         </b:column>                    
                         <hr/>
                         <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">

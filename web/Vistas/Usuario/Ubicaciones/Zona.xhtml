@@ -11,15 +11,18 @@
     <ui:composition template="./../adminTemplate.xhtml">
 
         <ui:define name="content">
-            <!--        ===============================================================
-                        NUEVA PLANTILLA
-                        ===============================================================-->
+             <ol class="breadcrumb">
+                <i class="fa fa-dashboard"/>               
+                <li class="active">Dashboard</li>
+                <li></li>
+            </ol>
             <b:container fluid="true">
                 <b:row>
                     <b:column col-lg="12">
-                        <div>
-                            <h3>ZONAS <small> Zonas en las que opera la lavanderia a domicilio.</small></h3>                            
-                        </div>
+                        <div class="col-lg-5">
+                            <h3 style="font-size: x-large"><strong>ZONAS</strong><small> Zonas de trabajo en la ciudad</small></h3>                        
+                            <p:separator />
+                        </div> 
                     </b:column>
 
                     <h:form id="formularioRegistro" enctype="multipart/form-data" >                         
@@ -48,7 +51,7 @@
                                     <div class="box-footer" align="right">
                                         <h:panelGrid columns="2">
                                             <p:commandButton id="ZonaCancelar"  process="@this" 
-                                                             immediate="true" class="btn btn-danger" 
+                                                             immediate="true" class="btn btn-info" 
                                                              update=":formularioRegistro :formularioListaZonas"  
                                                              action="#{zonaCT.cancelar()}"
                                                              value="Cancelar"/>
@@ -56,7 +59,7 @@
                                             <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" 
                                                              update=":formularioRegistro :formularioListaZonas"
                                                              action="#{zonaCT.metodo()}" value="#{zonaCT.nombreOperacion}" 
-                                                             class="btn btn-info"  type="submit" />                                       
+                                                             class="btn btn-success"  type="submit" />                                       
                                         </h:panelGrid>
                                         <script type="text/javascript">
                                             function start() {

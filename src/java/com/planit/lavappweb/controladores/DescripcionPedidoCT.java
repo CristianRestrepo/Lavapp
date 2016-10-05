@@ -6,8 +6,10 @@
 package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.modelo.dao.DescripcionPedidoDao;
+import com.planit.lavappweb.modelo.dao.PedidoDao;
 import com.planit.lavappweb.modelo.dao.SubProductoDao;
 import com.planit.lavappweb.modelo.dto.DescripcionPedido_TO;
+import com.planit.lavappweb.modelo.dto.Estado_TO;
 import com.planit.lavappweb.modelo.dto.Pedido_TO;
 import com.planit.lavappweb.modelo.dto.SubProductoCosto_TO;
 import java.io.Serializable;
@@ -59,10 +61,38 @@ public class DescripcionPedidoCT implements Serializable {
 
     public void eliminar() {
     }
-    
-    public void editarEstadoDescripcion(DescripcionPedido_TO descripcion){
+
+    public void editarEstadoDescripcion(DescripcionPedido_TO descripcion) {
+        switch (descripcion.getEstado().getIdEstado()) {
+            case 4:
+                descripcion.setEstado(new Estado_TO(5));
+                break;
+            case 5:
+                descripcion.setEstado(new Estado_TO(6));
+                break;
+            case 6:
+                descripcion.setEstado(new Estado_TO(7));
+                break;
+        }
+
         DescripcionPedidoDao descripcionPedidoDao = new DescripcionPedidoDao();
         descripcionPedidoDao.editarEstadoDescripcionPedido(descripcion);
+
+        productosPedido = descripcionPedidoDao.consultarDescripcionesSinFotosSegunPedido(descripcion.getPedido());
+        boolean valor = true;
+        
+        for (int i = 0; i < productosPedido.size(); i++) {
+            if(descripcion.getEstado().getIdEstado() != productosPedido.get(i).getEstado().getIdEstado()){
+                valor = false;
+            }
+        }
+        
+        if(valor){
+            PedidoDao pedidoDao = new PedidoDao();
+            Pedido_TO pedido = descripcion.getPedido();
+            pedido.setEstado(descripcion.getEstado());
+            pedidoDao.editarEstadoPedido(pedido);
+        }
     }
 
     public List<DescripcionPedido_TO> consultarDescripcionesSegunPedido(Pedido_TO pedido) {
@@ -76,8 +106,8 @@ public class DescripcionPedidoCT implements Serializable {
         List<DescripcionPedido_TO> lista = descripcionDao.consultarDescripcionesSinFotosSegunPedido(pedido);
         return lista;
     }
-        
-    public List<SubProductoCosto_TO> obtenerSubProductos(Pedido_TO pedido){
+
+    public List<SubProductoCosto_TO> obtenerSubProductos(Pedido_TO pedido) {
         List<DescripcionPedido_TO> lista = consultarDescripcionesSinFotosSegunPedido(pedido);
         List<SubProductoCosto_TO> subproductos = new ArrayList<>();
         SubProductoDao subProductosDao = new SubProductoDao();

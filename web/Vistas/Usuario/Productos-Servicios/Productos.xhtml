@@ -7,17 +7,20 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="./../adminTemplate.xhtml">
-
+    <ui:composition template="./../adminTemplate.xhtml">        
         <ui:define name="content"> 
-
+            <ol class="breadcrumb">
+                <i class="fa fa-dashboard"/>               
+                <li class="active">Dashboard</li>
+                <li></li>
+            </ol>
             <b:container fluid="true">
                 <b:row>
                     <b:column col-lg="12">
-                        <div>
-                            <h3>CATEGORIAS PRENDAS <small> Tipos de prendas para la lavanderia a domicilio.</small></h3>                            
-                        </div>
-
+                        <div class="col-lg-4">
+                            <h3 style="font-size: x-large"><strong>CATEGORIAS</strong><small> Categorias de prendas</small></h3>                        
+                            <p:separator />
+                        </div>  
                     </b:column>
 
                     <h:form id="formularioRegistroProd" enctype="multipart/form-data" >                         
@@ -36,7 +39,7 @@
                                         <h:panelGrid id="Productos" columns="1" style="width: 100%">                                          
                                             <b:inputText id="txtNombreProd" placeholder="Nombre del Producto" 
                                                          required="true" requiredMessage="Ingrese nombre del Producto"  
-                                                             value="#{productoCT.producto.nombre}"/>   
+                                                         value="#{productoCT.producto.nombre}"/>   
                                             <p:message for="txtNombreProd"/>
 
                                             <div class="form-group">

@@ -10,7 +10,7 @@
     <body>
         <ui:composition template="./../adminTemplate.xhtml">
             <ui:define name="content">
-                 <ol class="breadcrumb">
+                <ol class="breadcrumb">
                     <i class="fa fa-dashboard"/>               
                     <li><a href="../Dashboard/Dashboard.xhtml">Dashboard</a></li>
                     <li><a href="Pedido.xhtml">Pedidos</a></li>
@@ -19,6 +19,14 @@
                 </ol>
                 <b:container fluid="true">
                     <b:row>
+
+                        <b:column col-lg="12">
+                            <div class="col-lg-5">
+                                <h3 style="font-size: x-large"><strong>HORARIOS</strong><small> Horarios de servicio</small></h3>                        
+                                <p:separator />
+                            </div> 
+                        </b:column>
+
                         <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12" class="espacio-arriba">
                             <div class="box box-success">
                                 <div class="box-header with-border">
@@ -34,18 +42,18 @@
                                             </h:selectOneMenu>
 
                                             <label>:</label>
-                                            
+
                                             <h:selectOneMenu value="#{horarioCT.minutoinicio}" class="form-control">
                                                 <f:selectItems value="#{horarioCT.minutos}"/>
                                             </h:selectOneMenu>
 
                                             <label>:</label>
-                                            
+
                                             <h:selectOneMenu value="#{horarioCT.segundoinicio}" class="form-control">
                                                 <f:selectItems value="#{horarioCT.segundos}"/>
                                             </h:selectOneMenu>
                                         </h:panelGrid>
-                                        
+
                                         <label class="control-label">Hora Final<span class="required">*</span></label>
                                         <h:panelGrid columns="5" width="100%">
                                             <h:selectOneMenu value="#{horarioCT.horafinal}" class="form-control">
@@ -53,18 +61,18 @@
                                             </h:selectOneMenu>
 
                                             <label>:</label>
-                                            
+
                                             <h:selectOneMenu value="#{horarioCT.minutofinal}" class="form-control">
                                                 <f:selectItems value="#{horarioCT.minutos}"/>
                                             </h:selectOneMenu>
 
                                             <label>:</label>
-                                            
+
                                             <h:selectOneMenu value="#{horarioCT.segundofinal}" class="form-control">
                                                 <f:selectItems value="#{horarioCT.segundos}"/>
                                             </h:selectOneMenu>
                                         </h:panelGrid>
-                                       
+
                                         <label class="control-label" for="DTJornadas">Jornada<span class="required">*</span></label>
                                         <h:selectOneMenu required="true" requiredMessage="Seleccione jornada" class="form-control" style="width: 100%" id="DTJornadas" value="#{horarioCT.horario.jornada.nombre}">
                                             <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
@@ -77,13 +85,13 @@
                                             <p:commandButton value="Cancelar" immediate="true" 
                                                              process="@this" action="#{horarioCT.cancelar()}" 
                                                              update=":formularioRegistro :formularioListaHorarios"  
-                                                             class="btn btn-danger"/>
+                                                             class="btn btn-info"/>
                                             <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);"  
                                                              form="formularioRegistro" type="submit" 
                                                              update=":formularioRegistro :formularioListaHorarios" 
                                                              action="#{horarioCT.metodo()}" 
                                                              value="#{horarioCT.nombreOperacion}" 
-                                                             class="btn btn-info"/>
+                                                             class="btn btn-success"/>
                                         </h:panelGrid>
                                         <script type="text/javascript">
                                             function start() {
@@ -120,7 +128,7 @@
                                             <p:column headerText="Horario">
                                                 <p:outputLabel value="#{horario.horario}"/>  
                                             </p:column>
-                                            
+
                                             <p:column headerText="Jornada">
                                                 <p:outputLabel value="#{horario.jornada.nombre}"/>  
                                             </p:column>

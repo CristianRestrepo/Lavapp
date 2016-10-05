@@ -16,14 +16,18 @@
             <!--        ====================================================================
                         NUEVA PLANTILLA
                         ====================================================================-->
-
+            <ol class="breadcrumb">
+                <i class="fa fa-dashboard"/>               
+                <li class="active">Dashboard</li>
+                <li></li>
+            </ol>
             <b:container fluid="true">
                 <b:row>
                     <b:column col-lg="12">
-                        <div>
-                            <h3>CIUDADES <small>Ciudades en las que se ofrecen los servicios de lavanderia</small></h3>                            
-                        </div>
-
+                      <div class="col-lg-5">
+                            <h3 style="font-size: x-large"><strong>CIUDADES</strong><small> Ciudades donde se presta el servicio</small></h3>                        
+                            <p:separator />
+                        </div>  
                     </b:column>
 
                     <h:form id="formularioRegistro"  >                         
@@ -58,7 +62,7 @@
                                     <div class="box-footer" align="right">
                                         <h:panelGrid columns="2">
                                             <p:commandButton id="PaisCancelar"  process="@this" 
-                                                             immediate="true" class="btn btn-danger" 
+                                                             immediate="true" class="btn btn-info" 
                                                              update=":formularioRegistro :formularioListaCiudades"
                                                              action="#{ciudadCT.cancelar()}" 
                                                              value="Cancelar" />
@@ -66,7 +70,7 @@
                                             <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" 
                                                              update=":formularioRegistro :formularioListaCiudades"
                                                              action="#{ciudadCT.metodo()}" value="#{ciudadCT.nombreOperacion}"
-                                                             class="btn btn-info"  type="submit" />                                       
+                                                             class="btn btn-success"  type="submit" />                                       
                                         </h:panelGrid>
                                         <script type="text/javascript">
                                             function start() {

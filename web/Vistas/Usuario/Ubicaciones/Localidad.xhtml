@@ -10,16 +10,18 @@
 
     <ui:composition template="./../adminTemplate.xhtml">
         <ui:define name="content">
-            <!--        ================================================================
-                        NUEVA PLANTILLA
-                        ================================================================-->
+            <ol class="breadcrumb">
+                <i class="fa fa-dashboard"/>               
+                <li class="active">Dashboard</li>
+                <li></li>
+            </ol>
             <b:container fluid="true">
                 <b:row>
                     <b:column col-lg="12">
-                        <div>
-                            <h3>LOCALIDADES <small> Localidades de la Ciudad.</small></h3>                            
-                        </div>
-
+                        <div class="col-lg-5">
+                            <h3 style="font-size: x-large"><strong>LOCALIDADES</strong><small> Localidades de la ciudad</small></h3>                        
+                            <p:separator />
+                        </div> 
                     </b:column>
 
                     <h:form id="formularioRegistro" enctype="multipart/form-data" >                         
@@ -48,14 +50,14 @@
                                                     <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
                                                     <f:selectItems value="#{ciudadCT.ciudades}" var="ciudad" itemLabel="#{ciudad.nombre}" itemValue="#{ciudad.nombre}"/>
                                                 </h:selectOneMenu>
-                                                 <p:message for="SMCiudad"/>
+                                                <p:message for="SMCiudad"/>
                                             </div>
                                         </h:panelGrid>
                                     </div>
                                     <div class="box-footer" align="right">
                                         <h:panelGrid columns="2">
                                             <p:commandButton id="LocCancelar"  process="@this" 
-                                                             immediate="true" class="btn btn-danger" 
+                                                             immediate="true" class="btn btn-info" 
                                                              update=":formularioRegistro :formularioListaLocalidades" 
                                                              action="#{localidadCT.cancelar()}" 
                                                              value="Cancelar" />
@@ -63,7 +65,7 @@
                                             <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" 
                                                              update=":formularioRegistro :formularioListaLocalidades:DTLocalidades" 
                                                              value="#{localidadCT.nombreOperacion}" action="#{localidadCT.metodo()}"
-                                                             class="btn btn-info"  type="submit" />                                       
+                                                             class="btn btn-success"  type="submit" />                                       
                                         </h:panelGrid>
                                         <script type="text/javascript">
                                             function start() {

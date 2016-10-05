@@ -9,12 +9,18 @@
 
     <ui:composition template="./../adminTemplate.xhtml">
         <ui:define name="content">
+            <ol class="breadcrumb">
+                <i class="fa fa-dashboard"/>               
+                <li class="active">Dashboard</li>
+                <li></li>
+            </ol>
             <b:container fluid="true">
                 <b:row>
                     <b:column col-lg="12">
-                        <div>
-                            <h3>PROVEEDORES<small> Plantas de lavado e informacion de sus representantes.</small></h3>                            
-                        </div>
+                        <div align="left" class="col-lg-4">
+                            <h3 style="font-size: x-large"><strong>PROVEEDORES</strong><small> Plantas de lavado</small></h3>                              
+                            <p:separator/>
+                        </div>  
                     </b:column>
 
                     <h:form id="formularioProveedor">
@@ -118,7 +124,7 @@
                                 <div class="box-footer">
                                     <p:commandButton  value="Cancelar" immediate="true" process="@this" 
                                                       update=":formularioProveedor" action="#{proveedorCT.cancelar()}"
-                                                      class="btn btn-primary"/>
+                                                      class="btn btn-info"/>
                                     <p:commandButton  onclick="PrimeFaces.monitorDownload(start, stop);"  type="submit" update=":formularioProveedor :formularioListaProveedores" 
                                                       action="#{proveedorCT.metodo()}" value="#{proveedorCT.nombreOperacion}" 
                                                       class="btn btn-success"/>
@@ -174,7 +180,7 @@
                                         <p:column headerText="Apellido Representante">
                                             <p:outputLabel value="#{Proveedor.usuario.apellido}"/>         
                                         </p:column>
-                                        
+
                                         <p:column headerText="Zona">
                                             <p:outputLabel value="#{Proveedor.zona.nombre}"/>         
                                         </p:column>

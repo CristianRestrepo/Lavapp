@@ -10,16 +10,18 @@
     <ui:composition template="./../adminTemplate.xhtml">
 
         <ui:define name="content">
-            <!--        =============================================
-                        NUEVO TEMPLATE
-                        =============================================-->
+            <ol class="breadcrumb">
+                <i class="fa fa-dashboard"/>               
+                <li class="active">Dashboard</li>
+                <li></li>
+            </ol>   
             <b:container fluid="true">
                 <b:row>
                     <b:column col-lg="12">
-                        <div>
-                            <h3>SUBSERVICIOS <small> Subservicios de lavanderia a domicilio.</small></h3>                            
-                        </div>
-
+                        <div class="col-lg-4">
+                            <h3 style="font-size: x-large"><strong>SUBSERVICIOS</strong><small> Subservicios de lavanderia</small></h3>                        
+                            <p:separator />
+                        </div>     
                     </b:column>
 
                     <h:form id="formRegisSubServ"> 
@@ -57,13 +59,13 @@
                                 <div class="box-footer" align="right">
                                     <h:panelGrid columns="2">
                                         <p:commandButton id="SCancelar"  process="@this" 
-                                                         immediate="true" class="btn btn-danger" 
+                                                         immediate="true" class="btn btn-info" 
                                                          update=":formRegisSubServ :formListaSubServ"
                                                          action="#{subServicioCT.cancelar()}" 
                                                          value="Cancelar" />
 
                                         <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" 
-                                                         class="btn btn-info" 
+                                                         class="btn btn-success" 
                                                          action="#{subServicioCT.metodo()}"
                                                          type="submit"
                                                          update=":formRegisSubServ :formListaSubServ" 
@@ -102,7 +104,7 @@
                                                  paginator="true"
                                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                  rowsPerPageTemplate="5,10,15">
-                                      
+
                                         <p:column headerText="Nombre">
                                             <p:outputLabel value="#{subServ.nombre}" />
                                         </p:column>

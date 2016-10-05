@@ -11,15 +11,18 @@
     <ui:composition template="./../adminTemplate.xhtml">
 
         <ui:define name="content">
-            <!--        ====================================================================
-                        NUEVA PLANTILLA 
-                        ====================================================================-->
+            <ol class="breadcrumb">
+                <i class="fa fa-dashboard"/>               
+                <li class="active">Dashboard</li>
+                <li></li>
+            </ol>
             <b:container fluid="true">
                 <b:row>
                     <b:column col-lg="12">
-                        <div>
-                            <h3>PRENDAS <small> Prendas sobre las que se ofrecen  servicios de lavanderia a domicilio.</small></h3>                            
-                        </div>
+                        <div class="col-lg-5">
+                            <h3 style="font-size: x-large"><strong>TIPOS DE PRENDAS</strong><small> Clases de prendas ofrecidas</small></h3>                        
+                            <p:separator />
+                        </div>  
                     </b:column>
 
                     <h:form id="formSubProd" enctype="multipart/form-data" >                         
@@ -71,7 +74,7 @@
                                     <div class="box-footer" align="right">
                                         <h:panelGrid columns="2">
                                             <p:commandButton id="SubProdCancelar"  process="@this" 
-                                                             immediate="true" class="btn btn-danger" 
+                                                             immediate="true" class="btn btn-info" 
                                                              update=":formSubProd :formListSubProduc "
                                                              action="#{subProductoCT.cancelar()}"
                                                              value="Cancelar"/>
@@ -79,7 +82,7 @@
                                             <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" 
                                                              update=":formSubProd :formListSubProduc:DTSubProductos " 
                                                              action="#{subProductoCT.metodo()}"  value="#{subProductoCT.nombreOperacion}"
-                                                             class="btn btn-info"  type="submit" ajax="false"/>                                       
+                                                             class="btn btn-success"  type="submit" ajax="false"/>                                       
                                         </h:panelGrid>
                                         <script type="text/javascript">
                                             function start() {

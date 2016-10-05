@@ -5,10 +5,12 @@
  */
 package com.planit.lavappweb.modelo.dao;
 
+import com.planit.lavappweb.modelo.dto.Usuario_TO;
 import com.planit.lavappweb.modelo.dto.Zona_TO;
 import com.planit.lavappweb.webservices.clientes.ClienteBuscarZonas;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarZona;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarZonas;
+import com.planit.lavappweb.webservices.clientes.ClienteConsultarZonasAsesor;
 import com.planit.lavappweb.webservices.clientes.ClienteEditarZona;
 import com.planit.lavappweb.webservices.clientes.ClienteEliminarZona;
 import com.planit.lavappweb.webservices.clientes.ClienteRegistrarZona;
@@ -33,6 +35,19 @@ public class ZonaDao {
         }
         return zonas;
     }
+    
+     public List<Zona_TO> consultarZonasAsesor(Usuario_TO asesor) {
+         ClienteConsultarZonasAsesor cliente = new ClienteConsultarZonasAsesor();
+        List<LinkedHashMap> datos = cliente.consultarZonasAsesor(List.class, "" + asesor.getIdUsuario());
+        List<Zona_TO> zonas = new ArrayList<>();
+        for (int i = 0; i < datos.size(); i++) {
+            zonas.add(new Zona_TO((int) datos.get(i).get("idZona"), 
+                    (String) datos.get(i).get("nombre"),
+                    (String) datos.get(i).get("descripcion")));
+        }
+        return zonas;
+    }
+     
     
     public List<Zona_TO> buscarZonas(String valor){ 
         ClienteBuscarZonas cliente = new ClienteBuscarZonas();
