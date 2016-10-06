@@ -9,9 +9,11 @@ import com.planit.lavappweb.modelo.dto.Usuario_TO;
 import com.planit.lavappweb.modelo.dto.Zona_TO;
 import com.planit.lavappweb.webservices.clientes.ClienteBuscarZonas;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarZona;
+import com.planit.lavappweb.webservices.clientes.ClienteConsultarZonaYaAsociada;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarZonas;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarZonasAsesor;
 import com.planit.lavappweb.webservices.clientes.ClienteEditarZona;
+import com.planit.lavappweb.webservices.clientes.ClienteEliminarAsociacionZona;
 import com.planit.lavappweb.webservices.clientes.ClienteEliminarZona;
 import com.planit.lavappweb.webservices.clientes.ClienteRegistrarZona;
 import java.util.ArrayList;
@@ -23,39 +25,49 @@ import java.util.List;
  * @author Desarrollo_Planit
  */
 public class ZonaDao {
-    
+
     public List<Zona_TO> consultarZonas() {
         ClienteConsultarZonas cliente = new ClienteConsultarZonas();
         List<LinkedHashMap> datos = cliente.consultarZonas(List.class);
         List<Zona_TO> zonas = new ArrayList<>();
         for (int i = 0; i < datos.size(); i++) {
-            zonas.add(new Zona_TO((int) datos.get(i).get("idZona"), 
+            zonas.add(new Zona_TO((int) datos.get(i).get("idZona"),
                     (String) datos.get(i).get("nombre"),
                     (String) datos.get(i).get("descripcion")));
         }
         return zonas;
     }
-    
-     public List<Zona_TO> consultarZonasAsesor(Usuario_TO asesor) {
-         ClienteConsultarZonasAsesor cliente = new ClienteConsultarZonasAsesor();
+
+    public List<Zona_TO> consultarZonasAsesor(Usuario_TO asesor) {
+        ClienteConsultarZonasAsesor cliente = new ClienteConsultarZonasAsesor();
         List<LinkedHashMap> datos = cliente.consultarZonasAsesor(List.class, "" + asesor.getIdUsuario());
         List<Zona_TO> zonas = new ArrayList<>();
         for (int i = 0; i < datos.size(); i++) {
-            zonas.add(new Zona_TO((int) datos.get(i).get("idZona"), 
+            zonas.add(new Zona_TO((int) datos.get(i).get("idZona"),
                     (String) datos.get(i).get("nombre"),
                     (String) datos.get(i).get("descripcion")));
         }
         return zonas;
     }
-     
+
+    public int consultarZonaYaAsociada(Usuario_TO asesor, Zona_TO zona) {
+        ClienteConsultarZonaYaAsociada cliente = new ClienteConsultarZonaYaAsociada();
+        int resultado = cliente.consultarZonaYaAsociada(Integer.class, "" + asesor.getIdUsuario(), "" + zona.getIdZona());
+        return resultado;
+    }
     
-    public List<Zona_TO> buscarZonas(String valor){ 
+    public int eliminarAsociacionZona(Usuario_TO asesor, Zona_TO zona) {
+        ClienteEliminarAsociacionZona cliente = new ClienteEliminarAsociacionZona();         
+        return cliente.eliminarAsociacionZona(Integer.class, "" + asesor.getIdUsuario(), "" + zona.getIdZona());
+    }
+
+    public List<Zona_TO> buscarZonas(String valor) {
         ClienteBuscarZonas cliente = new ClienteBuscarZonas();
         List<LinkedHashMap> datos = cliente.buscarZonas(List.class, valor);
         List<Zona_TO> zonas = new ArrayList<>();
         for (int i = 0; i < datos.size(); i++) {
-            zonas.add(new Zona_TO((int) datos.get(i).get("idZona"), 
-                    (String) datos.get(i).get("nombre"), 
+            zonas.add(new Zona_TO((int) datos.get(i).get("idZona"),
+                    (String) datos.get(i).get("nombre"),
                     (String) datos.get(i).get("descripcion")));
         }
         return zonas;
@@ -77,9 +89,9 @@ public class ZonaDao {
 
     public Zona_TO editarZona(Zona_TO zona) {
         ClienteEditarZona cliente = new ClienteEditarZona();
-        return cliente.editarZona(Zona_TO.class, 
-                "" + zona.getIdZona(), 
-                zona.getNombre(), 
+        return cliente.editarZona(Zona_TO.class,
+                "" + zona.getIdZona(),
+                zona.getNombre(),
                 zona.getDescripcion());
     }
 

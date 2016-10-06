@@ -12,6 +12,8 @@ import com.planit.lavappweb.modelo.dto.Zona_TO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 
@@ -21,14 +23,16 @@ import org.primefaces.event.UnselectEvent;
  */
 public class AsesorZonaCT implements Serializable {
 
-    Usuario_TO usuario = new Usuario_TO();
-    Zona_TO zona = new Zona_TO();
-    List<Zona_TO> zonas = new ArrayList<>();
+    private Usuario_TO usuario;
+    private Zona_TO zona;
+    private List<Zona_TO> zonas;
+    protected List<Zona_TO> zonasRespaldo;
 
     public AsesorZonaCT() {
         usuario = new Usuario_TO();
         zona = new Zona_TO();
         zonas = new ArrayList<>();
+        zonasRespaldo = new ArrayList<>();
     }
 
     public Usuario_TO getUsuario() {
@@ -57,20 +61,48 @@ public class AsesorZonaCT implements Serializable {
 
     //CRUD
     public void asociar() {
+        AsesorZonaDao asesorZonaDao = new AsesorZonaDao();
+        ZonaDao zonaDao = new ZonaDao();
+        FacesMessage message = new FacesMessage();
         for (int i = 0; i < zonas.size(); i++) {
-            AsesorZonaDao asesorZonaDao = new AsesorZonaDao();
-            asesorZonaDao.AsociarAsesorZona(usuario, zonas.get(i));
-        }        
+            if (zonaDao.consultarZonaYaAsociada(usuario, zonas.get(i)) == 0) {
+                asesorZonaDao.AsociarAsesorZona(usuario, zonas.get(i));
+                message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Zonas asociadas exitosamente", "");
+            } 
+
+            if (i == zonas.size() - 1) {
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            }
+        }
+        
+        eliminarAsociacion();
         zonas = new ArrayList<>();
         usuario = new Usuario_TO();
     }
-    
-    public void consultarZonasAsesor(SelectEvent e){
+
+    public void eliminarAsociacion() {
         ZonaDao zonaDao = new ZonaDao();
-        zonas = zonaDao.consultarZonasAsesor(usuario);        
+        boolean existe = false;
+        for (int i = 0; i < zonasRespaldo.size(); i++) {
+            for (int j = 0; j < zonas.size(); j++) {
+                if(zonasRespaldo.get(i).getIdZona().equals(zonas.get(j).getIdZona())){
+                    existe = true;
+                }                
+            }
+            
+            if(!existe){
+                zonaDao.eliminarAsociacionZona(usuario, zonasRespaldo.get(i));
+            }
+        }
     }
-    
-    public void LimpiarZonas(UnselectEvent e){
+
+    public void consultarZonasAsesor(SelectEvent e) {
+        ZonaDao zonaDao = new ZonaDao();
+        zonas = zonaDao.consultarZonasAsesor(usuario);
+        zonasRespaldo = zonas;
+    }
+
+    public void LimpiarZonas(UnselectEvent e) {
         zonas = new ArrayList<>();
     }
 
