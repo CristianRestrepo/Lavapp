@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="16c74deb-ba7f-4264-b0fa-603cf1af1533">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="48"/>
+	<property name="ireport.y" value="96"/>
 	<parameter name="idpedido" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[$F{idpedido}]]></defaultValueExpression>
 	</parameter>
@@ -186,7 +186,7 @@ GROUP BY p.idpedido, h.horario, h1.horario, b.nombre, b1.nombre, u.nombre, u.ape
 		</band>
 		<band height="632">
 			<subreport>
-				<reportElement x="0" y="30" width="555" height="602" uuid="7b7088a4-70d9-497c-9cc1-16e8ecf321e9"/>
+				<reportElement x="0" y="63" width="555" height="569" uuid="7b7088a4-70d9-497c-9cc1-16e8ecf321e9"/>
 				<subreportParameter name="idpedido">
 					<subreportParameterExpression><![CDATA[$P{idpedido}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -194,11 +194,25 @@ GROUP BY p.idpedido, h.horario, h1.horario, b.nombre, b1.nombre, u.nombre, u.ape
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "ordenTrabajo_prendas.jasper"]]></subreportExpression>
 			</subreport>
 			<staticText>
-				<reportElement x="0" y="0" width="555" height="30" uuid="42359135-09f6-4341-bbe4-7e19cb84eb9b"/>
+				<reportElement x="0" y="33" width="555" height="30" uuid="42359135-09f6-4341-bbe4-7e19cb84eb9b"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Descripcion:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="33" uuid="f6f9efaa-01f1-4d73-a1de-e614fe269106"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Servicio de recogida, lavado y entrega de prendas]]></text>
 			</staticText>
 		</band>
 		<band height="26">

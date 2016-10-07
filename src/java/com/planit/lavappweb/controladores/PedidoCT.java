@@ -11,6 +11,7 @@ import com.planit.lavappweb.modelo.dao.DescripcionPedidoDao;
 import com.planit.lavappweb.modelo.dao.HistoricoDao;
 import com.planit.lavappweb.modelo.dao.PedidoDao;
 import com.planit.lavappweb.modelo.dao.ProveedorDao;
+import com.planit.lavappweb.modelo.dao.UsuarioDao;
 import com.planit.lavappweb.modelo.dto.DescripcionPedido_TO;
 import com.planit.lavappweb.modelo.dto.Estado_TO;
 import com.planit.lavappweb.modelo.dto.Historico_TO;
@@ -35,7 +36,7 @@ public class PedidoCT implements Serializable {
 
     private Pedido_TO pedido;
     private DescripcionPedido_TO descripcionPedido;
-    private List<Pedido_TO> pedidos; 
+    private List<Pedido_TO> pedidos;
 
     private List<SubProductoCosto_TO> subproductos;
 
@@ -58,7 +59,7 @@ public class PedidoCT implements Serializable {
         botonatras = false;
         botonsiguiente = true;
         botonconfirmar = false;
-        buscar = null;        
+        buscar = null;
 
         PedidoDao pedidoDao = new PedidoDao();
         if (Sesion.obtenerSesion() != null) {
@@ -195,7 +196,7 @@ public class PedidoCT implements Serializable {
 
     public void setDescripcionPrenda(Boolean descripcionPrenda) {
         this.descripcionPrenda = descripcionPrenda;
-    }  
+    }
 
     //Metodos para las vistas 
     public void atras() {
@@ -283,12 +284,14 @@ public class PedidoCT implements Serializable {
     //Metodos CRUD
     public void registrarPedido() {
         PedidoDao pedidoDao = new PedidoDao();
-        pedidoDao.registrarPedidoCompleto(pedido);
+        pedidoDao.registrarPedidoCompleto(pedido);//Se registra pedido
         pedido = pedidoDao.consultarUltimoPedidoCliente(Sesion.obtenerSesion());
 
         DescripcionPedidoDao dpd = new DescripcionPedidoDao();
         HistoricoDao hd = new HistoricoDao();
         Historico_TO historico = new Historico_TO();
+
+        //Valida que el pedido haya sido registrado para despues registrar los productos agregados al pedido
         if (pedido.getIdPedido() != 0) {
             for (int i = 0; i < subproductos.size(); i++) {
                 DescripcionPedido_TO dp = new DescripcionPedido_TO();
@@ -299,6 +302,7 @@ public class PedidoCT implements Serializable {
 
             }
 
+            //Despues de registrados los productos del pedido, registra el historico de estas
             List<DescripcionPedido_TO> descripciones = new ArrayList<>();
             descripciones = dpd.consultarDescripcionesSinFotosSegunPedido(pedido);///Cambiar funcion cuando traigamos fotos
             for (int i = 0; i < descripciones.size(); i++) {
@@ -307,6 +311,10 @@ public class PedidoCT implements Serializable {
                 historico.setEstado(new Estado_TO(3));
                 hd.registrarHistorico(historico);
             }
+
+            //Se asigna asesor al pedido
+            UsuarioDao usuarioDao = new UsuarioDao();
+            pedidoDao.asignarAsesorPedido(pedido, usuarioDao.consultarAsesorZona(pedido.getBarrioRecogida().getZona()));
 
             FacesMessage fmsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Pedido Registrado Exitosamente", "");
             FacesContext.getCurrentInstance().addMessage(null, fmsg);

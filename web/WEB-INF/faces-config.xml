@@ -322,4 +322,9 @@
         <managed-bean-class>com.planit.lavappweb.controladores.EstadoCT</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>rutaCT</managed-bean-name>
+        <managed-bean-class>com.planit.lavappweb.controladores.RutaCT</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
 </faces-config>

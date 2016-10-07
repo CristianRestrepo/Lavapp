@@ -11,9 +11,11 @@ import com.planit.lavappweb.modelo.dto.Estado_TO;
 import com.planit.lavappweb.modelo.dto.Localidad_TO;
 import com.planit.lavappweb.modelo.dto.Rol_TO;
 import com.planit.lavappweb.modelo.dto.Usuario_TO;
+import com.planit.lavappweb.modelo.dto.Zona_TO;
 import com.planit.lavappweb.webservices.clientes.ClienteBuscarAdministradores;
 import com.planit.lavappweb.webservices.clientes.ClienteBuscarAsesores;
 import com.planit.lavappweb.webservices.clientes.ClienteBuscarClientes;
+import com.planit.lavappweb.webservices.clientes.ClienteConsultarAsesorZona;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarUsuario;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarUsuarioPorLogin;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarUsuarioSegunIdentificacion;
@@ -36,6 +38,11 @@ public class UsuarioDao {
     public Usuario_TO consultarUsuarioPorLogin(String email) {
         ClienteConsultarUsuarioPorLogin cliente = new ClienteConsultarUsuarioPorLogin();
         return cliente.consultarUsuarioPorLogin(Usuario_TO.class, email);
+    }
+    
+    public Usuario_TO consultarAsesorZona(Zona_TO zona) {
+        ClienteConsultarAsesorZona cliente = new ClienteConsultarAsesorZona();
+        return cliente.consultarAsesorZona(Usuario_TO.class, "" + zona.getIdZona());
     }
 
     public Usuario_TO consultarUsuario(Usuario_TO usuario) {

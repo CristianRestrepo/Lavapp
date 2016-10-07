@@ -69,7 +69,8 @@
                                             <p:inputText class="form-control" value="#{pedidoCT.buscar}" style="width: 100%" type="text" placeholder="Buscar...">
                                                 <p:ajax event="keyup" listener="#{pedidoCT.buscarPedido()}" update="DTPedidos"/>
                                             </p:inputText><hr/>
-                                            <p:dataScroller scrollHeight="500" id="DTPedidos" style="width: 100%;" chunkSize="4" value="#{pedidoCT.pedidos}" mode="inline" var="pedido">
+                                            <p:dataScroller mode="inline" scrollHeight="500" id="DTPedidos" style="width: 100%;" chunkSize="6" value="#{pedidoCT.pedidos}" var="pedido">
+                                               
                                                 <b:column col-lg="6" col-md="6" col-xs="12" col-sm="12">    
                                                     <div class="table-responsive">
 

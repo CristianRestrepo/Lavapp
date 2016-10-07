@@ -45,7 +45,6 @@
                 <!-- BANNER END -->             
                 <!-- CONTENIDO -->
                 <h:form id="formularioContenido" target="#{pedidoCT.pedido}">
-                    <p:growl id="msg" showDetail="true" life="2500"/>
                     <c:choose>
                         <c:when test="${pedidoCT.vista == 0}">
                             <div>
@@ -58,7 +57,7 @@
                                                         <li style="width: 10%;  ">
                                                             <div class="box box-widget" style="">
                                                                 <div align="center" class="box-body">
-                                                                    <p:graphicImage value="#{producto.rutaImagen}"/>
+                                                                    <p:graphicImage value="#{rutaCT.rutaimagenes}#{producto.rutaImagen}"/>
                                                                 </div>
                                                                 <div align="center" class="box-footer">
                                                                     <p:commandLink value="#{producto.nombre}">
@@ -79,12 +78,13 @@
                                 <!--PRENDAS-->
                                 <section>
                                     <div class="container pad-container">
+                                        <p:messages id="msg" closable="true" autoUpdate="true" />
                                         <div class="row">                                            
                                             <c:forEach items="#{subProductoCT.subProductosConCosto}" var="subproducto" begin="0" end="#{subProductoCT.subProductosConCosto.size()}">
                                                 <div class="col-md-6 col-sm-6 col-xs-10 esp-prenda" style="height: 340px">
                                                     <div class="row border-r">
                                                         <div class="col-xs-4" >
-                                                            <p:graphicImage value="#{subproducto.rutaImagen}" width="180px" height="220px"/>
+                                                            <p:graphicImage value="#{rutaCT.rutaimagenes}#{subproducto.rutaImagen}" width="180px" height="220px"/>
                                                         </div>
                                                         <div style="padding-left: 75px" class="col-xs-8 pad-content">
                                                             <h3 class="title-prenda">#{subproducto.nombre}</h3>
@@ -111,11 +111,14 @@
                         </c:when>
                         <c:when test="${pedidoCT.vista == 1}">
                             <section>  
-                                <div class="container ">
+                                <div class="container">                                    
                                     <div class="row"><!-- ROW PRINCIPAL -->
                                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12
                                              col-lg-offset-1 col-md-offset-1 col-sm-offset-1  pos-form ">
-                                            <div class="row ">                                                
+                                            <div class="row ">    
+                                                <div class="col-lg-12">
+                                                    <p:messages id="msg" closable="true" autoUpdate="true" />
+                                                </div>
                                                 <div class="col-xs-12 col-md-6"><!-- inicion / fin columnas -->
                                                     <div class="pedido">                              
                                                         <div class="form-group">
@@ -234,6 +237,7 @@
                             <!--VISTA CONFIRMACION-->
                             <section>
                                 <div class="container">
+                                    <p:messages id="msg" closable="true" autoUpdate="true" />
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12
                                              pos-form ">
@@ -386,14 +390,13 @@
                                                 </div><!-- fin columnas -->
 
                                                 <div class="col-xs-12 col-md-6"><!-- inicion / fin columnas -->
-
                                                     <div class="bcg-color-pagos">						
                                                         <div class="title title-lv wow fadeInRight animated ">
                                                             <h2 class="txt-title-form">Detalles de Pago</h2>
                                                             <span class="span-pad">
-                                                                <img src="./assets/images/fanq/amex.svg" alt="" class="img-franq-1"/>
-                                                                <img src="./assets/images/fanq/mastercard.svg" alt="" class="img-franq-2"/>
-                                                                <img src="./assets/images/fanq/visa.svg" alt="" class="img-franq-3"/>
+                                                                <img src="./images/fanq/amex.svg" alt="" class="img-franq-1"/>
+                                                                <img src="./images/fanq/mastercard.svg" alt="" class="img-franq-2"/>
+                                                                <img src="./images/fanq/visa.svg" alt="" class="img-franq-3"/>
                                                             </span>							
                                                         </div>
 
@@ -403,7 +406,6 @@
                                                         </button>
 
                                                         <div class="collapse in" id="collapseVentana1">
-
                                                             <div class="form-group">
                                                                 <label class="label-lv-2" for="">Número de Tarjeta</label>
                                                                 <input type="text" class="input-lg form-control input-lg-lv"/>
@@ -429,41 +431,10 @@
 
                                                                             <span class="help-block color-grey"><em>* inserte el numero de la tarjeta débito o crédito</em></span>	
                                                                         </div>
-
                                                                     </div>
                                                                 </div>
-
-                                                                <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" value="PAGAR" style="width: 150px" class="btn btn-success active">
-                                                                    <p:ajax event="click" listener="#{pedidoCT.registrarPedido()}" update=":formularioContenido :formularioModal"/>
-                                                                </p:commandButton>                                                                
+                                                                <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" update=":formularioContenido" action="#{pedidoCT.registrarPedido()}" value="PAGAR" style="width: 150px" class="btn btn-success"/>
                                                             </div>
-                                                        </div>
-
-                                                        <div class="collapse" id="collapseVentana2">
-                                                            <h4 class="title-pago-efc">Pago de servicio en la entrega de la ropa</h4>
-                                                            <p>el pago se hará al momento de entregar la ropa al asesor encargado de la zona segun la dirección del cliente.</p>
-
-
-                                                            <div class="form-group">
-                                                                <div class="radio">
-                                                                    <label>                                                            
-                                                                        <input type="radio" name="optionsRadios" id="optionsRadios1"  value="" />
-                                                                        Pago en efectivo
-                                                                    </label>
-                                                                </div>
-
-                                                                <div class="radio">
-                                                                    <label>
-                                                                        <input type="radio" name="optionsRadios" id="optionsRadios2"  value=""/>
-                                                                        Pago con Datáfono
-                                                                    </label>
-                                                                </div>
-
-                                                                <button class="btn btn-success active">
-                                                                    <i class="fa fa-usd" aria-hiden="true"></i> Definir Pago
-                                                                </button>
-                                                            </div>
-
                                                         </div>
                                                     </div>                                                   
                                                 </div><!-- fin columnas -->	
@@ -475,25 +446,24 @@
                         </c:when> 
                     </c:choose>
 
-                    <section>
-                        <div class="container">
-                            <div class="row brd-btn-update">
-                                <div class="col-md-12 col-xs-12 ">
-                                    <div class="col-md-6  col-xs-6  mrg-table">
-                                        <div align="left">
-                                            <p:commandButton class="btn btn-lg btn-primary" immediate="true" rendered="#{pedidoCT.botonatras}" update=":formularioContenido"  action="#{pedidoCT.atras()}" value="Atras" />
-                                        </div>
+                    <div class="container">
+                        <div class="row brd-btn-update">
+                            <div class="col-md-12 col-xs-12 ">
+                                <div class="col-md-6  col-xs-6  mrg-table">
+                                    <div align="left">
+                                        <p:commandButton class="btn btn-lg btn-primary" immediate="true" rendered="#{pedidoCT.botonatras}" update=":formularioContenido"  action="#{pedidoCT.atras()}" value="Atras" />
                                     </div>
-                                    <div class="col-md-6 col-xs-6 mrg-table" >
-                                        <div align="right">
-                                            <p:commandButton class="btn btn-lg btn-primary" rendered="#{pedidoCT.botonsiguiente}" update=":formularioContenido " action="#{pedidoCT.siguiente()}" value="Siguiente" />                                       					
-                                            <p:commandButton class="btn btn-lg btn-success" rendered="#{pedidoCT.botonconfirmar}" update=":formularioContenido " action="#{pedidoCT.confirmar()}" value="Confirmar pedido" />                                      					
-                                        </div>
+                                </div>
+                                <div class="col-md-6 col-xs-6 mrg-table" >
+                                    <div align="right">
+                                        <p:commandButton class="btn btn-lg btn-primary" rendered="#{pedidoCT.botonsiguiente}" update=":formularioContenido " action="#{pedidoCT.siguiente()}" value="Siguiente" />                                       					
+                                        <p:commandButton class="btn btn-lg btn-success" rendered="#{pedidoCT.botonconfirmar}" update=":formularioContenido " action="#{pedidoCT.confirmar()}" value="Confirmar pedido" />                                      					
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </div>
+
 
                     <script type="text/javascript">
                         function start() {
@@ -532,7 +502,7 @@
                                                     <tr>
                                                         <td>
                                                             <div style="width: 30% " >
-                                                                <p:graphicImage width="180px" height="220px" value="#{subProducto.rutaImagen}"/>
+                                                                <p:graphicImage width="180px" height="220px" value="#{rutaCT.rutaimagenes}#{subProducto.rutaImagen}"/>
                                                             </div>
                                                         </td>
                                                         <td>

@@ -34,7 +34,7 @@ GROUP BY sp.nombre;]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[NOMBRE]]></text>
+				<text><![CDATA[PRODUCTO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="272" y="0" width="283" height="26" uuid="cc2c559f-46c6-4dc6-aac7-e2d6c62325ec"/>

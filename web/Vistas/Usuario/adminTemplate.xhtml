@@ -73,16 +73,14 @@
 
                                         <!-- Menu Footer--> 
                                         <li class="user-footer">
-                                            <div class="pull-left">
-                                                <h:form>
+                                            <h:form>
+                                                <div class="pull-left">
                                                     <p:commandButton value="Editar Perfil" process="@this" ajax="false" immediate="true" action="#{sesionCT.irPanelEdicion()}" class="btn btn-default btn-block "/>
-                                                </h:form>
-                                            </div>
-                                            <div class="pull-right">
-                                                <h:form>
+                                                </div>
+                                                <div class="pull-right">
                                                     <p:commandButton value="Cerrar Sesion" process="@this" immediate="true" ajax="false" action="#{sesionCT.cerrarSesion()}" class="btn btn-default btn-block "/>
-                                                </h:form> 
-                                            </div>
+                                                </div>
+                                            </h:form>
                                         </li>
                                     </ul>
                                 </li>

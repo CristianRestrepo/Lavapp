@@ -12,6 +12,7 @@ import com.planit.lavappweb.modelo.dto.Horario_TO;
 import com.planit.lavappweb.modelo.dto.Pedido_TO;
 import com.planit.lavappweb.modelo.dto.Proveedor_TO;
 import com.planit.lavappweb.modelo.dto.Usuario_TO;
+import com.planit.lavappweb.webservices.clientes.ClienteAsignarAsesorPedido;
 import com.planit.lavappweb.webservices.clientes.ClienteBuscarPedido;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarPedido;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarPedidoWeb;
@@ -39,7 +40,12 @@ import java.util.List;
  */
 public class PedidoDao {
     
-    public Pedido_TO editarEstadoPedido(Pedido_TO pedido){
+    public Pedido_TO asignarAsesorPedido(Pedido_TO pedido, Usuario_TO asesor){
+        ClienteAsignarAsesorPedido cliente = new ClienteAsignarAsesorPedido();
+        return cliente.asignarAsesorPedido(Pedido_TO.class, "" + asesor.getIdUsuario() , "" + pedido.getIdPedido());
+    }
+
+    public Pedido_TO editarEstadoPedido(Pedido_TO pedido) {
         ClienteEditarEstadoPedido cliente = new ClienteEditarEstadoPedido();
         return cliente.editarEstadoPedido(Pedido_TO.class, "" + pedido.getIdPedido(), "" + pedido.getEstado().getIdEstado());
     }
@@ -123,6 +129,7 @@ public class PedidoDao {
 
 //      MODELOS PARA PASO ED PARAMETROS EN CICLO FOR
         Usuario_TO usuario = new Usuario_TO();
+        Usuario_TO asesor = new Usuario_TO();
         Horario_TO horarioInicio = new Horario_TO();
         Horario_TO horarioFinal = new Horario_TO();
         Estado_TO estado = new Estado_TO();
@@ -160,6 +167,9 @@ public class PedidoDao {
 //          BARRIO ENTREGA
             mapBR = (LinkedHashMap) datos.get(i).get("barrioEntrega");
             barrioEntrega = bd.consultarBarrio(new Barrio_TO((int) mapBR.get("idBarrios"), ""));
+//          ASESOR
+            LinkedHashMap mapAS = (LinkedHashMap) datos.get(i).get("asesor");
+            asesor = ud.consultarUsuario(new Usuario_TO((int) mapAS.get("idUsuario")));
 
 //          INGERSO DE DATOS A LISTA DE OBJETO PEDIDO
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -178,7 +188,8 @@ public class PedidoDao {
                         (String) datos.get(i).get("quienEntrega"),
                         (String) datos.get(i).get("quienRecibe"),
                         barrioRecogida,
-                        barrioEntrega));
+                        barrioEntrega,
+                        asesor));
             } catch (ParseException e) {
                 e.getMessage();
             }
@@ -200,6 +211,7 @@ public class PedidoDao {
         Proveedor_TO proveedor = new Proveedor_TO();
         Barrio_TO barrioRecogida = new Barrio_TO();
         Barrio_TO barrioEntrega = new Barrio_TO();
+        Usuario_TO asesor = new Usuario_TO();
 
 //      SERVICIOS DE CADA MODELO
         UsuarioDao ud = new UsuarioDao();
@@ -231,6 +243,9 @@ public class PedidoDao {
 //          BARRIO ENTREGA
             mapBR = (LinkedHashMap) datos.get(i).get("barrioEntrega");
             barrioEntrega = bd.consultarBarrio(new Barrio_TO((int) mapBR.get("idBarrios"), ""));
+//          ASESOR
+            LinkedHashMap mapAS = (LinkedHashMap) datos.get(i).get("asesor");
+            asesor = ud.consultarUsuario(new Usuario_TO((int) mapAS.get("idUsuario")));
 
 //          INGERSO DE DATOS A LISTA DE OBJETO PEDIDO
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -249,7 +264,8 @@ public class PedidoDao {
                         (String) datos.get(i).get("quienEntrega"),
                         (String) datos.get(i).get("quienRecibe"),
                         barrioRecogida,
-                        barrioEntrega));
+                        barrioEntrega,
+                        asesor));
             } catch (ParseException e) {
                 e.getMessage();
             }
@@ -272,6 +288,7 @@ public class PedidoDao {
         Proveedor_TO proveedor = new Proveedor_TO();
         Barrio_TO barrioRecogida = new Barrio_TO();
         Barrio_TO barrioEntrega = new Barrio_TO();
+        Usuario_TO asesor = new Usuario_TO();
 
 //      SERVICIOS DE CADA MODELO
         UsuarioDao ud = new UsuarioDao();
@@ -303,7 +320,9 @@ public class PedidoDao {
 //          BARRIO ENTREGA
             mapBR = (LinkedHashMap) datos.get(i).get("barrioEntrega");
             barrioEntrega = bd.consultarBarrio(new Barrio_TO((int) mapBR.get("idBarrios"), ""));
-
+//          ASESOR
+            LinkedHashMap mapAS = (LinkedHashMap) datos.get(i).get("asesor");
+            asesor = ud.consultarUsuario(new Usuario_TO((int) mapAS.get("idUsuario")));
 //          INGRESO DE DATOS A LISTA DE OBJETO PEDIDO
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             try {
@@ -321,7 +340,8 @@ public class PedidoDao {
                         (String) datos.get(i).get("quienEntrega"),
                         (String) datos.get(i).get("quienRecibe"),
                         barrioRecogida,
-                        barrioEntrega));
+                        barrioEntrega,
+                        asesor));
             } catch (ParseException e) {
                 throw e;
             }
@@ -343,6 +363,7 @@ public class PedidoDao {
         Proveedor_TO proveedor = new Proveedor_TO();
         Barrio_TO barrioRecogida = new Barrio_TO();
         Barrio_TO barrioEntrega = new Barrio_TO();
+        Usuario_TO asesor = new Usuario_TO();
 
 //      SERVICIOS DE CADA MODELO
         UsuarioDao ud = new UsuarioDao();
@@ -374,7 +395,9 @@ public class PedidoDao {
 //          BARRIO ENTREGA
             mapBR = (LinkedHashMap) datos.get(i).get("barrioEntrega");
             barrioEntrega = bd.consultarBarrio(new Barrio_TO((int) mapBR.get("idBarrios"), ""));
-
+//          ASESOR
+            LinkedHashMap mapAS = (LinkedHashMap) datos.get(i).get("asesor");
+            asesor = ud.consultarUsuario(new Usuario_TO((int) mapAS.get("idUsuario")));
 //          INGRESO DE DATOS A LISTA DE OBJETO PEDIDO
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             try {
@@ -392,7 +415,8 @@ public class PedidoDao {
                         (String) datos.get(i).get("quienEntrega"),
                         (String) datos.get(i).get("quienRecibe"),
                         barrioRecogida,
-                        barrioEntrega));
+                        barrioEntrega,
+                        asesor));
             } catch (ParseException e) {
                 throw e;
             }
@@ -413,6 +437,7 @@ public class PedidoDao {
         Proveedor_TO proveedor = new Proveedor_TO();
         Barrio_TO barrioRecogida = new Barrio_TO();
         Barrio_TO barrioEntrega = new Barrio_TO();
+        Usuario_TO asesor = new Usuario_TO();
 
 //      SERVICIOS DE CADA MODELO
         UsuarioDao ud = new UsuarioDao();
@@ -444,7 +469,9 @@ public class PedidoDao {
 //          BARRIO ENTREGA
             mapBR = (LinkedHashMap) datos.get(i).get("barrioEntrega");
             barrioEntrega = bd.consultarBarrio(new Barrio_TO((int) mapBR.get("idBarrios"), ""));
-
+//          ASESOR
+            LinkedHashMap mapAS = (LinkedHashMap) datos.get(i).get("asesor");
+            asesor = ud.consultarUsuario(new Usuario_TO((int) mapAS.get("idUsuario")));
 //          INGERSO DE DATOS A LISTA DE OBJETO PEDIDO
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             try {
@@ -462,15 +489,16 @@ public class PedidoDao {
                         (String) datos.get(i).get("quienEntrega"),
                         (String) datos.get(i).get("quienRecibe"),
                         barrioRecogida,
-                        barrioEntrega));
+                        barrioEntrega,
+                        asesor));
             } catch (ParseException e) {
                 e.getMessage();
             }
         }
         return pedidos;
     }
-    
-    public List<Pedido_TO> consultarPedidosDiaRecogida(){
+
+    public List<Pedido_TO> consultarPedidosDiaRecogida() {
         ClienteConsultarPedidosDiaRecogida cliente = new ClienteConsultarPedidosDiaRecogida();
         List<LinkedHashMap> datos = cliente.consultarPedidosDiaRecogida(List.class);
         List<Pedido_TO> pedidos = new ArrayList<>();
@@ -483,7 +511,7 @@ public class PedidoDao {
         Proveedor_TO proveedor = new Proveedor_TO();
         Barrio_TO barrioRecogida = new Barrio_TO();
         Barrio_TO barrioEntrega = new Barrio_TO();
-
+        Usuario_TO asesor = new Usuario_TO();
 //      SERVICIOS DE CADA MODELO
         UsuarioDao ud = new UsuarioDao();
         HorarioDao hd = new HorarioDao();
@@ -514,7 +542,9 @@ public class PedidoDao {
 //          BARRIO ENTREGA
             mapBR = (LinkedHashMap) datos.get(i).get("barrioEntrega");
             barrioEntrega = bd.consultarBarrio(new Barrio_TO((int) mapBR.get("idBarrios"), ""));
-
+//          ASESOR
+            LinkedHashMap mapAS = (LinkedHashMap) datos.get(i).get("asesor");
+            asesor = ud.consultarUsuario(new Usuario_TO((int) mapAS.get("idUsuario")));
 //          INGERSO DE DATOS A LISTA DE OBJETO PEDIDO
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             try {
@@ -532,16 +562,16 @@ public class PedidoDao {
                         (String) datos.get(i).get("quienEntrega"),
                         (String) datos.get(i).get("quienRecibe"),
                         barrioRecogida,
-                        barrioEntrega));
+                        barrioEntrega,
+                        asesor));
             } catch (ParseException e) {
                 e.getMessage();
             }
         }
         return pedidos;
     }
-    
-    
-    public List<Pedido_TO> consultarPedidosEnPlantaSegunCliente(Usuario_TO u){
+
+    public List<Pedido_TO> consultarPedidosEnPlantaSegunCliente(Usuario_TO u) {
         ClienteConsultarPedidosEnPlantaSegunCliente cliente = new ClienteConsultarPedidosEnPlantaSegunCliente();
         List<LinkedHashMap> datos = cliente.consultarPedidosEnPlantaSegunCliente(List.class, "" + u.getIdUsuario());
         List<Pedido_TO> pedidos = new ArrayList<>();
@@ -554,6 +584,7 @@ public class PedidoDao {
         Proveedor_TO proveedor = new Proveedor_TO();
         Barrio_TO barrioRecogida = new Barrio_TO();
         Barrio_TO barrioEntrega = new Barrio_TO();
+        Usuario_TO asesor = new Usuario_TO();
 
 //      SERVICIOS DE CADA MODELO
         UsuarioDao ud = new UsuarioDao();
@@ -585,7 +616,9 @@ public class PedidoDao {
 //          BARRIO ENTREGA
             mapBR = (LinkedHashMap) datos.get(i).get("barrioEntrega");
             barrioEntrega = bd.consultarBarrio(new Barrio_TO((int) mapBR.get("idBarrios"), ""));
-
+//          ASESOR
+            LinkedHashMap mapAS = (LinkedHashMap) datos.get(i).get("asesor");
+            asesor = ud.consultarUsuario(new Usuario_TO((int) mapAS.get("idUsuario")));
 //          INGERSO DE DATOS A LISTA DE OBJETO PEDIDO
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             try {
@@ -603,16 +636,17 @@ public class PedidoDao {
                         (String) datos.get(i).get("quienEntrega"),
                         (String) datos.get(i).get("quienRecibe"),
                         barrioRecogida,
-                        barrioEntrega));
+                        barrioEntrega,
+                        asesor));
             } catch (ParseException e) {
                 e.getMessage();
             }
         }
         return pedidos;
     }
-    
-     public List<Pedido_TO> consultarPedidosPorRecibirSegunCliente(Usuario_TO u){
-         ClienteConsultarPedidosPorRecibirSegunCliente cliente = new ClienteConsultarPedidosPorRecibirSegunCliente();
+
+    public List<Pedido_TO> consultarPedidosPorRecibirSegunCliente(Usuario_TO u) {
+        ClienteConsultarPedidosPorRecibirSegunCliente cliente = new ClienteConsultarPedidosPorRecibirSegunCliente();
         List<LinkedHashMap> datos = cliente.consultarPedidosPorRecibirSegunCliente(List.class, "" + u.getIdUsuario());
         List<Pedido_TO> pedidos = new ArrayList<>();
 
@@ -624,6 +658,7 @@ public class PedidoDao {
         Proveedor_TO proveedor = new Proveedor_TO();
         Barrio_TO barrioRecogida = new Barrio_TO();
         Barrio_TO barrioEntrega = new Barrio_TO();
+        Usuario_TO asesor = new Usuario_TO();
 
 //      SERVICIOS DE CADA MODELO
         UsuarioDao ud = new UsuarioDao();
@@ -655,7 +690,9 @@ public class PedidoDao {
 //          BARRIO ENTREGA
             mapBR = (LinkedHashMap) datos.get(i).get("barrioEntrega");
             barrioEntrega = bd.consultarBarrio(new Barrio_TO((int) mapBR.get("idBarrios"), ""));
-
+//          ASESOR
+            LinkedHashMap mapAS = (LinkedHashMap) datos.get(i).get("asesor");
+            asesor = ud.consultarUsuario(new Usuario_TO((int) mapAS.get("idUsuario")));
 //          INGERSO DE DATOS A LISTA DE OBJETO PEDIDO
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             try {
@@ -673,7 +710,8 @@ public class PedidoDao {
                         (String) datos.get(i).get("quienEntrega"),
                         (String) datos.get(i).get("quienRecibe"),
                         barrioRecogida,
-                        barrioEntrega));
+                        barrioEntrega,
+                        asesor));
             } catch (ParseException e) {
                 e.getMessage();
             }
