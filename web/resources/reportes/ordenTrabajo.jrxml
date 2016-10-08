@@ -249,12 +249,17 @@ GROUP BY p.idpedido, h.horario, h1.horario, b.nombre, b1.nombre, u.nombre, u.ape
 	<summary>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="455" y="0" width="100" height="20" uuid="21942699-7416-4372-a18e-86fd8563cca7"/>
+				<reportElement x="508" y="0" width="47" height="20" uuid="21942699-7416-4372-a18e-86fd8563cca7"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="408" y="0" width="100" height="20" uuid="c3f20884-6aa3-493e-be05-f5bed6a9d6a0"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[PAG]]></text>
+			</staticText>
 		</band>
 	</summary>
 </jasperReport>

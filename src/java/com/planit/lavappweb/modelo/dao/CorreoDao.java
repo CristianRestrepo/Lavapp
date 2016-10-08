@@ -6,6 +6,7 @@
 package com.planit.lavappweb.modelo.dao;
 
 import com.planit.lavappweb.modelo.dto.Usuario_TO;
+import com.planit.lavappweb.webservices.clientes.ClienteEnviarMensajeAgendamiento;
 import com.planit.lavappweb.webservices.clientes.ClienteEnviarMensajeNuevaContrasena;
 import com.planit.lavappweb.webservices.clientes.ClienteMensajeBienvenida;
 
@@ -23,5 +24,10 @@ public class CorreoDao {
     public int enviarMensajeNuevaContrasena(Usuario_TO usuario) {
         ClienteEnviarMensajeNuevaContrasena cliente = new ClienteEnviarMensajeNuevaContrasena();
         return cliente.enviarMensajeNuevaContraseÃ_a(int.class, usuario.getEmail(), usuario.getContrasena());
+    }
+    
+    public int enviarMensajeAgendamiento(Usuario_TO usuario){
+        ClienteEnviarMensajeAgendamiento cliente = new ClienteEnviarMensajeAgendamiento();
+        return cliente.enviarMensajeAgendamiento(int.class, usuario.getEmail());
     }
 }

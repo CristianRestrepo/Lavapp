@@ -7,6 +7,7 @@ package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.metodos.Pedido;
 import com.planit.lavappweb.metodos.Sesion;
+import com.planit.lavappweb.modelo.dao.CorreoDao;
 import com.planit.lavappweb.modelo.dao.DescripcionPedidoDao;
 import com.planit.lavappweb.modelo.dao.HistoricoDao;
 import com.planit.lavappweb.modelo.dao.PedidoDao;
@@ -316,6 +317,10 @@ public class PedidoCT implements Serializable {
             UsuarioDao usuarioDao = new UsuarioDao();
             pedidoDao.asignarAsesorPedido(pedido, usuarioDao.consultarAsesorZona(pedido.getBarrioRecogida().getZona()));
 
+            //Se envia correo a cliente confirmando su pedido
+            CorreoDao correoDao = new CorreoDao();
+            correoDao.enviarMensajeAgendamiento(Sesion.obtenerSesion());
+            
             FacesMessage fmsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Pedido Registrado Exitosamente", "");
             FacesContext.getCurrentInstance().addMessage(null, fmsg);
         }
