@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+        <ui:composition template="./../adminTemplate.xhtml">
+            <ui:define name="content">
+                <b:row>                    
+                    <h:form id="formularioRegistro">  
+                        <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                            <p:messages id="messages" closable="true"/>
+                        </b:column>
+
+                        <b:column col-lg="4" col-md="4" col-sm="12" col-xs="12">
+                            <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                                <div class="box">
+                                    <div class="box-header" align="center">
+                                        <p class="box-title"><strong>Fecha</strong></p>
+                                    </div>
+                                    <div class="box-body" align="right">                                            
+                                        <b:dateTimePicker style="width: 100%" show-time="false" mode="inline"/>                                            
+                                    </div>
+                                </div>
+                            </b:column>    
+
+                            <b:column col-lg="12" col-md="12" col-sm="6" col-xs="6">
+                                <div class="box">
+                                    <div class="box-header with-border" align="center">
+                                        <p class="box-title"><strong>Pedidos</strong></p>
+                                    </div>
+                                    <div class="box-body" align="center">                                                
+                                        <p:knob foregroundColor="#04B486" backgroundColor="#00000" disabled="true" max="25" step="1" value="#{pedidosCT.pedidos.size()}" />   
+                                    </div>
+                                </div>
+                            </b:column>
+
+                            <b:column col-lg="12" col-md="12" col-sm="6" col-xs="6">
+                                <div class=" box">
+                                    <div class="box-header" align="center">
+                                        <p class="box-title"><strong>Calificaciones</strong></p>
+                                    </div>
+                                    <div class="box-body" align="center" >
+                                        <p:commandButton style="width: 80%" ajax="false" immediate="true" action="Calificaciones" value="Calificaciones" icon="fa fa-arrow-right" iconPos="right" class="btn btn-success">
+                                        </p:commandButton>
+                                    </div>
+                                </div>
+                            </b:column>
+                        </b:column>                                
+
+                        <b:column col-lg="8" col-md="8" col-sm="12" col-xs="12">                                      
+                            <div class="box">
+                                <div class="box-header with-border" align="center">
+                                    <h4 class="box-title"><strong>Pedidos</strong></h4>
+                                </div>
+                                <div class="box-body">
+                                    <p:inputText class="form-control" value="#{pedidosCT.buscar}" style="width: 100%" type="text" placeholder="Buscar...">
+                                        <p:ajax event="keyup" listener="#{pedidosCT.buscarPedido()}" update="DTPedidos"/>
+                                    </p:inputText><hr/>
+                                    <p:dataScroller mode="inline" scrollHeight="500" id="DTPedidos" style="width: 100%;" chunkSize="6" value="#{pedidosCT.pedidos}" var="pedido">
+
+                                        <b:column col-lg="6" col-md="6" col-xs="12" col-sm="12">    
+                                            <div class="table-responsive">
+
+                                                <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing-pv">
+                                                    <div align="right">
+                                                        <i class="fa fa-2x fa-tag"></i>
+                                                    </div>
+                                                    <div>
+                                                        <h5>Pedido N°: <small> #{pedido.idPedido} </small></h5>                                                                
+                                                    </div>
+
+                                                    <div class="media">                                                               
+                                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                                            <div class="media-body fnt-smaller">
+                                                                <a href="#" target="_parent"></a>
+
+                                                                <h4 class="media-heading">
+                                                                    <a href="#" target="_parent">$#{costoCT.consultarCostoPedido(pedido)} <small class="pull-right">#{pedido.direccionRecogida}</small></a></h4>
+                                                                <h4 class="media-heading"> Cliente: <small> #{pedido.usuario.nombre} #{pedido.usuario.apellido} </small></h4>
+                                                                <p class="hidden-xs">                                                                           
+                                                                    <h:commandButton immediate="true" onclick="PrimeFaces.monitorDownload(start, stop);" style="width: 100%" value="Ver Pedido" action="#{pedidosCT.verPedido(pedido)}" class="btn btn-success btn-block">
+                                                                    </h:commandButton>
+                                                                </p>
+                                                                <span class="fnt-smaller fnt-lighter fnt-arial">
+                                                                    <div class="col-xs-6">
+                                                                        <strong>Recibido: </strong> #{pedido.fechaRecogida}                                                                
+                                                                    </div>
+                                                                    <div class="col-xs-6">
+                                                                        <strong>Entrega: </strong> #{pedido.fechaEntrega}                                                                                                                            
+                                                                    </div>
+                                                                </span>
+                                                            </div>                                                    
+                                                        </div>
+                                                    </div>
+                                                </div><!-- End Listing--> 
+                                            </div>
+                                        </b:column> 
+                                    </p:dataScroller>
+                                </div>
+                            </div>    
+                        </b:column>
+                    </h:form>
+                </b:row>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

@@ -56,7 +56,12 @@ public class DescripcionPedidoCT implements Serializable {
     public void registrar() {
     }
 
-    public void modificar() {
+    public void modificar(DescripcionPedido_TO descripcion) {
+        DescripcionPedidoDao descripcionPedidoDao = new DescripcionPedidoDao();
+        if (descripcion.getEstado().getIdEstado() < 5) {
+            descripcion.setEstado(new Estado_TO(5));
+        }
+        descripcionPedidoDao.editarDescripcionPedido(descripcion);
     }
 
     public void eliminar() {
@@ -73,6 +78,9 @@ public class DescripcionPedidoCT implements Serializable {
             case 6:
                 descripcion.setEstado(new Estado_TO(7));
                 break;
+            case 7:
+                descripcion.setEstado(new Estado_TO(8));
+                break;
         }
 
         DescripcionPedidoDao descripcionPedidoDao = new DescripcionPedidoDao();
@@ -80,14 +88,14 @@ public class DescripcionPedidoCT implements Serializable {
 
         productosPedido = descripcionPedidoDao.consultarDescripcionesSinFotosSegunPedido(descripcion.getPedido());
         boolean valor = true;
-        
+
         for (int i = 0; i < productosPedido.size(); i++) {
-            if(descripcion.getEstado().getIdEstado() != productosPedido.get(i).getEstado().getIdEstado()){
+            if (descripcion.getEstado().getIdEstado() != productosPedido.get(i).getEstado().getIdEstado()) {
                 valor = false;
             }
         }
-        
-        if(valor){
+
+        if (valor) {
             PedidoDao pedidoDao = new PedidoDao();
             Pedido_TO pedido = descripcion.getPedido();
             pedido.setEstado(descripcion.getEstado());

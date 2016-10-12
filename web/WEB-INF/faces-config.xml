@@ -125,6 +125,11 @@
             <from-outcome>Pedido</from-outcome>
             <to-view-id>/Vistas/Usuario/Pedidos/Pedido.xhtml</to-view-id>
             <redirect/>
+        </navigation-case>  
+        <navigation-case>
+            <from-outcome>Pedidos</from-outcome>
+            <to-view-id>/Vistas/Usuario/Pedidos/Pedidos.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>        
         <navigation-case>
             <from-outcome>Login</from-outcome>
@@ -190,7 +195,7 @@
     <managed-bean>
         <managed-bean-name>pedidoCT</managed-bean-name>
         <managed-bean-class>com.planit.lavappweb.controladores.PedidoCT</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>paisCT</managed-bean-name>
@@ -306,17 +311,7 @@
         <managed-bean-name>calificacionCT</managed-bean-name>
         <managed-bean-class>com.planit.lavappweb.controladores.CalificacionCT</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>pedidoCT</managed-bean-name>
-        <managed-bean-class>com.planit.lavappweb.controladores.PedidoCT</managed-bean-class>
-        <managed-bean-scope>view</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>paisCT1</managed-bean-name>
-        <managed-bean-class>com.planit.lavappweb.controladores.PaisCT</managed-bean-class>
-        <managed-bean-scope>view</managed-bean-scope>
-    </managed-bean>
+    </managed-bean>  
     <managed-bean>
         <managed-bean-name>estadoCT</managed-bean-name>
         <managed-bean-class>com.planit.lavappweb.controladores.EstadoCT</managed-bean-class>
@@ -326,5 +321,10 @@
         <managed-bean-name>rutaCT</managed-bean-name>
         <managed-bean-class>com.planit.lavappweb.controladores.RutaCT</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>pedidosCT</managed-bean-name>
+        <managed-bean-class>com.planit.lavappweb.controladores.PedidosCT</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
 </faces-config>

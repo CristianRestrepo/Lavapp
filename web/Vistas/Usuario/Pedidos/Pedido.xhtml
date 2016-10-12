@@ -18,104 +18,8 @@
             <b:container fluid="true">
                 <b:row>                    
                     <h:form id="formularioRegistro">  
-                        <c:choose>
-                            <c:when test="#{pedidoCT.vista == 0}">
-                                <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
-                                    <p:messages id="messages" closable="true"/>
-                                </b:column>
-
-                                <b:column col-lg="4" col-md="4" col-sm="12" col-xs="12">
-                                    <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
-                                        <div class="box">
-                                            <div class="box-header" align="center">
-                                                <p class="box-title"><strong>Fecha</strong></p>
-                                            </div>
-                                            <div class="box-body" align="right">                                            
-                                                <b:dateTimePicker style="width: 100%" show-time="false" mode="inline"/>                                            
-                                            </div>
-                                        </div>
-                                    </b:column>    
-
-                                    <b:column col-lg="12" col-md="12" col-sm="6" col-xs="6">
-                                        <div class="box">
-                                            <div class="box-header with-border" align="center">
-                                                <p class="box-title"><strong>Pedidos</strong></p>
-                                            </div>
-                                            <div class="box-body" align="center">                                                
-                                                <p:knob foregroundColor="#04B486" backgroundColor="#00000" disabled="true" max="25" step="1" value="#{pedidoCT.pedidos.size()}" />   
-                                            </div>
-                                        </div>
-                                    </b:column>
-
-                                    <b:column col-lg="12" col-md="12" col-sm="6" col-xs="6">
-                                        <div class=" box">
-                                            <div class="box-header" align="center">
-                                                <p class="box-title"><strong>Calificaciones</strong></p>
-                                            </div>
-                                            <div class="box-body" align="center" >
-                                                <p:commandButton style="width: 80%" ajax="false" immediate="true" action="Calificaciones" value="Calificaciones" icon="fa fa-arrow-right" iconPos="right" class="btn btn-success">
-                                                </p:commandButton>
-                                            </div>
-                                        </div>
-                                    </b:column>
-                                </b:column>                                
-
-                                <b:column col-lg="8" col-md="8" col-sm="12" col-xs="12">                                      
-                                    <div class="box">
-                                        <div class="box-header with-border" align="center">
-                                            <h4 class="box-title"><strong>Pedidos</strong></h4>
-                                        </div>
-                                        <div class="box-body">
-                                            <p:inputText class="form-control" value="#{pedidoCT.buscar}" style="width: 100%" type="text" placeholder="Buscar...">
-                                                <p:ajax event="keyup" listener="#{pedidoCT.buscarPedido()}" update="DTPedidos"/>
-                                            </p:inputText><hr/>
-                                            <p:dataScroller mode="inline" scrollHeight="500" id="DTPedidos" style="width: 100%;" chunkSize="6" value="#{pedidoCT.pedidos}" var="pedido">
-                                               
-                                                <b:column col-lg="6" col-md="6" col-xs="12" col-sm="12">    
-                                                    <div class="table-responsive">
-
-                                                        <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing-pv">
-                                                            <div align="right">
-                                                                <i class="fa fa-2x fa-tag"></i>
-                                                            </div>
-                                                            <div>
-                                                                <h5>Pedido N°: <small> #{pedido.idPedido} </small></h5>                                                                
-                                                            </div>
-
-                                                            <div class="media">                                                               
-                                                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                                                    <div class="media-body fnt-smaller">
-                                                                        <a href="#" target="_parent"></a>
-
-                                                                        <h4 class="media-heading">
-                                                                            <a href="#" target="_parent">$#{costoCT.consultarCostoPedido(pedido)} <small class="pull-right">#{pedido.direccionRecogida}</small></a></h4>
-                                                                        <h4 class="media-heading"> Cliente: <small> #{pedido.usuario.nombre} #{pedido.usuario.apellido} </small></h4>
-                                                                        <p class="hidden-xs">                                                                           
-                                                                            <h:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" style="width: 100%" value="Ver Pedido" class="btn btn-success btn-block">
-                                                                                <p:ajax event="click" listener="#{pedidoCT.verPedido(pedido)}" update=":formularioRegistro"/>
-                                                                            </h:commandButton>
-                                                                        </p>
-                                                                        <span class="fnt-smaller fnt-lighter fnt-arial">
-                                                                            <div class="col-xs-6">
-                                                                                <strong>Recibido: </strong> #{pedido.fechaRecogida}                                                                
-                                                                            </div>
-                                                                            <div class="col-xs-6">
-                                                                                <strong>Entrega: </strong> #{pedido.fechaEntrega}                                                                                                                            
-                                                                            </div>
-                                                                        </span>
-                                                                    </div>                                                    
-                                                                </div>
-                                                            </div>
-                                                        </div><!-- End Listing--> 
-                                                    </div>
-                                                </b:column> 
-
-                                            </p:dataScroller>
-                                        </div>
-                                    </div>    
-                                </b:column>
-                            </c:when>
-                            <c:when test="#{pedidoCT.vista == 1}">
+                        <c:choose>                            
+                            <c:when test="#{pedidosCT.vista == 0}">
                                 <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
                                     <p:messages id="messages" closable="true"/>
                                 </b:column>
@@ -129,7 +33,7 @@
                                                 <c:when test="#{sesionCT.obtenerSesion().rol.idRol == 4}">
                                                     <div class="box-tools">
                                                         <h:panelGrid columns="2">                                                        
-                                                            <p:commandButton icon="fa fa-star" action="#{calificacionCT.verCalificacion(pedidoCT.pedido)}" iconPos="right" style="float: right" class="btn btn-warning" value="Calificar">
+                                                            <p:commandButton icon="fa fa-star" action="#{calificacionCT.verCalificacion(pedidosCT.pedido)}" iconPos="right" style="float: right" class="btn btn-warning" value="Calificar">
                                                                 <f:setPropertyActionListener value="0" target="#{calificacionCT.vistaAnterior}"/>
                                                             </p:commandButton>
                                                         </h:panelGrid>
@@ -146,7 +50,7 @@
                                                     <div class="media">
                                                         <div class="col-lg-4 col-md-4 col-sm-4">
                                                             <a class="pull-left" href="#" target="_parent">
-                                                                <p:graphicImage alt="image" value="#{pedidoCT.pedido.usuario.rutaImagen}" height="100%" width="200px" class="img-responsive"/>
+                                                                <p:graphicImage alt="image" value="#{pedidosCT.pedido.usuario.rutaImagen}" height="100%" width="200px" class="img-responsive"/>
                                                             </a>                                                    
                                                         </div>
 
@@ -154,45 +58,51 @@
                                                             <div class="media-body fnt-smaller">
                                                                 <a href="#" target="_parent"></a>
                                                                 <c:choose>
-                                                                    <c:when test="#{pedidoCT.pedido.estado.idEstado == 3}">
+                                                                    <c:when test="#{pedidosCT.pedido.estado.idEstado == 3}">
                                                                         <div class="callout callout-info" >
                                                                             <i class=" fa fa-4x fa-tag"/>
                                                                             <h4 style="float:right; vertical-align: central">Servicio Solicitado</h4>
                                                                         </div>
                                                                     </c:when>
-                                                                    <c:when test="#{pedidoCT.pedido.estado.idEstado == 4}">
+                                                                    <c:when test="#{pedidosCT.pedido.estado.idEstado == 4}">
                                                                         <div class="callout callout-success" >
                                                                             <i class=" fa fa-4x fa-check-square"/>
                                                                             <h4 style="float:right; vertical-align: central">Prendas Recibidas</h4>
                                                                         </div>
                                                                     </c:when>
-                                                                    <c:when test="#{pedidoCT.pedido.estado.idEstado == 5}">
+                                                                    <c:when test="#{pedidosCT.pedido.estado.idEstado == 5}">
                                                                         <div class="callout callout-warning" >
                                                                             <i class=" fa fa-4x fa-building"/>
                                                                             <h4 style="float:right; vertical-align: central">En Planta</h4>
                                                                         </div>
                                                                     </c:when>
-                                                                    <c:when test="#{pedidoCT.pedido.estado.idEstado == 6}">
+                                                                    <c:when test="#{pedidosCT.pedido.estado.idEstado == 6}">
                                                                         <div class="callout callout-info" >
                                                                             <i class=" fa fa-4x fa-tint"/>
                                                                             <h4 style="float:right; vertical-align: central">Lavado</h4>
                                                                         </div>
                                                                     </c:when>
-                                                                    <c:when test="#{pedidoCT.pedido.estado.idEstado == 7}">
+                                                                    <c:when test="#{pedidosCT.pedido.estado.idEstado == 7}">
                                                                         <div class="callout callout-info" >
                                                                             <i class=" fa fa-4x fa-check"/>
                                                                             <h4 style="float:right; vertical-align: central">Listo para entrega</h4>
                                                                         </div>
-                                                                    </c:when>                                                                    
+                                                                    </c:when>   
+                                                                    <c:when test="#{pedidosCT.pedido.estado.idEstado == 8}">
+                                                                        <div class="callout callout-success" >
+                                                                            <i class=" fa fa-4x fa-check"/>
+                                                                            <h4 style="float:right; vertical-align: central">Entregado</h4>
+                                                                        </div>
+                                                                    </c:when> 
                                                                 </c:choose>
 
                                                                 <div>
-                                                                    <h3>#{pedidoCT.pedido.usuario.nombre} #{pedidoCT.pedido.usuario.apellido} <small> N° de Pedido: #{pedidoCT.pedido.idPedido}</small></h3>                            
+                                                                    <h3>#{pedidosCT.pedido.usuario.nombre} #{pedidosCT.pedido.usuario.apellido} <small> N° de Pedido: #{pedidosCT.pedido.idPedido}</small></h3>                            
                                                                 </div>
 
                                                                 <h4 class="media-heading">
-                                                                    <small class="pull-left"><strong>Dirección Recogida: </strong>#{pedidoCT.pedido.direccionRecogida}
-                                                                        <strong style="margin-left: 20px">Cel: </strong>#{pedidoCT.pedido.usuario.movil}
+                                                                    <small class="pull-left"><strong>Dirección Recogida: </strong>#{pedidosCT.pedido.direccionRecogida}
+                                                                        <strong style="margin-left: 20px">Cel: </strong>#{pedidosCT.pedido.usuario.movil}
                                                                     </small>
                                                                 </h4>
 
@@ -200,7 +110,7 @@
 
                                                                 <h4 class="media-heading">
                                                                     <small>
-                                                                        <a href="#" target="_parent">$#{costoCT.consultarCostoPedido(pedidoCT.pedido)}</a>
+                                                                        <a href="#" target="_parent">$#{costoCT.consultarCostoPedido(pedidosCT.pedido)}</a>
                                                                     </small>
                                                                 </h4>
                                                             </div>                                                    
@@ -209,17 +119,18 @@
                                                 </div><!-- End Listing-->
 
                                                 <div>
-                                                    <h4 class="mrg-titles">Prendas del Pedido<small> N° #{pedidoCT.pedido.idPedido}</small></h4>                            
+                                                    <h4 class="mrg-titles">Prendas del Pedido<small> N° #{pedidosCT.pedido.idPedido}</small></h4>                            
                                                 </div>
 
-                                                <c:forEach items="#{descripcionPedidoCT.consultarDescripcionesSinFotosSegunPedido(pedidoCT.pedido)}" var="descripcion" begin="0" end="#{descripcionPedidoCT.consultarDescripcionesSinFotosSegunPedido(pedidoCT.pedido).size()}">
+                                                <p:dataScroller value="#{descripcionPedidoCT.consultarDescripcionesSinFotosSegunPedido(pedidosCT.pedido)}" var="descripcion" chunkSize="4" mode="inline" >
+
                                                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                                                         <!-- LISTA DE PRODUCTOS POR PEDIDOS-->
                                                         <div class="brdr bgc-fff pad-10 box-shad btm-mrg-20 property-listing-pv">
                                                             <div class="media">
                                                                 <div class="col-lg-4 col-md-4 col-sm-4">
                                                                     <a class="pull-left" href="#" target="_parent">
-                                                                        <p:graphicImage value="#{descripcion.subProducto.rutaImagen}" width="150px" height="150px"/>
+                                                                        <p:graphicImage value="#{rutaCT.rutaimagenes}#{descripcion.subProducto.rutaImagen}" width="150px" height="150px"/>
                                                                     </a>                                                    
                                                                 </div>
 
@@ -236,26 +147,27 @@
                                                                         <p class="hidden-xs">#{descripcion.subProducto.descripcion}</p><span class="fnt-smaller fnt-lighter fnt-arial"></span>
                                                                         <p class="hidden-xs">#{descripcion.codigo}</p><span class="fnt-smaller fnt-lighter fnt-arial"></span>
                                                                         <div align="center">
-                                                                            <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" style="width: 60%" class="btn btn-primary btn-xs btn-block" value="Ver Prenda">
-                                                                                <p:ajax event="click" listener="#{pedidoCT.verPrenda(descripcion)}" update=":formularioRegistro"/>
-                                                                            </p:commandButton>
+                                                                            <h:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" style="width: 60%" class="btn btn-primary btn-xs btn-block" value="Ver Prenda">
+                                                                                <p:ajax event="click" listener="#{pedidosCT.verPrenda(descripcion)}" update=":formularioRegistro"/>
+                                                                            </h:commandButton>
                                                                         </div>
                                                                     </div>                                                    
                                                                 </div>
                                                             </div>
                                                         </div><!-- End Listing-->
                                                     </div>  
-                                                </c:forEach>
+
+                                                </p:dataScroller>
                                             </div>
                                         </div>
                                         <div class="box box-footer" align="left">
                                             <p:commandButton icon="fa fa-arrow-left" onclick="PrimeFaces.monitorDownload(start, stop);" 
-                                                             action="#{pedidoCT.volverPedidos()}" update=":formularioRegistro" value="Regresar" style="width: 20%" class="btn btn-info"/>
+                                                             action="#{pedidosCT.volverPedidos()}" update=":formularioRegistro" value="Regresar" style="width: 20%" class="btn btn-info"/>
                                         </div>
                                     </div>
                                 </b:column>    
                             </c:when>
-                            <c:when test="#{pedidoCT.vista == 2}">
+                            <c:when test="#{pedidosCT.vista == 1}">
                                 <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
                                     <div class="box box-default">
                                         <div class="box-header with-border">
@@ -264,36 +176,42 @@
                                         <div class="box-body">                                            
                                             <b:column offset="1" col-lg="10">
                                                 <c:choose>
-                                                    <c:when test="#{pedidoCT.descripcionPedido.estado.idEstado == 3}">
+                                                    <c:when test="#{pedidosCT.descripcionPedido.estado.idEstado == 3}">
                                                         <div class="callout callout-info" >
                                                             <i class=" fa fa-4x fa-tag"/>
                                                             <h4 style="float:right; vertical-align: central">Servicio Solicitado</h4>
                                                         </div>
                                                     </c:when>
-                                                    <c:when test="#{pedidoCT.descripcionPedido.estado.idEstado == 4}">
+                                                    <c:when test="#{pedidosCT.descripcionPedido.estado.idEstado == 4}">
                                                         <div class="callout callout-success" >
                                                             <i class=" fa fa-4x fa-check-square"/>
                                                             <h4 style="float:right; vertical-align: central">Prendas Recibidas</h4>
                                                         </div>
                                                     </c:when>
-                                                    <c:when test="#{pedidoCT.descripcionPedido.estado.idEstado == 5}">
+                                                    <c:when test="#{pedidosCT.descripcionPedido.estado.idEstado == 5}">
                                                         <div class="callout callout-warning" >
                                                             <i class=" fa fa-4x fa-building"/>
                                                             <h4 style="float:right; vertical-align: central">En Planta</h4>
                                                         </div>
                                                     </c:when>
-                                                    <c:when test="#{pedidoCT.descripcionPedido.estado.idEstado == 6}">
+                                                    <c:when test="#{pedidosCT.descripcionPedido.estado.idEstado == 6}">
                                                         <div class="callout callout-info" >
                                                             <i class=" fa fa-4x fa-tint"/>
                                                             <h4 style="float:right; vertical-align: central">Lavado</h4>
                                                         </div>
                                                     </c:when>
-                                                    <c:when test="#{pedidoCT.descripcionPedido.estado.idEstado == 7}">
+                                                    <c:when test="#{pedidosCT.descripcionPedido.estado.idEstado == 7}">
                                                         <div class="callout callout-info" >
                                                             <i class=" fa fa-4x fa-check"/>
                                                             <h4 style="float:right; vertical-align: central">Listo para entrega</h4>
                                                         </div>
-                                                    </c:when>                                                                    
+                                                    </c:when>  
+                                                    <c:when test="#{pedidosCT.descripcionPedido.estado.idEstado == 8}">
+                                                        <div class="callout callout-success" >
+                                                            <i class=" fa fa-4x fa-check"/>
+                                                            <h4 style="float:right; vertical-align: central">Entregado</h4>
+                                                        </div>
+                                                    </c:when> 
                                                 </c:choose>
                                             </b:column>
                                             <b:column offset="1" col-lg="10">
@@ -304,47 +222,48 @@
                                                         <table width="100%">
                                                             <tr>
                                                                 <td width="50%" align="center">
-                                                                    <p:graphicImage value="#{pedidoCT.descripcionPedido.subProducto.rutaImagen}" width="250px" height="280px"/> 
+                                                                    <p:graphicImage value="#{rutaCT.rutaimagenes}#{pedidosCT.descripcionPedido.subProducto.rutaImagen}" width="250px" height="280px"/> 
                                                                 </td>
                                                                 <td width="50%" >
                                                                     <h:panelGrid columns="1" width="100%">                                                                        
                                                                         <p:outputLabel value="Codigo" for="TCodigo"/>
-                                                                        <p:inputText class="form-control" maxlength="60" disabled="#{pedidoCT.descripcionPrenda}" id="TCodigo" required="true" requiredMessage="Ingrese nombres" placeholder="Codigo de la prenda" value="#{pedidoCT.descripcionPedido.codigo}" style="width: 100%;"></p:inputText>                       
+                                                                        <p:inputText class="form-control" maxlength="60" disabled="#{pedidosCT.descripcionPrenda}" id="TCodigo" required="true" requiredMessage="Ingrese codigo" placeholder="Codigo de la prenda" value="#{pedidosCT.descripcionPedido.codigo}" style="width: 100%;"></p:inputText>                       
                                                                         <p:message for="TCodigo"/>
 
                                                                         <p:outputLabel value="Color" for="SMColor"/>
-                                                                        <h:selectOneMenu disabled="#{pedidoCT.descripcionPrenda}" value="#{pedidoCT.descripcionPedido.color.nombre}" id="SMColor" class="form-control">
+                                                                        <h:selectOneMenu required="true" requiredMessage="Seleccione color de la prenda" disabled="#{pedidosCT.descripcionPrenda}" value="#{pedidosCT.descripcionPedido.color.idColor}" id="SMColor" class="form-control">
                                                                             <f:selectItem itemLabel="Seleccione Color" noSelectionOption="true"/>
-                                                                            <f:selectItems value="#{colorCT.colores}" var="color" itemLabel="#{color.nombre}" itemValue="#{color.nombre}"/>
+                                                                            <f:selectItems value="#{colorCT.colores}" var="color" itemLabel="#{color.nombre}" itemValue="#{color.idColor}"/>
                                                                         </h:selectOneMenu>
                                                                         <p:message for="SMColor"/>
 
                                                                         <p:outputLabel value="Descripcion" for="TDescripcion"/>
-                                                                        <p:inputTextarea disabled="#{pedidoCT.descripcionPrenda}" class="form-control" rows="4" maxlength="200" id="TDescripcion" required="true" requiredMessage="Ingrese Descripcion" placeholder="Descripcion de la prenda" value="#{pedidoCT.descripcionPedido.descripcion}" style="width: 100%;"></p:inputTextarea>                       
+                                                                        <p:inputTextarea disabled="#{pedidosCT.descripcionPrenda}" class="form-control" rows="4" maxlength="200" id="TDescripcion" placeholder="Descripcion de la prenda" value="#{pedidosCT.descripcionPedido.descripcion}" style="width: 100%;"></p:inputTextarea>                       
                                                                         <p:message for="TDescripcion"/>
 
                                                                         <p:separator/>
                                                                         <h:panelGrid columns="2">
                                                                             <c:if test="#{sesionCT.obtenerSesion().rol.idRol == 2}">                                                                               
                                                                                 <h:panelGrid columns="2">                                                                                   
-                                                                                    <p:commandButton disabled="#{pedidoCT.descripcionPedido.estado.idEstado eq 7}" immediate="true" icon="fa fa-pencil-square-o" update=":formularioRegistro" action="#{descripcionPedidoCT.editarEstadoDescripcion(pedidoCT.descripcionPedido)}" iconPos="right" style="float: right" class="btn btn-success" value="Cambiar Estado">
-                                                                                        <c:choose>
-                                                                                            <c:when test="${pedidoCT.descripcionPedido.estado.idEstado == 4}">
-                                                                                                <p:confirm header="Confirmation" message="Cambiara el estado de la prenda a estado en 'En Plnta', Esta seguro?" icon="ui-icon-alert" />
-                                                                                            </c:when>
-                                                                                            <c:when test="${pedidoCT.descripcionPedido.estado.idEstado == 5}">
+                                                                                    <p:commandButton disabled="#{pedidosCT.descripcionPedido.estado.idEstado eq 7 or pedidosCT.descripcionPedido.estado.idEstado lt 5}" immediate="true" icon="fa fa-pencil-square-o" update=":formularioRegistro" action="#{descripcionPedidoCT.editarEstadoDescripcion(pedidosCT.descripcionPedido)}" iconPos="right" style="float: right" class="btn btn-success" value="Cambiar Estado">
+                                                                                        <c:choose>                                                                                            
+                                                                                            <c:when test="${pedidosCT.descripcionPedido.estado.idEstado == 5}">
                                                                                                 <p:confirm header="Confirmation" message="Cambiara el estado de la prenda a estado 'Lavado', Esta seguro?" icon="ui-icon-alert" />
                                                                                             </c:when>
-                                                                                            <c:when test="${pedidoCT.descripcionPedido.estado.idEstado == 6}">
+                                                                                            <c:when test="${pedidosCT.descripcionPedido.estado.idEstado == 6}">
                                                                                                 <p:confirm header="Confirmation" message="Cambiara el estado de la prenda a estado 'Listo Para Entrega', Esta seguro?" icon="ui-icon-alert" />
                                                                                             </c:when>
-                                                                                            <c:otherwise>                                                                                               
+                                                                                            <c:when test="${pedidosCT.descripcionPedido.estado.idEstado == 7}">
+                                                                                                <p:confirm header="Confirmation" message="Cambiara el estado de la prenda a estado 'Entregado', Esta seguro?" icon="ui-icon-alert" />
+                                                                                            </c:when>
+                                                                                            <c:otherwise>
+
                                                                                             </c:otherwise>
                                                                                         </c:choose>
                                                                                     </p:commandButton>
                                                                                 </h:panelGrid>                                                                                
                                                                             </c:if>
-                                                                            <p:commandButton icon="fa fa-calendar" immediate="true" iconPos="right" action="#{historicoCT.verHistoricoPrenda(pedidoCT.descripcionPedido)}" style="float: right" class="btn btn-warning" value="Ver Historico"/>
+                                                                            <p:commandButton icon="fa fa-calendar" immediate="true" iconPos="right" action="#{historicoCT.verHistoricoPrenda(pedidosCT.descripcionPedido)}" style="float: right" class="btn btn-warning" value="Ver Historico"/>
                                                                         </h:panelGrid>
                                                                     </h:panelGrid>
                                                                 </td>
@@ -358,21 +277,35 @@
                                                     <div align="center" class="box-body">
                                                         <h:panelGrid width="100%" columns="1">
                                                             <p:outputLabel value="Observacion Asesor" for="TObservacionA"/>
-                                                            <p:inputTextarea class="form-control" rows="4" maxlength="200" id="TObservacionA" required="true" requiredMessage="Ingrese Descripcion" placeholder="Observacion del asesor" value="#{pedidoCT.descripcionPedido.observacionAsesor}" style="width: 100%;"></p:inputTextarea>                       
+                                                            <p:inputTextarea class="form-control" rows="4" maxlength="200" id="TObservacionA" placeholder="Observacion del asesor" value="#{pedidosCT.descripcionPedido.observacionAsesor}" style="width: 100%;"></p:inputTextarea>                       
                                                             <p:message for="TObservacionA"/>
 
                                                             <p:outputLabel value="Observacion Planta" for="TObservacionP"/>
-                                                            <p:inputTextarea  class="form-control" rows="4" maxlength="200" id="TObservacionP" required="true" requiredMessage="Ingrese Descripcion" placeholder="Observacion de la planta" value="#{pedidoCT.descripcionPedido.observacionAdministrador}" style="width: 100%;"></p:inputTextarea>                       
+                                                            <p:inputTextarea  class="form-control" rows="4" maxlength="200" id="TObservacionP" placeholder="Observacion de la planta" value="#{pedidosCT.descripcionPedido.observacionAdministrador}" style="width: 100%;"></p:inputTextarea>                       
                                                             <p:message for="TObservacionP"/>
                                                         </h:panelGrid>                                                
+                                                    </div>
+                                                    <div class="box-footer" align="center">
+                                                        <c:if test="#{sesionCT.obtenerSesion().rol.idRol == 2}">
+                                                            <p:commandButton update=":formularioRegistro" action="#{descripcionPedidoCT.modificar(pedidosCT.descripcionPedido)}" disabled="#{pedidosCT.descripcionPedido.estado.idEstado lt 4}" style="width: 60%" value="Actualizar prenda" class="btn btn-block btn-info">
+                                                                <c:choose>                                                                                            
+                                                                    <c:when test="${pedidosCT.descripcionPedido.estado.idEstado == 4}">
+                                                                        <p:confirm header="Confirmation" message="Cambiara el estado de la prenda a estado 'En planta', Esta seguro?" icon="ui-icon-alert" />
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <p:confirm header="Confirmation" message="Actualizara la informacion de la prenda, esta seguro?" icon="ui-icon-alert" />
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                            </p:commandButton>
+                                                        </c:if>
                                                     </div>
                                                 </div>                                                
                                             </b:column>
                                         </div>
                                         <div class="box-footer">
                                             <b:column offset="1" col-lg="10">
-                                                <p:commandButton immediate="true" icon="fa fa-arrow-left" onclick="PrimeFaces.monitorDownload(start, stop);" 
-                                                                 action="#{pedidoCT.volverPedido()}" update=":formularioRegistro" value="Regresar" style="width: 20%" class="btn btn-info"/>
+                                                <p:commandButton  immediate="true" icon="fa fa-arrow-left" onclick="PrimeFaces.monitorDownload(start, stop);" 
+                                                                  action="#{pedidosCT.volverPedido()}" update=":formularioRegistro" value="Regresar" style="width: 20%" class="btn btn-info"/>
                                             </b:column>
                                         </div>
                                     </div>

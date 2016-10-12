@@ -5,7 +5,8 @@
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="./../adminTemplate.xhtml">
         <ui:define name="content">
@@ -39,7 +40,7 @@
                                                         </h:panelGrid>
                                                     </td>
                                                     <td width="45%" align="right">
-                                                        <p:commandButton action="Pedido" icon="fa fa-arrow-right" iconPos="right" value="Ver" class="btn btn-info" style="height: 50px; width: 60%"/>
+                                                        <p:commandButton action="Pedidos" icon="fa fa-arrow-right" iconPos="right" value="Ver" class="btn btn-info" style="height: 50px; width: 60%"/>
                                                     </td>
                                                 </tr>                                    
                                             </table>
@@ -76,9 +77,13 @@
                         <b:row>
                             <h:form>
                                 <b:column col-lg="8" col-md="8" col-sm="12" col-xs="12">
-                                    <div class="box box-info">                                        
+                                    <div class="box box-info">
+                                        <div class="box-header with-border">
+                                            <i class="fa fa-2x fa-list-alt"/>
+                                            <h4 class="box-title">Pedidos por recoger</h4>
+                                        </div>
                                         <div class="box-body">                                           
-                                            <p:dataTable emptyMessage="Sin pedidos que recoger" var="pedido" value="#{pedidoCT.consultarPedidosDiaRecogida()}" class="table table-responsive">
+                                            <p:dataTable emptyMessage="Sin pedidos que recoger" var="pedido" value="#{pedidosCT.consultarPedidosDiaRecogida()}" class="table table-responsive">
                                                 <p:column headerText="Cliente">
                                                     <h:outputText value="#{pedido.usuario.nombre} #{pedido.usuario.apellido}"></h:outputText>
                                                 </p:column>
@@ -88,8 +93,10 @@
                                                 <p:column headerText="Horario Recogida">
                                                     <h:outputText value="#{pedido.horaInicio.horario}"></h:outputText>
                                                 </p:column>                                                
-                                                <p:column headerText="ver">
-
+                                                <p:column headerText="ver" style="width: 60px">
+                                                    <p:commandLink onclick="PrimeFaces.monitorDownload(start, stop);"  style="color: white; width: 100%" process="@this" action="#{pedidosCT.verPedido(pedido)}" class="btn btn-block btn-warning">
+                                                        <i class="fa fa-arrow-right"></i> 
+                                                    </p:commandLink>
                                                 </p:column>
                                             </p:dataTable>                                            
                                         </div>
@@ -97,9 +104,13 @@
 
                                     <p:separator/>
 
-                                    <div class="box box-info">                                        
+                                    <div class="box box-info"> 
+                                        <div class="box-header with-border">
+                                            <i class="fa fa-2x fa-list-alt"/>
+                                            <h4 class="box-title">Pedidos por entregar</h4>
+                                        </div>
                                         <div class="box-body">                                           
-                                            <p:dataTable emptyMessage="Sin pedido que entregar" var="pedido" value="#{pedidoCT.consultarPedidosDiaEntrega()}" class="table table-responsive" >
+                                            <p:dataTable emptyMessage="Sin pedido que entregar" var="pedido" value="#{pedidosCT.consultarPedidosDiaEntrega()}" class="table table-responsive" >
                                                 <p:column headerText="Cliente">
                                                     <h:outputText value="#{pedido.usuario.nombre} #{pedido.usuario.apellido}"></h:outputText>
                                                 </p:column>
@@ -109,8 +120,10 @@
                                                 <p:column headerText="Horario Entrega">
                                                     <h:outputText value="#{pedido.horaFinal.horario}"></h:outputText>
                                                 </p:column>                                                
-                                                <p:column headerText="Ver">
-
+                                                <p:column headerText="ver" style="width: 60px">
+                                                    <p:commandLink onclick="PrimeFaces.monitorDownload(start, stop);"  style="color: white; width: 100%" process="@this" action="#{pedidosCT.verPedido(pedido)}" class="btn btn-block btn-warning">
+                                                        <i class="fa fa-arrow-right"></i> 
+                                                    </p:commandLink>
                                                 </p:column>
                                             </p:dataTable>                                         
                                         </div>
@@ -136,6 +149,18 @@
                                         </div>
                                     </b:column>
                                 </b:column>
+
+                                <script type="text/javascript">
+                                    function start() {
+                                        PF('statusDialog').show();
+                                    }
+                                    function stop() {
+                                        PF('statusDialog').hide();
+                                    }
+                                </script>
+                                <p:dialog modal="true" widgetVar="statusDialog"  header="Cargando pedido, espere" draggable="false" closable="false" resizable="false">
+                                    <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif" />
+                                </p:dialog>
                             </h:form>
                         </b:row>
 
@@ -239,7 +264,7 @@
                                                         </h:panelGrid>
                                                     </td>
                                                     <td width="45%" align="right">
-                                                        <p:commandButton action="Pedido" icon="fa fa-arrow-right" iconPos="right" value="Ver" class="btn btn-info" style="height: 50px; width: 60%"/>
+                                                        <p:commandButton action="Pedidos" icon="fa fa-arrow-right" iconPos="right" value="Ver" class="btn btn-info" style="height: 50px; width: 60%"/>
                                                     </td>
                                                 </tr>                                    
                                             </table>
@@ -273,9 +298,13 @@
                         <b:row>
                             <h:form>
                                 <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
-                                    <div class="box box-info">                                        
+                                    <div class="box box-info">
+                                        <div class="box-header with-border">
+                                            <i class="fa fa-2x fa-list-alt"/>
+                                            <h4 class="box-title">Pedidos por recoger</h4>
+                                        </div>
                                         <div class="box-body">                                           
-                                            <p:dataTable emptyMessage="Sin pedidos que recoger" var="pedido" value="#{pedidoCT.consultarPedidosDiaRecogida()}" class="table table-responsive">
+                                            <p:dataTable emptyMessage="Sin pedidos que recoger" var="pedido" value="#{pedidosCT.consultarPedidosDiaRecogida()}" class="table table-responsive">
                                                 <p:column headerText="Cliente">
                                                     <h:outputText value="#{pedido.usuario.nombre} #{pedido.usuario.apellido}"></h:outputText>
                                                 </p:column>
@@ -286,7 +315,11 @@
                                                     <h:outputText value="#{pedido.horaInicio.horario}"></h:outputText>
                                                 </p:column>                                                
                                                 <p:column headerText="ver">
-
+                                                    <p:column headerText="ver">
+                                                        <p:commandLink onclick="PrimeFaces.monitorDownload(start, stop);"  style="color: white; width: 100%" process="@this" action="#{pedidosCT.verPedido(pedido)}" class="btn btn-block btn-warning">
+                                                            <i class="fa fa-arrow-right"></i> 
+                                                        </p:commandLink>
+                                                    </p:column>
                                                 </p:column>
                                             </p:dataTable>                                            
                                         </div>
@@ -294,9 +327,13 @@
 
                                     <p:separator/>
 
-                                    <div class="box box-info">                                        
+                                    <div class="box box-info">  
+                                        <div class="box-header with-border">
+                                            <i class="fa fa-2x fa-list-alt"/>
+                                            <h4 class="box-title">Pedidos por entregar</h4>
+                                        </div>
                                         <div class="box-body">                                           
-                                            <p:dataTable emptyMessage="Sin pedido que entregar" var="pedido" value="#{pedidoCT.consultarPedidosDiaEntrega()}" class="table table-responsive" >
+                                            <p:dataTable emptyMessage="Sin pedido que entregar" var="pedido" value="#{pedidosCT.consultarPedidosDiaEntrega()}" class="table table-responsive" >
                                                 <p:column headerText="Cliente">
                                                     <h:outputText value="#{pedido.usuario.nombre} #{pedido.usuario.apellido}"></h:outputText>
                                                 </p:column>
@@ -307,12 +344,28 @@
                                                     <h:outputText value="#{pedido.horaFinal.horario}"></h:outputText>
                                                 </p:column>                                                
                                                 <p:column headerText="Ver">
-
+                                                    <p:column headerText="ver">
+                                                        <p:commandLink onclick="PrimeFaces.monitorDownload(start, stop);"  style="color: white; width: 100%" process="@this" action="#{pedidosCT.verPedido(pedido)}" class="btn btn-block btn-warning">
+                                                            <i class="fa fa-arrow-right"></i> 
+                                                        </p:commandLink>
+                                                    </p:column>
                                                 </p:column>
                                             </p:dataTable>                                         
                                         </div>
                                     </div>
                                 </b:column>  
+
+                                <script type="text/javascript">
+                                    function start() {
+                                        PF('statusDialog').show();
+                                    }
+                                    function stop() {
+                                        PF('statusDialog').hide();
+                                    }
+                                </script>
+                                <p:dialog modal="true" widgetVar="statusDialog"  header="Cargando pedido, espere" draggable="false" closable="false" resizable="false">
+                                    <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif" />
+                                </p:dialog>
                             </h:form>
                         </b:row>
                     </c:when>
@@ -335,7 +388,7 @@
                                                         </h:panelGrid>
                                                     </td>
                                                     <td width="45%" align="right">
-                                                        <p:commandButton action="Pedido" icon="fa fa-arrow-right" iconPos="right" value="Ver" class="btn btn-info" style="height: 50px; width: 60%"/>
+                                                        <p:commandButton action="Pedidos" icon="fa fa-arrow-right" iconPos="right" value="Ver" class="btn btn-info" style="height: 50px; width: 60%"/>
                                                     </td>
                                                 </tr>                                    
                                             </table>
@@ -378,7 +431,7 @@
                                             <h4 class="box-title">Pedidos en planta</h4>
                                         </div>
                                         <div class="box-body">                                           
-                                            <p:dataTable emptyMessage="Sin pedidos en planta" var="pedido" value="#{pedidoCT.consultarPedidosEnplantaSegunCliente()}" class="table table-responsive">
+                                            <p:dataTable emptyMessage="Sin pedidos en planta" var="pedido" value="#{pedidosCT.consultarPedidosEnplantaSegunCliente()}" class="table table-responsive">
                                                 <p:column headerText="Cliente">
                                                     <h:outputText value="#{pedido.usuario.nombre} #{pedido.usuario.apellido}"></h:outputText>
                                                 </p:column>
@@ -392,7 +445,11 @@
                                                     <h:outputText value="#{pedido.proveedor.razonSocial}"></h:outputText>
                                                 </p:column>
                                                 <p:column headerText="ver">
-
+                                                    <p:column headerText="ver">
+                                                        <p:commandLink onclick="PrimeFaces.monitorDownload(start, stop);"  style="color: white; width: 100%" process="@this" action="#{pedidosCT.verPedido(pedido)}" class="btn btn-block btn-warning">
+                                                            <i class="fa fa-arrow-right"></i> 
+                                                        </p:commandLink>
+                                                    </p:column>
                                                 </p:column>
                                             </p:dataTable>                                            
                                         </div>
@@ -406,7 +463,7 @@
                                             <h4 class="box-title">Pedidos listos para entrega</h4>
                                         </div>
                                         <div class="box-body">                                           
-                                            <p:dataTable emptyMessage="Sin pedidos para recibir" var="pedido" value="#{pedidoCT.consultarPedidosPorRecibirSegunCliente()}" class="table table-responsive" >
+                                            <p:dataTable emptyMessage="Sin pedidos para recibir" var="pedido" value="#{pedidosCT.consultarPedidosPorRecibirSegunCliente()}" class="table table-responsive" >
                                                 <p:column headerText="Cliente">
                                                     <h:outputText value="#{pedido.usuario.nombre} #{pedido.usuario.apellido}"></h:outputText>
                                                 </p:column>
@@ -420,7 +477,11 @@
                                                     <h:outputText value="#{pedido.proveedor.razonSocial}"></h:outputText>
                                                 </p:column>
                                                 <p:column headerText="Ver">
-
+                                                    <p:column headerText="ver">
+                                                        <p:commandLink onclick="PrimeFaces.monitorDownload(start, stop);"  style="color: white; width: 100%" process="@this" action="#{pedidosCT.verPedido(pedido)}" class="btn btn-block btn-warning">
+                                                            <i class="fa fa-arrow-right"></i> 
+                                                        </p:commandLink>
+                                                    </p:column>
                                                 </p:column>
                                             </p:dataTable>                                         
                                         </div>
@@ -433,7 +494,7 @@
                                                 <h4 class="box-title">Cantidad de pedidos</h4>  
                                             </div>
                                             <div class="box-body" align="center">
-                                                <p:knob max="100" step="1" disabled="true" value="#{pedidoCT.pedidos.size()}"></p:knob>
+                                                <p:knob max="100" step="1" disabled="true" value="#{pedidosCT.pedidos.size()}"></p:knob>
                                             </div>
                                         </div>
                                     </b:column>
@@ -467,6 +528,17 @@
                                         </div>
                                     </b:column>
                                 </b:column>
+                                <script type="text/javascript">
+                                    function start() {
+                                        PF('statusDialog').show();
+                                    }
+                                    function stop() {
+                                        PF('statusDialog').hide();
+                                    }
+                                </script>
+                                <p:dialog modal="true" widgetVar="statusDialog"  header="Cargando pedido, espere" draggable="false" closable="false" resizable="false">
+                                    <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif" />
+                                </p:dialog>
                             </h:form>
                         </b:row>                        
                     </c:when>              

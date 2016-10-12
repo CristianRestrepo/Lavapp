@@ -116,6 +116,12 @@ public class Pedido_TO implements Serializable {
      */
     private Usuario_TO asesor;
 
+    /**
+     *
+     * Columna idAsesor
+     */
+    private FormaPago_TO formaPago;
+
     //Constructores
     public Pedido_TO() {
         this.barrioEntrega = new Barrio_TO();
@@ -125,6 +131,7 @@ public class Pedido_TO implements Serializable {
         this.horaFinal = new Horario_TO();
         this.proveedor = new Proveedor_TO();
         this.usuario = new Usuario_TO();
+        this.formaPago = new FormaPago_TO();
     }
 
     //Constructor General
@@ -132,7 +139,7 @@ public class Pedido_TO implements Serializable {
         this.idPedido = idPedido;
     }
 
-    public Pedido_TO(int idPedido, Usuario_TO usuario, Date fechaInicio, Horario_TO horaInicio, Horario_TO horaFinal, Estado_TO estado, Proveedor_TO proveedor, Date fechaEntrega, String direccionEntrega, String direccionRecogida, Date fechaRecogida, String quienEntrega, String quienRecibe, Barrio_TO barrioRecogida, Barrio_TO barrioEntrega, Usuario_TO asesor) {
+    public Pedido_TO(int idPedido, Usuario_TO usuario, Date fechaInicio, Horario_TO horaInicio, Horario_TO horaFinal, Estado_TO estado, Proveedor_TO proveedor, Date fechaEntrega, String direccionEntrega, String direccionRecogida, Date fechaRecogida, String quienEntrega, String quienRecibe, Barrio_TO barrioRecogida, Barrio_TO barrioEntrega, Usuario_TO asesor, FormaPago_TO formaPago) {
         this.idPedido = idPedido;
         this.usuario = usuario;
         this.fechaInicio = fechaInicio;
@@ -149,9 +156,10 @@ public class Pedido_TO implements Serializable {
         this.barrioRecogida = barrioRecogida;
         this.barrioEntrega = barrioEntrega;
         this.asesor = asesor;
+        this.formaPago = formaPago;
     }
 
-    public Pedido_TO(Usuario_TO usuario, Date fechaInicio, Horario_TO horaInicio, Horario_TO horaFinal, Estado_TO estado, Proveedor_TO proveedor, Date fechaEntrega, String direccionEntrega, String direccionRecogida, Date fechaRecogida, String quienEntrega, String quienRecibe, Barrio_TO barrioRecogida, Barrio_TO barrioEntrega, Usuario_TO asesor) {
+    public Pedido_TO(Usuario_TO usuario, Date fechaInicio, Horario_TO horaInicio, Horario_TO horaFinal, Estado_TO estado, Proveedor_TO proveedor, Date fechaEntrega, String direccionEntrega, String direccionRecogida, Date fechaRecogida, String quienEntrega, String quienRecibe, Barrio_TO barrioRecogida, Barrio_TO barrioEntrega, Usuario_TO asesor, FormaPago_TO formaPago) {
         this.usuario = usuario;
         this.fechaInicio = fechaInicio;
         this.horaInicio = horaInicio;
@@ -167,9 +175,10 @@ public class Pedido_TO implements Serializable {
         this.barrioRecogida = barrioRecogida;
         this.barrioEntrega = barrioEntrega;
         this.asesor = asesor;
+        this.formaPago = formaPago;
     }
 
-    public Pedido_TO(Usuario_TO usuario, Date fechaInicio, Horario_TO horaInicio, Horario_TO horaFinal, Estado_TO estado, Date fechaEntrega, String direccionEntrega, String direccionRecogida, Date fechaRecogida, String quienEntrega, String quienRecibe, Barrio_TO barrioRecogida, Barrio_TO barrioEntrega) {
+    public Pedido_TO(Usuario_TO usuario, Date fechaInicio, Horario_TO horaInicio, Horario_TO horaFinal, Estado_TO estado, Date fechaEntrega, String direccionEntrega, String direccionRecogida, Date fechaRecogida, String quienEntrega, String quienRecibe, Barrio_TO barrioRecogida, Barrio_TO barrioEntrega, FormaPago_TO formaPago) {
         this.usuario = usuario;
         this.fechaInicio = fechaInicio;
         this.horaInicio = horaInicio;
@@ -183,6 +192,7 @@ public class Pedido_TO implements Serializable {
         this.quienRecibe = quienRecibe;
         this.barrioRecogida = barrioRecogida;
         this.barrioEntrega = barrioEntrega;
+        this.formaPago = formaPago;
     }
 
     //Getter and Setter   
@@ -314,10 +324,16 @@ public class Pedido_TO implements Serializable {
         this.asesor = asesor;
     }
 
-    
+    public FormaPago_TO getFormaPago() {
+        return formaPago;
+    }
+
+    public void setFormaPago(FormaPago_TO formaPago) {
+        this.formaPago = formaPago;
+    }
 
     @Override
     public String toString() {
-        return "Pedido_TO{" + "idPedido=" + idPedido + ", usuario=" + usuario + ", fechaInicio=" + fechaInicio + ", horaInicio=" + horaInicio + ", horaFinal=" + horaFinal + ", estado=" + estado + ", proveedor=" + proveedor + ", fechaEntrega=" + fechaEntrega + ", direccionEntrega=" + direccionEntrega + ", direccionRecogida=" + direccionRecogida + ", fechaRecogida=" + fechaRecogida + ", quienEntrega=" + quienEntrega + ", quienRecibe=" + quienRecibe + ", barrioRecogida=" + barrioRecogida + ", barrioEntrega=" + barrioEntrega + ", asesor=" + asesor + '}';
+        return "Pedido_TO{" + "idPedido=" + idPedido + ", usuario=" + usuario + ", fechaInicio=" + fechaInicio + ", horaInicio=" + horaInicio + ", horaFinal=" + horaFinal + ", estado=" + estado + ", proveedor=" + proveedor + ", fechaEntrega=" + fechaEntrega + ", direccionEntrega=" + direccionEntrega + ", direccionRecogida=" + direccionRecogida + ", fechaRecogida=" + fechaRecogida + ", quienEntrega=" + quienEntrega + ", quienRecibe=" + quienRecibe + ", barrioRecogida=" + barrioRecogida + ", barrioEntrega=" + barrioEntrega + ", asesor=" + asesor + ", formaPago=" + formaPago + '}';
     }
 }

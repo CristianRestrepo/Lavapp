@@ -398,42 +398,96 @@
                                                                 <img src="./images/fanq/mastercard.svg" alt="" class="img-franq-2"/>
                                                                 <img src="./images/fanq/visa.svg" alt="" class="img-franq-3"/>
                                                             </span>							
-                                                        </div>
+                                                        </div>                                                     
+                                                      
+                                                        <div id="accordion" role="tablist" aria-multiselectable="true">
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-heading" role="tab" id="headingOne">
+                                                                    <h4 class="panel-title">
+                                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                                            Pago con tarjeta
+                                                                        </a>
+                                                                    </h4>
+                                                                </div>
+                                                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                                                    <div class="container-fluid">
+                                                                        <div class="form-group">
+                                                                            <label class="label-lv-2" for="">Número de Tarjeta</label>
+                                                                            <input type="text" class="input-lg form-control input-lg-lv"/>
 
-                                                        <button class="btn btn-primary"  type="button" data-toggle="collapse" data-target="#collapseVentana1" aria-expanded="false" aria-controls="collapseVentana1">	Pago con Tarjeta	
-                                                        </button>
-                                                        <button class="btn btn-primary"  type="button" data-toggle="collapse" data-target="#collapseVentana2" aria-expanded="false" aria-controls="collapseVentana2">Pago en Persona
-                                                        </button>
+                                                                            <span class="help-block color-grey"><em>* inserte el numero de la tarjeta débito o crédito</em></span>		
 
-                                                        <div class="collapse in" id="collapseVentana1">
-                                                            <div class="form-group">
-                                                                <label class="label-lv-2" for="">Número de Tarjeta</label>
-                                                                <input type="text" class="input-lg form-control input-lg-lv"/>
+                                                                            <label class="label-lv-2" >Fecha de Expiración</label>
+                                                                            <div class="row">
+                                                                                <div class="col-sm-12-col-xs-12">
 
-                                                                <span class="help-block color-grey"><em>* inserte el numero de la tarjeta débito o crédito</em></span>		
+                                                                                    <div class="col-xs-4">													
+                                                                                        <input type="text" class="input-lg form-control input-lg-lv" placeholder="Año"/>
 
-                                                                <label class="label-lv-2" >Fecha de Expiración</label>
-                                                                <div class="row">
-                                                                    <div class="col-sm-12-col-xs-12">
+                                                                                        <span class="help-block color-grey"><em>* inserte el numero de la tarjeta débito o crédito</em></span>	
+                                                                                    </div>
+                                                                                    <div class="col-xs-4">													
+                                                                                        <input type="text" class="input-lg form-control input-lg-lv" placeholder="Mes"/>
 
-                                                                        <div class="col-xs-4">													
-                                                                            <input type="text" class="input-lg form-control input-lg-lv" placeholder="Año"/>
+                                                                                        <span class="help-block color-grey"><em>* inserte el numero de la tarjeta débito o crédito</em></span>	
+                                                                                    </div>
+                                                                                    <div class="col-xs-4">													
+                                                                                        <input type="text" class="input-lg form-control input-lg-lv" placeholder="Día"/>
 
-                                                                            <span class="help-block color-grey"><em>* inserte el numero de la tarjeta débito o crédito</em></span>	
+                                                                                        <span class="help-block color-grey"><em>* inserte el numero de la tarjeta débito o crédito</em></span>	
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div style="width: 50%" align="center">
+                                                                                <p:commandButton process="@this" oncomplete="#{subProductoCT.limpiarListasProductos()}" onclick="PrimeFaces.monitorDownload(start, stop);" update=":formularioContenido :formularioModal" action="#{pedidoCT.registrarPedido()}" value="PAGAR" class="btn btn-block btn-success">
+                                                                                    <f:setPropertyActionListener target="#{pedidoCT.pedido.formaPago.idFormaPago}" value="3" />
+                                                                                </p:commandButton>
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="col-xs-4">													
-                                                                            <input type="text" class="input-lg form-control input-lg-lv" placeholder="Mes"/>
-
-                                                                            <span class="help-block color-grey"><em>* inserte el numero de la tarjeta débito o crédito</em></span>	
-                                                                        </div>
-                                                                        <div class="col-xs-4">													
-                                                                            <input type="text" class="input-lg form-control input-lg-lv" placeholder="Día"/>
-
-                                                                            <span class="help-block color-grey"><em>* inserte el numero de la tarjeta débito o crédito</em></span>	
+                                                                    </div>  
+                                                                </div>
+                                                            </div>
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-heading" role="tab" id="headingTwo">
+                                                                    <h4 class="panel-title">
+                                                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                                            Pago en efectivo
+                                                                        </a>
+                                                                    </h4>
+                                                                </div>
+                                                                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                                                    <div class="container-fluid">
+                                                                        <div class="form-group"> 
+                                                                            <div align="center">
+                                                                                <p>Desea pagar el servicio en efectivo cuando el asesor recoja su pedido.</p>
+                                                                            </div>
+                                                                            <p:commandButton immediate="true" oncomplete="#{subProductoCT.limpiarListasProductos()}" process="@this" onclick="PrimeFaces.monitorDownload(start, stop);" update=":formularioContenido :formularioModal" action="#{pedidoCT.registrarPedido()}" value="CONFIRMAR SERVICIO" style="width: 150px" class="btn btn-success">
+                                                                                <f:setPropertyActionListener target="#{pedidoCT.pedido.formaPago.idFormaPago}" value="1" />
+                                                                            </p:commandButton>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" update=":formularioContenido" action="#{pedidoCT.registrarPedido()}" value="PAGAR" style="width: 150px" class="btn btn-success"/>
+                                                            </div>
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-heading" role="tab" id="headingThree">
+                                                                    <h4 class="panel-title">
+                                                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                                            Pago con tarjeta en sitio
+                                                                        </a>
+                                                                    </h4>
+                                                                </div>
+                                                                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                                                    <div class="container-fluid">
+                                                                        <div class="form-group"> 
+                                                                            <div align="center">
+                                                                                <p>Desea pagar el servicio con tarjeta cuando el asesor recoja su pedido.</p>
+                                                                            </div>
+                                                                            <p:commandButton immediate="true" process="@this" oncomplete="#{subProductoCT.limpiarListasProductos()}" onclick="PrimeFaces.monitorDownload(start, stop);" update=":formularioContenido :formularioModal" action="#{pedidoCT.registrarPedido()}" value="CONFIRMAR SERVICIO" style="width: 150px" class="btn btn-success">
+                                                                                <f:setPropertyActionListener target="#{pedidoCT.pedido.formaPago.idFormaPago}" value="2"/>
+                                                                            </p:commandButton>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>                                                   

@@ -12,6 +12,7 @@ import com.planit.lavappweb.modelo.dto.Pedido_TO;
 import com.planit.lavappweb.modelo.dto.SubProducto_TO;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarDescripcionPedido;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarDescripcionPedidoSegunPedido;
+import com.planit.lavappweb.webservices.clientes.ClienteEditarDescripcionPedido;
 import com.planit.lavappweb.webservices.clientes.ClienteEditarEstadoDescripcionPedido;
 import com.planit.lavappweb.webservices.clientes.ClienteEliminarDescripcionPedido;
 import com.planit.lavappweb.webservices.clientes.ClienteEliminarDescripcionesSegunPedido;
@@ -92,6 +93,20 @@ public class DescripcionPedidoDao {
                 "" + descripcionPedido.getEstado().getIdEstado(),
                 "" + descripcionPedido.getPedido().getIdPedido(),
                 "" + descripcionPedido.getSubProducto().getIdSubProducto());
+    }
+    
+    public DescripcionPedido_TO editarDescripcionPedido(DescripcionPedido_TO descripcionPedido) {
+        ClienteEditarDescripcionPedido cliente = new ClienteEditarDescripcionPedido();
+        return cliente.editarDescripcionPedido(DescripcionPedido_TO.class,
+                "" + descripcionPedido.getIdDescripcionPedido(),
+                "" + descripcionPedido.getEstado().getIdEstado(),
+                descripcionPedido.getDescripcion(),
+                descripcionPedido.getObservacionAsesor(), 
+                descripcionPedido.getObservacionAdministrador(),
+                "" + descripcionPedido.getColor().getIdColor(),
+                "" + descripcionPedido.getPedido().getIdPedido(), 
+                "" + descripcionPedido.getSubProducto().getIdSubProducto(), 
+                "" + descripcionPedido.getCodigo());
     }
 
     public DescripcionPedido_TO eliminarDescripcionPedido(DescripcionPedido_TO descripcionPedido) {

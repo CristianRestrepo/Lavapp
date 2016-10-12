@@ -182,6 +182,11 @@ public class SubProductoCT implements Serializable {
         subProductosClasificados = subProductoDao.consultarSubProductosSegunProducto(producto);
         subProductosConCosto = subProductoDao.consultarSubProductosConCostoSegunProducto(producto);
     }
+    
+    public void limpiarListasProductos(){
+        subProductosClasificados.clear();
+        subProductosConCosto.clear();
+    }
 
     //Metodos Propios
     public void metodo() throws IOException {
