@@ -24,13 +24,12 @@
                 <b:container fluid="true">
                     <b:row>
                         <b:column col-lg="12">
-                            <div align="center">
-                                <h3> CALIFICANOS <small> Calificanos y dejanos tus comentarios.</small></h3>                            
-                            </div>
-                        </b:column>
-
-                        <p:separator/>
-
+                            <div class="col-lg-4">
+                                <h3 style="font-size: x-large"><strong>CALIFICANOS</strong><small> Calificanos y dejanos tus comentarios</small></h3>                        
+                                <p:separator />
+                            </div>  
+                        </b:column>                   
+                    
                         <h:form id="formularioEstrellas">                          
                             <b:column offset="1" col-lg="10" col-md="10" col-sm="12" col-xs="12">                          
                                 <c:choose>
@@ -109,12 +108,11 @@
                                             <p align="center">De 1 a 5 Califica a nivel general nuestro servicio.</p>
                                             <h:panelGrid id="SubProductos" columns="1" style="width: 100%">  
                                                 <b:inputTextarea rows="5" style="width: 100%" id="txtcomentario" placeholder="Deja tus comentarios o recomendaciones" 
-                                                                 value="#{calificacionCT.calificacionModelo.observacion}"/> 
-                                                <p:message for="formularioCalificacion"/>
+                                                                 value="#{calificacionCT.calificacionModelo.observacion}"/>                                                
                                             </h:panelGrid>
                                         </div>
                                         <div class="box-footer" align="right">
-                                            <p:commandButton value="#{calificacionCT.nombreOperacion}" action="#{calificacionCT.metodo()}" style="width: 35%" class="btn btn-success"/>                                            
+                                            <p:commandButton update=":formularioCalificacion" value="#{calificacionCT.nombreOperacion}" action="#{calificacionCT.metodo()}" style="width: 35%" class="btn btn-success"/>                                            
                                         </div>
                                     </div>
                                 </div>

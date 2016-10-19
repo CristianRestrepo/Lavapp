@@ -51,10 +51,12 @@ public class ClienteEditarPedido {
      * @param quienRecibe query parameter
      * @param idBarrios_recogida query parameter
      * @param idBarrios_entrega query parameter
+     * @param idEstadoPago query parameter
+     * @param idFormaPago query parameter
      * @return response object (instance of responseType class)
      */
-    public <T> T modificarPedido(Class<T> responseType, String idPedido, String idUsuario, String fechaInicio, String horainiIdhorario, String horafinIdHorario, String idEstado, String idProveedor, String fechaEntrega, String direccionRecogida, String direccionEntrega, String fechaRecogida, String quienEntrega, String quienRecibe, String idBarrios_recogida, String idBarrios_entrega) throws ClientErrorException {
-        String[] queryParamNames = new String[]{"idPedido", "idUsuario", "fechaInicio", "horainiIdhorario", "horafinIdHorario", "idEstado", "idProveedor", "fechaEntrega", "direccionRecogida", "direccionEntrega", "fechaRecogida", "quienEntrega", "quienRecibe", "idBarrios_recogida", "idBarrios_entrega"};
+    public <T> T modificarPedido(Class<T> responseType, String idPedido, String idUsuario, String fechaInicio, String horainiIdhorario, String horafinIdHorario, String idEstado, String idProveedor, String fechaEntrega, String direccionRecogida, String direccionEntrega, String fechaRecogida, String quienEntrega, String quienRecibe, String idBarrios_recogida, String idBarrios_entrega, String idFormaPago, String idEstadoPago) throws ClientErrorException {
+        String[] queryParamNames = new String[]{"idPedido", "idUsuario", "fechaInicio", "horainiIdhorario", "horafinIdHorario", "idEstado", "idProveedor", "fechaEntrega", "direccionRecogida", "direccionEntrega", "fechaRecogida", "quienEntrega", "quienRecibe", "idBarrios_recogida", "idBarrios_entrega", "idFormaPago", "idEstadoPago"};
         String[] queryParamValues = new String[]{idPedido, idUsuario, fechaInicio, horainiIdhorario, horafinIdHorario, idEstado, idProveedor, fechaEntrega, direccionRecogida, direccionEntrega, fechaRecogida, quienEntrega, quienRecibe, idBarrios_recogida, idBarrios_entrega};
         ;
         javax.ws.rs.core.Form form = getQueryOrFormParams(queryParamNames, queryParamValues);

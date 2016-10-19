@@ -1672,9 +1672,9 @@ estilos de banner para celular
 /*=======================================================================================================*/
 
 .img-logo{
-    max-width: 64px;
+    max-width: 160px;
     min-height: auto;
-    min-width: 61px;
+    min-width: 160px;
     position: relative;
     top: -18px;
     margin: 0px;
@@ -1686,7 +1686,7 @@ estilos de banner para celular
 
     .img-logo{
         max-width: 64px;
-        min-width: 60px;
+        min-width: 64px;
         position: relative;
         top: -18px;
         margin: 0px;

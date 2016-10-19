@@ -7,6 +7,7 @@ package com.planit.lavappweb.modelo.dao;
 
 import com.planit.lavappweb.metodos.Sesion;
 import com.planit.lavappweb.modelo.dto.Barrio_TO;
+import com.planit.lavappweb.modelo.dto.EstadoPago_TO;
 import com.planit.lavappweb.modelo.dto.Estado_TO;
 import com.planit.lavappweb.modelo.dto.FormaPago_TO;
 import com.planit.lavappweb.modelo.dto.Horario_TO;
@@ -40,10 +41,10 @@ import java.util.List;
  * @author Desarrollo_Planit
  */
 public class PedidoDao {
-    
-    public Pedido_TO asignarAsesorPedido(Pedido_TO pedido, Usuario_TO asesor){
+
+    public Pedido_TO asignarAsesorPedido(Pedido_TO pedido, Usuario_TO asesor) {
         ClienteAsignarAsesorPedido cliente = new ClienteAsignarAsesorPedido();
-        return cliente.asignarAsesorPedido(Pedido_TO.class, "" + asesor.getIdUsuario() , "" + pedido.getIdPedido());
+        return cliente.asignarAsesorPedido(Pedido_TO.class, "" + asesor.getIdUsuario(), "" + pedido.getIdPedido());
     }
 
     public Pedido_TO editarEstadoPedido(Pedido_TO pedido) {
@@ -69,7 +70,9 @@ public class PedidoDao {
                 pedido.getQuienEntrega(),
                 pedido.getQuienRecibe(),
                 "" + pedido.getBarrioRecogida().getIdBarrios(),
-                "" + pedido.getBarrioEntrega().getIdBarrios());
+                "" + pedido.getBarrioEntrega().getIdBarrios(),
+                "" + pedido.getFormaPago().getIdFormaPago(),
+                "" + pedido.getEstadoPago().getIdEstadoPago());
     }
 
     public Pedido_TO eliminarPedido(Pedido_TO pedido) {
@@ -97,9 +100,11 @@ public class PedidoDao {
         BarriosDao bd = new BarriosDao();
         EstadoDao ed = new EstadoDao();
         FormaPagoDao fd = new FormaPagoDao();
+        EstadoPagoDao epd = new EstadoPagoDao();
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 
         pedido.setEstado(ed.consultarEstadoID(new Estado_TO(3)));
+        pedido.setEstadoPago(epd.consultarEstadoPago(new EstadoPago_TO(2)));
         pedido.setBarrioEntrega(bd.consultarBarrio(pedido.getBarrioEntrega()));
         pedido.setBarrioRecogida(bd.consultarBarrio(pedido.getBarrioRecogida()));
         pedido.setFormaPago(fd.consultarFormaPago(pedido.getFormaPago()));
@@ -121,8 +126,9 @@ public class PedidoDao {
                 pedido.getQuienEntrega(),
                 pedido.getQuienRecibe(),
                 "" + pedido.getBarrioRecogida().getIdBarrios(),
-                "" + pedido.getBarrioEntrega().getIdBarrios(),              
-                "" + pedido.getFormaPago().getIdFormaPago());
+                "" + pedido.getBarrioEntrega().getIdBarrios(),
+                "" + pedido.getFormaPago().getIdFormaPago(),
+                "" + pedido.getEstadoPago().getIdEstadoPago());
     }
 
     public List<Pedido_TO> consultarPedidos() {
@@ -141,6 +147,7 @@ public class PedidoDao {
         Barrio_TO barrioRecogida = new Barrio_TO();
         Barrio_TO barrioEntrega = new Barrio_TO();
         FormaPago_TO formaPago = new FormaPago_TO();
+        EstadoPago_TO estadoPago = new EstadoPago_TO();
 
 //      SERVICIOS DE CADA MODELO
         UsuarioDao ud = new UsuarioDao();
@@ -149,6 +156,7 @@ public class PedidoDao {
         ProveedorDao pd = new ProveedorDao();
         BarriosDao bd = new BarriosDao();
         FormaPagoDao fd = new FormaPagoDao();
+        EstadoPagoDao epd = new EstadoPagoDao();
 
         for (int i = 0; i < datos.size(); i++) {
 
@@ -179,8 +187,10 @@ public class PedidoDao {
 //          FORMA PAGO
             LinkedHashMap mapFP = (LinkedHashMap) datos.get(i).get("formaPago");
             formaPago = fd.consultarFormaPago(new FormaPago_TO((int) mapFP.get("idFormaPago")));
+//          ESTADO PAGO
+            LinkedHashMap mapEP = (LinkedHashMap) datos.get(i).get("estadoPago");
+            estadoPago = epd.consultarEstadoPago(new EstadoPago_TO((int) mapEP.get("idEstadoPago")));
 
-            
 //          INGERSO DE DATOS A LISTA DE OBJETO PEDIDO
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             try {
@@ -200,7 +210,8 @@ public class PedidoDao {
                         barrioRecogida,
                         barrioEntrega,
                         asesor,
-                        formaPago));
+                        formaPago,
+                        estadoPago));
             } catch (ParseException e) {
                 e.getMessage();
             }
@@ -224,6 +235,7 @@ public class PedidoDao {
         Barrio_TO barrioRecogida = new Barrio_TO();
         Barrio_TO barrioEntrega = new Barrio_TO();
         FormaPago_TO formaPago = new FormaPago_TO();
+        EstadoPago_TO estadoPago = new EstadoPago_TO();
 
 //      SERVICIOS DE CADA MODELO
         UsuarioDao ud = new UsuarioDao();
@@ -232,6 +244,7 @@ public class PedidoDao {
         ProveedorDao pd = new ProveedorDao();
         BarriosDao bd = new BarriosDao();
         FormaPagoDao fd = new FormaPagoDao();
+        EstadoPagoDao epd = new EstadoPagoDao();
 
         for (int i = 0; i < datos.size(); i++) {
 
@@ -262,8 +275,10 @@ public class PedidoDao {
 //          FORMA PAGO
             LinkedHashMap mapFP = (LinkedHashMap) datos.get(i).get("formaPago");
             formaPago = fd.consultarFormaPago(new FormaPago_TO((int) mapFP.get("idFormaPago")));
+//          ESTADO PAGO
+            LinkedHashMap mapEP = (LinkedHashMap) datos.get(i).get("estadoPago");
+            estadoPago = epd.consultarEstadoPago(new EstadoPago_TO((int) mapEP.get("idEstadoPago")));
 
-            
 //          INGERSO DE DATOS A LISTA DE OBJETO PEDIDO
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             try {
@@ -283,7 +298,8 @@ public class PedidoDao {
                         barrioRecogida,
                         barrioEntrega,
                         asesor,
-                        formaPago));
+                        formaPago,
+                        estadoPago));
             } catch (ParseException e) {
                 e.getMessage();
             }
@@ -308,6 +324,7 @@ public class PedidoDao {
         Barrio_TO barrioRecogida = new Barrio_TO();
         Barrio_TO barrioEntrega = new Barrio_TO();
         FormaPago_TO formaPago = new FormaPago_TO();
+        EstadoPago_TO estadoPago = new EstadoPago_TO();
 
 //      SERVICIOS DE CADA MODELO
         UsuarioDao ud = new UsuarioDao();
@@ -316,7 +333,7 @@ public class PedidoDao {
         ProveedorDao pd = new ProveedorDao();
         BarriosDao bd = new BarriosDao();
         FormaPagoDao fd = new FormaPagoDao();
-
+        EstadoPagoDao epd = new EstadoPagoDao();
         for (int i = 0; i < datos.size(); i++) {
 
 //          USUARIO
@@ -346,8 +363,10 @@ public class PedidoDao {
 //          FORMA PAGO
             LinkedHashMap mapFP = (LinkedHashMap) datos.get(i).get("formaPago");
             formaPago = fd.consultarFormaPago(new FormaPago_TO((int) mapFP.get("idFormaPago")));
+            //          ESTADO PAGO
+            LinkedHashMap mapEP = (LinkedHashMap) datos.get(i).get("estadoPago");
+            estadoPago = epd.consultarEstadoPago(new EstadoPago_TO((int) mapEP.get("idEstadoPago")));
 
-            
 //          INGERSO DE DATOS A LISTA DE OBJETO PEDIDO
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             try {
@@ -367,7 +386,8 @@ public class PedidoDao {
                         barrioRecogida,
                         barrioEntrega,
                         asesor,
-                        formaPago));
+                        formaPago,
+                        estadoPago));
             } catch (ParseException e) {
                 throw e;
             }
@@ -391,6 +411,7 @@ public class PedidoDao {
         Barrio_TO barrioRecogida = new Barrio_TO();
         Barrio_TO barrioEntrega = new Barrio_TO();
         FormaPago_TO formaPago = new FormaPago_TO();
+        EstadoPago_TO estadoPago = new EstadoPago_TO();
 
 //      SERVICIOS DE CADA MODELO
         UsuarioDao ud = new UsuarioDao();
@@ -399,6 +420,7 @@ public class PedidoDao {
         ProveedorDao pd = new ProveedorDao();
         BarriosDao bd = new BarriosDao();
         FormaPagoDao fd = new FormaPagoDao();
+        EstadoPagoDao epd = new EstadoPagoDao();
 
         for (int i = 0; i < datos.size(); i++) {
 
@@ -429,7 +451,9 @@ public class PedidoDao {
 //          FORMA PAGO
             LinkedHashMap mapFP = (LinkedHashMap) datos.get(i).get("formaPago");
             formaPago = fd.consultarFormaPago(new FormaPago_TO((int) mapFP.get("idFormaPago")));
-
+             //          ESTADO PAGO
+            LinkedHashMap mapEP = (LinkedHashMap) datos.get(i).get("estadoPago");
+            estadoPago = epd.consultarEstadoPago(new EstadoPago_TO((int) mapEP.get("idEstadoPago")));
             
 //          INGERSO DE DATOS A LISTA DE OBJETO PEDIDO
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -450,7 +474,8 @@ public class PedidoDao {
                         barrioRecogida,
                         barrioEntrega,
                         asesor,
-                        formaPago));
+                        formaPago,
+                        estadoPago));
             } catch (ParseException e) {
                 throw e;
             }
@@ -473,6 +498,7 @@ public class PedidoDao {
         Barrio_TO barrioRecogida = new Barrio_TO();
         Barrio_TO barrioEntrega = new Barrio_TO();
         FormaPago_TO formaPago = new FormaPago_TO();
+        EstadoPago_TO estadoPago = new EstadoPago_TO();
 
 //      SERVICIOS DE CADA MODELO
         UsuarioDao ud = new UsuarioDao();
@@ -481,6 +507,7 @@ public class PedidoDao {
         ProveedorDao pd = new ProveedorDao();
         BarriosDao bd = new BarriosDao();
         FormaPagoDao fd = new FormaPagoDao();
+        EstadoPagoDao epd = new EstadoPagoDao();
 
         for (int i = 0; i < datos.size(); i++) {
 
@@ -511,8 +538,9 @@ public class PedidoDao {
 //          FORMA PAGO
             LinkedHashMap mapFP = (LinkedHashMap) datos.get(i).get("formaPago");
             formaPago = fd.consultarFormaPago(new FormaPago_TO((int) mapFP.get("idFormaPago")));
-
-            
+//          ESTADO PAGO
+            LinkedHashMap mapEP = (LinkedHashMap) datos.get(i).get("estadoPago");
+            estadoPago = epd.consultarEstadoPago(new EstadoPago_TO((int) mapEP.get("idEstadoPago")));
 //          INGERSO DE DATOS A LISTA DE OBJETO PEDIDO
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             try {
@@ -532,7 +560,8 @@ public class PedidoDao {
                         barrioRecogida,
                         barrioEntrega,
                         asesor,
-                        formaPago));
+                        formaPago,
+                        estadoPago));
             } catch (ParseException e) {
                 e.getMessage();
             }
@@ -555,6 +584,7 @@ public class PedidoDao {
         Barrio_TO barrioRecogida = new Barrio_TO();
         Barrio_TO barrioEntrega = new Barrio_TO();
         FormaPago_TO formaPago = new FormaPago_TO();
+        EstadoPago_TO estadoPago = new EstadoPago_TO();
 
 //      SERVICIOS DE CADA MODELO
         UsuarioDao ud = new UsuarioDao();
@@ -563,6 +593,7 @@ public class PedidoDao {
         ProveedorDao pd = new ProveedorDao();
         BarriosDao bd = new BarriosDao();
         FormaPagoDao fd = new FormaPagoDao();
+        EstadoPagoDao epd = new EstadoPagoDao();
 
         for (int i = 0; i < datos.size(); i++) {
 
@@ -593,7 +624,9 @@ public class PedidoDao {
 //          FORMA PAGO
             LinkedHashMap mapFP = (LinkedHashMap) datos.get(i).get("formaPago");
             formaPago = fd.consultarFormaPago(new FormaPago_TO((int) mapFP.get("idFormaPago")));
-
+//          ESTADO PAGO
+            LinkedHashMap mapEP = (LinkedHashMap) datos.get(i).get("estadoPago");
+            estadoPago = epd.consultarEstadoPago(new EstadoPago_TO((int) mapEP.get("idEstadoPago")));
             
 //          INGERSO DE DATOS A LISTA DE OBJETO PEDIDO
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -614,7 +647,8 @@ public class PedidoDao {
                         barrioRecogida,
                         barrioEntrega,
                         asesor,
-                        formaPago));
+                        formaPago,
+                        estadoPago));
             } catch (ParseException e) {
                 e.getMessage();
             }
@@ -637,6 +671,7 @@ public class PedidoDao {
         Barrio_TO barrioRecogida = new Barrio_TO();
         Barrio_TO barrioEntrega = new Barrio_TO();
         FormaPago_TO formaPago = new FormaPago_TO();
+        EstadoPago_TO estadoPago = new EstadoPago_TO();
 
 //      SERVICIOS DE CADA MODELO
         UsuarioDao ud = new UsuarioDao();
@@ -645,6 +680,7 @@ public class PedidoDao {
         ProveedorDao pd = new ProveedorDao();
         BarriosDao bd = new BarriosDao();
         FormaPagoDao fd = new FormaPagoDao();
+        EstadoPagoDao epd = new EstadoPagoDao();
 
         for (int i = 0; i < datos.size(); i++) {
 
@@ -675,8 +711,9 @@ public class PedidoDao {
 //          FORMA PAGO
             LinkedHashMap mapFP = (LinkedHashMap) datos.get(i).get("formaPago");
             formaPago = fd.consultarFormaPago(new FormaPago_TO((int) mapFP.get("idFormaPago")));
-
-            
+//          ESTADO PAGO
+            LinkedHashMap mapEP = (LinkedHashMap) datos.get(i).get("estadoPago");
+            estadoPago = epd.consultarEstadoPago(new EstadoPago_TO((int) mapEP.get("idEstadoPago")));
 //          INGERSO DE DATOS A LISTA DE OBJETO PEDIDO
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
             try {
@@ -696,7 +733,8 @@ public class PedidoDao {
                         barrioRecogida,
                         barrioEntrega,
                         asesor,
-                        formaPago));
+                        formaPago,
+                        estadoPago));
             } catch (ParseException e) {
                 e.getMessage();
             }
@@ -719,6 +757,7 @@ public class PedidoDao {
         Barrio_TO barrioRecogida = new Barrio_TO();
         Barrio_TO barrioEntrega = new Barrio_TO();
         FormaPago_TO formaPago = new FormaPago_TO();
+        EstadoPago_TO estadoPago = new EstadoPago_TO();
 
 //      SERVICIOS DE CADA MODELO
         UsuarioDao ud = new UsuarioDao();
@@ -727,7 +766,8 @@ public class PedidoDao {
         ProveedorDao pd = new ProveedorDao();
         BarriosDao bd = new BarriosDao();
         FormaPagoDao fd = new FormaPagoDao();
-
+        EstadoPagoDao epd = new EstadoPagoDao();
+        
         for (int i = 0; i < datos.size(); i++) {
 
 //          USUARIO
@@ -757,7 +797,9 @@ public class PedidoDao {
 //          FORMA PAGO
             LinkedHashMap mapFP = (LinkedHashMap) datos.get(i).get("formaPago");
             formaPago = fd.consultarFormaPago(new FormaPago_TO((int) mapFP.get("idFormaPago")));
-
+//          ESTADO PAGO
+            LinkedHashMap mapEP = (LinkedHashMap) datos.get(i).get("estadoPago");
+            estadoPago = epd.consultarEstadoPago(new EstadoPago_TO((int) mapEP.get("idEstadoPago")));
             
 //          INGERSO DE DATOS A LISTA DE OBJETO PEDIDO
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -778,7 +820,8 @@ public class PedidoDao {
                         barrioRecogida,
                         barrioEntrega,
                         asesor,
-                        formaPago));
+                        formaPago,
+                        estadoPago));
             } catch (ParseException e) {
                 e.getMessage();
             }

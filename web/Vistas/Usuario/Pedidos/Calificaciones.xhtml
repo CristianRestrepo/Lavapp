@@ -24,7 +24,7 @@
                     <b:row>
                         <div class="col-lg-12 col-md-12">
                             <div align="center">
-                                <h3>Calificaciones<small> Lista de pedidos para ver si calificacion.</small></h3>                            
+                                <h3>Calificaciones<small> Lista de pedidos y sus calificaciones.</small></h3>                            
                             </div>
                         </div>
 
@@ -39,7 +39,7 @@
                                         <p:dataTable var="calificacion" value="#{calificacionCT.calificaciones}" rows="10"
                                                      paginator="true"
                                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                     rowsPerPageTemplate="5,10,15">
+                                                     rowsPerPageTemplate="5,10,15" emptyMessage="Pedidos sin calificar">
                                             <p:column style="width: 100px;text-align: center" headerText="REF Pedido">
                                                 <p:outputLabel value="#{calificacion.pedido.idPedido}" />
                                             </p:column>
@@ -77,7 +77,6 @@
                                 </div>
                             </h:form>
                         </b:column>
-
                     </b:row>
                 </b:container>
             </ui:define>

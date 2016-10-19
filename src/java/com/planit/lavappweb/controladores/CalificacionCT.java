@@ -89,7 +89,7 @@ public class CalificacionCT implements Serializable {
 //    METODOS CRUD
     public void registrar() {
         CalificacionDao calificacionDao = new CalificacionDao();
-        calificacionModelo = calificacionDao.registrarCalificacion(calificacionModelo);
+        calificacionDao.registrarCalificacion(calificacionModelo);
         calificaciones = calificacionDao.consultarCalificaciones();
 
         operacion = 1;
@@ -98,7 +98,7 @@ public class CalificacionCT implements Serializable {
 
     public void modificar() {
         CalificacionDao calificacionDao = new CalificacionDao();
-        calificacionModelo = calificacionDao.modificarCalificacion(calificacionModelo);
+        calificacionDao.modificarCalificacion(calificacionModelo);
         calificaciones = calificacionDao.consultarCalificaciones();
 
     }
@@ -118,10 +118,7 @@ public class CalificacionCT implements Serializable {
         } else if (operacion == 1) {
             modificar();
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Calificacion Modificada", "Su Calificacion has sido modificada exitosamente");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-            //Reiniciamos banderas
-            nombreOperacion = "Enviar Calificacion";
-            operacion = 0;
+            FacesContext.getCurrentInstance().addMessage(null, message);           
         }
     }
 
