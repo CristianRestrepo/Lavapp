@@ -11,7 +11,9 @@ import com.planit.lavappweb.modelo.dao.ProveedorDao;
 import com.planit.lavappweb.modelo.dto.DescripcionPedido_TO;
 import com.planit.lavappweb.modelo.dto.Pedido_TO;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -188,4 +190,9 @@ public class PedidosCT {
         PedidoDao pedidoDao = new PedidoDao();
         pedidoDao.editarEstadoPedido(pedido);
     }
+    
+     public String stringFecha(Date fecha){        
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return  sdf.format(fecha);
+    } 
 }

@@ -137,7 +137,7 @@
                                             </div>
                                             <div class="box-body" align="center">
                                                 <p:knob max="100" disabled="true" step="1" value="#{usuarioCT.clientes.size()}"></p:knob>
-                                                <p:commandButton action="Cliente" icon="fa fa-arrow-right" iconPos="right" value="Ver" class="btn btn-success"></p:commandButton>
+                                                <p:commandButton immediate="true" action="Cliente" icon="fa fa-arrow-right" iconPos="right" value="Ver" class="btn btn-success"></p:commandButton>
                                             </div>
                                         </div>
                                     </b:column>
@@ -178,11 +178,13 @@
                                                     <td width="35%" align="center">
                                                         <h:panelGrid columns="1" width="100%">
                                                             <h4 style="font-size: xx-large" class="title"> Plantas</h4>
-                                                            <p>Plantas de lavado</p>
+                                                            <p>Plantas</p>
                                                         </h:panelGrid>
                                                     </td>
                                                     <td width="45%" align="right">
-                                                        <p:commandButton action="Proveedor" icon="fa fa-arrow-right" iconPos="right" value="Ver" class="btn btn-info" style="height: 50px; width: 60%"/>
+                                                        <p:commandLink action="Proveedor" style="color: white; width: 40px;" process="@this" class="btn btn-block btn-success">
+                                                            <i class="fa fa-arrow-right"></i> 
+                                                        </p:commandLink>
                                                     </td>
                                                 </tr>                                    
                                             </table>
@@ -205,8 +207,10 @@
                                                         </h:panelGrid>
                                                     </td>
                                                     <td width="45%" align="right">
-                                                        <p:commandButton action="Asesor" icon="fa fa-arrow-right" iconPos="right" value="Ver" class="btn btn-info" style="height: 50px; width: 60%"/>
-                                                    </td>
+                                                        <p:commandLink action="Asesor" style="color: white; width: 40px;" process="@this" class="btn btn-block btn-danger">
+                                                            <i class="fa fa-arrow-right"></i> 
+                                                        </p:commandLink>
+                                                       </td>
                                                 </tr>                                    
                                             </table>
                                         </div>
@@ -228,7 +232,9 @@
                                                         </h:panelGrid>
                                                     </td>
                                                     <td width="45%" align="right">
-                                                        <p:commandButton action="Producto" icon="fa fa-arrow-right" iconPos="right" value="Ver" class="btn btn-info" style="height: 50px; width: 60%"/>
+                                                        <p:commandLink action="Producto" style="color: white; width: 40px;" process="@this" class="btn btn-block btn-warning">
+                                                            <i class="fa fa-arrow-right"></i> 
+                                                        </p:commandLink>
                                                     </td>
                                                 </tr>                                    
                                             </table>

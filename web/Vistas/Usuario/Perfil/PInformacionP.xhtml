@@ -12,10 +12,10 @@
             <ui:define name="content">
                 <b:container fluid="true">
                     <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
-                        <div class="espacio-arriba" style="text-align: center" align="center">
-                            <h4 style="font-size: x-large">INFORMACION PERSONAL Y PERFIL</h4><br/>
-                            <p>Te damos la bienvenida, #{sesionCT.usuario.nombre}</p>
-                        </div>
+                        <div class="col-lg-6">
+                            <h3 style="font-size: x-large"><strong>INFORMACION PERSONAL Y PERFIL</strong><br/><small> Modifique su datos personales y su foto de perfil</small></h3>                        
+                            <p:separator />
+                        </div> 
                     </b:column>
                     <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12" offset-lg="1">                        
                         <h:form id="formularioDatosPersonales">
@@ -30,7 +30,7 @@
 
                                             <b:inputText id="TNombres" tooltip="Nombres" required="true" requiredMessage="Ingrese nombres" placeholder="Nombres" style="width: 100%;" maxlength="60" value="#{sesionCT.usuario.nombre}"></b:inputText>                       
                                             <p:message for="TNombres"/>
-                                            
+
                                             <b:inputText id="TApellidos" tooltip="Apellidos" required="true" requiredMessage="Ingrese apellidos" placeholder="Apellidos" style="width: 100%;" maxlength="60" value="#{sesionCT.usuario.apellido}"></b:inputText>                       
                                             <p:message for="TApellidos"/>
 
@@ -46,10 +46,10 @@
 
                                             <b:inputText maxlength="45" id="TTel" tooltip="Numero de telefono" placeholder="Numero de telefono fijo" style="width: 100%" value="#{sesionCT.usuario.telefono}"></b:inputText> 
                                             <p:message for="TTel"/>
-                                            
+
                                             <b:inputText maxlength="45" id="TMovil" tooltip="Numero de Celular" placeholder="Numero de telefono celular" style="width: 100%" value="#{sesionCT.usuario.movil}"></b:inputText> 
                                             <p:message for="TMovil"/>
-                                            
+
                                             <b:selectOneMenu id="SBarrios" tooltip="Barrio donde reside" required="true"  requiredMessage="Por favor, seleccione ciudad" value="#{sesionCT.usuario.barrio.nombre}" style="width: 100%">
                                                 <f:selectItem itemLabel="Seleccione Ciudad"/>
                                                 <f:selectItems value="#{barrioCT.barrios}" var="barrio" itemLabel="#{barrio.nombre}" itemValue="#{barrio.nombre}"/>
@@ -58,25 +58,33 @@
 
                                             <b:inputText maxlength="45" id="Tdir" tooltip="Direccion de residencia" placeholder="Direccion de residencia" value="#{sesionCT.usuario.direccion}" style="width: 100%" ></b:inputText>
                                             <p:message for="Tdir"/>
-
                                         </h:panelGrid>
-
                                     </div>
                                 </div>   
                                 <div class="box-footer">
                                     <h:panelGrid columns="1" width="100%">                                        
-                                        <p:commandButton id="BTModUsuario"  class="btn btn-block btn-primary" ajax="false" update=":formularioDatosPersonales :formB:TEstadoFoto :formB:fileIdPhoto :formularioDatosPersonales:msg" action="#{sesionCT.editarPerfil()}" value="Modificar datos personales" />
+                                        <p:commandButton id="BTModUsuario" onclick="PrimeFaces.monitorDownload(start, stop);" class="btn btn-block btn-primary" ajax="false" update=":formularioDatosPersonales :formB:TEstadoFoto :formB:fileIdPhoto :formularioDatosPersonales:msg" action="#{sesionCT.editarPerfil()}" value="Modificar datos personales" />
                                     </h:panelGrid>
                                     <p:messages closable="true" id="msg" />
                                 </div>
                             </div>
+                            <script type="text/javascript">
+                                function start() {
+                                    PF('statusDialog').show();
+                                }
+                                function stop() {
+                                    PF('statusDialog').hide();
+                                }
+                            </script>
+                            <p:dialog  modal="true" widgetVar="statusDialog" header="Cargando" draggable="false" closable="false" resizable="false">
+                                <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif" />
+                            </p:dialog>
                         </h:form>
                     </b:column>
 
                     <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12" >
                         <h:form id="formB" enctype="multipart/form-data">
                             <div class="box box-success espacio-arriba">
-
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-user-plus"/>
                                     <h4 class="box-title">Fotografia de perfil</h4>
@@ -89,7 +97,7 @@
                                             <p:outputLabel value="Seleccione foto de perfil: "/>
                                             <p:outputLabel id="TEstadoFoto" value="#{sesionCT.estadoFoto}"/>
                                             <div class="table-responsive">
-                                                <p:fileUpload id="fileIdPhoto" fileUploadListener="#{sesionCT.upload}" 
+                                                <p:fileUpload id="fileIdPhoto" label="Seleccionar" fileUploadListener="#{sesionCT.upload}" 
                                                               mode="advanced" dragDropSupport="false"
                                                               process="@this" uploadLabel="Subir Fotografia" 
                                                               cancelLabel="Cancelar" update=":formB" sizeLimit="10000000" allowTypes="/(\.|\/)(jpg|jpeg|png)$/"  />
@@ -105,10 +113,22 @@
                     <b:column col-lg="10" col-md="10" col-sm="12" col-xs="12" offset-lg="1">
                         <h:form>
                             <div style="text-align: left" align="center">
-                                <b:commandButton action="EditarPerfil" iconAwesome="fa fa-arrow-left" 
+                                <b:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" action="EditarPerfil" iconAwesome="fa fa-arrow-left" 
                                                  style="width: 30%"  look="success" value="Regresar" />
                             </div><br/>
+                            <script type="text/javascript">
+                                function start() {
+                                    PF('statusDialog').show();
+                                }
+                                function stop() {
+                                    PF('statusDialog').hide();
+                                }
+                            </script>
+                            <p:dialog  modal="true" widgetVar="statusDialog" header="Cargando" draggable="false" closable="false" resizable="false">
+                                <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif" />
+                            </p:dialog>
                         </h:form>
+
                     </b:column> 
 
                 </b:container>

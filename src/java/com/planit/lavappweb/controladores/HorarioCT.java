@@ -19,22 +19,19 @@ import javax.annotation.PostConstruct;
  *
  * @author Desarrollo_Planit
  */
-public class HorarioCT implements Serializable{
+public class HorarioCT implements Serializable {
 
     private Horario_TO horario;
     private List<Horario_TO> horarios;
 
     private String horainicio;
     private String minutoinicio;
-    private String segundoinicio;
 
     private String horafinal;
     private String minutofinal;
-    private String segundofinal;
 
     private List<String> horas;
     private List<String> minutos;
-    private List<String> segundos;
 
     private String nombreOperacion;
     protected int operacion; //Controla la operacion a ejecutar
@@ -49,16 +46,12 @@ public class HorarioCT implements Serializable{
 
         horainicio = "00";
         minutoinicio = "00";
-        segundoinicio = "00";
 
         horafinal = "00";
         minutofinal = "00";
-        segundofinal = "00";
 
         horas = new ArrayList<>();
         minutos = new ArrayList<>();
-        segundos = new ArrayList<>();
-
         buscar = null;
     }
 
@@ -68,7 +61,6 @@ public class HorarioCT implements Serializable{
         horarios = horarioDao.consultarHorarios();
         cargarhoras();
         cargarminutos();
-        cargarsegundos();
     }
 
     //Getter & Setter
@@ -112,14 +104,6 @@ public class HorarioCT implements Serializable{
         this.minutos = minutos;
     }
 
-    public List<String> getSegundos() {
-        return segundos;
-    }
-
-    public void setSegundos(List<String> segundos) {
-        this.segundos = segundos;
-    }
-
     public String getHorainicio() {
         return horainicio;
     }
@@ -134,14 +118,6 @@ public class HorarioCT implements Serializable{
 
     public void setMinutoinicio(String minutoinicio) {
         this.minutoinicio = minutoinicio;
-    }
-
-    public String getSegundoinicio() {
-        return segundoinicio;
-    }
-
-    public void setSegundoinicio(String segundoinicio) {
-        this.segundoinicio = segundoinicio;
     }
 
     public String getHorafinal() {
@@ -160,14 +136,6 @@ public class HorarioCT implements Serializable{
         this.minutofinal = minutofinal;
     }
 
-    public String getSegundofinal() {
-        return segundofinal;
-    }
-
-    public void setSegundofinal(String segundofinal) {
-        this.segundofinal = segundofinal;
-    }
-
     public String getBuscar() {
         return buscar;
     }
@@ -180,8 +148,8 @@ public class HorarioCT implements Serializable{
     public void registrar() {
 
         HorarioDao horarioDao = new HorarioDao();
-        horario.setHoraInicio(horainicio + ":" + minutoinicio + ":" + segundoinicio);
-        horario.setHoraFinal(horafinal + ":" + minutofinal + ":" + segundofinal);
+        horario.setHoraInicio(horainicio + ":" + minutoinicio);
+        horario.setHoraFinal(horafinal + ":" + minutofinal);
         horario.setHorario("" + horario.getHoraInicio() + "-" + horario.getHoraFinal());
 
         horario = horarioDao.registrarHorario(horario);
@@ -189,30 +157,26 @@ public class HorarioCT implements Serializable{
 
         horainicio = "00";
         minutoinicio = "00";
-        segundoinicio = "00";
 
         horafinal = "00";
         minutofinal = "00";
-        segundofinal = "00";
     }
 
     public void modificar() {
-        
+
         HorarioDao horarioDao = new HorarioDao();
-        horario.setHoraInicio(horainicio + ":" + minutoinicio + ":" + segundoinicio);
-        horario.setHoraFinal(horafinal + ":" + minutofinal + ":" + segundofinal);
+        horario.setHoraInicio(horainicio + ":" + minutoinicio);
+        horario.setHoraFinal(horafinal + ":" + minutofinal);
         horario.setHorario("" + horario.getHoraInicio() + "-" + horario.getHoraFinal());
-        
+
         horario = horarioDao.editarHorario(horario);
         horarios = horarioDao.consultarHorarios();
 
         horainicio = "00";
         minutoinicio = "00";
-        segundoinicio = "00";
 
         horafinal = "00";
         minutofinal = "00";
-        segundofinal = "00";
     }
 
     public void eliminar() {
@@ -239,17 +203,6 @@ public class HorarioCT implements Serializable{
                 minutos.add("0" + i);
             } else {
                 minutos.add("" + i);
-            }
-        }
-    }
-
-    public void cargarsegundos() {
-        segundos = new ArrayList<>();
-        for (int i = 0; i < 60; i++) {
-            if (i < 10) {
-                segundos.add("0" + i);
-            } else {
-                segundos.add("" + i);
             }
         }
     }
@@ -286,12 +239,6 @@ public class HorarioCT implements Serializable{
                 minutoinicio = "" + HI.getMinutes();
             }
 
-            if (HI.getSeconds() < 10) {
-                segundoinicio = "0" + HI.getSeconds();
-            } else {
-                segundoinicio = "" + HI.getSeconds();
-            }
-
             if (HF.getHours() < 10) {
                 horafinal = "0" + HF.getHours();
             } else {
@@ -303,23 +250,15 @@ public class HorarioCT implements Serializable{
             } else {
                 minutofinal = "" + HF.getMinutes();
             }
-
-            if (HF.getSeconds() < 10) {
-                segundofinal = "0" + HF.getSeconds();
-            } else {
-                segundofinal = "" + HF.getSeconds();
-            }
         }
     }
 
     public void cancelar() {
         horainicio = "00";
         minutoinicio = "00";
-        segundoinicio = "00";
 
         horafinal = "00";
         minutofinal = "00";
-        segundofinal = "00";
 
         horario = new Horario_TO();
         operacion = 0;

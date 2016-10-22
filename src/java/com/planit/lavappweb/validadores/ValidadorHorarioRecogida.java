@@ -40,7 +40,7 @@ public class ValidadorHorarioRecogida implements Validator {
         Horario_TO horario = new Horario_TO();
 
         //Obtenemos los valores de cada variable desde el contexto de la vista
-        horario.setHorario((String) o);
+        horario.setHorario((String) o);       
         try {//Formateamos las fechas segun lo necesitemos
             fechaRecogida = sdf.parse(sdf.format((Date) uic.getAttributes().get("fechaRecogida")));
             horaRecogida = sdft.parse(horarioDao.consultarHorario(horario).getHoraInicio());

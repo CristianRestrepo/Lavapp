@@ -12,14 +12,16 @@
         <ui:composition template="./../adminTemplate.xhtml">
             <ui:define name="content">
                 <b:container fluid="true">
-                    <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
-                        <div class="espacio-arriba" style="text-align: center" align="center">
-                            <h4 style="font-size: x-large">INFORMACION DE SESION Y SEGURIDAD</h4><br/>
-                            <p>Te damos la bienvenida, Hola #{sesionCT.usuario.nombre}</p>
-                        </div>
+                    <b:column col-lg="12">
+                        <div class="col-lg-6">
+                            <h3 style="font-size: x-large"><strong>INFORMACION DE SESION Y SEGURIDAD</strong><small> Modifique su contraseña y correo de sesion</small></h3>                        
+                            <p:separator />
+                        </div>  
                     </b:column>
+
                     <b:column col-lg="8" col-md="8" col-sm="12" col-xs="12" offset-lg="2">                        
                         <h:form id="formularioDatosPersonales">
+                            <p:growl id="msg" showDetail="true" autoUpdate="true" life="3000"/>
                             <div class="box box-info espacio-arriba">
                                 <div class="box-header with-border">
                                     <i class="fa fa-2x fa-file-text"/>
@@ -29,9 +31,9 @@
                                     <div class="table-responsive">
                                         <div align="center"> 
                                             <h:panelGrid columns="2" cellpadding="5" id="seccionInformacionUsuario" style="width: 80%">
-                                                <p:graphicImage value="#{sesionCT.usuario.rutaImagen}" class="img-circle" width="160" height="180" /> 
+                                                <p:graphicImage value="#{sesionCT.usuario.rutaImagen}" class="img-circle" width="160" height="180"/> 
                                                 <h:panelGrid columns="1" width="100%">
-                                                    <p:outputLabel style="width: 100%" value="#{sesionCT.usuario.nombre}"/>
+                                                    <p:outputLabel style="width: 100%" value="#{sesionCT.usuario.nombre} #{sesionCT.usuario.apellido}"/>
                                                     <p:outputLabel style="width: 100%" value="#{sesionCT.usuario.identificacion}"/>
                                                     <p:outputLabel style="width: 100%" value="#{sesionCT.usuario.email}"/>
                                                     <p:outputLabel style="width: 100%" value="#{sesionCT.usuario.telefono}"/>
@@ -40,37 +42,57 @@
                                         </div>
                                         <hr/><br/>
                                         <h:panelGrid cellpadding="5" columns="3" id="seccionDatosSesion" style="width: 100%">
-
                                             <p:outputLabel value="Correo: "/>
                                             <b:inputText label="Correo" id="TEmail" validator="ValidadorEmailMod" style="width: 100%" value="#{sesionCT.usuario.email}" placeholder="Contraseña de sesion">
                                                 <f:attribute name="usuario" value="#{sesionCT.usuario}"/>
                                                 <f:validateLength minimum="6"/>
                                             </b:inputText>
                                             <p:message for="TEmail"/>
-                                            
+
                                             <p:outputLabel value="Contraseña: "/>
                                             <b:inputSecret label="Contraseña" binding="#{MUsuarioPass}" id="TPassUsu" maxlength="20" style="width: 100%" value="#{sesionCT.nuevaContrasena}" placeholder="Contraseña de sesion">
                                                 <f:validateLength minimum="6"/>
                                             </b:inputSecret>
                                             <p:message for="TPassUsu"/>                                            
-                                        </h:panelGrid>
-                                        <p:messages id="msg" closable="true"/>
+                                        </h:panelGrid>                                       
                                     </div>
                                 </div>
                                 <div align="center" class="box-footer">
                                     <h:panelGrid columns="1" width="80%">                                        
-                                        <p:commandButton id="BTModUsuario"  class="btn btn-block btn-primary" update="@form" action="#{sesionCT.editarDatosSesion()}" value="Modificar datos de sesion" />
+                                        <p:commandButton id="BTModUsuario" onclick="PrimeFaces.monitorDownload(start, stop);" class="btn btn-block btn-primary" update="@form" action="#{sesionCT.editarDatosSesion()}" value="Modificar datos de sesion" />
                                     </h:panelGrid>
                                 </div>
                             </div>
+                            <script type="text/javascript">
+                                function start() {
+                                    PF('statusDialog').show();
+                                }
+                                function stop() {
+                                    PF('statusDialog').hide();
+                                }
+                            </script>
+                            <p:dialog  modal="true" widgetVar="statusDialog" header="Cargando" draggable="false" closable="false" resizable="false">
+                                <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif" />
+                            </p:dialog>
                         </h:form>
                     </b:column>
 
                     <b:column col-lg="8" col-md="8" col-sm="12" col-xs="12" offset-lg="2">
                         <h:form>
                             <div style="text-align: left" align="center">
-                                <b:commandButton action="EditarPerfil" iconAwesome="fa fa-arrow-left" style="width: 30%" look="success" value="Regresar"/>
+                                <b:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" action="EditarPerfil" iconAwesome="fa fa-arrow-left" style="width: 30%" look="success" value="Regresar"/>
                             </div><br/>
+                         <script type="text/javascript">
+                            function start() {
+                                PF('statusDialog').show();
+                            }
+                            function stop() {
+                                PF('statusDialog').hide();
+                            }
+                        </script>
+                        <p:dialog  modal="true" widgetVar="statusDialog" header="Cargando" draggable="false" closable="false" resizable="false">
+                            <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif" />
+                        </p:dialog>
                         </h:form>
                     </b:column> 
 

@@ -33,7 +33,7 @@ public class ValidadorHorarioEntrega implements Validator {
     HorarioDao horarioDao = new HorarioDao();
     long milis1;
     long milis2;
-    
+
     @Override
     public void validate(FacesContext fc, UIComponent uic, Object o) throws ValidatorException {
 
@@ -50,47 +50,47 @@ public class ValidadorHorarioEntrega implements Validator {
         horarioRecogida = horarioDao.consultarHorario(horarioRecogida);
 
         //Obtenemos los valores de cada variable desde el contexto de la vista
-        try {
-            fechaEntrega = sdf.parse(sdf.format((Date) uic.getAttributes().get("fechaEntrega")));
-            fechaRecogida = sdf.parse(sdf.format((Date) uic.getAttributes().get("fechaRecogida")));
-            horaRecogida = sdft.parse(horarioRecogida.getHoraInicio());
-            horaEntrega = sdft.parse(horarioEntrega.getHoraInicio());
-        } catch (ParseException e) {
-            e.getMessage();
-        }
+        if ((Date) uic.getAttributes().get("fechaEntrega") != null && (String) uic.getAttributes().get("horarioRecogida") != null) {
+            try {
+                fechaEntrega = sdf.parse(sdf.format((Date) uic.getAttributes().get("fechaEntrega")));
+                fechaRecogida = sdf.parse(sdf.format((Date) uic.getAttributes().get("fechaRecogida")));
+                horaRecogida = sdft.parse(horarioRecogida.getHoraInicio());
+                horaEntrega = sdft.parse(horarioEntrega.getHoraInicio());
+            } catch (ParseException e) {
+                e.getMessage();
+            }
 
-        if (fechaEntrega.after(fechaRecogida)) {
-            Calendar calHoraRecogida = Calendar.getInstance();
-            calHoraRecogida.setTime(horaRecogida);
-            Calendar calHoraEntrega = Calendar.getInstance();
-            calHoraEntrega.setTime(horaEntrega);
-            Calendar calFechaRecogida = Calendar.getInstance();
-            calFechaRecogida.setTime(fechaRecogida);
-            Calendar calFechaEntrega = Calendar.getInstance();
-            calFechaEntrega.setTime(fechaEntrega);
+            if (fechaEntrega.after(fechaRecogida)) {
+                Calendar calHoraRecogida = Calendar.getInstance();
+                calHoraRecogida.setTime(horaRecogida);
+                Calendar calHoraEntrega = Calendar.getInstance();
+                calHoraEntrega.setTime(horaEntrega);
+                Calendar calFechaRecogida = Calendar.getInstance();
+                calFechaRecogida.setTime(fechaRecogida);
+                Calendar calFechaEntrega = Calendar.getInstance();
+                calFechaEntrega.setTime(fechaEntrega);
 
-            // conseguir la representacion de la fecha en milisegundos
-            milis1 = calFechaRecogida.getTimeInMillis();
-            milis2 = calFechaEntrega.getTimeInMillis();
+                // conseguir la representacion de la fecha en milisegundos
+                milis1 = calFechaRecogida.getTimeInMillis();
+                milis2 = calFechaEntrega.getTimeInMillis();
 
-            // calcular la diferencia en dias
-            long diff = milis2 - milis1;
-            long diffDays = diff / (24 * 60 * 60 * 1000);
+                // calcular la diferencia en dias
+                long diff = milis2 - milis1;
+                long diffDays = diff / (24 * 60 * 60 * 1000);
 
-            milis1 = calHoraRecogida.getTimeInMillis();
-            milis2 = calHoraEntrega.getTimeInMillis();
+                milis1 = calHoraRecogida.getTimeInMillis();
+                milis2 = calHoraEntrega.getTimeInMillis();
 
-            long diffHourDifferentDay;
+                long diffHourDifferentDay;
 
-            diff = milis1 - milis2;
-            diffHourDifferentDay = (diffDays * 24) - (diff / (60 * 60 * 1000));
+                diff = milis1 - milis2;
+                diffHourDifferentDay = (diffDays * 24) - (diff / (60 * 60 * 1000));
 
-            if (diffHourDifferentDay < 24) {
-                FacesMessage fmsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "El tiempo entre fechas de recogida y entrega debe ser de 24 horas minimos");
-                throw new ValidatorException(fmsg);
+                if (diffHourDifferentDay < 24) {
+                    FacesMessage fmsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "El tiempo entre fechas de recogida y entrega debe ser de 24 horas minimos");
+                    throw new ValidatorException(fmsg);
+                }
             }
         }
-
     }
-
 }

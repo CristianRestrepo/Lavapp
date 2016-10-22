@@ -64,6 +64,7 @@ public class HistoricoCT implements Serializable {
 
     public String verHistoricoPrenda(DescripcionPedido_TO descripcionPedido){
         HistoricoDao historicoDao = new HistoricoDao();
+        historico.setDescripcionPedido(descripcionPedido);
         historicos = historicoDao.consultarHistoricoDescripcion(descripcionPedido);
         return "Historico";
     }

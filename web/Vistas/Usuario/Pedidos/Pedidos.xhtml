@@ -87,10 +87,10 @@
                                                                 </p>
                                                                 <span class="fnt-smaller fnt-lighter fnt-arial">
                                                                     <div class="col-xs-6">
-                                                                        <strong>Recibido: </strong> #{pedido.fechaRecogida}                                                                
+                                                                        <strong>Recibido: </strong> #{pedidosCT.stringFecha(pedido.fechaRecogida)} #{pedido.horaInicio.horario}                                                                
                                                                     </div>
                                                                     <div class="col-xs-6">
-                                                                        <strong>Entrega: </strong> #{pedido.fechaEntrega}                                                                                                                            
+                                                                        <strong>Entrega: </strong> #{pedidosCT.stringFecha(pedido.fechaEntrega)} #{pedido.horaFinal.horario}                                                                                                                            
                                                                     </div>
                                                                 </span>
                                                             </div>                                                    

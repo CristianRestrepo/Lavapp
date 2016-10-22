@@ -140,9 +140,17 @@ public class SesionCT implements Serializable {
     public void editarDatosSesion() {
         UsuarioDao usuarioDao = new UsuarioDao();
         if (!nuevaContrasena.isEmpty()) {
-            usuarioDao.editarCorreoSesion(usuario);
-            usuario.setContrasena(nuevaContrasena);
-            usuarioDao.editarContrasenaSesion(usuario);
+            try {
+                usuarioDao.editarCorreoSesion(usuario);
+                usuario.setContrasena(nuevaContrasena);
+                usuarioDao.editarContrasenaSesion(usuario);
+                usuarioDao.editarCorreoSesion(usuario);
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Contraseña editada correctamente");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            } catch (Exception e) {
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", "" + e.getMessage());
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            }
         } else {
             usuarioDao.editarCorreoSesion(usuario);
         }
@@ -162,11 +170,11 @@ public class SesionCT implements Serializable {
         usuarioDao.editarContrasenaSesion(usuario);
         int respuesta = correoDao.enviarMensajeNuevaContrasena(usuario);
         usuario = new Usuario_TO();
-        
+
         FacesMessage message = new FacesMessage();
-        
+
         if (respuesta == 0) {
-            message  = new FacesMessage(FacesMessage.SEVERITY_INFO, "Fue imposible enviarle una nueva contraseña, intentelo de nuevo.", null);
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Fue imposible enviarle una nueva contraseña, intentelo de nuevo.", null);
         } else if (respuesta == 1) {
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "La nueva contraseña ha sido enviada, por favor revise su correo.", null);
         }

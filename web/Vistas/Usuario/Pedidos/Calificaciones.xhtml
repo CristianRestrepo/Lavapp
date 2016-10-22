@@ -23,14 +23,19 @@
                 <b:container fluid="true">
                     <b:row>
                         <div class="col-lg-12 col-md-12">
-                            <div align="center">
-                                <h3>Calificaciones<small> Lista de pedidos y sus calificaciones.</small></h3>                            
-                            </div>
+                             <div class="col-lg-5">
+                                <h3 style="font-size: x-large"><strong>CALIFICIONES</strong><small> Calificanos y dejanos tus comentarios</small></h3>                        
+                                <p:separator />
+                            </div>  
                         </div>
 
                         <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
                             <h:form>
-                                <div class="box">                                  
+                                <div class="box box-info">
+                                    <div class="box-header with-border">
+                                    <i class="fa fa-2x fa-list"/>
+                                    <h4 class="box-title">Lista de calificaciones</h4>
+                                    </div>
                                     <div class="box-body">
                                         <div align="right">
                                             <p:inputText placeholder="Buscar" style="width: 50%" class="form-control">
@@ -55,11 +60,11 @@
                                             </p:column>
 
                                             <p:column style="text-align: center" headerText="Fecha de solicitud">
-                                                <p:outputLabel value="#{calificacion.pedido.fechaInicio.toLocaleString()}"/>
+                                                <p:outputLabel value="#{pedidosCT.stringFecha(calificacion.pedido.fechaInicio)}"/>
                                             </p:column>
 
                                             <p:column style="text-align: center" headerText="Fecha de recogida del pedido">
-                                                <p:outputLabel value="#{calificacion.pedido.fechaEntrega.toLocaleString()}"/>
+                                                <p:outputLabel value="#{pedidosCT.stringFecha(calificacion.pedido.fechaRecogida)}"/>
                                             </p:column>
 
                                             <p:column headerText="Ver" style="width: 80px">

@@ -12,20 +12,17 @@
                 <b:container fluid="true"> 
                     <h:form>
                         <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
-                            <div class="espacio-arriba" style="text-align: center" align="center">
-                                <strong>Te damos la bienvenida, #{sesionCT.usuario.nombre}</strong>
-                            </div>
+                            <div class="col-lg-6">
+                                <h3 style="font-size: x-large"><strong>TU PERFIL</strong><small> Datos de usuario y sesion</small></h3>                        
+                                <p:separator />
+                            </div> 
                         </b:column>
 
                         <b:column col-lg="6" col-md="6" col-sm="12" col-xs="12">
-                            <div class="box espacio-arriba">
-                                <div style="text-align: left" class="box-header with-border">
-                                    <i class="fa fa-5x fa-lock"/>
-                                    <h4 class="box-title" style="font-size: x-large">Inicio de sesión <br/> y seguridad</h4>
-                                </div> 
-                                <br/>
+                            <div class="box box-info">                          
                                 <div align="center" class="box-body" >
                                     <img src="../../../../resources/images/vec-1.png" style="max-width: 77% !important; " class="img-responsive center-block" />
+                                    <h4 style="font-size: x-large"><strong>INICIO DE SESION <br/> Y SEGURIDAD</strong></h4>
                                     <p>Controla tu contraseña y la configuración de acceso <br/> a tu cuenta</p>
                                 </div>
 
@@ -35,22 +32,19 @@
                                         <h:panelGrid columns="1" width="100%">
                                             <h4 class="box-title" style="font-size: large">Controla tu seguridad</h4>                                        
                                             <p>Modifica tu informacion de sesion en pocos minutos, crea una contraseña personalizada y cambia tu nombre de sesión.</p>
+
                                         </h:panelGrid>
                                     </h:panelGrid>
-                                    <p:commandButton action="InformacionSesion" value="Modificar" class="btn btn-block btn-info"/>
+                                    <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" action="InformacionSesion" value="Modificar" class="btn btn-block btn-info"/>
                                 </div>
                             </div>
                         </b:column>
 
                         <b:column col-lg="6" col-md="6" col-sm="12" col-xs="12">
-                            <div class="box espacio-arriba"> 
-                                <div style="text-align: left;" class="box-header with-border">
-                                    <i class="fa fa-2x fa-user"/>
-                                    <h4 style="font-size: x-large" class="box-title">Información personal <br/> y perfil </h4>                                   
-                                </div> 
-                                <br/>
+                            <div class="box box-info"> 
                                 <div align="center" class="box-body">
-                                    <img src="../../../../resources/images/vec-2.png" style="max-width: 77% !important; " class="img-responsive center-block" />
+                                    <img src="../../../../resources/images/vec-2.png" style="max-width: 77% !important; " class="img-responsive center-block"/>
+                                    <h4 style="font-size: x-large"><strong>INFORMACION PERSONAL <br/> Y PERFIL</strong></h4>
                                     <p>Controla tus datos personales y cambia tu imagen de perfil.</p>
                                 </div>
                                 <div class="box-footer">
@@ -61,10 +55,22 @@
                                             <p>Modifica tu informacion personal y cambia tu foto de sesion para personalizar tu cuenta.</p>                                    
                                         </h:panelGrid>
                                     </h:panelGrid>
-                                    <p:commandButton action="InformacionPersonal"  value="Modificar" class="btn btn-block btn-info"/>
+                                    <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" action="InformacionPersonal"  value="Modificar" class="btn btn-block btn-info"/>
                                 </div>
                             </div>                        
                         </b:column>
+
+                        <script type="text/javascript">
+                            function start() {
+                                PF('statusDialog').show();
+                            }
+                            function stop() {
+                                PF('statusDialog').hide();
+                            }
+                        </script>
+                        <p:dialog  modal="true" widgetVar="statusDialog" header="Cargando" draggable="false" closable="false" resizable="false">
+                            <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif" />
+                        </p:dialog>
                     </h:form>
                 </b:container>
             </ui:define>

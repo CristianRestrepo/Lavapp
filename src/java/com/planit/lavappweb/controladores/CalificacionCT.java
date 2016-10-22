@@ -139,6 +139,7 @@ public class CalificacionCT implements Serializable {
 
     //Otros
     public String verCalificacion(Pedido_TO pedido) {
+        calificacionModelo = new Calificacion_TO();
         CalificacionDao calificacionDao = new CalificacionDao();
         if (calificacionDao.consultarCalificacionPorPedido(pedido).getIdCalificacion() != 0) {
             calificacionModelo = calificacionDao.consultarCalificacionPorPedido(pedido);

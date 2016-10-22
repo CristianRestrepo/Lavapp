@@ -5,25 +5,25 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="./../adminTemplate.xhtml">
 
         <ui:define name="content">
             <ol class="breadcrumb">
-                    <i class="fa fa-dashboard"/>               
-                    <li><a href="../Dashboard/Dashboard.xhtml">Dashboard</a></li>
-                    <li><a href="Pedido.xhtml">Pedidos</a></li>
-                    <li class="active">Historico</li>
-                    <li></li>
-                </ol>
+                <i class="fa fa-dashboard"/>               
+                <li><a href="../Dashboard/Dashboard.xhtml">Dashboard</a></li>
+                <li><a href="Pedido.xhtml">Pedidos</a></li>
+                <li class="active">Historico</li>
+                <li></li>
+            </ol>
             <b:container fluid="true">
                 <b:row>
                     <b:column col-lg="12">
-                        <div align="center">
-                            <h3>Historico <small> Cambio de estados de la prenda.</small></h3>                            
-                        </div>
+                        <div class="col-lg-5">
+                            <h3 style="font-size: x-large"><strong>HISTORIAL</strong><small> Cambio de estados de las prendas</small></h3>                        
+                            <p:separator />
+                        </div>  
                     </b:column>
 
                     <h:form id="formularioRegistro" enctype="multipart/form-data" >                         
@@ -37,7 +37,7 @@
                                     <table width="100%">
                                         <tr>
                                             <td width="50%" align="center">
-                                                <p:graphicImage value="#{historicoCT.historico.descripcionPedido.subProducto.rutaImagen}" width="250px" height="280px"/> 
+                                                <p:graphicImage value="#{rutaCT.rutaimagenes}#{historicoCT.historico.descripcionPedido.subProducto.rutaImagen}" width="250px" height="280px"/> 
                                             </td>
                                             <td width="50%" >
                                                 <h:panelGrid columns="1" width="100%">                                                                        
@@ -78,16 +78,16 @@
                                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                  rowsPerPageTemplate="5,10,15" emptyMessage="Historico no registrado">
 
-                                        <p:column headerText="Codigo Prenda ">
+                                        <p:column headerText="Codigo Prenda " style="text-align: center">
                                             <p:outputLabel value="#{historico.descripcionPedido.codigo}"/>                                               
                                         </p:column>
 
-                                        <p:column headerText="Estado">
+                                        <p:column headerText="Estado" style="text-align: center">
                                             <p:outputLabel value="#{historico.estado.nombre}"/>                                               
                                         </p:column>
 
-                                        <p:column headerText="Fecha cambio de estado">
-                                            <p:outputLabel value="#{historico.fecha}">                                                
+                                        <p:column headerText="Fecha cambio de estado" style="text-align: center">
+                                            <p:outputLabel value="#{pedidosCT.stringFecha(historico.fecha)}">                                                
                                             </p:outputLabel>                                               
                                         </p:column>                                                               
                                     </p:dataTable>

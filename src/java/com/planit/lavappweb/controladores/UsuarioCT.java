@@ -6,7 +6,6 @@
 package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.metodos.GenerarPassword;
-import com.planit.lavappweb.metodos.Pedido;
 import com.planit.lavappweb.metodos.Sesion;
 import com.planit.lavappweb.metodos.Upload;
 import static com.planit.lavappweb.metodos.Upload.getPathDefaultUsuario;
@@ -115,7 +114,6 @@ public class UsuarioCT implements Serializable {
         usuario.setRutaImagen(getPathDefaultUsuario());//Seteo de imagen default
 
         usuarioDao.registrarUsuario(usuario);//Registro de usuario en la BD
-        clientes = usuarioDao.consultarUsuariosPorRol(new Rol_TO(4));//Actualizamos la lista de clientes registrados en el sistema
 
         SesionCT ss = new SesionCT();
         ss.setUsuario(usuario);
@@ -127,10 +125,6 @@ public class UsuarioCT implements Serializable {
         
         usuario = new Usuario_TO();
         return "Principal"; // retornamos a vista principal
-    }
-
-    public void modificarCliente() {
-
     }
 
     public void eliminarCliente() {
@@ -181,7 +175,7 @@ public class UsuarioCT implements Serializable {
         if (operacion == 0) {
             registrarCliente();
         } else if (operacion == 1) {
-            modificarCliente();
+//            modificarCliente();
             //Reiniciamos banderas
             nombreOperacion = "Registrar";
             operacion = 0;
