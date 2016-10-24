@@ -21,6 +21,7 @@ import javax.faces.context.FacesContext;
  */
 public class CalificacionCT implements Serializable {
 
+    //Variables
     private Calificacion_TO calificacionModelo;
     private List<Calificacion_TO> calificaciones;
 
@@ -28,9 +29,10 @@ public class CalificacionCT implements Serializable {
     protected int operacion; //Controla la operacion a ejecutar
     private int vistaAnterior;
 
-//    EJEMPLOS PARA RAITING
+    //EJEMPLOS PARA RAITING
     private Integer rating;
 
+    //Constructor
     public CalificacionCT() {
         calificacionModelo = new Calificacion_TO();
         calificaciones = new ArrayList<>();
@@ -46,6 +48,7 @@ public class CalificacionCT implements Serializable {
         calificaciones = calificacionDao.consultarCalificaciones();
     }
 
+    //Getters & setters
     public Calificacion_TO getCalificacionModelo() {
         return calificacionModelo;
     }
@@ -111,6 +114,7 @@ public class CalificacionCT implements Serializable {
 
 //    METODOS
     public void metodo() {
+        //segun el valor de la bandera operacion valida que operacion se realiza, ya sea modificacion o registro
         if (operacion == 0) {
             registrar();
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Calificacion Registrada", "Su Calificacion has sido guardada exitosamente");
@@ -123,6 +127,7 @@ public class CalificacionCT implements Serializable {
     }
 
     public void seleccionarCRUD(int i) {
+        //Setea un valor en la variable operacion para determinar que funcion realizara proximamente
         operacion = i;
         if (operacion == 1) {
             nombreOperacion = "Modificar Calificacion";
@@ -130,6 +135,7 @@ public class CalificacionCT implements Serializable {
     }
 
     public void cancelar() {
+        //reinicia los valores de las variables y vuelve a 0 la bandera operacion
         CalificacionDao calificacionDao = new CalificacionDao();
         calificacionModelo = new Calificacion_TO();
         calificacionDao.consultarCalificaciones();
@@ -139,6 +145,8 @@ public class CalificacionCT implements Serializable {
 
     //Otros
     public String verCalificacion(Pedido_TO pedido) {
+        //Muestra la informacion respectiva de la calificacion de un pedido, si existe una calificacion
+        //habilita la opcion de modificarla, si no existe, habilita la opcion de registrarla
         calificacionModelo = new Calificacion_TO();
         CalificacionDao calificacionDao = new CalificacionDao();
         if (calificacionDao.consultarCalificacionPorPedido(pedido).getIdCalificacion() != 0) {
@@ -153,6 +161,7 @@ public class CalificacionCT implements Serializable {
         return "Calificacion";
     }
 
+    //regresa a la vista anterior segun una bandera que indica desde que vista se accedio a la vista calificacion
     public String regresar() {
         String ruta = "";
         if (vistaAnterior == 0) {

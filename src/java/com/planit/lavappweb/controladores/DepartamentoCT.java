@@ -18,14 +18,16 @@ import javax.annotation.PostConstruct;
  */
 public class DepartamentoCT implements Serializable{
 
-    private Departamento_TO departamento;
-    private List<Departamento_TO> departamentos;
    
     //Variables   
+    private Departamento_TO departamento;
+    private List<Departamento_TO> departamentos;
+       
     private String nombreOperacion;
     private int operacion;
     private String buscar;
 
+    //Constructores
     public DepartamentoCT() {
         departamento = new Departamento_TO();
         departamentos = new ArrayList<>();       
@@ -94,6 +96,7 @@ public class DepartamentoCT implements Serializable{
 
     //Metodos
     public void metodo() {
+        //segun el valor de la bandera operacion valida que operacion se realiza, ya sea modificacion o registro
         if (operacion == 0) {
             registrar();
         } else if (operacion == 1) {
@@ -105,6 +108,7 @@ public class DepartamentoCT implements Serializable{
     }
 
     public void seleccionarCRUD(int i) {
+        //Setea un valor en la variable operacion para determinar que funcion realizara proximamente
         operacion = i;
         if (operacion == 1) {
             nombreOperacion = "Modificar";
@@ -112,6 +116,7 @@ public class DepartamentoCT implements Serializable{
     }
 
     public void cancelar() {
+        //reinicia los valores de las variables y vuelve a 0 la bandera operacion
         DepartamentoDao departamentoDao = new DepartamentoDao();
         departamento = new Departamento_TO();
         departamentos = departamentoDao.consultarDepartamentos();
@@ -120,6 +125,7 @@ public class DepartamentoCT implements Serializable{
     }
 
     public void buscarDepartamentos() {
+         //filtra la lista de departamentos segun el valor que se consulte, si valor es vacio consulta todos los departamentos
         DepartamentoDao departamentoDao = new DepartamentoDao();
         departamentos = new ArrayList<>();
         if (buscar.isEmpty()) {

@@ -10,22 +10,22 @@ import com.planit.lavappweb.modelo.dto.Costo_TO;
 import com.planit.lavappweb.modelo.dto.Pedido_TO;
 import com.planit.lavappweb.modelo.dto.SubProducto_TO;
 import java.io.Serializable;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 
 /**
  *
  * @author Desarrollo_Planit
  */
-
 public class CostoCT implements Serializable {
 
+    //Variables
     private Costo_TO costo;
-    
+
+    //Constructores
     public CostoCT() {
         costo = new Costo_TO();
     }
 
+    //Gettters & Setters
     public Costo_TO getCosto() {
         return costo;
     }
@@ -33,18 +33,18 @@ public class CostoCT implements Serializable {
     public void setCosto(Costo_TO costo) {
         this.costo = costo;
     }
-    
-    public String consultarCostoPedido(Pedido_TO pedido){
+
+    //Metodos
+    public String consultarCostoPedido(Pedido_TO pedido) {
+        //Consulta el costo total de un pedido
         CostoDao costoDao = new CostoDao();
         return costoDao.ConsultarCostoPedido(pedido);
     }
-    
-    
-    public String consultarCostoSubProducto(SubProducto_TO subproducto){
+
+    public String consultarCostoSubProducto(SubProducto_TO subproducto) {
+        //consulta el costo de un subproducto
         CostoDao costoDao = new CostoDao();
-        return "" + costoDao.consultarCostoSubProducto(subproducto).getValor();       
+        return "" + costoDao.consultarCostoSubProducto(subproducto).getValor();
     }
-    
-    
-    
+
 }

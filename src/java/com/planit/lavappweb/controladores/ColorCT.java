@@ -19,9 +19,13 @@ import javax.annotation.PostConstruct;
 
 public class ColorCT implements Serializable {
 
+    
+    //Variables
     private Color_TO color;
     private List<Color_TO> colores;
 
+    
+    //Constructores
     public ColorCT() {
         color = new Color_TO();
         colores = new ArrayList<>();
@@ -29,6 +33,7 @@ public class ColorCT implements Serializable {
 
     @PostConstruct
     public void init() {
+        //Cargamos los colores registrados en la lista colores
         ColorDao colorDao = new ColorDao();
         colores = colorDao.consultarColores();
     }
@@ -48,15 +53,5 @@ public class ColorCT implements Serializable {
 
     public void setColores(List<Color_TO> colores) {
         this.colores = colores;
-    }
-
-    //Metodos
-    public void registrar() {
-    }
-
-    public void modificar() {
-    }
-
-    public void eliminar() {
     }
 }

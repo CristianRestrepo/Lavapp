@@ -14,19 +14,20 @@ import javax.annotation.PostConstruct;
  *
  * @author Desarrollo_Planit
  */
-
 public class DescuentoCT implements Serializable {
 
+    //Variables
     private Descuento_TO descuento;
     private List<Descuento_TO> descuentos;
-    
+
+    //Constructores
     public DescuentoCT() {
     }
-    
+
     @PostConstruct
     public void init() {
     }
-    
+
     //Getter & Setter
     public Descuento_TO getDescuento() {
         return descuento;
@@ -43,15 +44,4 @@ public class DescuentoCT implements Serializable {
     public void setDescuentos(List<Descuento_TO> descuentos) {
         this.descuentos = descuentos;
     }
-    
-    //Metodos
-    public void registrar(){
-    }
-    
-    public void modificar(){
-    }
-    
-    public void eliminar(){
-    }
-    
 }

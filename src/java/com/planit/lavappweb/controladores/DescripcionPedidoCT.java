@@ -23,9 +23,11 @@ import javax.annotation.PostConstruct;
  */
 public class DescripcionPedidoCT implements Serializable {
 
+    //Variables
     private DescripcionPedido_TO productoPedido;
     private List<DescripcionPedido_TO> productosPedido;
 
+    //constructores
     public DescripcionPedidoCT() {
         productoPedido = new DescripcionPedido_TO();
         productosPedido = new ArrayList<>();
@@ -52,10 +54,7 @@ public class DescripcionPedidoCT implements Serializable {
         this.productosPedido = productosPedido;
     }
 
-    //Metodos       
-    public void registrar() {
-    }
-
+    //Metodos         
     public void modificar(DescripcionPedido_TO descripcion) {
         DescripcionPedidoDao descripcionPedidoDao = new DescripcionPedidoDao();
         if (descripcion.getEstado().getIdEstado() < 5) {
@@ -63,11 +62,10 @@ public class DescripcionPedidoCT implements Serializable {
         }
         descripcionPedidoDao.editarDescripcionPedido(descripcion);
     }
-
-    public void eliminar() {
-    }
+    
 
     public void editarEstadoDescripcion(DescripcionPedido_TO descripcion) {
+        //Segun el estado actual de la prenda, actualiza su estado el siguiente estado
         switch (descripcion.getEstado().getIdEstado()) {
             case 4:
                 descripcion.setEstado(new Estado_TO(5));
@@ -88,7 +86,9 @@ public class DescripcionPedidoCT implements Serializable {
 
         productosPedido = descripcionPedidoDao.consultarDescripcionesSinFotosSegunPedido(descripcion.getPedido());
         boolean valor = true;
-
+        
+        //Valida si todos las prendas de un pedido se encuentran en el mismo estado, si es asi, actualiza el estado actual del pedido}
+        //al de la prendas
         for (int i = 0; i < productosPedido.size(); i++) {
             if (descripcion.getEstado().getIdEstado() != productosPedido.get(i).getEstado().getIdEstado()) {
                 valor = false;
@@ -103,18 +103,21 @@ public class DescripcionPedidoCT implements Serializable {
         }
     }
 
+    //Consulta las prendas y su informacion en el pedido segun un pedido
     public List<DescripcionPedido_TO> consultarDescripcionesSegunPedido(Pedido_TO pedido) {
         DescripcionPedidoDao descripcionDao = new DescripcionPedidoDao();
         List<DescripcionPedido_TO> lista = descripcionDao.consultarDescripcionPedidoSegunPedido(pedido);
         return lista;
     }
 
+    
     public List<DescripcionPedido_TO> consultarDescripcionesSinFotosSegunPedido(Pedido_TO pedido) {
         DescripcionPedidoDao descripcionDao = new DescripcionPedidoDao();
         List<DescripcionPedido_TO> lista = descripcionDao.consultarDescripcionesSinFotosSegunPedido(pedido);
         return lista;
     }
 
+    //consulta la informacion basica de la prendas asociadas a los items de un pedido
     public List<SubProductoCosto_TO> obtenerSubProductos(Pedido_TO pedido) {
         List<DescripcionPedido_TO> lista = consultarDescripcionesSinFotosSegunPedido(pedido);
         List<SubProductoCosto_TO> subproductos = new ArrayList<>();

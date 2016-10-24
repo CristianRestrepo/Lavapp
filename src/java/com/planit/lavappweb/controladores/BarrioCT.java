@@ -18,6 +18,8 @@ import javax.annotation.PostConstruct;
  */
 public class BarrioCT implements Serializable{
 
+    
+    //variables
     private Barrio_TO barrio;
     private List<Barrio_TO> barrios;
 
@@ -25,6 +27,7 @@ public class BarrioCT implements Serializable{
     protected int operacion; //Controla la operacion a ejecutar
     private String buscar;
 
+    //constructor
     public BarrioCT() {
         barrio = new Barrio_TO();
         barrios = new ArrayList<>();
@@ -72,6 +75,7 @@ public class BarrioCT implements Serializable{
         this.buscar = buscar;
     }
 
+    //Crud
     public void registrar() {
         BarriosDao barrioDao = new BarriosDao();
         barrio = barrioDao.registrarBarrio(barrio);
@@ -92,6 +96,7 @@ public class BarrioCT implements Serializable{
 
     //Metodos Propios
     public void metodo() {
+     //segun el valor de la bandera operacion valida que operacion se realiza, ya sea modificacion o registro
         if (operacion == 0) {
             registrar();
         } else if (operacion == 1) {
@@ -103,6 +108,7 @@ public class BarrioCT implements Serializable{
     }
 
     public void seleccionarCRUD(int i) {
+        //Setea un valor en la variable operacion para determinar que funcion realizara proximamente
         operacion = i;
         if (operacion == 1) {
             nombreOperacion = "Modificar";
@@ -110,6 +116,7 @@ public class BarrioCT implements Serializable{
     }
 
     public void cancelar() {
+        //reinicia los valores de la variables y vuelve a 0 la bandera operacion
         BarriosDao barrioDao = new BarriosDao();
         barrio = new Barrio_TO();
         barrios = barrioDao.consultarBarrios();
@@ -118,6 +125,7 @@ public class BarrioCT implements Serializable{
     }
 
     public void buscarBarrios() {
+        //filtra la lista de barrios segun el valor que se consulte, si valor es vacio consulta todos los barrios
         BarriosDao barrioDao = new BarriosDao();
         barrios = new ArrayList<>();
         if (buscar.isEmpty()) {

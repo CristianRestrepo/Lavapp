@@ -19,6 +19,7 @@ import javax.annotation.PostConstruct;
  */
 public class CiudadCT implements Serializable {
 
+    //Variables
     private Ciudad_TO ciudad;
     private List<Ciudad_TO> ciudades;
 
@@ -26,6 +27,7 @@ public class CiudadCT implements Serializable {
     protected int operacion; //Controla la operacion a ejecutar
     private String buscar;
 
+    //Constructores
     public CiudadCT() {
         ciudad = new Ciudad_TO();
         ciudades = new ArrayList<>();
@@ -36,6 +38,7 @@ public class CiudadCT implements Serializable {
 
     @PostConstruct
     public void init() {
+        //Se carga la lista ciudades con las ciudades registradas
         CiudadDao ciudadDao = new CiudadDao();
         ciudades = ciudadDao.consultarCiudades();
     }
@@ -94,6 +97,7 @@ public class CiudadCT implements Serializable {
 
     //Metodos 
     public void metodo() {
+        //segun el valor de la bandera operacion valida que operacion se realiza, ya sea modificacion o registro
         if (operacion == 0) {
             registrar();
         } else if (operacion == 1) {
@@ -105,6 +109,7 @@ public class CiudadCT implements Serializable {
     }
 
     public void seleccionarCRUD(int i) {
+        //Setea un valor en la variable operacion para determinar que funcion realizara proximamente
         operacion = i;
         if (operacion == 1) {
             nombreOperacion = "Modificar";
@@ -112,6 +117,7 @@ public class CiudadCT implements Serializable {
     }
 
     public void cancelar() {
+        //reinicia los valores de las variables y vuelve a 0 la bandera operacion
         CiudadDao ciudadDao = new CiudadDao();
         ciudad = new Ciudad_TO();
         ciudades = ciudadDao.consultarCiudades();
@@ -120,6 +126,7 @@ public class CiudadCT implements Serializable {
     }
 
     public void buscarCiudades() {
+        //filtra la lista de ciudades segun el valor que se consulte, si valor es vacio consulta todos los barrios
         CiudadDao ciudadDao = new CiudadDao();
         ciudades = new ArrayList<>();
         if (buscar.isEmpty()) {
