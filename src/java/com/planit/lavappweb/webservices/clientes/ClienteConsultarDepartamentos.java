@@ -5,6 +5,7 @@
  */
 package com.planit.lavappweb.webservices.clientes;
 
+import com.planit.lavappweb.metodos.ruta;
 import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -29,7 +30,7 @@ public class ClienteConsultarDepartamentos {
 
     private WebTarget webTarget;
     private Client client;
-    private static final String BASE_URI = "http://localhost:8084/LavappService/webresources/";
+    private static final String BASE_URI = ruta.consultarRuta();
 
     public ClienteConsultarDepartamentos() {
         client = ResteasyClientBuilder.newBuilder().build();
