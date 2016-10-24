@@ -16,13 +16,16 @@ import java.util.List;
  */
 public class Pedido {
 
+    //Variables y objetos
     public static Pedido_TO pedidoUsuario = new Pedido_TO();
     public static List<SubProductoCosto_TO> subproductos = new ArrayList<>();
     public static int vista = 0;
 
+    //Constructores
     public Pedido() {
     }
 
+    //Getters & Setters
     public static Pedido_TO getPedidoUsuario() {
         return pedidoUsuario;
     }
@@ -47,7 +50,9 @@ public class Pedido {
         Pedido.vista = vista;
     }
 
+    //Metodos
     public static void ReiniciarValores() {
+        //Reiniciar valores de las variables y objetos
         pedidoUsuario = new Pedido_TO();
         subproductos = new ArrayList<>();
         vista = 0;

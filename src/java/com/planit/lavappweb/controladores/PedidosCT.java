@@ -24,6 +24,7 @@ import java.util.logging.Logger;
  */
 public class PedidosCT {
 
+    //Variables
     private Pedido_TO pedido;
     private DescripcionPedido_TO descripcionPedido;
     private List<Pedido_TO> pedidos;
@@ -32,6 +33,7 @@ public class PedidosCT {
     private Boolean descripcionPrenda;
     private int vista;
 
+    //Constructores
     public PedidosCT() {
         pedido = new Pedido_TO();
         descripcionPedido = new DescripcionPedido_TO();
@@ -61,6 +63,7 @@ public class PedidosCT {
         }
     }
 
+    //Getters & Setters
     public Pedido_TO getPedido() {
         return pedido;
     }
@@ -108,32 +111,32 @@ public class PedidosCT {
     public void setVista(int vista) {
         this.vista = vista;
     }
-    
-    
 
-    //Metodos para el control de vista pedido en dashboard
-   
-    
-    public String verPedido(Pedido_TO pedido){
+    //Metodos para el control de vista pedido en dashboard  
+    public String verPedido(Pedido_TO pedido) {
+        //Consulta un pedido y muestra la vista pedido
         this.pedido = pedido;
         vista = 0;
         return "Pedido";
     }
 
     public void verPrenda(DescripcionPedido_TO prenda) {
+        //consulta un item del pedido 
         this.descripcionPedido = prenda;
         vista = 1;
     }
 
+    //Vuelve a la vista pedidos
     public String volverPedidos() {
         return "Pedidos";
     }
 
     public void volverPedido() {
         vista = 0;
-    }    
+    }
 
     public void buscarPedido() {
+        //Filtra los pedidos segun el valor buscado segun el rol de usuario logueado, si no hay valor de busqueda, consulta todos los pedidos
         PedidoDao pedidoDao = new PedidoDao();
         pedidos = new ArrayList<>();
         if (buscar.isEmpty()) {
@@ -158,6 +161,7 @@ public class PedidosCT {
         }
     }
 
+    //Consulta los pedido listo para entrega segun la fecha actual del sistema
     public List<Pedido_TO> consultarPedidosDiaEntrega() {
         List<Pedido_TO> pedidosDia = new ArrayList<>();
         PedidoDao pedidoDao = new PedidoDao();
@@ -165,6 +169,7 @@ public class PedidosCT {
         return pedidosDia;
     }
 
+    //Consulta los pedidos por recoger segun la fecha actual del sistema
     public List<Pedido_TO> consultarPedidosDiaRecogida() {
         List<Pedido_TO> pedidosDia = new ArrayList<>();
         PedidoDao pedidoDao = new PedidoDao();
@@ -172,6 +177,7 @@ public class PedidosCT {
         return pedidosDia;
     }
 
+    //consultar los pedido en planta de un cliente
     public List<Pedido_TO> consultarPedidosEnplantaSegunCliente() {
         List<Pedido_TO> pedidosEntrega = new ArrayList<>();
         PedidoDao pedidoDao = new PedidoDao();
@@ -185,14 +191,16 @@ public class PedidosCT {
         pedidosRecibir = pedidoDao.consultarPedidosPorRecibirSegunCliente(Sesion.obtenerSesion());
         return pedidosRecibir;
     }
-    
+
+    //Modifica el estado de un pedido
     public void editarEstadoPedido() {
         PedidoDao pedidoDao = new PedidoDao();
         pedidoDao.editarEstadoPedido(pedido);
     }
     
-     public String stringFecha(Date fecha){        
+    //Retorna una fecha en tipo string formateada para mostrarla en la vista
+    public String stringFecha(Date fecha) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return  sdf.format(fecha);
-    } 
+        return sdf.format(fecha);
+    }
 }

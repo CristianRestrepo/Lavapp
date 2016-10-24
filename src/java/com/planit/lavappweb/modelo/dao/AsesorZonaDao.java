@@ -14,7 +14,8 @@ import com.planit.lavappweb.webservices.clientes.ClienteAsociarAsesorZona;
  * @author Desarrollo_Planit
  */
 public class AsesorZonaDao {
-
+    
+    //Consume el web service y asocia asesores con la zona enviada 
     public Usuario_TO AsociarAsesorZona(Usuario_TO usuario, Zona_TO zona) {
         ClienteAsociarAsesorZona cliente = new ClienteAsociarAsesorZona();
         return cliente.asociarAsesorZona(Usuario_TO.class, "" + usuario.getIdUsuario(), "" + zona.getIdZona());

@@ -24,6 +24,7 @@ import javax.annotation.PostConstruct;
  */
 public class ProveedorCT implements Serializable {
 
+    //Variables
     private Proveedor_TO proveedor;
     private List<Proveedor_TO> proveedores;
 
@@ -31,6 +32,7 @@ public class ProveedorCT implements Serializable {
     private int operacion; //Controla la operacion a ejecutar
     private String buscar;
 
+    //constructores
     public ProveedorCT() {
         proveedor = new Proveedor_TO();
         proveedores = new ArrayList<>();
@@ -45,7 +47,8 @@ public class ProveedorCT implements Serializable {
         ProveedorDao proveedorDao = new ProveedorDao();
         proveedores = proveedorDao.consultarProveedores();
     }
-
+    
+    //Getters & setters
     public Proveedor_TO getProveedor() {
         return proveedor;
     }
@@ -140,6 +143,7 @@ public class ProveedorCT implements Serializable {
 
     //Metodos Propios
     public void metodo() {
+         //segun el valor de la bandera operacion valida que operacion se realiza, ya sea modificacion o registro
         if (operacion == 0) {
             registrar();
         } else if (operacion == 1) {
@@ -151,6 +155,7 @@ public class ProveedorCT implements Serializable {
     }
 
     public void seleccionarCRUD(int i) {
+        //Setea un valor en la variable operacion para determinar que funcion realizara proximamente
         operacion = i;
         if (operacion == 1) {
             nombreOperacion = "Modificar";
@@ -158,6 +163,7 @@ public class ProveedorCT implements Serializable {
     }
 
     public void cancelar() {
+        //reinicia los valores de la variables y vuelve a 0 la bandera operacion
         proveedor = new Proveedor_TO();
         //proveedores = ;
         operacion = 0;
@@ -165,6 +171,7 @@ public class ProveedorCT implements Serializable {
     }
 
     public void buscarProveedores() {
+        //filtra la lista de proveedores segun el valor que se consulte, si valor es vacio consulta todos los proveedores
         ProveedorDao proveedorDao = new ProveedorDao();
         proveedores = new ArrayList<>();
         if (buscar.isEmpty()) {

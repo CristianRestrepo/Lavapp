@@ -19,9 +19,7 @@ import com.planit.lavappweb.modelo.dto.Pedido_TO;
 import com.planit.lavappweb.modelo.dto.SubProductoCosto_TO;
 import com.planit.lavappweb.modelo.dto.SubProducto_TO;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -33,6 +31,7 @@ import javax.faces.context.FacesContext;
  */
 public class PedidoCT implements Serializable {
 
+    //Variables
     private Pedido_TO pedido;
     private List<SubProductoCosto_TO> subproductos;
 
@@ -43,6 +42,7 @@ public class PedidoCT implements Serializable {
     private boolean botonsiguiente;
     private boolean botonconfirmar;   
 
+    //Constructores
     public PedidoCT() {
         vista = 0;
         pedido = new Pedido_TO();
@@ -55,17 +55,20 @@ public class PedidoCT implements Serializable {
 
     @PostConstruct
     public void init() {
+        //si el cliente inicia sesion, cargara los datos de su pedido si es que tiene uno en proceso. 
         if (Sesion.obtenerSesion() != null) {
+            //Desde la clase pedido en el paquete metodos carga los datos del pedido en proceso del cliente
             vista = Pedido.vista;
             pedido = Pedido.pedidoUsuario;
             pedido.setUsuario(Sesion.obtenerSesion());
             subproductos = Pedido.subproductos;
             cantidadProductos = subproductos.size();
+            //Segun la vista habilita o deshabilita los botones de siguiente, atras y confirmar
             if (vista != 0) {
                 botonatras = true;
                 botonsiguiente = false;
                 botonconfirmar = false;
-                if (vista == 1) {
+                if (vista == 1) {                    
                     cargarDatosUsuario();
                     botonsiguiente = true;
                 }
@@ -136,10 +139,11 @@ public class PedidoCT implements Serializable {
   
     //Metodos para las vistas 
     public void atras() {
+        //Valida que botones habilitar o deshabilitar segun la vista donde se encuentre el cliente en el proceso de pedido
         if (vista > 0) {
             vista--;
             botonsiguiente = true;
-            GuardarDatosPedido();
+            GuardarDatosPedido();//guarda las prendas de su pedido en la clase pedido, para llevar un respaldo de su pedido a la hora de iniciar sesion.
         }
         if (vista == 1) {
             botonconfirmar = false;
@@ -154,11 +158,13 @@ public class PedidoCT implements Serializable {
     }
 
     public void siguiente() {
+        //Valida que botones habilitar o deshabilitar segun la vista donde se encuentre el cliente en el proceso de pedido
         if (vista < 3) {
             if (!subproductos.isEmpty()) {
                 vista++;
                 botonatras = true;
             } else {
+                //Si el cliente no ha agregado ninguna prenda, no le permite seguir con el proceso de pedido
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "No ha agregado ningun producto", "");
                 FacesContext.getCurrentInstance().addMessage(null, message);
             }
@@ -180,11 +186,14 @@ public class PedidoCT implements Serializable {
     public String confirmar() {
         String ruta = "";
         if (Sesion.obtenerSesion() == null) {
+            // si el usuario no ha iniciado sesion al momento de llegar a la vista de confirmacion
+            // sera enviado a la vista de inicio de sesion y sus pedido sera respaldado
             Pedido.pedidoUsuario = pedido;
             Pedido.subproductos = subproductos;
             Pedido.vista = vista + 1;
             ruta = "Login";
         } else {
+            //si ya inicio sesion continua con el proceso
             vista++;
             botonatras = true;
             botonsiguiente = false;
@@ -194,11 +203,13 @@ public class PedidoCT implements Serializable {
     }
 
     public void agregarproductos(SubProductoCosto_TO subproducto) {
+        //se agrega la prenda seleccionada al array subproductos y se calcula la cantidad de prendas totales del pedido
         subproductos.add(subproducto);
         cantidadProductos = subproductos.size();
     }
 
     public void cargarDatosUsuario() {
+        //Si el cliente inicio sesion carga los datos de usuario al pedido que se esta llevando a cabo
         if (Sesion.obtenerSesion() != null) {
             if (Sesion.obtenerSesion().getDireccion() != null) {
                 pedido.setDireccionRecogida(Sesion.obtenerSesion().getDireccion());
@@ -212,6 +223,7 @@ public class PedidoCT implements Serializable {
     }
 
     public void GuardarDatosPedido() {
+        //Respalda los datos del pedido que se esta llevando a cabo
         Pedido.pedidoUsuario = pedido;
         Pedido.subproductos = subproductos;
         Pedido.vista = vista;
@@ -260,6 +272,7 @@ public class PedidoCT implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, fmsg);
         }
 
+        //Reiniciamos variables
         pedido = new Pedido_TO();
         subproductos = new ArrayList<>();
 

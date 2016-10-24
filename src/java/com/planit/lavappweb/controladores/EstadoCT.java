@@ -15,14 +15,19 @@ import java.util.List;
  */
 public class EstadoCT {
    
+    //Constructores
     public EstadoCT() {
     }
     
+    //Metodos
+    
+    //Consulta la lista de estados registrados en el sistema para las prendas
     public List<Estado_TO> estadosProductos(){
         EstadoDao estadoDao = new EstadoDao();
         return estadoDao.consultarEstadosProductos();
     }   
     
+    //Consulta la lisat de estados disponibles desde la planta para el manejo de la prendas
     public List<Estado_TO> estadosPlanta(){
         EstadoDao estadoDao = new EstadoDao();
         return estadoDao.consultarEstadosPlanta();

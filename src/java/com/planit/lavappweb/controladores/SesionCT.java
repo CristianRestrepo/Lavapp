@@ -6,6 +6,7 @@
 package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.metodos.GenerarPassword;
+import static com.planit.lavappweb.metodos.GenerarPassword.generarPass;
 import com.planit.lavappweb.metodos.MD5;
 import com.planit.lavappweb.metodos.Pedido;
 import com.planit.lavappweb.metodos.Sesion;
@@ -77,16 +78,17 @@ public class SesionCT implements Serializable {
         FacesMessage message = new FacesMessage();
         String ruta = "";
         MD5 md = new MD5();
+        //Encripta la contraseña digitada para despues compararla con la guardada en la BD
         String pass = md.getMD5(usuario.getContrasena());
-        usuario = usuarioDao.consultarUsuarioPorLogin(usuario.getEmail());
+        usuario = usuarioDao.consultarUsuarioPorLogin(usuario.getEmail()); // consulta el usuario correspondiente al correo digitado
 
-        if (usuario.getIdUsuario() != 0) {
-            if (usuario.getContrasena().equalsIgnoreCase(pass)) {
+        if (usuario.getIdUsuario() != 0) {//Valida que el usuario consultado no este vacio
+            if (usuario.getContrasena().equalsIgnoreCase(pass)) {//compara contraseñas
                 if (usuario.getEstado().getIdEstado() != 0) {
                     BarriosDao bd = new BarriosDao();
                     usuario.setBarrio(bd.consultarBarrio(new Barrio_TO(usuario.getBarrio().getIdBarrios(), "")));
-                    iniciarHttpSesion(usuario);
-                    switch (usuario.getRol().getIdRol()) {
+                    iniciarHttpSesion(usuario);//Sube el usuario a un httpsesion
+                    switch (usuario.getRol().getIdRol()) { //Segun el rol del usuario logueado es dirigido a una vista diferente
                         case 1:
                             ruta = "Dashboard";
                             break;
@@ -100,30 +102,32 @@ public class SesionCT implements Serializable {
 
                     message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", "" + usuario.getNombre());
                     FacesContext.getCurrentInstance().addMessage(null, message);
-                } else {
+                } else {//En caso de que el estado de cuenta sea inactivo
                     message = new FacesMessage(FacesMessage.SEVERITY_WARN, "La cuenta de usuario esta desactivada", "Imposible iniciar sesion");
                     FacesContext.getCurrentInstance().addMessage(null, message);
                 }
-            } else {
+            } else {//en caso de que la contraseña sea incorrecta
                 usuario.setContrasena("");
                 message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Contraseña incorrecta", "Digite de nuevo su contraseña");
                 FacesContext.getCurrentInstance().addMessage(null, message);
             }
-        } else {
+        } else {//en caso de que el usuario no exista
             message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Usuario no existente", "");
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
-        return ruta;
+        return ruta;//Muestra la vista segun el rol
     }
 
     public String cerrarSesion() {
-        String ruta = "Principal";
+        //Cierra el httpsesion, y baja al usuario de la variable de sesion
+        String ruta = "Principal";//Retorna a la vista principal
         Pedido.ReiniciarValores();
         cerrarHttpSesion();
         return ruta;
     }
 
     public Usuario_TO obtenerSesion() {
+        //Obtiene la informacion del usuario logueado
         return (Usuario_TO) Sesion.obtenerSesion();
     }
 
@@ -138,8 +142,9 @@ public class SesionCT implements Serializable {
     }
 
     public void editarDatosSesion() {
+        //Edita el correo y contraseña para iniciar sesion
         UsuarioDao usuarioDao = new UsuarioDao();
-        if (!nuevaContrasena.isEmpty()) {
+        if (!nuevaContrasena.isEmpty()) {//si se agrego una nueva contraseña, solo modifica el correo y la contraseña
             try {
                 usuarioDao.editarCorreoSesion(usuario);
                 usuario.setContrasena(nuevaContrasena);
@@ -151,26 +156,29 @@ public class SesionCT implements Serializable {
                 FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", "" + e.getMessage());
                 FacesContext.getCurrentInstance().addMessage(null, message);
             }
-        } else {
+        } else { //En caso de no modificar la contraseña solo modifica el correo 
             usuarioDao.editarCorreoSesion(usuario);
         }
+        //Limpia la variable de nueva contraseña para una proxima modificacion
         nuevaContrasena = "";
     }
 
     //Generar nueva contraseña
-    public void generarNuevaContraseñaDeSesion() throws IOException {
-        GenerarPassword gpassword = new GenerarPassword();
+    public void generarNuevaContraseñaDeSesion() throws IOException {        
         CorreoDao correoDao = new CorreoDao();
         UsuarioDao usuarioDao = new UsuarioDao();
 
-        String pass = gpassword.generarPass(6);
+        //Genera una nueva contraseña accediendo al metodo estatico generarPass
+        String pass = generarPass(6);
+        //Consulta el usuario segun el correo dado
         usuario = usuarioDao.consultarUsuarioPorLogin(usuario.getEmail());
-        usuario.setContrasena(pass);
-
-        usuarioDao.editarContrasenaSesion(usuario);
+        usuario.setContrasena(pass);//Setea la nueva contraseña
+        
+        usuarioDao.editarContrasenaSesion(usuario);//Modifica la contraseña en la base de datos
         int respuesta = correoDao.enviarMensajeNuevaContrasena(usuario);
         usuario = new Usuario_TO();
-
+        
+        //Retonra una respuesta si el ccambio de contraseña fue exitoso o no
         FacesMessage message = new FacesMessage();
 
         if (respuesta == 0) {
@@ -181,20 +189,22 @@ public class SesionCT implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    //Subida de archivos
+    //Metodo para la subida de foto de perfil
     public void upload(FileUploadEvent e) throws IOException {
-
+        
         try {
             UploadedFile uploadedPhoto = e.getFile();
             String destination;
 
             HashMap<String, String> map = Upload.getMapPathFotosUsuarios();
             destination = map.get("path");
-            if (null != uploadedPhoto) {
+            if (null != uploadedPhoto) {//Valida si existe una foto seleccionada para subir
+                //Sube la foto a la ruta correspondiente
                 ControladorArchivos.uploadFile(IOUtils.toByteArray(uploadedPhoto.getInputstream()), uploadedPhoto.getFileName(), destination);
                 usuario.setRutaImagen(map.get("url") + uploadedPhoto.getFileName());
-                estadoFoto = "Foto actualizada con exito";
+                estadoFoto = "Foto actualizada con exito"; // actualiza el mensaje del label que se muestra en la vista
             }
+            //Muiestra mensaje de confirmacion si la foto fue subida correctamente
             FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Su foto (" + uploadedPhoto.getFileName() + ")  se ha guardado con exito.", ""));
         } catch (Exception ex) {
             ex.getMessage();

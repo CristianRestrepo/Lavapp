@@ -39,6 +39,7 @@ public class ProductoCT implements Serializable {
 
     private Upload archivo_CT;
 
+    //Constructores
     public ProductoCT() {
         producto = new Producto_TO();
         productos = new ArrayList<>();
@@ -135,6 +136,7 @@ public class ProductoCT implements Serializable {
 
     //Metodos Propios
     public void metodo() throws IOException {
+        //segun el valor de la bandera operacion valida que operacion se realiza, ya sea modificacion o registro
         if (operacion == 0) {
             if (!file.getFileName().isEmpty()) {
                 uploadFoto();
@@ -154,6 +156,7 @@ public class ProductoCT implements Serializable {
     }
 
     public void seleccionarCRUD(int i) {
+        //Setea un valor en la variable operacion para determinar que funcion realizara proximamente
         operacion = i;
         if (operacion == 1) {
             nombreOperacion = "Modificar";
@@ -167,6 +170,7 @@ public class ProductoCT implements Serializable {
     }
 
     public void cancelar() {
+        //reinicia los valores de las variables y vuelve a 0 la bandera operacion
         ProductoDao productoDao = new ProductoDao();
         producto = new Producto_TO();
         productos = productoDao.consultarProductos();
@@ -177,12 +181,13 @@ public class ProductoCT implements Serializable {
     }
 
     public void uploadFoto() throws IOException {
+        //Sube la foto seleccionado a la ruta correspondiente dentro del servidor
         try {
             String destino;
             HashMap<String, String> map = getMapPathFotosProducto();
             destino = map.get("path");
 
-            if (null != file) {
+            if (null != file) {//Valida que haya una imagen seleccionada para subirla
                 archivo_CT.uploadFile(IOUtils.toByteArray(file.getInputstream()), file.getFileName(), destino);
                 producto.setRutaImagen(map.get("url") + file.getFileName());
             }
@@ -193,6 +198,7 @@ public class ProductoCT implements Serializable {
     }
 
     public void buscarProductos() {
+         //filtra la lista de productos segun el valor que se consulte, si valor es vacio consulta todos los productos
         ProductoDao productoDao = new ProductoDao();
         productos = new ArrayList<>();
         if (buscar.isEmpty()) {

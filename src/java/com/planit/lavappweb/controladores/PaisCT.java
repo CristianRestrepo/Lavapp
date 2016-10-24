@@ -16,14 +16,17 @@ import java.util.List;
  */
 public class PaisCT implements Serializable {
 
+    //Variables
     private Pais_TO pais;
     private List<Pais_TO> paises;
     
+    //Constructores
     public PaisCT() {
         PaisDao paisDao = new PaisDao();
         paises = paisDao.consultarPaises();
     }
 
+    //Getters & Setters
     public Pais_TO getPais() {
         return pais;
     }
@@ -38,8 +41,6 @@ public class PaisCT implements Serializable {
 
     public void setPaises(List<Pais_TO> paises) {
         this.paises = paises;
-    }
-    
-    
-    
+    }  
+        
 }

@@ -31,6 +31,7 @@ import org.primefaces.model.UploadedFile;
  */
 public class SubProductoCT implements Serializable {
 
+    //Variables y objetos
     private SubProducto_TO subproducto;
     private List<SubProducto_TO> subproductos;
     private List<SubProducto_TO> subProductosClasificados;
@@ -39,13 +40,13 @@ public class SubProductoCT implements Serializable {
     private Costo_TO costo;
     private UploadedFile file;
     protected Upload ControladorArchivos;
-
-    //Variables    
+      
     private String nombreOperacion;
     protected int operacion;
     private String imagen;
     private String buscar;
 
+    //Constructores
     public SubProductoCT() {
         subproducto = new SubProducto_TO();
         subproductos = new ArrayList<>();
@@ -176,6 +177,7 @@ public class SubProductoCT implements Serializable {
         subproductos = subProductoDao.consultarSubProductos();
     }
 
+    //consulta las prendas pertenecientes a una categoria de producto
     public void consultarSubProductosSegunProducto(Producto_TO producto) {
         SubProductoDao subProductoDao = new SubProductoDao();
         subProductosClasificados = new ArrayList<>();
@@ -183,6 +185,7 @@ public class SubProductoCT implements Serializable {
         subProductosConCosto = subProductoDao.consultarSubProductosConCostoSegunProducto(producto);
     }
     
+    //Limpia las lista de prendas
     public void limpiarListasProductos(){
         subProductosClasificados.clear();
         subProductosConCosto.clear();
@@ -190,6 +193,7 @@ public class SubProductoCT implements Serializable {
 
     //Metodos Propios
     public void metodo() throws IOException {
+        //segun el valor de la bandera operacion valida que operacion se realiza, ya sea modificacion o registro
         if (operacion == 0) {
             if (!file.getFileName().isEmpty()) {
                 uploadFoto();
@@ -209,6 +213,7 @@ public class SubProductoCT implements Serializable {
     }
 
     public void seleccionarCRUD(int i) {
+        //Setea un valor en la variable operacion para determinar que funcion realizara proximamente
         CostoDao costoDao = new CostoDao();
         operacion = i;
         if (operacion == 1) {
@@ -224,6 +229,7 @@ public class SubProductoCT implements Serializable {
     }
 
     public void cancelar() {
+        //reinicia los valores de la variables y vuelve a 0 la bandera operacion
         SubProductoDao subProductoDao = new SubProductoDao();
         subproducto = new SubProducto_TO();
         subproductos = subProductoDao.consultarSubProductos();
@@ -251,6 +257,7 @@ public class SubProductoCT implements Serializable {
     }
 
     public void buscarSubProductos() {
+        //filtra la lista de prendas segun el valor que se consulte, si valor es vacio consulta todos los prendas
         SubProductoDao subProductoDao = new SubProductoDao();
         subproductos = new ArrayList<>();
         if (buscar.isEmpty()) {

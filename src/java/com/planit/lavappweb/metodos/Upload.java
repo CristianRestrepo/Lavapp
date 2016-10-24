@@ -20,8 +20,10 @@ import org.primefaces.model.UploadedFile;
  */
 public class Upload {
 
+    //Variable
     UploadedFile archivo;
 
+    //Getters & Setters
     public UploadedFile getArchivo() {
         return archivo;
     }
@@ -30,11 +32,8 @@ public class Upload {
         this.archivo = archivo;
     }
 
-    /**
-     *
-     * METODOS PARA MAPEAR ARCHIVOS
-     * =========================================================================
-     */
+    //Metodos
+    //Retorna la ruta completa de la ubicacion de proyecto
     public static String getPath() {
         try {
             ExternalContext tmpEC;
@@ -46,7 +45,7 @@ public class Upload {
         }
         return null;
     }
-
+  
     public static HashMap<String, String> getMapPathFotosProducto() {
         try {
             HashMap<String, String> map = new HashMap<>();
@@ -60,7 +59,7 @@ public class Upload {
         }
         return null;
     }
-
+  
     public static String getPathFotosProductos() {
         try {
 //          String path = getPath() + "/resources/images/upload/Productos/";
@@ -126,10 +125,6 @@ public class Upload {
         return null;
     }
 
-    /**
-     *
-     * METODO QUE SUBE EL ARCHIVO =============================================
-     */
     public void uploadFile(byte[] b, String nombre, String destino) throws IOException {
 
         String FilePath = destino;

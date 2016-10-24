@@ -16,24 +16,30 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class Sesion {
 
+    //Variables de sesion
     private static HttpServletRequest httpServletRequest;
     private static FacesContext faceContext;
 
+    //constructores
     public Sesion() {
     }
 
+    //Metodos
+    //sube el objeto usuario como variable de sesion
     public static void iniciarHttpSesion(Usuario_TO usuario) {
         faceContext = FacesContext.getCurrentInstance();
         httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
         httpServletRequest.getSession().setAttribute("Sesion", usuario);
     }
 
+    //Invalida la sesion iniciada
     public static void cerrarHttpSesion() {
         faceContext = FacesContext.getCurrentInstance();
         httpServletRequest = (HttpServletRequest) faceContext.getExternalContext().getRequest();
         httpServletRequest.getSession().invalidate();
     }
 
+    //consulta la informacion subida como variable de sesion y retorna esta informacion
     public static Usuario_TO obtenerSesion() {
         Usuario_TO usuarioLogueado = new Usuario_TO();
         faceContext = FacesContext.getCurrentInstance();

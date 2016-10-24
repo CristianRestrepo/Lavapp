@@ -17,7 +17,8 @@ import javax.annotation.PostConstruct;
  * @author Desarrollo_Planit
  */
 public class JornadaCT implements Serializable{
-
+    
+    //Variables
     private Jornada_TO jornada;
     private List<Jornada_TO> jornadas;
    
@@ -25,6 +26,7 @@ public class JornadaCT implements Serializable{
     protected int operacion; //Controla la operacion a ejecutar
     private String buscar;
 
+    //Constructores
     public JornadaCT() {
         jornada = new Jornada_TO();
         jornadas = new ArrayList<>();
@@ -95,6 +97,7 @@ public class JornadaCT implements Serializable{
     
     //Metodos Propios
     public void metodo() {
+        //segun el valor de la bandera operacion valida que operacion se realiza, ya sea modificacion o registro
         if (operacion == 0) {
             registrar();
         } else if (operacion == 1) {
@@ -106,6 +109,7 @@ public class JornadaCT implements Serializable{
     }
 
     public void seleccionarCRUD(int i) {
+        //Setea un valor en la variable operacion para determinar que funcion realizara proximamente
         operacion = i;
         if (operacion == 1) {
             nombreOperacion = "Modificar";
@@ -113,6 +117,7 @@ public class JornadaCT implements Serializable{
     }
 
     public void cancelar() {
+        //reinicia los valores de la variables y vuelve a 0 la bandera operacion
         jornada = new Jornada_TO();
         //barrios = servicios.consultarBarrios();
         operacion = 0;
@@ -120,6 +125,7 @@ public class JornadaCT implements Serializable{
     }
     
     public void buscarJornadas(){
+        //filtra la lista de barrios segun el valor que se consulte, si valor es vacio consulta todos los barrios
         JornadaDao jornadaDao = new JornadaDao();
         jornadas = new ArrayList<>();
         if(buscar.isEmpty()){

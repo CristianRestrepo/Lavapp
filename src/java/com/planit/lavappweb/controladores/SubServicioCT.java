@@ -18,14 +18,15 @@ import javax.annotation.PostConstruct;
  */
 public class SubServicioCT implements Serializable {
 
+    //Variables y objetos
     private SubServicio_TO subServicio;
     private List<SubServicio_TO> subServicios;
-
-    //Variables 
+   
     private String nombreOperacion;
     protected int operacion;
     private String buscar;
 
+    //Constructores
     public SubServicioCT() {
         subServicio = new SubServicio_TO();
         subServicios = new ArrayList<>();
@@ -95,6 +96,7 @@ public class SubServicioCT implements Serializable {
 
     //Metodos Propios
     public void metodo() {
+        //segun el valor de la bandera operacion valida que operacion se realiza, ya sea modificacion o registro
         if (operacion == 0) {
             registrar();
         } else if (operacion == 1) {
@@ -106,6 +108,7 @@ public class SubServicioCT implements Serializable {
     }
 
     public void seleccionarCRUD(int i) {
+        //Setea un valor en la variable operacion para determinar que funcion realizara proximamente
         operacion = i;
         if (operacion == 1) {
             nombreOperacion = "Modificar";
@@ -113,6 +116,7 @@ public class SubServicioCT implements Serializable {
     }
 
     public void cancelar() {
+        //reinicia los valores de la variables y vuelve a 0 la bandera operacion
         SubServicioDao subServicioDao = new SubServicioDao();
         subServicio = new SubServicio_TO();
         subServicios = subServicioDao.consultarSubServicios();
@@ -121,6 +125,7 @@ public class SubServicioCT implements Serializable {
     }
 
     public void buscarSubServicios() {
+        //filtra la lista de subservicios segun el valor que se consulte, si valor es vacio consulta todos los subservicios
         SubServicioDao subServicioDao = new SubServicioDao();
         subServicios = new ArrayList<>();
         if (buscar.isEmpty()) {

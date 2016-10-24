@@ -11,15 +11,16 @@ package com.planit.lavappweb.controladores;
  */
 public class RutaCT {
 
-    /**
-     * Creates a new instance of RutaCT
-     */
+    //Variables
     private String rutaimagenes;
 
+    //Constructor
     public RutaCT() {
+        //La ruta tiene configurada la direccion donde estan guardadas las imagenes de las prendas y categorias del sistema
         rutaimagenes = "http://190.146.144.78/LavaApp";
     }
-
+    
+    //Getters & Setters
     public String getRutaimagenes() {
         return rutaimagenes;
     }

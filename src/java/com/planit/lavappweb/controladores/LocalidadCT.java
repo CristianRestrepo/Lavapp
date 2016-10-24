@@ -18,6 +18,7 @@ import javax.annotation.PostConstruct;
  */
 public class LocalidadCT implements Serializable{
 
+    //Variables
     private Localidad_TO localidad;
     private List<Localidad_TO> localidades;
     
@@ -25,6 +26,7 @@ public class LocalidadCT implements Serializable{
     private int operacion;
     private String buscar;
 
+    //constructores
     public LocalidadCT() {
         localidad = new Localidad_TO();
         localidades = new ArrayList<>();        
@@ -35,6 +37,7 @@ public class LocalidadCT implements Serializable{
 
     @PostConstruct
     public void init() {
+        //Cargamos las localidades registradas en la lista localidades
         LocalidadDao localidadDao = new LocalidadDao();
         localidades = localidadDao.consultarLocalidades();
     }
@@ -96,6 +99,7 @@ public class LocalidadCT implements Serializable{
     //Metodos
     //Metodos Propios
     public void metodo() {
+        //segun el valor de la bandera operacion valida que operacion se realiza, ya sea modificacion o registro
         if (operacion == 0) {
             registrar();
         } else if (operacion == 1) {
@@ -107,6 +111,7 @@ public class LocalidadCT implements Serializable{
     }
 
     public void seleccionarCRUD(int i) {
+        //Setea un valor en la variable operacion para determinar que funcion realizara proximamente
         operacion = i;
         if (operacion == 1) {
             nombreOperacion = "Modificar";
@@ -114,6 +119,7 @@ public class LocalidadCT implements Serializable{
     }
 
     public void cancelar() {
+        //reinicia los valores de las variables y vuelve a 0 la bandera operacion
         LocalidadDao localidadDao = new LocalidadDao();
         localidad = new Localidad_TO();
         localidades = localidadDao.consultarLocalidades();
@@ -122,6 +128,7 @@ public class LocalidadCT implements Serializable{
     }
     
     public void buscarLocalidades(){
+         //filtra la lista de localidades segun el valor que se consulte, si valor es vacio consulta todos los localidades
         LocalidadDao localidadDao = new LocalidadDao();
         localidades = new ArrayList<>();
         if(buscar.isEmpty()){

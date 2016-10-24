@@ -16,6 +16,7 @@ import java.security.NoSuchAlgorithmException;
  */
 public class MD5 {    
     public static String getMD5(String input) {
+        //Encripta en md5 el string recibido como parametro
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] messageDigest = md.digest(input.getBytes());

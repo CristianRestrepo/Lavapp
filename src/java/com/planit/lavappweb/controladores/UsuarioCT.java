@@ -19,7 +19,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 public class UsuarioCT implements Serializable {
-
+    
+    //Variables y objetos
     private Usuario_TO usuario;
     private List<Usuario_TO> usuarios;
     private List<Usuario_TO> clientes;
@@ -30,13 +31,13 @@ public class UsuarioCT implements Serializable {
     private int operacion; //Controla la operacion a ejecutar
     private String buscar;
 
+    //Constructores
     public UsuarioCT() {
         usuario = new Usuario_TO();
         usuarios = new ArrayList<>();
         clientes = new ArrayList<>();
         asesores = new ArrayList<>();
         
-
         operacion = 0;
         nombreOperacion = "Registrar";
         buscar = null;
@@ -161,6 +162,7 @@ public class UsuarioCT implements Serializable {
 
     //Metodos Asesor
     public void metodoAsesor() {
+        //segun el valor de la bandera operacion valida que operacion se realiza, ya sea modificacion o registro en la vista de asesor
         if (operacion == 0) {
             registrarAsesor();
         } else if (operacion == 1) {
@@ -172,6 +174,7 @@ public class UsuarioCT implements Serializable {
     }
 
     public void metodoCliente() {
+        //segun el valor de la bandera operacion valida que operacion se realiza, ya sea modificacion o registro en la vista de cliente
         if (operacion == 0) {
             registrarCliente();
         } else if (operacion == 1) {
@@ -183,6 +186,7 @@ public class UsuarioCT implements Serializable {
     }
 
     public void seleccionarCRUD(int i) {
+         //Setea un valor en la variable operacion para determinar que funcion realizara proximamente
         operacion = i;
         if (operacion == 1) {
             nombreOperacion = "Modificar";
@@ -190,12 +194,14 @@ public class UsuarioCT implements Serializable {
     }
 
     public void cancelarAsesor() {
+         //reinicia los valores de la variables y vuelve a 0 la bandera operacion
         usuario = new Usuario_TO();
         nombreOperacion = "Registrar";
         operacion = 0;
     }
 
     public void buscarAsesores() {
+        //filtra la lista de asesores segun el valor que se consulte, si valor es vacio consulta todos los asesores
           UsuarioDao usuarioDao = new UsuarioDao();
         asesores = new ArrayList<>();
         if (buscar == null) {
@@ -206,6 +212,7 @@ public class UsuarioCT implements Serializable {
     }
 
     public void buscarClientes() {
+        //filtra la lista de clientes segun el valor que se consulte, si valor es vacio consulta todos los clientes
           UsuarioDao usuarioDao = new UsuarioDao();
         clientes = new ArrayList<>();
         if (buscar.isEmpty()) {

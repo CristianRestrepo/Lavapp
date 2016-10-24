@@ -18,14 +18,15 @@ import javax.annotation.PostConstruct;
  */
 public class ServicioCT implements Serializable {
 
+    //Variables
     private Servicio_TO servicio;
     private List<Servicio_TO> servicios;
-
-    //Variables
+    
     private String nombreOperacion;
     protected int operacion;
     private String buscar;
 
+    //Constructores
     public ServicioCT() {
         servicio = new Servicio_TO();
         servicios = new ArrayList<>();
@@ -94,6 +95,7 @@ public class ServicioCT implements Serializable {
 
     //Metodos Propios
     public void metodo() {
+        //segun el valor de la bandera operacion valida que operacion se realiza, ya sea modificacion o registro
         if (operacion == 0) {
             registrar();
         } else if (operacion == 1) {
@@ -105,6 +107,7 @@ public class ServicioCT implements Serializable {
     }
 
     public void seleccionarCRUD(int i) {
+        //Setea un valor en la variable operacion para determinar que funcion realizara proximamente
         operacion = i;
         if (operacion == 1) {
             nombreOperacion = "Modificar";
@@ -112,6 +115,7 @@ public class ServicioCT implements Serializable {
     }
 
     public void cancelar() {
+        //reinicia los valores de las variables y vuelve a 0 la bandera operacion
         ServicioDao servicioDao = new ServicioDao();
         servicio = new Servicio_TO();
         servicios = servicioDao.consultarServicios();
@@ -120,6 +124,7 @@ public class ServicioCT implements Serializable {
     }
 
     public void buscarServicios() {
+        //filtra la lista de servicios segun el valor que se consulte, si valor es vacio consulta todos los servicios
         ServicioDao servicioDao = new ServicioDao();
         servicios = new ArrayList<>();
         if (buscar.isEmpty()) {

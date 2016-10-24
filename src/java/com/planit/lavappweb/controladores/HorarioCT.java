@@ -21,6 +21,7 @@ import javax.annotation.PostConstruct;
  */
 public class HorarioCT implements Serializable {
 
+    //Variables
     private Horario_TO horario;
     private List<Horario_TO> horarios;
 
@@ -38,12 +39,14 @@ public class HorarioCT implements Serializable {
 
     private String buscar;
 
+    //Constructores
     public HorarioCT() {
         horario = new Horario_TO();
         horarios = new ArrayList<>();
         nombreOperacion = "Registrar";
         operacion = 0;
 
+        //Inicializacion de las variables para registro de horas y minutos
         horainicio = "00";
         minutoinicio = "00";
 
@@ -148,13 +151,16 @@ public class HorarioCT implements Serializable {
     public void registrar() {
 
         HorarioDao horarioDao = new HorarioDao();
+        //Setea la hora de inicio y fin concatenando los string de hora y minutos
         horario.setHoraInicio(horainicio + ":" + minutoinicio);
         horario.setHoraFinal(horafinal + ":" + minutofinal);
+        //Setea el horario concatenando la hora de inicio y final
         horario.setHorario("" + horario.getHoraInicio() + "-" + horario.getHoraFinal());
 
         horario = horarioDao.registrarHorario(horario);
         horarios = horarioDao.consultarHorarios();
 
+        //Reiniciamos los valores para un nuevo registro
         horainicio = "00";
         minutoinicio = "00";
 
@@ -186,6 +192,7 @@ public class HorarioCT implements Serializable {
     }
 
     public void cargarhoras() {
+        //Carga a la lista 'horas' las 24 horas del dia
         horas = new ArrayList<>();
         for (int i = 0; i < 24; i++) {
             if (i < 10) {
@@ -197,6 +204,7 @@ public class HorarioCT implements Serializable {
     }
 
     public void cargarminutos() {
+        //Carga a la lista 'minutos' los 60 munitos que componen una hora 
         minutos = new ArrayList<>();
         for (int i = 0; i < 60; i++) {
             if (i < 10) {
@@ -209,6 +217,7 @@ public class HorarioCT implements Serializable {
 
     //Metodos Propios
     public void metodo() {
+        //segun el valor de la bandera operacion valida que operacion se realiza, ya sea modificacion o registro
         if (operacion == 0) {
             registrar();
         } else if (operacion == 1) {
@@ -220,6 +229,7 @@ public class HorarioCT implements Serializable {
     }
 
     public void seleccionarCRUD(int i) throws ParseException {
+        //Setea un valor en la variable operacion para determinar que funcion realizara proximamente
         operacion = i;
         if (operacion == 1) {
             nombreOperacion = "Modificar";
@@ -227,6 +237,7 @@ public class HorarioCT implements Serializable {
             Date HI = dt.parse(horario.getHoraInicio());
             Date HF = dt.parse(horario.getHoraFinal());
 
+            //Valida las horas y los minutos del horario seleccionado y rearma los string segun el valor que tengan
             if (HI.getHours() < 10) {
                 horainicio = "0" + HI.getHours();
             } else {
@@ -254,6 +265,7 @@ public class HorarioCT implements Serializable {
     }
 
     public void cancelar() {
+        //reinicia los valores de las variables y vuelve a 0 la bandera operacion
         horainicio = "00";
         minutoinicio = "00";
 
@@ -266,6 +278,7 @@ public class HorarioCT implements Serializable {
     }
 
     public void buscarHorario() {
+        //filtra la lista de barrios segun el valor que se consulte, si valor es vacio consulta todos los barrios
         HorarioDao horarioDao = new HorarioDao();
         horarios = new ArrayList<>();
         if (buscar.isEmpty()) {

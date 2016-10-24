@@ -18,9 +18,11 @@ import javax.annotation.PostConstruct;
  */
 public class FacturaCT implements Serializable {
 
+    //Variables
     private Factura_TO factura;
     private List<Factura_TO> facturas;
 
+    //Constructores
     public FacturaCT() {
         factura = new Factura_TO();
         facturas = new ArrayList<>();
