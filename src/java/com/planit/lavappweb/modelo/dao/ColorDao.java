@@ -19,14 +19,19 @@ import java.util.List;
 public class ColorDao {
     
     public Color_TO consultarColor(Color_TO color){
+        //instancia del cliente del web service consultar color
         ClienteConsultarColor cliente = new ClienteConsultarColor();
+        //retornamos el resultado del metodo consultar color
         return cliente.consultarColor(Color_TO.class, "" + color.getIdColor(), color.getNombre());
     }
     
     public List<Color_TO> consultarColores(){
+         //instancia del cliente del web service consultar colores
         ClienteConsultarColores cliente = new ClienteConsultarColores();
+        //Listas hashmap y colores
         List<HashMap> datos = cliente.consultarColores(List.class);
         List<Color_TO> colores = new ArrayList<>();
+        //rearmamos la lista de colores extrayendo cada componente que la lista datos que compone un objeto color
         for (int i = 0; i < datos.size(); i++) {
             colores.add(new Color_TO((int) datos.get(i).get("idColor"), (String) datos.get(i).get("nombre")));
         }

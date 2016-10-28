@@ -16,18 +16,25 @@ import com.planit.lavappweb.webservices.clientes.ClienteMensajeBienvenida;
  */
 public class CorreoDao {
 
+    
     public int enviarMensajeBienvenida(Usuario_TO usuario) {
+        //Instancia del cliente del web service enviar mensaje bienvenida
         ClienteMensajeBienvenida cliente = new ClienteMensajeBienvenida();
+        //retornamos el resultado del metodo enviar mensaje bienvenida
         return cliente.enviarMensajeBienvenido(int.class, usuario.getEmail());
     }
 
     public int enviarMensajeNuevaContrasena(Usuario_TO usuario) {
+        //Instancia del cliente del web service enviar mensaje nueva contraseña
         ClienteEnviarMensajeNuevaContrasena cliente = new ClienteEnviarMensajeNuevaContrasena();
+        //retornamos el resultado del metodo enviar mensaje nueva contraseña
         return cliente.enviarMensajeNuevaContraseÃ_a(int.class, usuario.getEmail(), usuario.getContrasena());
     }
     
     public int enviarMensajeAgendamiento(Usuario_TO usuario){
+        //Instancia del cliente del web service enviar mensaje agendamiento
         ClienteEnviarMensajeAgendamiento cliente = new ClienteEnviarMensajeAgendamiento();
+        //retornamos el resultado del metodo enviar mensaje agendamiento
         return cliente.enviarMensajeAgendamiento(int.class, usuario.getEmail());
     }
 }

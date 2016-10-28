@@ -22,28 +22,36 @@ import com.planit.lavappweb.webservices.clientes.ClienteConsultarCostoPedido;
 public class CostoDao {
 
     public Costo_TO consultarCosto(Costo_TO costo) {
+        //Instancia del cliente del web service consultar costo
         ClienteConsultarCosto cliente = new ClienteConsultarCosto();
+        //Retornamos el resultado del metodo consultar costo
         return cliente.consultarCosto(Costo_TO.class,
                 "" + costo.getIdCosto());
     }
     
     public String ConsultarCostoPedido(Pedido_TO pedido){
+        //Instancia del cliente del web service consultar costo pedido
         ClienteConsultarCostoPedido cliente = new ClienteConsultarCostoPedido();
+        //Retornamo el resultado del metodo consultar costo pedido
         return cliente.consultarCostoPedido(String.class, "" + pedido.getIdPedido());
     } 
 
     public Costo_TO consultarCostoSubProducto(SubProducto_TO subproducto) {
+        //Instancia del cliente del web service consultar costo sub producto
         ClienteConsultarCostoSubProducto cliente = new ClienteConsultarCostoSubProducto();
         return cliente.consultarCostoSubProducto(Costo_TO.class,
                 "" + subproducto.getIdSubProducto());
     }
 
-    public Costo_TO RegistrarCosto(Costo_TO costo) {
+    public Costo_TO RegistrarCosto(Costo_TO costo) {        
+        //instancias de los daos necesarios para rearmar los objetos costo
         SubProductoDao spd = new SubProductoDao();
         ZonaDao zd = new ZonaDao();
+        //consultamos la informacion completa del subproducto al que se le esta consultando el costo
         costo.setSubProducto(spd.consultarSubProducto(costo.getSubProducto()));
         costo.setZona(zd.consultarZona(costo.getZona()));
 
+        //Instancia del cliente del web service registrar costo
         ClienteRegistrarCosto cliente = new ClienteRegistrarCosto();
         return cliente.registrarCosto(Costo_TO.class, "" + costo.getValor(),
                 "" + costo.getSubProducto().getIdSubProducto(),
@@ -51,11 +59,14 @@ public class CostoDao {
     }
 
     public Costo_TO modificarCosto(Costo_TO costo) {
+        //Instancias de los dao necesarios para reconstruir un objeto costo
         SubProductoDao spd = new SubProductoDao();
         ZonaDao zd = new ZonaDao();
+        //consultamos la informacion completa del subproducto al que se le esta consultando el costo
         costo.setSubProducto(spd.consultarSubProducto(costo.getSubProducto()));
         costo.setZona(zd.consultarZona(costo.getZona()));
 
+        //Instancia del cliente del web service editar costo
         ClienteEditarCosto cliente = new ClienteEditarCosto();
         return cliente.editarCosto(Costo_TO.class,
                 "" + costo.getIdCosto(),
@@ -65,6 +76,7 @@ public class CostoDao {
     }
 
     public Costo_TO eliminarCosto(Costo_TO costo) {
+        //instancia del cliente del web service eliminarCosto
         ClienteEliminarCosto cliente = new ClienteEliminarCosto();
         return cliente.eliminarCosto(Costo_TO.class,
                 "" + costo.getIdCosto());
