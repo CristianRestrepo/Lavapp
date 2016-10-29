@@ -2,7 +2,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-       xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -16,8 +19,149 @@
                 </ol>
                 <b:container fluid="true">
                     <b:row>
-                        <b:column col-lg="">
-                            
+                        <b:column col-lg="12">
+                            <div class="col-lg-4">
+                                <h3 style="font-size: x-large"><strong>Promociones</strong><small> Promociones habilitadas en la plataforma</small></h3>                        
+                                <p:separator />
+                            </div>  
+                        </b:column>
+
+                        <b:column col-lg="6">
+                            <h:form id="formularioRegistro">
+                                <p:growl autoUpdate="true" life="3000" showDetail="true"/>
+                                <div class="box box-info">
+                                    <div class="box-header with-border">
+                                        <i class="fa fa-2x fa-usd "/>
+                                        <h4 class="box-title">PROMOCIONES</h4>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label class="label-lv" for="">Nombre de la promocion</label>
+                                            <p:inputText class="form-control" id="txtpromocion" placeholder="Nombre de la promocion"/>
+                                            <p:message for="txtpromocion"/>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="label-lv" for="">Fecha de inicio de la promocion</label>
+                                            <b:dateTimePicker placeholder="DD/MM/YY" id="TFechaInicio" required="true" required-message="Por favor, Seleccione fecha" value="#{pedidoCT.pedido.fechaRecogida}" show-time="false"/>
+                                            <p:message for="TFechaInicio"/>
+                                        </div>                                                                      
+
+                                        <div class="form-group">
+                                            <label class="label-lv" for="">Fecha de terminacion de la promocion</label>
+                                            <b:dateTimePicker placeholder="DD/MM/YY" id="TFechaFinal" required="true" required-message="Por favor, Seleccione fecha" value="#{pedidoCT.pedido.fechaRecogida}" show-time="false"/>
+                                            <p:message for="TFechaFinal"/>
+                                        </div>
+
+                                        <label class="control-label">Hora inicio<span class="required">*</span></label>
+                                        <h:panelGrid columns="3" width="100%">
+                                            <h:selectOneMenu value="#{horarioCT.horainicio}" class="form-control">
+                                                <f:selectItems value="#{horarioCT.horas}"/>
+                                            </h:selectOneMenu>
+
+                                            <label>:</label>
+
+                                            <h:selectOneMenu value="#{horarioCT.minutoinicio}" class="form-control">
+                                                <f:selectItems value="#{horarioCT.minutos}"/>
+                                            </h:selectOneMenu>
+                                        </h:panelGrid>
+
+                                        <label class="control-label">Hora Final<span class="required">*</span></label>
+                                        <h:panelGrid columns="3" width="100%">
+                                            <h:selectOneMenu value="#{horarioCT.horafinal}" class="form-control">
+                                                <f:selectItems value="#{horarioCT.horas}"/>
+                                            </h:selectOneMenu>
+
+                                            <label> :</label>
+
+                                            <h:selectOneMenu value="#{horarioCT.minutofinal}" class="form-control">
+                                                <f:selectItems value="#{horarioCT.minutos}"/>
+                                            </h:selectOneMenu>
+
+                                        </h:panelGrid>
+
+                                        <div class="form-group">
+                                            <label class="label-lv" for="">Porcentaje de descuento</label>
+                                            <p:inputText class="form-control" id="txtporcentaje" placeholder="Porcentaje descuento %"/>
+                                            <p:message for="txtporcentaje"/>
+                                        </div>
+                                    </div>
+                                    <div class="box-footer" align="right">
+                                        <h:panelGrid columns="2">
+                                            <p:commandButton id="BarrCancelar"  process="@this" 
+                                                             immediate="true" class="btn btn-info" 
+                                                             update=":formularioRegistro :formularioLista"
+                                                             action="#{barrioCT.cancelar()}"
+                                                             value="Cancelar" />
+
+                                            <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" 
+                                                             update=":formularioRegistro :formularioLista"
+                                                             action="#{barrioCT.metodo()}" value="#{barrioCT.nombreOperacion}"
+                                                             class="btn btn-success"  type="submit"/>                                       
+                                        </h:panelGrid>
+                                        <script type="text/javascript">
+                                            function start() {
+                                                PF('statusDialog').show();
+                                            }
+                                            function stop() {
+                                                PF('statusDialog').hide();
+                                            }
+                                        </script>
+                                        <p:dialog  modal="true" widgetVar="statusDialog" header="Cargando" draggable="false" closable="false" resizable="false">
+                                            <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif" />
+                                        </p:dialog>
+                                    </div>
+                                </div>
+                            </h:form>
+                        </b:column>
+
+
+                        <b:column col-lg="6" col-md="6" col-sm="12" col-xs="12">
+                            <h:form id="formularioLista">
+                                <div class="box box-info">
+                                    <div class="box-header with-border">
+                                        <i class="fa fa-2x fa-list-alt"/>
+                                        <h4 class="box-title">Lista de Promociones</h4>
+                                    </div> 
+                                    <div class="box-body">
+                                        <p:inputText style="width: 100%" value="#{barrioCT.buscar}" placeholder="Buscar..." class="form-control">
+                                            <p:ajax event="keyup" process="@this" listener="#{barrioCT.buscarBarrios()}" update="DTBarrios"/>
+                                        </p:inputText>
+                                        <hr/>
+                                        <p:dataTable id="DTBarrios" style="width: 100%" var="barrio" value="#{barrioCT.barrios}" class="table-responsive table table-striped" rows="10"
+                                                     paginator="true"
+                                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                     rowsPerPageTemplate="5,10,15">
+                                            <p:column headerText="Nombre">
+                                                <p:outputLabel value="#{barrio.nombre}"/>         
+                                            </p:column>
+
+                                            <p:column headerText="Localidad">
+                                                <p:outputLabel value="#{barrio.localidad.nombre}"/>         
+                                            </p:column>
+
+                                            <p:column headerText="Estrato">
+                                                <p:outputLabel value="#{barrio.estrato.nombre}"/>         
+                                            </p:column>
+
+                                            <p:column  style="width: 60px" headerText="">
+                                                <p:commandLink style="color: white; width: 100%" process="@this" update=":formularioRegistro" action="#{barrioCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
+                                                    <f:setPropertyActionListener value="#{barrio}" target="#{barrioCT.barrio}"/>
+                                                    <i class="fa fa-pencil"></i> 
+                                                </p:commandLink>
+                                            </p:column>
+
+                                            <p:column  style="width: 60px" headerText="">
+                                                <p:commandLink style="color: white; width: 100%" action="#{barrioCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
+                                                    <f:setPropertyActionListener value="#{barrio}" target="#{barrioCT.barrio}"/>
+                                                    <i class="fa fa-trash"></i>                                                     
+                                                </p:commandLink>
+                                            </p:column>
+                                        </p:dataTable>  
+
+                                    </div>                                   
+                                </div>
+                            </h:form>
                         </b:column>
                     </b:row>
                 </b:container>

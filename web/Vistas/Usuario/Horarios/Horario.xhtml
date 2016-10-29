@@ -36,7 +36,7 @@
                                 <h:form id="formularioRegistro" class="form-horizontal">
                                     <div class="box-body">
                                         <label class="control-label">Hora inicio<span class="required">*</span></label>
-                                        <h:panelGrid columns="5" width="100%">
+                                        <h:panelGrid columns="3" width="100%">
                                             <h:selectOneMenu value="#{horarioCT.horainicio}" class="form-control">
                                                 <f:selectItems value="#{horarioCT.horas}"/>
                                             </h:selectOneMenu>
@@ -47,15 +47,10 @@
                                                 <f:selectItems value="#{horarioCT.minutos}"/>
                                             </h:selectOneMenu>
 
-                                            <label>:</label>
-
-                                            <h:selectOneMenu value="#{horarioCT.segundoinicio}" class="form-control">
-                                                <f:selectItems value="#{horarioCT.segundos}"/>
-                                            </h:selectOneMenu>
                                         </h:panelGrid>
 
                                         <label class="control-label">Hora Final<span class="required">*</span></label>
-                                        <h:panelGrid columns="5" width="100%">
+                                        <h:panelGrid columns="3" width="100%">
                                             <h:selectOneMenu value="#{horarioCT.horafinal}" class="form-control">
                                                 <f:selectItems value="#{horarioCT.horas}"/>
                                             </h:selectOneMenu>
@@ -66,11 +61,6 @@
                                                 <f:selectItems value="#{horarioCT.minutos}"/>
                                             </h:selectOneMenu>
 
-                                            <label>:</label>
-
-                                            <h:selectOneMenu value="#{horarioCT.segundofinal}" class="form-control">
-                                                <f:selectItems value="#{horarioCT.segundos}"/>
-                                            </h:selectOneMenu>
                                         </h:panelGrid>
 
                                         <label class="control-label" for="DTJornadas">Jornada<span class="required">*</span></label>
