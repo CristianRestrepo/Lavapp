@@ -50,7 +50,7 @@ public class ClienteEliminarPromocion {
             String[] values = list.toArray(new String[list.size()]);
             webTarget = webTarget.queryParam(entry.getKey(), (Object[]) values);
         }
-        return webTarget.request().get(responseType);
+        return webTarget.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
     private Form getQueryOrFormParams(String[] paramNames, String[] paramValues) {

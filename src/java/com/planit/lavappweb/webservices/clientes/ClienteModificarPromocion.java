@@ -13,10 +13,10 @@ import javax.ws.rs.core.Form;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
 /**
- * Jersey REST client generated for REST resource:we [editarPromocion]<br>
+ * Jersey REST client generated for REST resource:we [modificarPromocion]<br>
  * USAGE:
  * <pre>
- *        ClienteEditarPromocion client = new ClienteEditarPromocion();
+ *        ClienteModificarPromocion client = new ClienteModificarPromocion();
  *        Object response = client.XXX(...);
  *        // do whatever with response
  *        client.close();
@@ -24,14 +24,14 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
  *
  * @author VaioDevelopment
  */
-public class ClienteEditarPromocion {
+public class ClienteModificarPromocion {
     private WebTarget webTarget;
     private Client client;
     private static final String BASE_URI = ruta.consultarRuta();
 
-    public ClienteEditarPromocion() {
+    public ClienteModificarPromocion() {
         client = ResteasyClientBuilder.newBuilder().build();
-        webTarget = client.target(BASE_URI).path("editarPromocion");
+        webTarget = client.target(BASE_URI).path("modificarPromocion");
     }
 
     /**
@@ -56,7 +56,7 @@ public class ClienteEditarPromocion {
             String[] values = list.toArray(new String[list.size()]);
             webTarget = webTarget.queryParam(entry.getKey(), (Object[]) values);
         }
-        return webTarget.request().get(responseType);
+        return webTarget.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
     private Form getQueryOrFormParams(String[] paramNames, String[] paramValues) {

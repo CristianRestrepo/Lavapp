@@ -10,6 +10,7 @@ import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
+import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
 /**
@@ -55,7 +56,7 @@ public class ClienteRegistrarPromocion {
             String[] values = list.toArray(new String[list.size()]);
             webTarget = webTarget.queryParam(entry.getKey(), (Object[]) values);
         }
-        return webTarget.request().get(responseType);
+        return webTarget.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
     private Form getQueryOrFormParams(String[] paramNames, String[] paramValues) {

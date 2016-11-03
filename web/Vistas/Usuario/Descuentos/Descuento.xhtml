@@ -37,44 +37,44 @@
                                     <div class="box-body">
                                         <div class="form-group">
                                             <label class="label-lv" for="">Nombre de la promocion</label>
-                                            <p:inputText class="form-control" id="txtpromocion" placeholder="Nombre de la promocion"/>
+                                            <p:inputText class="form-control" value="#{promocionesCT.promocion.nombre}" id="txtpromocion" placeholder="Nombre de la promocion"/>
                                             <p:message for="txtpromocion"/>
                                         </div>
 
                                         <div class="form-group">
                                             <label class="label-lv" for="">Fecha de inicio de la promocion</label>
-                                            <b:dateTimePicker placeholder="DD/MM/YY" id="TFechaInicio" required="true" required-message="Por favor, Seleccione fecha" value="#{pedidoCT.pedido.fechaRecogida}" show-time="false"/>
+                                            <b:dateTimePicker placeholder="DD/MM/YY" id="TFechaInicio" required="true" required-message="Por favor, Seleccione fecha" value="#{promocionesCT.promocion.fechaInicio}" show-time="false"/>
                                             <p:message for="TFechaInicio"/>
                                         </div>                                                                      
 
                                         <div class="form-group">
                                             <label class="label-lv" for="">Fecha de terminacion de la promocion</label>
-                                            <b:dateTimePicker placeholder="DD/MM/YY" id="TFechaFinal" required="true" required-message="Por favor, Seleccione fecha" value="#{pedidoCT.pedido.fechaRecogida}" show-time="false"/>
+                                            <b:dateTimePicker placeholder="DD/MM/YY" id="TFechaFinal" required="true" required-message="Por favor, Seleccione fecha" value="#{promocionesCT.promocion.fechaFinal}" show-time="false"/>
                                             <p:message for="TFechaFinal"/>
                                         </div>
 
                                         <label class="control-label">Hora inicio<span class="required">*</span></label>
                                         <h:panelGrid columns="3" width="100%">
-                                            <h:selectOneMenu value="#{horarioCT.horainicio}" class="form-control">
+                                            <h:selectOneMenu value="#{promocionesCT.horainicio}" class="form-control">
                                                 <f:selectItems value="#{horarioCT.horas}"/>
                                             </h:selectOneMenu>
 
                                             <label>:</label>
 
-                                            <h:selectOneMenu value="#{horarioCT.minutoinicio}" class="form-control">
+                                            <h:selectOneMenu value="#{promocionesCT.minutoinicio}" class="form-control">
                                                 <f:selectItems value="#{horarioCT.minutos}"/>
                                             </h:selectOneMenu>
                                         </h:panelGrid>
 
                                         <label class="control-label">Hora Final<span class="required">*</span></label>
                                         <h:panelGrid columns="3" width="100%">
-                                            <h:selectOneMenu value="#{horarioCT.horafinal}" class="form-control">
+                                            <h:selectOneMenu value="#{promocionesCT.horafinal}" class="form-control">
                                                 <f:selectItems value="#{horarioCT.horas}"/>
                                             </h:selectOneMenu>
 
                                             <label> :</label>
 
-                                            <h:selectOneMenu value="#{horarioCT.minutofinal}" class="form-control">
+                                            <h:selectOneMenu value="#{promocionesCT.minutofinal}" class="form-control">
                                                 <f:selectItems value="#{horarioCT.minutos}"/>
                                             </h:selectOneMenu>
 
@@ -82,7 +82,7 @@
 
                                         <div class="form-group">
                                             <label class="label-lv" for="">Porcentaje de descuento</label>
-                                            <p:inputText class="form-control" id="txtporcentaje" placeholder="Porcentaje descuento %"/>
+                                            <p:inputText class="form-control" value="#{promocionesCT.promocion.porcentaje}" id="txtporcentaje" placeholder="Porcentaje descuento %"/>
                                             <p:message for="txtporcentaje"/>
                                         </div>
                                     </div>
@@ -91,12 +91,12 @@
                                             <p:commandButton id="BarrCancelar"  process="@this" 
                                                              immediate="true" class="btn btn-info" 
                                                              update=":formularioRegistro :formularioLista"
-                                                             action="#{barrioCT.cancelar()}"
+                                                             action="#{promocionesCT.cancelar()}"
                                                              value="Cancelar" />
 
                                             <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);" 
                                                              update=":formularioRegistro :formularioLista"
-                                                             action="#{barrioCT.metodo()}" value="#{barrioCT.nombreOperacion}"
+                                                             action="#{promocionesCT.metodo()}" value="#{promocionesCT.nombreOperacion}"
                                                              class="btn btn-success"  type="submit"/>                                       
                                         </h:panelGrid>
                                         <script type="text/javascript">
@@ -124,41 +124,45 @@
                                         <h4 class="box-title">Lista de Promociones</h4>
                                     </div> 
                                     <div class="box-body">
-                                        <p:inputText style="width: 100%" value="#{barrioCT.buscar}" placeholder="Buscar..." class="form-control">
-                                            <p:ajax event="keyup" process="@this" listener="#{barrioCT.buscarBarrios()}" update="DTBarrios"/>
+                                        <p:inputText style="width: 100%" value="#{promocionesCT.buscar}" placeholder="Buscar..." class="form-control">
+                                            <p:ajax event="keyup" process="@this" update="DTPromociones"/>
                                         </p:inputText>
                                         <hr/>
-                                        <p:dataTable id="DTBarrios" style="width: 100%" var="barrio" value="#{barrioCT.barrios}" class="table-responsive table table-striped" rows="10"
+                                        <p:dataTable id="DTPromociones" style="width: 100%" var="promocion" value="#{promocionesCT.promociones}" class="table-responsive table table-striped" rows="10"
                                                      paginator="true"
                                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                                     rowsPerPageTemplate="5,10,15">
+                                                     rowsPerPageTemplate="5,10,15" emptyMessage="Promociones no registradas
+                                                     ">
                                             <p:column headerText="Nombre">
-                                                <p:outputLabel value="#{barrio.nombre}"/>         
+                                                <p:outputLabel value="#{promocion.nombre}"/>         
                                             </p:column>
 
-                                            <p:column headerText="Localidad">
-                                                <p:outputLabel value="#{barrio.localidad.nombre}"/>         
+                                            <p:column headerText="Fecha Inicio">
+                                                <p:outputLabel value="#{promocion.fechaInicio}"/>         
                                             </p:column>
 
-                                            <p:column headerText="Estrato">
-                                                <p:outputLabel value="#{barrio.estrato.nombre}"/>         
+                                            <p:column headerText="Fecha Final">
+                                                <p:outputLabel value="#{promocion.fechaFinal}"/>         
                                             </p:column>
-
+                                            
+                                            <p:column headerText="Porcentaje">
+                                                <p:outputLabel value="#{promocion.porcentaje}"/>         
+                                            </p:column>
+                                            
                                             <p:column  style="width: 60px" headerText="">
-                                                <p:commandLink style="color: white; width: 100%" process="@this" update=":formularioRegistro" action="#{barrioCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
-                                                    <f:setPropertyActionListener value="#{barrio}" target="#{barrioCT.barrio}"/>
+                                                <p:commandLink style="color: white; width: 100%" process="@this" update=":formularioRegistro" action="#{promocionesCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
+                                                    <f:setPropertyActionListener value="#{promocion}" target="#{promocionesCT.promocion}"/>
                                                     <i class="fa fa-pencil"></i> 
                                                 </p:commandLink>
                                             </p:column>
 
                                             <p:column  style="width: 60px" headerText="">
-                                                <p:commandLink style="color: white; width: 100%" action="#{barrioCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
-                                                    <f:setPropertyActionListener value="#{barrio}" target="#{barrioCT.barrio}"/>
+                                                <p:commandLink style="color: white; width: 100%" action="#{promocionesCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
+                                                    <f:setPropertyActionListener value="#{promocion}" target="#{promocionesCT.promocion}"/>
                                                     <i class="fa fa-trash"></i>                                                     
                                                 </p:commandLink>
                                             </p:column>
-                                        </p:dataTable>  
-
+                                        </p:dataTable> 
                                     </div>                                   
                                 </div>
                             </h:form>
@@ -166,7 +170,6 @@
                     </b:row>
                 </b:container>
             </ui:define>
-
         </ui:composition>
 
     </body>
