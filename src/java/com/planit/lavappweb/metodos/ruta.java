@@ -15,7 +15,7 @@ public class ruta {
     
     public static String consultarRuta(){
     //Retorna la ruta de acceso de los web service
-    rutas = "http://localhost:8084/LavappService/webresources/"; 
+    rutas = "http://localhost:8080/LavappService/webresources/"; 
     //rutas = "http://xxxxxx:8084/LavappService/webresources/";
     
     return rutas;

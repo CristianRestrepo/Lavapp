@@ -12,8 +12,13 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>Descuentos</from-outcome>
-            <to-view-id>/Vistas/Usuario/Descuentos/Descuento.xhtml</to-view-id>
+            <from-outcome>Promociones</from-outcome>
+            <to-view-id>/Vistas/Usuario/Promociones/Promocion.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>PrendasPromocion</from-outcome>
+            <to-view-id>/Vistas/Usuario/Promociones/PrendasPromocion.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
@@ -337,4 +342,9 @@
         <managed-bean-class>com.planit.lavappweb.controladores.PromocionesCT</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>prendasPromocionCT</managed-bean-name>
+        <managed-bean-class>com.planit.lavappweb.controladores.PromocionSubProductoCT</managed-bean-class>
+    
+        <managed-bean-scope>view</managed-bean-scope></managed-bean>
 </faces-config>

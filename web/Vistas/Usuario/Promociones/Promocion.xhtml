@@ -144,11 +144,11 @@
                                             <p:column headerText="Fecha Final">
                                                 <p:outputLabel value="#{promocion.fechaFinal}"/>         
                                             </p:column>
-                                            
+
                                             <p:column headerText="Porcentaje">
                                                 <p:outputLabel value="#{promocion.porcentaje}"/>         
                                             </p:column>
-                                            
+
                                             <p:column  style="width: 60px" headerText="">
                                                 <p:commandLink style="color: white; width: 100%" process="@this" update=":formularioRegistro" action="#{promocionesCT.seleccionarCRUD(1)}" title="Modificar" class="btn btn-block btn-info">
                                                     <f:setPropertyActionListener value="#{promocion}" target="#{promocionesCT.promocion}"/>
@@ -157,7 +157,7 @@
                                             </p:column>
 
                                             <p:column  style="width: 60px" headerText="">
-                                                <p:commandLink style="color: white; width: 100%" action="#{promocionesCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
+                                                <p:commandLink style="color: white; width: 100%" onclick="PrimeFaces.monitorDownload(start, stop);"  action="#{promocionesCT.eliminar()}" process="@this" update="@form" title="Eliminar" class="btn btn-block btn-danger">
                                                     <f:setPropertyActionListener value="#{promocion}" target="#{promocionesCT.promocion}"/>
                                                     <i class="fa fa-trash"></i>                                                     
                                                 </p:commandLink>
@@ -165,8 +165,43 @@
                                         </p:dataTable> 
                                     </div>                                   
                                 </div>
+                                <script type="text/javascript">
+                                    function start() {
+                                        PF('statusDialog').show();
+                                    }
+                                    function stop() {
+                                        PF('statusDialog').hide();
+                                    }
+                                </script>
+                                <p:dialog  modal="true" widgetVar="statusDialog" header="Cargando" draggable="false" closable="false" resizable="false">
+                                    <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif" />
+                                </p:dialog>
                             </h:form>
-                        </b:column>
+                            
+                            <div class="box box-warning">
+                                <div class="box-body">
+                                    <h:form>
+                                        <table width="100%">
+                                            <tr>
+                                                <td width="20%" align="center">
+                                                    <i class="fa fa-5x fa-cogs"/>
+                                                </td>
+                                                <td width="35%" align="center">
+                                                    <h:panelGrid columns="1" width="100%">
+                                                        <h4 style="font-size: xx-large" class="title"> Asociar</h4>
+                                                        <p>Asociar prendas a una promocion</p>
+                                                    </h:panelGrid>
+                                                </td>
+                                                <td width="45%" align="right">
+                                                    <p:commandButton action="PrendasPromocion" icon="fa fa-arrow-right" iconPos="right" value="Ver" class="btn btn-info" style="height: 50px; width: 60%"/>
+                                                </td>
+                                            </tr>                                    
+                                        </table>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </b:column>                        
+                        
                     </b:row>
                 </b:container>
             </ui:define>

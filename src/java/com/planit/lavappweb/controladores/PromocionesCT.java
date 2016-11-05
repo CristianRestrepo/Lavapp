@@ -225,5 +225,11 @@ public class PromocionesCT {
         promociones = promocionDao.consultarPromociones();
         operacion = 0;
         nombreOperacion = "Registrar";
+         //Inicializacion de las variables para registro de horas y minutos
+        horainicio = "00";
+        minutoinicio = "00";
+
+        horafinal = "00";
+        minutofinal = "00";
     }
 }

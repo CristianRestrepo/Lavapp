@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+
+
+    <body>
+        <ui:composition template="./../adminTemplate.xhtml">
+            <ui:define name="content">
+                <ol class="breadcrumb">
+                    <i class="fa fa-dashboard"/>               
+                    <li class="active">Dashboard</li>
+                    <li></li>
+                </ol>
+                <b:container fluid="true">
+                    <b:row>                  
+                        <b:column col-lg="12"><!-- primer titulo columna izquierda  -->
+                            <div class="col-lg-5">
+                                <h3 style="font-size: x-large"><strong>ASOCIACION</strong><small> Promociones y prendas</small></h3>                        
+                                <p:separator />
+                            </div>   
+                        </b:column>
+                        <h:form id="formularioAsociacion">  
+                            <b:column col-lg="12" col-md="12" col-sm="12" col-xs="12">
+                                <p:messages id="messages" closable="true"/>
+                            </b:column>
+                            <b:column col-lg="5" col-md="5" col-sm="12" col-xs="12">
+                                <!-- primer contenido de formulario o lo que sea  columna izquierda  -->
+                                <div class="box box-success"> 
+                                    <div class="box-header with-border">
+                                        <h4 class="box-title">Promociones</h4>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="table-responsive">                                   
+                                            <p:dataTable rowKey="#{promocion.idPromocion}" id="eventsDT" 
+                                                         var="promocion" 
+                                                         value="#{promocionesCT.promociones}" 
+                                                         selection="#{prendasPromocionCT.promocion}" selectionMode="single">
+                                                <f:facet name="header">
+                                                    Promociones
+                                                </f:facet>
+                                                <p:column headerText="Nombre">
+                                                    <h:outputText value="#{promocion.nombre}" />
+                                                </p:column>
+                                                <p:column headerText="Porcentaje">
+                                                    <h:outputText value="#{promocion.porcentaje}" />
+                                                </p:column>
+                                                <p:column headerText="Fecha Inicio">
+                                                    <h:outputText value="#{promocion.fechaInicio}"/>
+                                                </p:column>
+                                                <p:column headerText="Fecha Final">
+                                                    <h:outputText value="#{promocion.fechaFinal}"/>
+                                                </p:column>
+                                                <p:ajax event="rowSelect" listener="#{prendasPromocionCT.consultarPrendasPromocion}" update=":formularioAsociacion:DTSubproductos"/>
+                                                <p:ajax event="rowUnselect" listener="#{prendasPromocionCT.LimpiarPrendas}" update=":formularioAsociacion:DTSubproductos"/>                                            
+                                            </p:dataTable>
+                                        </div>
+                                    </div>
+                                    <div class="box-footer" align="center">
+
+                                    </div>
+                                </div>
+                            </b:column>    <!-- termina primer contenido  columna izquierda  -->                    
+                            <b:column col-lg="7" col-md="7" col-sm="12" col-xs="12"> 
+                                <div class="box box-info" aling="center">                                
+                                    <div class="box-header with-border" aling="center">
+                                        <h4 class="box-title">Selecciona las Zonas</h4>
+                                    </div>
+                                    <div class="box-body">
+                                        <div align="right">
+                                            <p:inputText style="width: 50%" value="#{promocionesCT.buscar}" placeholder="Buscar..." class="form-control">
+                                                <p:ajax event="keyup" process="@this" update="DTSubproductos"/>
+                                            </p:inputText>
+                                        </div>
+                                        <hr/>
+                                        <p:dataTable  id="DTSubproductos" rowKey="#{prenda.idSubProducto}"
+                                                      rows="5" var="prenda" value="#{subProductoCT.subproductos}" 
+                                                      selection="#{prendasPromocionCT.prendas}" 
+                                                      paginator="true"
+                                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                      rowsPerPageTemplate="5,10,15">
+                                            <p:column selectionMode="multiple" style="width:25px;text-align:center">
+                                            </p:column>                                               
+
+                                            <p:column headerText="Prenda" sortBy="#{prenda.nombre}">
+                                                <h:outputText value="#{prenda.nombre}" />
+                                            </p:column>
+
+                                            <p:column headerText="Categoria" sortBy="#{prenda.producto.nombre}">
+                                                <h:outputText value="#{prenda.producto.nombre}" />
+                                            </p:column>                                 
+                                        </p:dataTable>
+                                    </div>                                
+                                    <div class="box-footer" align="center"> <!-- segundo contenido columna izquierda  -->
+                                        <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);"
+                                                         action="#{prendasPromocionCT.asociar()}" update=":formularioAsociacion" 
+                                                         value="Asociar" class="btn btn-success" style="width: 40%" />
+                                    </div>
+                                    <script type="text/javascript">
+                                        function start() {
+                                            PF('statusDialog').show();
+                                        }
+                                        function stop() {
+                                            PF('statusDialog').hide();
+                                        }
+                                    </script>
+                                    <p:dialog  modal="true" widgetVar="statusDialog" header="Cargando" draggable="false" closable="false" resizable="false">
+                                        <p:graphicImage width="100%" value="/resources/images/demo/ajaxloadingbar.gif"/>
+                                    </p:dialog>
+                                </div>
+                                <!-- fin de contenidos  -->
+                            </b:column>
+                        </h:form>                         
+                    </b:row>
+                </b:container>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
