@@ -127,5 +127,9 @@ public class DescripcionPedidoCT implements Serializable {
         }
         return subproductos;
     }
+    
+    public void prueba(){
+       
+    }
 
 }

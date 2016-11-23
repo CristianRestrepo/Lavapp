@@ -7,6 +7,7 @@ package com.planit.lavappweb.modelo.dao;
 
 import com.planit.lavappweb.modelo.dto.Promocion_TO;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarPromocion;
+import com.planit.lavappweb.webservices.clientes.ClienteConsultarPromocionActiva;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarPromociones;
 import com.planit.lavappweb.webservices.clientes.ClienteEliminarPromocion;
 import com.planit.lavappweb.webservices.clientes.ClienteModificarPromocion;
@@ -47,6 +48,11 @@ public class PromocionDao {
     public Promocion_TO consultarPromocion(Promocion_TO promocion) {
         ClienteConsultarPromocion cliente = new ClienteConsultarPromocion();
         return cliente.consultarPromocion(Promocion_TO.class, "" + promocion.getIdPromocion(), promocion.getNombre());
+    }
+    
+    public Promocion_TO consultarPromocionActiva() {
+        ClienteConsultarPromocionActiva cliente = new ClienteConsultarPromocionActiva();
+        return cliente.consultarPromocionActiva(Promocion_TO.class);
     }
 
     public void registrarPromocion(Promocion_TO promocion) {

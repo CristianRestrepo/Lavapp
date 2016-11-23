@@ -100,6 +100,12 @@ public class Pedido_TO implements Serializable {
 
     /**
      *
+     * Columna costo
+     */
+    private double costo;
+
+    /**
+     *
      * Columna idbarrios_recogida
      */
     private Barrio_TO barrioRecogida;
@@ -146,7 +152,7 @@ public class Pedido_TO implements Serializable {
         this.idPedido = idPedido;
     }
 
-    public Pedido_TO(int idPedido, Usuario_TO usuario, Date fechaInicio, Horario_TO horaInicio, Horario_TO horaFinal, Estado_TO estado, Proveedor_TO proveedor, Date fechaEntrega, String direccionEntrega, String direccionRecogida, Date fechaRecogida, String quienEntrega, String quienRecibe, Barrio_TO barrioRecogida, Barrio_TO barrioEntrega, Usuario_TO asesor, FormaPago_TO formaPago, EstadoPago_TO estadoPago) {
+    public Pedido_TO(int idPedido, Usuario_TO usuario, Date fechaInicio, Horario_TO horaInicio, Horario_TO horaFinal, Estado_TO estado, Proveedor_TO proveedor, Date fechaEntrega, String direccionEntrega, String direccionRecogida, Date fechaRecogida, String quienEntrega, String quienRecibe, Barrio_TO barrioRecogida, Barrio_TO barrioEntrega, Usuario_TO asesor, FormaPago_TO formaPago, EstadoPago_TO estadoPago, double costo) {
         this.idPedido = idPedido;
         this.usuario = usuario;
         this.fechaInicio = fechaInicio;
@@ -165,9 +171,10 @@ public class Pedido_TO implements Serializable {
         this.asesor = asesor;
         this.formaPago = formaPago;
         this.estadoPago = estadoPago;
+        this.costo = costo;
     }
 
-    public Pedido_TO(Usuario_TO usuario, Date fechaInicio, Horario_TO horaInicio, Horario_TO horaFinal, Estado_TO estado, Proveedor_TO proveedor, Date fechaEntrega, String direccionEntrega, String direccionRecogida, Date fechaRecogida, String quienEntrega, String quienRecibe, Barrio_TO barrioRecogida, Barrio_TO barrioEntrega, Usuario_TO asesor, FormaPago_TO formaPago, EstadoPago_TO estadoPago) {
+    public Pedido_TO(Usuario_TO usuario, Date fechaInicio, Horario_TO horaInicio, Horario_TO horaFinal, Estado_TO estado, Proveedor_TO proveedor, Date fechaEntrega, String direccionEntrega, String direccionRecogida, Date fechaRecogida, String quienEntrega, String quienRecibe, Barrio_TO barrioRecogida, Barrio_TO barrioEntrega, Usuario_TO asesor, FormaPago_TO formaPago, EstadoPago_TO estadoPago, double costo) {
         this.usuario = usuario;
         this.fechaInicio = fechaInicio;
         this.horaInicio = horaInicio;
@@ -185,9 +192,10 @@ public class Pedido_TO implements Serializable {
         this.asesor = asesor;
         this.formaPago = formaPago;
         this.estadoPago = estadoPago;
+        this.costo = costo;
     }
 
-    public Pedido_TO(Usuario_TO usuario, Date fechaInicio, Horario_TO horaInicio, Horario_TO horaFinal, Estado_TO estado, Date fechaEntrega, String direccionEntrega, String direccionRecogida, Date fechaRecogida, String quienEntrega, String quienRecibe, Barrio_TO barrioRecogida, Barrio_TO barrioEntrega, FormaPago_TO formaPago, EstadoPago_TO estadoPago) {
+    public Pedido_TO(Usuario_TO usuario, Date fechaInicio, Horario_TO horaInicio, Horario_TO horaFinal, Estado_TO estado, Date fechaEntrega, String direccionEntrega, String direccionRecogida, Date fechaRecogida, String quienEntrega, String quienRecibe, Barrio_TO barrioRecogida, Barrio_TO barrioEntrega, FormaPago_TO formaPago, EstadoPago_TO estadoPago, double costo) {
         this.usuario = usuario;
         this.fechaInicio = fechaInicio;
         this.horaInicio = horaInicio;
@@ -203,6 +211,7 @@ public class Pedido_TO implements Serializable {
         this.barrioEntrega = barrioEntrega;
         this.formaPago = formaPago;
         this.estadoPago = estadoPago;
+        this.costo = costo;
     }
 
     //Getter and Setter   
@@ -348,6 +357,14 @@ public class Pedido_TO implements Serializable {
 
     public void setEstadoPago(EstadoPago_TO estadoPago) {
         this.estadoPago = estadoPago;
+    }
+
+    public double getCosto() {
+        return costo;
+    }
+
+    public void setCosto(double costo) {
+        this.costo = costo;
     }
 
     @Override

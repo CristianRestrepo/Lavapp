@@ -89,8 +89,11 @@
                                                         <div style="padding-left: 75px" class="col-xs-8 pad-content">
                                                             <h3 class="title-prenda">#{subproducto.nombre}</h3>
                                                             <p class="txt-justify">#{subproducto.descripcion}</p>
-                                                            <p class="txt-justify">$#{subproducto.costo.valor}</p>   
-
+                                                            <p class="txt-justify">$#{subproducto.costo.valor}</p> 
+                                                            <!-- Costo con promocion -->
+                                                            <c:if test="${prendasPromocionCT.consultarSubProductoPromocionAsociados(subproducto) == 1}">
+                                                                <p class="txt-justify" style="color: #00BFFF">$#{subproducto.costo.valor} (Con descuento)</p>    
+                                                            </c:if>
                                                             <!-- INICION DE CONTADOR -->
                                                             <div align="left">
                                                                 <h:panelGrid  width="80%" columns="2">                                                 
@@ -399,7 +402,7 @@
                                                                 <img src="./images/fanq/visa.svg" alt="" class="img-franq-3"/>
                                                             </span>							
                                                         </div>                                                     
-                                                      
+
                                                         <div id="accordion" role="tablist" aria-multiselectable="true">
                                                             <div class="panel panel-default">
                                                                 <div class="panel-heading" role="tab" id="headingOne">

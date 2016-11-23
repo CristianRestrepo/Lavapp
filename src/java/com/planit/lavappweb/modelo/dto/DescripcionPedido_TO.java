@@ -1,12 +1,12 @@
+
+package com.planit.lavappweb.modelo.dto;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.planit.lavappweb.modelo.dto;
 
-import java.io.Serializable;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -16,8 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Planit
  */
-@XmlRootElement
-public class DescripcionPedido_TO implements Serializable{
+public class DescripcionPedido_TO {
 
     /**
      *
@@ -59,19 +58,19 @@ public class DescripcionPedido_TO implements Serializable{
      *
      * Columna foto1
      */
-    private byte foto1;
+    private String foto1;
 
     /**
      *
      * Columna foto2
      */
-    private byte foto2;
+    private String foto2;
 
     /**
      *
      * Columna foto3
      */
-    private byte foto3;
+    private String foto3;
 
     /**
      *
@@ -84,24 +83,69 @@ public class DescripcionPedido_TO implements Serializable{
      * Columna idPedido
      */
     private Pedido_TO pedido;
-     /**
+
+    /**
      *
      * Columna idPedido
      */
     private String codigo;
-    
+
+    /**
+     *
+     * Columna nombrefoto1
+     */
+    private String nombrefoto1;
+
+    /**
+     *
+     * Columna nombrefoto2
+     */
+    private String nombrefoto2;
+
+    /**
+     *
+     * Columna nombrefoto3
+     */
+    private String nombrefoto3;
+
     //Constructores
     public DescripcionPedido_TO() {
     }
 
     public DescripcionPedido_TO(int idDescripcionPedido) {
         this.idDescripcionPedido = idDescripcionPedido;
-    }      
+    }
+
+    public DescripcionPedido_TO(Estado_TO estado, SubProducto_TO subProducto, String descripcion, Color_TO color, Pedido_TO pedido) {
+        this.estado = estado;
+        this.subProducto = subProducto;
+        this.descripcion = descripcion;
+        this.color = color;
+        this.pedido = pedido;
+    }
+
+    public DescripcionPedido_TO(int idDescripcionPedido, Pedido_TO pedido) {
+        this.idDescripcionPedido = idDescripcionPedido;
+        this.pedido = pedido;
+    }
 
     //Constructor General
-
-    public DescripcionPedido_TO(int idDescripcionPedido, Estado_TO estado, SubProducto_TO subProducto, String descripcion, String observacionAsesor, String observacionAdministrador, byte foto1, byte foto2, byte foto3, Color_TO color, Pedido_TO pedido, String codigo) {
+    public DescripcionPedido_TO(int idDescripcionPedido, Estado_TO estado, SubProducto_TO subProducto, String descripcion, String observacionAsesor, String observacionAdministrador, String foto1, String foto2, String foto3, Color_TO color, Pedido_TO pedido, String codigo) {
         this.idDescripcionPedido = idDescripcionPedido;
+        this.estado = estado;
+        this.subProducto = subProducto;
+        this.descripcion = descripcion;
+        this.observacionAsesor = observacionAsesor;
+        this.observacionAdministrador = observacionAdministrador;
+        this.foto1 = foto1;
+        this.foto2 = foto2;
+        this.foto3 = foto3;
+        this.color = color;
+        this.pedido = pedido;
+        this.codigo = codigo;
+    }
+
+    public DescripcionPedido_TO(Estado_TO estado, SubProducto_TO subProducto, String descripcion, String observacionAsesor, String observacionAdministrador, String foto1, String foto2, String foto3, Color_TO color, Pedido_TO pedido, String codigo) {
         this.estado = estado;
         this.subProducto = subProducto;
         this.descripcion = descripcion;
@@ -126,9 +170,20 @@ public class DescripcionPedido_TO implements Serializable{
         this.pedido = pedido;
         this.codigo = codigo;
     }
-    
-    
- 
+
+    public DescripcionPedido_TO(int idDescripcionPedido, Estado_TO estado, String observacionAsesor, String foto1,String foto2, String foto3, Color_TO color, String codigo, String nombrefoto1, String nombrefoto2, String nombrefoto3) {
+        this.idDescripcionPedido = idDescripcionPedido;
+        this.estado = estado;
+        this.observacionAsesor = observacionAsesor;
+        this.foto1 = foto1;
+        this.foto2 = foto2;
+        this.foto3 = foto3;
+        this.color = color;
+        this.codigo = codigo;
+        this.nombrefoto1 = nombrefoto1;
+        this.nombrefoto2 = nombrefoto2;
+        this.nombrefoto3 = nombrefoto3;
+    }
 
     //Getter and Setter
     public int getIdDescripcionPedido() {
@@ -154,7 +209,7 @@ public class DescripcionPedido_TO implements Serializable{
     public void setSubProducto(SubProducto_TO subProducto) {
         this.subProducto = subProducto;
     }
-    
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -179,27 +234,27 @@ public class DescripcionPedido_TO implements Serializable{
         this.observacionAdministrador = observacionAdministrador;
     }
 
-    public byte getFoto1() {
+    public String getFoto1() {
         return foto1;
     }
 
-    public void setFoto1(byte foto1) {
+    public void setFoto1(String foto1) {
         this.foto1 = foto1;
     }
 
-    public byte getFoto2() {
+    public String getFoto2() {
         return foto2;
     }
 
-    public void setFoto2(byte foto2) {
+    public void setFoto2(String foto2) {
         this.foto2 = foto2;
     }
 
-    public byte getFoto3() {
+    public String getFoto3() {
         return foto3;
     }
 
-    public void setFoto3(byte foto3) {
+    public void setFoto3(String foto3) {
         this.foto3 = foto3;
     }
 
@@ -227,12 +282,33 @@ public class DescripcionPedido_TO implements Serializable{
         this.codigo = codigo;
     }
 
-    @Override
-    public String toString() {
-        return "DescripcionPedido_TO{" + "idDescripcionPedido=" + idDescripcionPedido + ", estado=" + estado + ", subProducto=" + subProducto + ", descripcion=" + descripcion + ", observacionAsesor=" + observacionAsesor + ", observacionAdministrador=" + observacionAdministrador + ", foto1=" + foto1 + ", foto2=" + foto2 + ", foto3=" + foto3 + ", color=" + color + ", pedido=" + pedido + ", codigo=" + codigo + '}';
+    public String getNombrefoto1() {
+        return nombrefoto1;
     }
 
-    
-    
+    public void setNombrefoto1(String nombrefoto1) {
+        this.nombrefoto1 = nombrefoto1;
+    }
+
+    public String getNombrefoto2() {
+        return nombrefoto2;
+    }
+
+    public void setNombrefoto2(String nombrefoto2) {
+        this.nombrefoto2 = nombrefoto2;
+    }
+
+    public String getNombrefoto3() {
+        return nombrefoto3;
+    }
+
+    public void setNombrefoto3(String nombrefoto3) {
+        this.nombrefoto3 = nombrefoto3;
+    }
+
+    @Override
+    public String toString() {
+        return "DescripcionPedido_TO{" + "idDescripcionPedido=" + idDescripcionPedido + ", estado=" + estado + ", subProducto=" + subProducto + ", descripcion=" + descripcion + ", observacionAsesor=" + observacionAsesor + ", observacionAdministrador=" + observacionAdministrador + ", foto1=" + foto1 + ", foto2=" + foto2 + ", foto3=" + foto3 + ", color=" + color + ", pedido=" + pedido + ", codigo=" + codigo + ", nombrefoto1=" + nombrefoto1 + ", nombrefoto2=" + nombrefoto2 + ", nombrefoto3=" + nombrefoto3 + '}';
+    }
 
 }

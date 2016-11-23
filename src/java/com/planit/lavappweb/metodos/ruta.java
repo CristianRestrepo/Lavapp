@@ -10,15 +10,16 @@ package com.planit.lavappweb.metodos;
  * @author Gustavo
  */
 public class ruta {
+
     //Ruta para el acceso a los web services
     private static String rutas;
-    
-    public static String consultarRuta(){
-    //Retorna la ruta de acceso de los web service
-    rutas = "http://localhost:8080/LavappService/webresources/"; 
-    //rutas = "http://xxxxxx:8084/LavappService/webresources/";
-    
-    return rutas;
+
+    public static String consultarRuta() {
+        //Retorna la ruta de acceso de los web service
+        rutas = "http://localhost:8084/LavappService/webresources/";
+        //rutas = "http://xxxxxx:8084/LavappService/webresources/";
+
+        return rutas;
     }
 
     //Getters & Setters
@@ -29,7 +30,4 @@ public class ruta {
     public void setRutas(String rutas) {
         this.rutas = rutas;
     }
-    
-    
-    
 }

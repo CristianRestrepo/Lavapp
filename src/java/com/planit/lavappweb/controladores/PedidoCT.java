@@ -11,11 +11,14 @@ import com.planit.lavappweb.modelo.dao.CorreoDao;
 import com.planit.lavappweb.modelo.dao.DescripcionPedidoDao;
 import com.planit.lavappweb.modelo.dao.HistoricoDao;
 import com.planit.lavappweb.modelo.dao.PedidoDao;
+import com.planit.lavappweb.modelo.dao.PromocionDao;
+import com.planit.lavappweb.modelo.dao.PromocionSubproductoDao;
 import com.planit.lavappweb.modelo.dao.UsuarioDao;
 import com.planit.lavappweb.modelo.dto.DescripcionPedido_TO;
 import com.planit.lavappweb.modelo.dto.Estado_TO;
 import com.planit.lavappweb.modelo.dto.Historico_TO;
 import com.planit.lavappweb.modelo.dto.Pedido_TO;
+import com.planit.lavappweb.modelo.dto.Promocion_TO;
 import com.planit.lavappweb.modelo.dto.SubProductoCosto_TO;
 import com.planit.lavappweb.modelo.dto.SubProducto_TO;
 import java.io.Serializable;
@@ -40,7 +43,7 @@ public class PedidoCT implements Serializable {
 
     private boolean botonatras;
     private boolean botonsiguiente;
-    private boolean botonconfirmar;   
+    private boolean botonconfirmar;
 
     //Constructores
     public PedidoCT() {
@@ -50,7 +53,7 @@ public class PedidoCT implements Serializable {
         cantidadProductos = 0;
         botonatras = false;
         botonsiguiente = true;
-        botonconfirmar = false;     
+        botonconfirmar = false;
     }
 
     @PostConstruct
@@ -68,7 +71,7 @@ public class PedidoCT implements Serializable {
                 botonatras = true;
                 botonsiguiente = false;
                 botonconfirmar = false;
-                if (vista == 1) {                    
+                if (vista == 1) {
                     cargarDatosUsuario();
                     botonsiguiente = true;
                 }
@@ -87,7 +90,7 @@ public class PedidoCT implements Serializable {
 
     public void setPedido(Pedido_TO pedido) {
         this.pedido = pedido;
-    }   
+    }
 
     public int getVista() {
         return vista;
@@ -136,7 +139,7 @@ public class PedidoCT implements Serializable {
     public void setBotonconfirmar(boolean botonconfirmar) {
         this.botonconfirmar = botonconfirmar;
     }
-  
+
     //Metodos para las vistas 
     public void atras() {
         //Valida que botones habilitar o deshabilitar segun la vista donde se encuentre el cliente en el proceso de pedido
@@ -379,14 +382,21 @@ public class PedidoCT implements Serializable {
     //Obtiene la sumatoria del valor de las prendas que se estan escogiendo en el pedido
     public int calcularCostoPedido(List<List<SubProductoCosto_TO>> subproductosOrdenados) {
         int costo = 0;
+        PromocionDao promocionDao = new PromocionDao();
+        PromocionSubproductoDao promocionSubproductoDao = new PromocionSubproductoDao();
+        Promocion_TO promocion = new Promocion_TO();
+        promocion = promocionDao.consultarPromocionActiva();
         for (int i = 0; i < subproductosOrdenados.size(); i++) {
-            costo += subproductosOrdenados.get(i).size() * subproductosOrdenados.get(i).get(0).getCosto().getValor();
+            SubProducto_TO sp = new SubProducto_TO(subproductosOrdenados.get(i).get(0).getIdSubProducto());
+            if (promocion.getIdPromocion() != 0) {
+                int r = promocionSubproductoDao.consultarPromocionSubProductoYaAsociada(promocion, sp);
+                costo += subproductosOrdenados.get(i).size() * (subproductosOrdenados.get(i).get(0).getCosto().getValor()-((subproductosOrdenados.get(i).get(0).getCosto().getValor() * promocion.getPorcentaje())/100));
+            } else {
+                costo += subproductosOrdenados.get(i).size() * subproductosOrdenados.get(i).get(0).getCosto().getValor();
+            }
         }
         return costo;
     }
-    
+
     //Otros
-    
-      
-    
 }

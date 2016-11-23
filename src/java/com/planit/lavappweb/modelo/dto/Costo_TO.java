@@ -29,7 +29,7 @@ public class Costo_TO implements Serializable{
      *
      * Columna valor
      */
-    private int valor;
+    private double valor;
 
     /**
      *
@@ -51,19 +51,19 @@ public class Costo_TO implements Serializable{
         this.idCosto = idCosto;
     }  
     
-    public Costo_TO(int idCosto, int valor, Zona_TO zona) {
+    public Costo_TO(int idCosto, double valor, Zona_TO zona) {
         this.idCosto = idCosto;
         this.valor = valor;
         this.zona = zona;
     }       
 
-    public Costo_TO(int valor, SubProducto_TO subProducto, Zona_TO zona) {
+    public Costo_TO(double valor, SubProducto_TO subProducto, Zona_TO zona) {
         this.valor = valor;
         this.subProducto = subProducto;
         this.zona = zona;
     }
 
-    public Costo_TO(int idCosto, int valor, SubProducto_TO subProducto, Zona_TO zona) {
+    public Costo_TO(int idCosto, double valor, SubProducto_TO subProducto, Zona_TO zona) {
         this.idCosto = idCosto;
         this.valor = valor;
         this.subProducto = subProducto;
@@ -79,13 +79,13 @@ public class Costo_TO implements Serializable{
         this.idCosto = idCosto;
     }
 
-    public int getValor() {
+    public double getValor() {
         return valor;
     }
 
-    public void setValor(int valor) {
+    public void setValor(double valor) {
         this.valor = valor;
-    }
+    }    
 
     public SubProducto_TO getSubProducto() {
         return subProducto;

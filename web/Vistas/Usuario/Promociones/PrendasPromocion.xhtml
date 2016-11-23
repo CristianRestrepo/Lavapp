@@ -35,6 +35,7 @@
                                         <h4 class="box-title">Promociones</h4>
                                     </div>
                                     <div class="box-body">
+                                        <p>Seleccione la promocion a la que desea agregar prendas.</p>
                                         <div class="table-responsive">                                   
                                             <p:dataTable rowKey="#{promocion.idPromocion}" id="eventsDT" 
                                                          var="promocion" 
@@ -92,7 +93,7 @@
 
                                             <p:column headerText="Categoria" sortBy="#{prenda.producto.nombre}">
                                                 <h:outputText value="#{prenda.producto.nombre}" />
-                                            </p:column>                                 
+                                            </p:column>          
                                         </p:dataTable>
                                     </div>                                
                                     <div class="box-footer" align="center"> <!-- segundo contenido columna izquierda  -->

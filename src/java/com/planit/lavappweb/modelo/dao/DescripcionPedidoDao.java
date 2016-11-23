@@ -48,9 +48,9 @@ public class DescripcionPedidoDao {
                     (String) datos.get(i).get("descripcion"),
                     (String) datos.get(i).get("observacionAsesor"),
                     (String) datos.get(i).get("observacionAdministrador"),
-                    (Byte) datos.get(i).get("foto1"),
-                    (Byte) datos.get(i).get("foto2"),
-                    (Byte) datos.get(i).get("foto3"),
+                    (String) datos.get(i).get("foto1"),
+                    (String) datos.get(i).get("foto2"),
+                    (String) datos.get(i).get("foto3"),
                     cd.consultarColor(new Color_TO((int) mapColor.get("idColor"), (String) mapColor.get("nombre"))),
                     pedido,
                     (String) datos.get(i).get("codigo")));
