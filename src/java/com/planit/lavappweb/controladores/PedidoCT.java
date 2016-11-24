@@ -209,6 +209,8 @@ public class PedidoCT implements Serializable {
         //se agrega la prenda seleccionada al array subproductos y se calcula la cantidad de prendas totales del pedido
         subproductos.add(subproducto);
         cantidadProductos = subproductos.size();
+        calcularCostoPedido(); //Calculamos costo total del pedido
+       
     }
 
     public void cargarDatosUsuario() {
@@ -380,8 +382,9 @@ public class PedidoCT implements Serializable {
     }
 
     //Obtiene la sumatoria del valor de las prendas que se estan escogiendo en el pedido
-    public int calcularCostoPedido(List<List<SubProductoCosto_TO>> subproductosOrdenados) {
-        int costo = 0;
+    public void calcularCostoPedido() {
+        List<List<SubProductoCosto_TO>> subproductosOrdenados = organizarSubProductos(subproductos);        
+        double costo = 0;
         PromocionDao promocionDao = new PromocionDao();
         PromocionSubproductoDao promocionSubproductoDao = new PromocionSubproductoDao();
         Promocion_TO promocion = new Promocion_TO();
@@ -390,12 +393,16 @@ public class PedidoCT implements Serializable {
             SubProducto_TO sp = new SubProducto_TO(subproductosOrdenados.get(i).get(0).getIdSubProducto());
             if (promocion.getIdPromocion() != 0) {
                 int r = promocionSubproductoDao.consultarPromocionSubProductoYaAsociada(promocion, sp);
-                costo += subproductosOrdenados.get(i).size() * (subproductosOrdenados.get(i).get(0).getCosto().getValor()-((subproductosOrdenados.get(i).get(0).getCosto().getValor() * promocion.getPorcentaje())/100));
+                if (r == 1) {
+                    costo += subproductosOrdenados.get(i).size() * (subproductosOrdenados.get(i).get(0).getCosto().getValor() - ((subproductosOrdenados.get(i).get(0).getCosto().getValor() * promocion.getPorcentaje()) / 100));
+                } else {
+                    costo += subproductosOrdenados.get(i).size() * subproductosOrdenados.get(i).get(0).getCosto().getValor();
+                }
             } else {
                 costo += subproductosOrdenados.get(i).size() * subproductosOrdenados.get(i).get(0).getCosto().getValor();
             }
         }
-        return costo;
+        pedido.setCosto(costo);
     }
 
     //Otros

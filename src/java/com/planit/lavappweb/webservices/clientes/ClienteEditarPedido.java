@@ -54,11 +54,12 @@ public class ClienteEditarPedido {
      * @param idBarrios_entrega query parameter
      * @param idEstadoPago query parameter
      * @param idFormaPago query parameter
+     * @param costo query parameter
      * @return response object (instance of responseType class)
      */
-    public <T> T modificarPedido(Class<T> responseType, String idPedido, String idUsuario, String fechaInicio, String horainiIdhorario, String horafinIdHorario, String idEstado, String idProveedor, String fechaEntrega, String direccionRecogida, String direccionEntrega, String fechaRecogida, String quienEntrega, String quienRecibe, String idBarrios_recogida, String idBarrios_entrega, String idFormaPago, String idEstadoPago) throws ClientErrorException {
-        String[] queryParamNames = new String[]{"idPedido", "idUsuario", "fechaInicio", "horainiIdhorario", "horafinIdHorario", "idEstado", "idProveedor", "fechaEntrega", "direccionRecogida", "direccionEntrega", "fechaRecogida", "quienEntrega", "quienRecibe", "idBarrios_recogida", "idBarrios_entrega", "idFormaPago", "idEstadoPago"};
-        String[] queryParamValues = new String[]{idPedido, idUsuario, fechaInicio, horainiIdhorario, horafinIdHorario, idEstado, idProveedor, fechaEntrega, direccionRecogida, direccionEntrega, fechaRecogida, quienEntrega, quienRecibe, idBarrios_recogida, idBarrios_entrega};
+    public <T> T modificarPedido(Class<T> responseType, String idPedido, String idUsuario, String fechaInicio, String horainiIdhorario, String horafinIdHorario, String idEstado, String idProveedor, String fechaEntrega, String direccionRecogida, String direccionEntrega, String fechaRecogida, String quienEntrega, String quienRecibe, String idBarrios_recogida, String idBarrios_entrega, String idFormaPago, String idEstadoPago, String costo) throws ClientErrorException {
+        String[] queryParamNames = new String[]{"idPedido", "idUsuario", "fechaInicio", "horainiIdhorario", "horafinIdHorario", "idEstado", "idProveedor", "fechaEntrega", "direccionRecogida", "direccionEntrega", "fechaRecogida", "quienEntrega", "quienRecibe", "idBarrios_recogida", "idBarrios_entrega", "idFormaPago", "idEstadoPago", "costo"};
+        String[] queryParamValues = new String[]{idPedido, idUsuario, fechaInicio, horainiIdhorario, horafinIdHorario, idEstado, idProveedor, fechaEntrega, direccionRecogida, direccionEntrega, fechaRecogida, quienEntrega, quienRecibe, idBarrios_recogida, idBarrios_entrega, costo};
         ;
         javax.ws.rs.core.Form form = getQueryOrFormParams(queryParamNames, queryParamValues);
         javax.ws.rs.core.MultivaluedMap<String, String> map = form.asMap();

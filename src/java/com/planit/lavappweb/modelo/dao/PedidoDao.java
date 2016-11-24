@@ -72,7 +72,8 @@ public class PedidoDao {
                 "" + pedido.getBarrioRecogida().getIdBarrios(),
                 "" + pedido.getBarrioEntrega().getIdBarrios(),
                 "" + pedido.getFormaPago().getIdFormaPago(),
-                "" + pedido.getEstadoPago().getIdEstadoPago());
+                "" + pedido.getEstadoPago().getIdEstadoPago(),
+                "" + pedido.getCosto());
     }
 
     public Pedido_TO eliminarPedido(Pedido_TO pedido) {
@@ -128,7 +129,8 @@ public class PedidoDao {
                 "" + pedido.getBarrioRecogida().getIdBarrios(),
                 "" + pedido.getBarrioEntrega().getIdBarrios(),
                 "" + pedido.getFormaPago().getIdFormaPago(),
-                "" + pedido.getEstadoPago().getIdEstadoPago());
+                "" + pedido.getEstadoPago().getIdEstadoPago(),
+                "" + pedido.getCosto());
     }
 
     public List<Pedido_TO> consultarPedidos() {
@@ -211,7 +213,8 @@ public class PedidoDao {
                         barrioEntrega,
                         asesor,
                         formaPago,
-                        estadoPago));
+                        estadoPago,
+                        (double) datos.get(i).get("costo")));
             } catch (ParseException e) {
                 e.getMessage();
             }
@@ -299,7 +302,8 @@ public class PedidoDao {
                         barrioEntrega,
                         asesor,
                         formaPago,
-                        estadoPago));
+                        estadoPago,
+                        (double) datos.get(i).get("costo")));
             } catch (ParseException e) {
                 e.getMessage();
             }
@@ -387,7 +391,8 @@ public class PedidoDao {
                         barrioEntrega,
                         asesor,
                         formaPago,
-                        estadoPago));
+                        estadoPago,
+                        (double) datos.get(i).get("costo")));
             } catch (ParseException e) {
                 throw e;
             }
@@ -475,7 +480,8 @@ public class PedidoDao {
                         barrioEntrega,
                         asesor,
                         formaPago,
-                        estadoPago));
+                        estadoPago,
+                        (double) datos.get(i).get("costo")));
             } catch (ParseException e) {
                 throw e;
             }
@@ -561,7 +567,8 @@ public class PedidoDao {
                         barrioEntrega,
                         asesor,
                         formaPago,
-                        estadoPago));
+                        estadoPago,
+                        (double) datos.get(i).get("costo")));
             } catch (ParseException e) {
                 e.getMessage();
             }
@@ -648,7 +655,8 @@ public class PedidoDao {
                         barrioEntrega,
                         asesor,
                         formaPago,
-                        estadoPago));
+                        estadoPago,
+                        (double) datos.get(i).get("costo")));
             } catch (ParseException e) {
                 e.getMessage();
             }
@@ -734,7 +742,8 @@ public class PedidoDao {
                         barrioEntrega,
                         asesor,
                         formaPago,
-                        estadoPago));
+                        estadoPago,
+                        (double) datos.get(i).get("costo")));
             } catch (ParseException e) {
                 e.getMessage();
             }
@@ -821,7 +830,8 @@ public class PedidoDao {
                         barrioEntrega,
                         asesor,
                         formaPago,
-                        estadoPago));
+                        estadoPago,
+                        (double) datos.get(i).get("costo")));
             } catch (ParseException e) {
                 e.getMessage();
             }

@@ -171,8 +171,7 @@ public class SubProductoCT implements Serializable {
     }
 
     public void eliminar() {
-        SubProductoDao subProductoDao = new SubProductoDao();
-        
+        SubProductoDao subProductoDao = new SubProductoDao();        
         subproducto = subProductoDao.eliminarSubProducto(subproducto);
         subproductos = subProductoDao.consultarSubProductos();
     }

@@ -51,11 +51,12 @@ public class ClienteRegistrarPedidoCompleto {
      * @param idBarrioEntrega query parameter
      * @param idFormaPago query parameter
      * @param idEstadoPago query parameter
+     * @param costo query parameter
      * @return response object (instance of responseType class)
      */
-    public <T> T registrarPedidoCompleto(Class<T> responseType, String idUsuario, String idHoraInicio, String idHoraFinal, String idEstado, String fechaEntrega, String direccionEntrega, String direccionRecogida, String fechaRecogida, String quienEntrega, String quienRecibe, String idBarrioRecogida, String idBarrioEntrega, String idFormaPago, String idEstadoPago) throws ClientErrorException {
-        String[] queryParamNames = new String[]{"idUsuario", "idHoraInicio", "idHoraFinal", "idEstado", "fechaEntrega", "direccionEntrega", "direccionRecogida", "fechaRecogida", "quienEntrega", "quienRecibe", "idBarrioRecogida", "idBarrioEntrega", "idFormaPago", "idEstadoPago"};
-        String[] queryParamValues = new String[]{idUsuario, idHoraInicio, idHoraFinal, idEstado, fechaEntrega, direccionEntrega, direccionRecogida, fechaRecogida, quienEntrega, quienRecibe, idBarrioRecogida, idBarrioEntrega, idFormaPago, idEstadoPago};
+    public <T> T registrarPedidoCompleto(Class<T> responseType, String idUsuario, String idHoraInicio, String idHoraFinal, String idEstado, String fechaEntrega, String direccionEntrega, String direccionRecogida, String fechaRecogida, String quienEntrega, String quienRecibe, String idBarrioRecogida, String idBarrioEntrega, String idFormaPago, String idEstadoPago, String costo) throws ClientErrorException {
+        String[] queryParamNames = new String[]{"idUsuario", "idHoraInicio", "idHoraFinal", "idEstado", "fechaEntrega", "direccionEntrega", "direccionRecogida", "fechaRecogida", "quienEntrega", "quienRecibe", "idBarrioRecogida", "idBarrioEntrega", "idFormaPago", "idEstadoPago", "costo"};
+        String[] queryParamValues = new String[]{idUsuario, idHoraInicio, idHoraFinal, idEstado, fechaEntrega, direccionEntrega, direccionRecogida, fechaRecogida, quienEntrega, quienRecibe, idBarrioRecogida, idBarrioEntrega, idFormaPago, idEstadoPago, costo};
         ;
         javax.ws.rs.core.Form form = getQueryOrFormParams(queryParamNames, queryParamValues);
         javax.ws.rs.core.MultivaluedMap<String, String> map = form.asMap();

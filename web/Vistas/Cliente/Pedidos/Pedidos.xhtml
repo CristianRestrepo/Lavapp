@@ -90,10 +90,7 @@
                                                             <h3 class="title-prenda">#{subproducto.nombre}</h3>
                                                             <p class="txt-justify">#{subproducto.descripcion}</p>
                                                             <p class="txt-justify">$#{subproducto.costo.valor}</p> 
-                                                            <!-- Costo con promocion -->
-                                                            <c:if test="${prendasPromocionCT.consultarSubProductoPromocionAsociados(subproducto) == 1}">
-                                                                <p class="txt-justify" style="color: #00BFFF">$#{subproducto.costo.valor} (Con descuento)</p>    
-                                                            </c:if>
+
                                                             <!-- INICION DE CONTADOR -->
                                                             <div align="left">
                                                                 <h:panelGrid  width="80%" columns="2">                                                 
@@ -585,7 +582,7 @@
                                 </h:form>
                             </div>
                             <div class="modal-footer" style="vertical-align: central">
-                                <h4 style="font-size: xx-large; float: left">$#{pedidoCT.calcularCostoPedido(pedidoCT.organizarSubProductos(pedidoCT.subproductos))}</h4>                             
+                                <h4 style="font-size: xx-large; float: left">$#{pedidoCT.pedido.costo}</h4>                             
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                             </div>
                         </div>
