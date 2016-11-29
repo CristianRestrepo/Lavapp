@@ -252,7 +252,6 @@ public class PedidoCT implements Serializable {
                 dp.setPedido(pedido);
                 dp.setSubProducto(new SubProducto_TO(subproductos.get(i).getIdSubProducto()));
                 dpd.registrarDescripcionPedido(dp);
-
             }
 
             //Despues de registrados los productos del pedido, registra el historico de estas
@@ -392,7 +391,7 @@ public class PedidoCT implements Serializable {
         for (int i = 0; i < subproductosOrdenados.size(); i++) {
             SubProducto_TO sp = new SubProducto_TO(subproductosOrdenados.get(i).get(0).getIdSubProducto());
             if (promocion.getIdPromocion() != 0) {
-                int r = promocionSubproductoDao.consultarPromocionSubProductoYaAsociada(promocion, sp);
+                int r = promocionSubproductoDao.consultarSubProductoAsociado(promocion, sp);
                 if (r == 1) {
                     costo += subproductosOrdenados.get(i).size() * (subproductosOrdenados.get(i).get(0).getCosto().getValor() - ((subproductosOrdenados.get(i).get(0).getCosto().getValor() * promocion.getPorcentaje()) / 100));
                 } else {
@@ -403,7 +402,5 @@ public class PedidoCT implements Serializable {
             }
         }
         pedido.setCosto(costo);
-    }
-
-    //Otros
+    }   
 }

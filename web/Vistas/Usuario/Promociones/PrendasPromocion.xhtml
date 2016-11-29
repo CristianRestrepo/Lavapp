@@ -40,7 +40,7 @@
                                             <p:dataTable rowKey="#{promocion.idPromocion}" id="eventsDT" 
                                                          var="promocion" 
                                                          value="#{promocionesCT.promociones}" 
-                                                         selection="#{prendasPromocionCT.promocion}" selectionMode="single">
+                                                         selection="#{promocionesCT.promocion}" selectionMode="single">
                                                 <f:facet name="header">
                                                     Promociones
                                                 </f:facet>
@@ -56,8 +56,8 @@
                                                 <p:column headerText="Fecha Final">
                                                     <h:outputText value="#{promocion.fechaFinal}"/>
                                                 </p:column>
-                                                <p:ajax event="rowSelect" listener="#{prendasPromocionCT.consultarPrendasPromocion}" update=":formularioAsociacion:DTSubproductos"/>
-                                                <p:ajax event="rowUnselect" listener="#{prendasPromocionCT.LimpiarPrendas}" update=":formularioAsociacion:DTSubproductos"/>                                            
+                                                <p:ajax event="rowSelect" listener="#{promocionesCT.consultarPrendasPromocion}" update=":formularioAsociacion:DTSubproductos"/>
+                                                <p:ajax event="rowUnselect" listener="#{promocionesCT.LimpiarPrendas}" update=":formularioAsociacion:DTSubproductos"/>                                            
                                             </p:dataTable>
                                         </div>
                                     </div>
@@ -80,7 +80,7 @@
                                         <hr/>
                                         <p:dataTable  id="DTSubproductos" rowKey="#{prenda.idSubProducto}"
                                                       rows="5" var="prenda" value="#{subProductoCT.subproductos}" 
-                                                      selection="#{prendasPromocionCT.prendas}" 
+                                                      selection="#{promocionesCT.prendas}" 
                                                       paginator="true"
                                                       paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                                       rowsPerPageTemplate="5,10,15">
@@ -98,7 +98,7 @@
                                     </div>                                
                                     <div class="box-footer" align="center"> <!-- segundo contenido columna izquierda  -->
                                         <p:commandButton onclick="PrimeFaces.monitorDownload(start, stop);"
-                                                         action="#{prendasPromocionCT.asociar()}" update=":formularioAsociacion" 
+                                                         action="#{promocionesCT.asociar()}" update=":formularioAsociacion" 
                                                          value="Asociar" class="btn btn-success" style="width: 40%" />
                                     </div>
                                     <script type="text/javascript">

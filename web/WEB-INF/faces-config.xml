@@ -342,9 +342,4 @@
         <managed-bean-class>com.planit.lavappweb.controladores.PromocionesCT</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
-    <managed-bean>
-        <managed-bean-name>prendasPromocionCT</managed-bean-name>
-        <managed-bean-class>com.planit.lavappweb.controladores.PromocionSubProductoCT</managed-bean-class>
-    
-        <managed-bean-scope>view</managed-bean-scope></managed-bean>
 </faces-config>

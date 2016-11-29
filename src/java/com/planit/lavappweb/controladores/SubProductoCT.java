@@ -180,7 +180,9 @@ public class SubProductoCT implements Serializable {
     public void consultarSubProductosSegunProducto(Producto_TO producto) {
         SubProductoDao subProductoDao = new SubProductoDao();
         subProductosClasificados = new ArrayList<>();
-        subProductosClasificados = subProductoDao.consultarSubProductosSegunProducto(producto);
+        subProductosConCosto = new ArrayList<>();
+        
+        //subProductosClasificados = subProductoDao.consultarSubProductosSegunProducto(producto);
         subProductosConCosto = subProductoDao.consultarSubProductosConCostoSegunProducto(producto);
     }
     

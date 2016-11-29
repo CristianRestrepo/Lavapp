@@ -34,7 +34,7 @@ public class PromocionSubproductoDao {
         return cliente.eliminarAsociacionPromocionSubProducto(int.class, "" + promocion.getIdPromocion(), "" + subProducto.getIdSubProducto());
     }
 
-    public int consultarPromocionSubProductoYaAsociada(Promocion_TO promocion, SubProducto_TO subProducto) {
+    public int consultarSubProductoAsociado(Promocion_TO promocion, SubProducto_TO subProducto) {
         ClienteConsultarPromocionSubProductoYaAsociada cliente = new ClienteConsultarPromocionSubProductoYaAsociada();
         return cliente.consultarPromocionSubProductoYaAsociada(int.class, "" + promocion.getIdPromocion(), "" + subProducto.getIdSubProducto());
     }
