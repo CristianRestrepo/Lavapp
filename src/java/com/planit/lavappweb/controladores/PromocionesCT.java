@@ -8,6 +8,7 @@ package com.planit.lavappweb.controladores;
 import com.planit.lavappweb.modelo.dao.PromocionDao;
 import com.planit.lavappweb.modelo.dao.PromocionSubproductoDao;
 import com.planit.lavappweb.modelo.dto.Promocion_TO;
+import com.planit.lavappweb.modelo.dto.SubProductoCosto_TO;
 import com.planit.lavappweb.modelo.dto.SubProducto_TO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -259,7 +260,7 @@ public class PromocionesCT {
         minutofinal = "00";
     }
     
-    //CRUD
+    
     public void asociar() {
         PromocionSubproductoDao promocionSubproductoDao = new PromocionSubproductoDao();
         FacesMessage message = new FacesMessage();
@@ -310,13 +311,14 @@ public class PromocionesCT {
         prendas = new ArrayList<>();
     }
 
-    public int consultarSubProductosAsociados(SubProducto_TO subproducto) {
+    public int consultarSubProductoAsociado(SubProductoCosto_TO subproducto) {
         PromocionDao promocionDao = new PromocionDao();
         PromocionSubproductoDao promocionSubproductoDao = new PromocionSubproductoDao();
         promocion = promocionDao.consultarPromocionActiva();
         int resultado = 0;
         if (promocion.getIdPromocion() != 0) {
-            resultado = promocionSubproductoDao.consultarSubProductoAsociado(promocion, subproducto);
+            SubProducto_TO sp = new SubProducto_TO(subproducto.getIdSubProducto());
+            resultado = promocionSubproductoDao.consultarSubProductoAsociado(promocion, sp);
         }
         return resultado;
     }

@@ -21,6 +21,7 @@ import com.planit.lavappweb.modelo.dto.Pedido_TO;
 import com.planit.lavappweb.modelo.dto.Promocion_TO;
 import com.planit.lavappweb.modelo.dto.SubProductoCosto_TO;
 import com.planit.lavappweb.modelo.dto.SubProducto_TO;
+import com.planit.lavappweb.modelo.dto.Transaccion_TO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,9 @@ public class PedidoCT implements Serializable {
     //Variables
     private Pedido_TO pedido;
     private List<SubProductoCosto_TO> subproductos;
+    
+    //Variable para transaccion en linea
+    private Transaccion_TO transaccion;
 
     private int vista;
     private int cantidadProductos;
@@ -49,6 +53,7 @@ public class PedidoCT implements Serializable {
     public PedidoCT() {
         vista = 0;
         pedido = new Pedido_TO();
+        transaccion = new Transaccion_TO();
         subproductos = new ArrayList<>();
         cantidadProductos = 0;
         botonatras = false;
@@ -140,6 +145,14 @@ public class PedidoCT implements Serializable {
         this.botonconfirmar = botonconfirmar;
     }
 
+    public Transaccion_TO getTransaccion() {
+        return transaccion;
+    }
+
+    public void setTransaccion(Transaccion_TO transaccion) {
+        this.transaccion = transaccion;
+    }    
+    
     //Metodos para las vistas 
     public void atras() {
         //Valida que botones habilitar o deshabilitar segun la vista donde se encuentre el cliente en el proceso de pedido

@@ -13,23 +13,34 @@ import com.alignet.www.vposws20.VPOSWS20SOAPStub.ShippingData;
  * @author VaioDevelopment
  */
 public class Transaccion_TO {
-    
+
     private VPOSWS20SOAPStub.PurchaseData purchaseData;
-    
     private VPOSWS20SOAPStub.CardData cardData;
-    
-    VPOSWS20SOAPStub.AddressData addressData;
-    
-    VPOSWS20SOAPStub.Person billing;
-    
-    ShippingData shipping;
+    private VPOSWS20SOAPStub.AddressData addressData;
+    private VPOSWS20SOAPStub.Person billing;
+    private ShippingData shipping;
+
+    private String commerceId;
+    private int acquirerId;
+    private String language;
+    private String ipAddress;
 
     public Transaccion_TO() {
+        commerceId = "1774";
+        acquirerId = 1;
+        language = "SP";
+        ipAddress = "127.0.0.1";
+
         purchaseData = new VPOSWS20SOAPStub.PurchaseData();
         cardData = new VPOSWS20SOAPStub.CardData();
         addressData = new VPOSWS20SOAPStub.AddressData();
         billing = new VPOSWS20SOAPStub.Person();
         shipping = new ShippingData();
+
+        purchaseData.setCurrencyCode(170);
+        purchaseData.setPlanId(01);
+        purchaseData.setQuotaId(012);
+        purchaseData.setTerminalCode("00031329");
     }
 
     public VPOSWS20SOAPStub.PurchaseData getPurchaseData() {
@@ -72,9 +83,40 @@ public class Transaccion_TO {
         this.shipping = shipping;
     }
 
+    public String getCommerceId() {
+        return commerceId;
+    }
+
+    public void setCommerceId(String commerceId) {
+        this.commerceId = commerceId;
+    }
+
+    public int getAcquirerId() {
+        return acquirerId;
+    }
+
+    public void setAcquirerId(int acquirerId) {
+        this.acquirerId = acquirerId;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getIpAddress() {
+        return ipAddress;
+    }
+
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
+    }
+
     @Override
     public String toString() {
         return "Transaccion_TO{" + "purchaseData=" + purchaseData + ", cardData=" + cardData + ", addressData=" + addressData + ", billing=" + billing + ", shipping=" + shipping + '}';
-    }        
+    }
 }
-    

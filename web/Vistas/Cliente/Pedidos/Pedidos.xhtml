@@ -88,11 +88,14 @@
                                                         </div>
                                                         <div style="padding-left: 75px" class="col-xs-8 pad-content">
                                                             <h3 class="title-prenda">#{subproducto.nombre}</h3>
-                                                            <p class="txt-justify">#{subproducto.descripcion}</p>
-                                                            
-                                                                                                                    
+                                                            <p class="txt-justify">#{subproducto.descripcion}</p>                                                          
                                                             <p class="txt-justify">$#{subproducto.costo.valor}</p>
-                                                            
+                                                            <c:choose>
+                                                                <c:when test="#{promocionesCT.consultarSubProductoAsociado(subproducto) != 0}">
+                                                                    <p class="txt-justify" style="color: #0aabe1">$#{subproducto.costo.valor} con descuento</p>                                                 
+                                                                </c:when>
+                                                                <c:otherwise></c:otherwise>
+                                                            </c:choose>                                                          
                                                             <!-- INICION DE CONTADOR -->
                                                             <div align="left">
                                                                 <h:panelGrid  width="80%" columns="2">                                                 
