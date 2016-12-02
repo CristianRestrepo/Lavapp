@@ -6,6 +6,7 @@
 package com.planit.lavappweb.controladores;
 
 import com.planit.lavappweb.metodos.Pedido;
+import com.planit.lavappweb.metodos.Redondear;
 import com.planit.lavappweb.metodos.Sesion;
 import com.planit.lavappweb.modelo.dao.CorreoDao;
 import com.planit.lavappweb.modelo.dao.DescripcionPedidoDao;
@@ -13,6 +14,7 @@ import com.planit.lavappweb.modelo.dao.HistoricoDao;
 import com.planit.lavappweb.modelo.dao.PedidoDao;
 import com.planit.lavappweb.modelo.dao.PromocionDao;
 import com.planit.lavappweb.modelo.dao.PromocionSubproductoDao;
+import com.planit.lavappweb.modelo.dao.TransaccionDao;
 import com.planit.lavappweb.modelo.dao.UsuarioDao;
 import com.planit.lavappweb.modelo.dto.DescripcionPedido_TO;
 import com.planit.lavappweb.modelo.dto.Estado_TO;
@@ -24,6 +26,8 @@ import com.planit.lavappweb.modelo.dto.SubProducto_TO;
 import com.planit.lavappweb.modelo.dto.Transaccion_TO;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Formatter;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -38,7 +42,7 @@ public class PedidoCT implements Serializable {
     //Variables
     private Pedido_TO pedido;
     private List<SubProductoCosto_TO> subproductos;
-    
+
     //Variable para transaccion en linea
     private Transaccion_TO transaccion;
 
@@ -151,8 +155,8 @@ public class PedidoCT implements Serializable {
 
     public void setTransaccion(Transaccion_TO transaccion) {
         this.transaccion = transaccion;
-    }    
-    
+    }
+
     //Metodos para las vistas 
     public void atras() {
         //Valida que botones habilitar o deshabilitar segun la vista donde se encuentre el cliente en el proceso de pedido
@@ -223,7 +227,7 @@ public class PedidoCT implements Serializable {
         subproductos.add(subproducto);
         cantidadProductos = subproductos.size();
         calcularCostoPedido(); //Calculamos costo total del pedido
-       
+
     }
 
     public void cargarDatosUsuario() {
@@ -250,15 +254,17 @@ public class PedidoCT implements Serializable {
     //Metodos CRUD
     public void registrarPedido() {
         PedidoDao pedidoDao = new PedidoDao();
-        pedidoDao.registrarPedidoCompleto(pedido);//Se registra pedido
-        pedido = pedidoDao.consultarUltimoPedidoCliente(Sesion.obtenerSesion());
+        //TransaccionDao transaccionDao = new TransaccionDao();
 
-        DescripcionPedidoDao dpd = new DescripcionPedidoDao();
-        HistoricoDao hd = new HistoricoDao();
-        Historico_TO historico = new Historico_TO();
+        int r = 0;
+        r = pedidoDao.registrarPedidoCompleto(pedido);//Se registra pedido
+        if (r == 1) {
+            pedido = pedidoDao.consultarUltimoPedidoCliente(Sesion.obtenerSesion());
 
-        //Valida que el pedido haya sido registrado para despues registrar los productos agregados al pedido
-        if (pedido.getIdPedido() != 0) {
+            DescripcionPedidoDao dpd = new DescripcionPedidoDao();
+            HistoricoDao hd = new HistoricoDao();
+            Historico_TO historico = new Historico_TO();
+
             for (int i = 0; i < subproductos.size(); i++) {
                 DescripcionPedido_TO dp = new DescripcionPedido_TO();
                 dp.setEstado(new Estado_TO(3));
@@ -267,6 +273,7 @@ public class PedidoCT implements Serializable {
                 dpd.registrarDescripcionPedido(dp);
             }
 
+            //Valida que el pedido haya sido registrado para despues registrar los productos agregados al pedido
             //Despues de registrados los productos del pedido, registra el historico de estas
             List<DescripcionPedido_TO> descripciones = new ArrayList<>();
             descripciones = dpd.consultarDescripcionesSinFotosSegunPedido(pedido);///Cambiar funcion cuando traigamos fotos
@@ -281,12 +288,44 @@ public class PedidoCT implements Serializable {
             UsuarioDao usuarioDao = new UsuarioDao();
             pedidoDao.asignarAsesorPedido(pedido, usuarioDao.consultarAsesorZona(pedido.getBarrioRecogida().getZona()));
 
-            //Se envia correo a cliente confirmando su pedido
-            CorreoDao correoDao = new CorreoDao();
-            correoDao.enviarMensajeAgendamiento(Sesion.obtenerSesion());
-
-            FacesMessage fmsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Pedido Registrado Exitosamente", "");
-            FacesContext.getCurrentInstance().addMessage(null, fmsg);
+//            if (pedido.getFormaPago().getIdFormaPago() == 3) {
+//                transaccion.getPurchaseData().setPurchaseCode("" + pedido.getIdPedido());
+//                transaccion.getPurchaseData().setTotalAmount("" + Redondear.redondear(pedido.getCosto(), 0));
+//
+//                transaccion.getBilling().setNames(pedido.getUsuario().getNombre());
+//                transaccion.getBilling().setLastNames(pedido.getUsuario().getApellido());
+//                transaccion.getBilling().setGender(pedido.getUsuario().getGenero());
+//                transaccion.getBilling().setNumberIdentifier(pedido.getUsuario().getIdentificacion());
+//
+//                transaccion.getAddressData().setAddress(pedido.getUsuario().getDireccion());
+//                transaccion.getAddressData().setCity(pedido.getUsuario().getCiudad().getNombre());
+//                transaccion.getAddressData().setCellPhoneNumber(pedido.getUsuario().getMovil());
+//                transaccion.getAddressData().setEmail(pedido.getUsuario().getEmail());
+//                transaccion.getAddressData().setPhoneNumber(pedido.getUsuario().getTelefono());
+//
+//                transaccion.getBilling().setAddress(transaccion.getAddressData());
+//
+//                transaccion.getShipping().setAddress(transaccion.getAddressData());
+//                transaccion.getShipping().setNames(pedido.getUsuario().getNombre());
+//                transaccion.getShipping().setLastNames(pedido.getUsuario().getApellido());
+//                transaccion.getShipping().setNumberIdentifier(pedido.getUsuario().getIdentificacion());
+//
+//                r = transaccionDao.realizarTransaccion(transaccion);
+//                if (r == 0) {
+//                    //Se envia correo a cliente confirmando su pedido
+//                    CorreoDao correoDao = new CorreoDao();
+//                    correoDao.enviarMensajeAgendamiento(Sesion.obtenerSesion());
+//
+//                    FacesMessage fmsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Pedido Registrado Exitosamente", "");
+//                    FacesContext.getCurrentInstance().addMessage(null, fmsg);
+//                }
+//            } else {
+//                CorreoDao correoDao = new CorreoDao();
+//                correoDao.enviarMensajeAgendamiento(Sesion.obtenerSesion());
+//
+//                FacesMessage fmsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Pedido Registrado Exitosamente", "");
+//                FacesContext.getCurrentInstance().addMessage(null, fmsg);
+//            }
         }
 
         //Reiniciamos variables
@@ -299,6 +338,7 @@ public class PedidoCT implements Serializable {
         botonconfirmar = false;
 
         cantidadProductos = 0;
+
         Pedido.ReiniciarValores();
     }
 
@@ -395,7 +435,7 @@ public class PedidoCT implements Serializable {
 
     //Obtiene la sumatoria del valor de las prendas que se estan escogiendo en el pedido
     public void calcularCostoPedido() {
-        List<List<SubProductoCosto_TO>> subproductosOrdenados = organizarSubProductos(subproductos);        
+        List<List<SubProductoCosto_TO>> subproductosOrdenados = organizarSubProductos(subproductos);
         double costo = 0;
         PromocionDao promocionDao = new PromocionDao();
         PromocionSubproductoDao promocionSubproductoDao = new PromocionSubproductoDao();
@@ -415,5 +455,16 @@ public class PedidoCT implements Serializable {
             }
         }
         pedido.setCosto(costo);
-    }   
+    }
+
+    public List<Integer> generarListaAños() {
+        Date fa = new Date();
+        List<Integer> listaAños = new ArrayList<>();
+        int año = fa.getYear();
+        for (int i = año - 50; i < año + 50; i++) {
+            listaAños.add(i);
+        }
+        return listaAños;
+    }
+
 }

@@ -39,8 +39,16 @@ public class Transaccion_TO {
 
         purchaseData.setCurrencyCode(170);
         purchaseData.setPlanId(01);
-        purchaseData.setQuotaId(012);
         purchaseData.setTerminalCode("00031329");
+
+        cardData.setAccountTypeId(01);
+        cardData.setSecurityCode("130");
+        cardData.setFinancialId(0);
+
+        addressData.setCountryCode("CO");
+        addressData.setState("CM");
+
+        billing.setNationality("CO");
     }
 
     public VPOSWS20SOAPStub.PurchaseData getPurchaseData() {

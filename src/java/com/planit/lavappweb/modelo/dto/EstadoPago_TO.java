@@ -15,7 +15,7 @@ public class EstadoPago_TO {
     
     private String nombre;
 
-    public EstadoPago_TO() {
+    public EstadoPago_TO() {       
     }
 
     public EstadoPago_TO(int idEstadoPago) {

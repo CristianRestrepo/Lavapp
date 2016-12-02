@@ -38,7 +38,7 @@ public class Prueba {
 
         PurchaseData purchaseData = new PurchaseData();
         purchaseData.setCurrencyCode(170);
-        purchaseData.setPurchaseCode("00095");
+        purchaseData.setPurchaseCode("00526");
         purchaseData.setPlanId(01);
         purchaseData.setQuotaId(012);
         purchaseData.setTotalAmount("100000");

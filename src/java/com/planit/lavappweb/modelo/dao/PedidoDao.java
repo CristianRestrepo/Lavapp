@@ -96,7 +96,7 @@ public class PedidoDao {
         return cliente.consultarUltimoPedido(Pedido_TO.class, "" + usuario.getIdUsuario());
     }
 
-    public Pedido_TO registrarPedidoCompleto(Pedido_TO pedido) {
+    public int registrarPedidoCompleto(Pedido_TO pedido) {
         HorarioDao hd = new HorarioDao();
         BarriosDao bd = new BarriosDao();
         EstadoDao ed = new EstadoDao();
@@ -115,7 +115,7 @@ public class PedidoDao {
 
         pedido.setUsuario((Usuario_TO) Sesion.obtenerSesion());
         ClienteRegistrarPedidoCompleto cliente = new ClienteRegistrarPedidoCompleto();
-        return cliente.registrarPedidoCompleto(Pedido_TO.class,
+        return cliente.registrarPedidoCompleto(Integer.class,
                 "" + pedido.getUsuario().getIdUsuario(),
                 "" + pedido.getHoraInicio().getIdHorario(),
                 "" + pedido.getHoraFinal().getIdHorario(),

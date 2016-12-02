@@ -43,6 +43,10 @@ public class TransaccionDao {
             Logger.getLogger(Prueba.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        System.out.println("Result authorize: " + reqResp.getResult());
+        System.out.println("ErrorCode: " + reqResp.getErrorCode());
+        System.out.println("ErrorMessage: " + reqResp.getErrorMessage());
+        System.out.println("AuthorizationCode: " + reqResp.getAuthorizationCode());
         return resultado;
     }
 }

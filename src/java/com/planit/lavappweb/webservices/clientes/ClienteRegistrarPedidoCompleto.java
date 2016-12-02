@@ -17,7 +17,7 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
  * [registrarPedidoCompleto]<br>
  * USAGE:
  * <pre>
- *        ClienteRegistrarPedidoCompleto client = new ClienteRegistrarPedidoCompleto();
+ *        ClienteRegistraPedidoCompleto client = new ClienteRegistraPedidoCompleto();
  *        Object response = client.XXX(...);
  *        // do whatever with response
  *        client.close();
@@ -65,7 +65,7 @@ public class ClienteRegistrarPedidoCompleto {
             String[] values = list.toArray(new String[list.size()]);
             webTarget = webTarget.queryParam(entry.getKey(), (Object[]) values);
         }
-        return webTarget.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+        return webTarget.request(javax.ws.rs.core.MediaType.TEXT_PLAIN).get(responseType);
     }
 
     private Form getQueryOrFormParams(String[] paramNames, String[] paramValues) {
