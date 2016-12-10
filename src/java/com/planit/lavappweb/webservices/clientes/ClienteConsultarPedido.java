@@ -22,7 +22,7 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
  *        client.close();
  * </pre>
  *
- * @author Desarrollo_Planit
+ * @author VaioDevelopment
  */
 public class ClienteConsultarPedido {
     private WebTarget webTarget;

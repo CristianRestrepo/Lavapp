@@ -254,12 +254,13 @@ public class PedidoCT implements Serializable {
     //Metodos CRUD
     public void registrarPedido() {
         PedidoDao pedidoDao = new PedidoDao();
-        //TransaccionDao transaccionDao = new TransaccionDao();
+        TransaccionDao transaccionDao = new TransaccionDao();
 
         int r = 0;
         r = pedidoDao.registrarPedidoCompleto(pedido);//Se registra pedido
         if (r == 1) {
             pedido = pedidoDao.consultarUltimoPedidoCliente(Sesion.obtenerSesion());
+            pedido = pedidoDao.consultarPedido(pedido);
 
             DescripcionPedidoDao dpd = new DescripcionPedidoDao();
             HistoricoDao hd = new HistoricoDao();
@@ -288,50 +289,50 @@ public class PedidoCT implements Serializable {
             UsuarioDao usuarioDao = new UsuarioDao();
             pedidoDao.asignarAsesorPedido(pedido, usuarioDao.consultarAsesorZona(pedido.getBarrioRecogida().getZona()));
 
-//            if (pedido.getFormaPago().getIdFormaPago() == 3) {
-//                transaccion.getPurchaseData().setPurchaseCode("" + pedido.getIdPedido());
-//                transaccion.getPurchaseData().setTotalAmount("" + Redondear.redondear(pedido.getCosto(), 0));
-//
-//                transaccion.getBilling().setNames(pedido.getUsuario().getNombre());
-//                transaccion.getBilling().setLastNames(pedido.getUsuario().getApellido());
-//                transaccion.getBilling().setGender(pedido.getUsuario().getGenero());
-//                transaccion.getBilling().setNumberIdentifier(pedido.getUsuario().getIdentificacion());
-//
-//                transaccion.getAddressData().setAddress(pedido.getUsuario().getDireccion());
-//                transaccion.getAddressData().setCity(pedido.getUsuario().getCiudad().getNombre());
-//                transaccion.getAddressData().setCellPhoneNumber(pedido.getUsuario().getMovil());
-//                transaccion.getAddressData().setEmail(pedido.getUsuario().getEmail());
-//                transaccion.getAddressData().setPhoneNumber(pedido.getUsuario().getTelefono());
-//
-//                transaccion.getBilling().setAddress(transaccion.getAddressData());
-//
-//                transaccion.getShipping().setAddress(transaccion.getAddressData());
-//                transaccion.getShipping().setNames(pedido.getUsuario().getNombre());
-//                transaccion.getShipping().setLastNames(pedido.getUsuario().getApellido());
-//                transaccion.getShipping().setNumberIdentifier(pedido.getUsuario().getIdentificacion());
-//
-//                r = transaccionDao.realizarTransaccion(transaccion);
-//                if (r == 0) {
-//                    //Se envia correo a cliente confirmando su pedido
-//                    CorreoDao correoDao = new CorreoDao();
-//                    correoDao.enviarMensajeAgendamiento(Sesion.obtenerSesion());
-//
-//                    FacesMessage fmsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Pedido Registrado Exitosamente", "");
-//                    FacesContext.getCurrentInstance().addMessage(null, fmsg);
-//                }
-//            } else {
-//                CorreoDao correoDao = new CorreoDao();
-//                correoDao.enviarMensajeAgendamiento(Sesion.obtenerSesion());
-//
-//                FacesMessage fmsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Pedido Registrado Exitosamente", "");
-//                FacesContext.getCurrentInstance().addMessage(null, fmsg);
-//            }
-            
-            CorreoDao correoDao = new CorreoDao();
-            correoDao.enviarMensajeAgendamiento(Sesion.obtenerSesion());
+            if (pedido.getFormaPago().getIdFormaPago() == 3) {
+                transaccion.getPurchaseData().setPurchaseCode("" + pedido.getIdPedido());
+                transaccion.getPurchaseData().setTotalAmount("" + Redondear.redondear(pedido.getCosto(), 0));
 
-            FacesMessage fmsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Pedido Registrado Exitosamente", "");
-               FacesContext.getCurrentInstance().addMessage(null, fmsg);
+                transaccion.getBilling().setNames(pedido.getUsuario().getNombre());
+                transaccion.getBilling().setLastNames(pedido.getUsuario().getApellido());
+                transaccion.getBilling().setGender(pedido.getUsuario().getGenero());
+                transaccion.getBilling().setNumberIdentifier(pedido.getUsuario().getIdentificacion());
+
+                transaccion.getAddressData().setAddress(pedido.getUsuario().getDireccion());
+                transaccion.getAddressData().setCity(pedido.getUsuario().getCiudad().getNombre());
+                transaccion.getAddressData().setCellPhoneNumber(pedido.getUsuario().getMovil());
+                transaccion.getAddressData().setEmail(pedido.getUsuario().getEmail());
+                transaccion.getAddressData().setPhoneNumber(pedido.getUsuario().getTelefono());
+
+                transaccion.getBilling().setAddress(transaccion.getAddressData());
+
+                transaccion.getShipping().setAddress(transaccion.getAddressData());
+                transaccion.getShipping().setNames(pedido.getUsuario().getNombre());
+                transaccion.getShipping().setLastNames(pedido.getUsuario().getApellido());
+                transaccion.getShipping().setNumberIdentifier(pedido.getUsuario().getIdentificacion());
+
+                r = transaccionDao.realizarTransaccion(transaccion);
+                if (r == 0) {
+                    //Se envia correo a cliente confirmando su pedido
+                    CorreoDao correoDao = new CorreoDao();
+                    correoDao.enviarMensajeAgendamiento(Sesion.obtenerSesion());
+
+                    FacesMessage fmsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Pedido Registrado Exitosamente", "");
+                    FacesContext.getCurrentInstance().addMessage(null, fmsg);
+                }
+            } else {
+                CorreoDao correoDao = new CorreoDao();
+                correoDao.enviarMensajeAgendamiento(Sesion.obtenerSesion());
+
+                FacesMessage fmsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Pedido Registrado Exitosamente", "");
+                FacesContext.getCurrentInstance().addMessage(null, fmsg);
+            }
+            
+//            CorreoDao correoDao = new CorreoDao();
+//            correoDao.enviarMensajeAgendamiento(Sesion.obtenerSesion());
+//
+//            FacesMessage fmsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Pedido Registrado Exitosamente", "");
+//               FacesContext.getCurrentInstance().addMessage(null, fmsg);
         }
         //Reiniciamos variables
         pedido = new Pedido_TO();

@@ -82,8 +82,8 @@ public class PedidoDao {
     }
 
     public Pedido_TO consultarPedido(Pedido_TO pedido) {
-        ClienteConsultarPedido cliente = new ClienteConsultarPedido();
-        return cliente.consultarPedido(Pedido_TO.class, "" + pedido.getIdPedido());
+        ClienteConsultarPedidoWeb cliente = new ClienteConsultarPedidoWeb();
+        return cliente.consultarPedidoWeb(Pedido_TO.class, "" + pedido.getIdPedido());
     }
 
     public Pedido_TO consultarPedidoWeb(Pedido_TO pedido) {

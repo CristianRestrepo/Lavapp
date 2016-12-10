@@ -402,9 +402,6 @@
                                                             </h:inputText>
                                                             <p:message for="txtEmail"/>  
                                                         </div>
-
-
-
                                                     </div>                                                    
                                                 </div><!-- fin columnas -->
 
@@ -429,9 +426,70 @@
                                                                     </h4>
                                                                 </div>
                                                                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                                                                    <div class="container-fluid">
-                                                                        <!-- fragmento 2 -->
+                                                                    <div class="container-fluid">                                                                      <!-- fragmento 2 -->
+                                                                     
 
+                                                                        <div class="form-grup">
+                                                                            <label for="" class="label-lv-2">Franquicia</label>
+                                                                            <h:selectOneMenu id="SMFranquicia" value="#{pedidoCT.transaccion.cardData.brand}" class="form-control input-lg input-lg-lv" required="true" requiredMessage="Seleccione Franquicia">
+                                                                                <f:selectItem itemLabel="Selececcione franquicia" noSelectionOption="true"/>
+                                                                                <f:selectItem itemValue="VISA" itemLabel="VISA"/>
+                                                                                <f:selectItem itemValue="MASTERCARD" itemLabel="MASTERCARD"/>
+                                                                            </h:selectOneMenu>
+                                                                            <p:message for="SMFranquicia"/>  
+                                                                        </div>
+
+                                                                        <div class="form-grup">
+                                                                            <label for="" class="label-lv-2">Numero de tarjeta</label>
+                                                                            <h:inputText id="txtNumTarjeta" value="#{pedidoCT.transaccion.cardData.number}" class="form-control input-lg input-lg-lv">
+                                                                                <f:passThroughAttribute name="placeholder" value="Numero de tarjeta"/>
+                                                                            </h:inputText>
+                                                                            <p:message for="txtNumTarjeta"/>  
+                                                                        </div>    
+                                                                        
+                                                                        <div class="form-grup">
+                                                                            <label for="" class="label-lv-2">Diferir a:</label>
+                                                                            <h:inputText id="txtNumCuotas" value="#{pedidoCT.transaccion.purchaseData.quotaId}" class="form-control input-lg input-lg-lv">
+                                                                                <f:passThroughAttribute name="placeholder" value="Numero de cuotas"/>
+                                                                            </h:inputText>
+                                                                            <p:message for="txtNumCuotas"/>  
+                                                                        </div> 
+
+                                                                        <div class="row">
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label class="label-lv-2" for="">Mes</label>
+                                                                                    <h:selectOneMenu id="SMMes" value="#{pedidoCT.transaccion.cardData.expiryMonth}" class="form-control input-lg input-lg-lv" required="true" requiredMessage="Seleccione Mes">
+                                                                                        <f:selectItem noSelectionOption="true" itemLabel="Seleccione Mes"/>
+                                                                                        <f:selectItem itemLabel="Enero" itemValue="01"/>
+                                                                                        <f:selectItem itemLabel="Febrero" itemValue="02"/>   
+                                                                                        <f:selectItem itemLabel="Marzo" itemValue="03"/>   
+                                                                                        <f:selectItem itemLabel="Abril" itemValue="04"/>   
+                                                                                        <f:selectItem itemLabel="Mayo" itemValue="05"/>   
+                                                                                        <f:selectItem itemLabel="Junio" itemValue="06"/>   
+                                                                                        <f:selectItem itemLabel="Julio" itemValue="07"/>   
+                                                                                        <f:selectItem itemLabel="Agosto" itemValue="08"/>   
+                                                                                        <f:selectItem itemLabel="Septiembre" itemValue="09"/>   
+                                                                                        <f:selectItem itemLabel="Octubre" itemValue="10"/>   
+                                                                                        <f:selectItem itemLabel="Noviembre" itemValue="11"/>   
+                                                                                        <f:selectItem itemLabel="Diciembre" itemValue="12"/>   
+                                                                                    </h:selectOneMenu>
+                                                                                    <p:message for="SMMes"/>  
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label class="label-lv-2" for="">Año</label>
+                                                                                    <h:inputText id="txtanio" required="true" value="#{pedidoCT.transaccion.cardData.expiryYear}" requiredMessage="Indique numero de cedula" class="input-lg form-control input-lg-lv" >
+                                                                                        <f:passThroughAttribute name="placeholder" value="Celular"/>
+                                                                                    </h:inputText>
+                                                                                    <p:message for="txtanio"/>  
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <p:separator/>
                                                                         <div style="width: 50%">
                                                                             <p:commandButton process="@this" onclick="PrimeFaces.monitorDownload(start, stop);" oncomplete="#{subProductoCT.limpiarListasProductos()}" update=":formularioContenido :formularioModal" action="#{pedidoCT.registrarPedido()}" value="PAGAR" class="btn btn-block btn-success">
                                                                                 <f:setPropertyActionListener target="#{pedidoCT.pedido.formaPago.idFormaPago}" value="3" />
