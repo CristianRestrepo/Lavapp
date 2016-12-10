@@ -9,9 +9,7 @@ import com.planit.lavappweb.modelo.dto.Producto_TO;
 import com.planit.lavappweb.modelo.dto.Promocion_TO;
 import com.planit.lavappweb.modelo.dto.SubProducto_TO;
 import com.planit.lavappweb.webservices.clientes.ClienteAsociarPromocionSubProducto;
-import com.planit.lavappweb.webservices.clientes.ClienteConsultarPromocionSubProductoYaAsociada;
-
-
+import com.planit.lavappweb.webservices.clientes.ClienteConsultarPromocionSubproductoYaAsociada;
 import com.planit.lavappweb.webservices.clientes.ClienteConsultarSubProductosSegunPromocion;
 import com.planit.lavappweb.webservices.clientes.ClienteEliminarAsociacionPromocionSubProducto;
 import java.util.ArrayList;
@@ -35,7 +33,7 @@ public class PromocionSubproductoDao {
     }
 
     public int consultarSubProductoAsociado(Promocion_TO promocion, SubProducto_TO subProducto) {
-        ClienteConsultarPromocionSubProductoYaAsociada cliente = new ClienteConsultarPromocionSubProductoYaAsociada();
+        ClienteConsultarPromocionSubproductoYaAsociada cliente = new ClienteConsultarPromocionSubproductoYaAsociada();
         return cliente.consultarPromocionSubProductoYaAsociada(int.class, "" + promocion.getIdPromocion(), "" + subProducto.getIdSubProducto());
     }
     

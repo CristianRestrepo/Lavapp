@@ -326,8 +326,13 @@ public class PedidoCT implements Serializable {
 //                FacesMessage fmsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Pedido Registrado Exitosamente", "");
 //                FacesContext.getCurrentInstance().addMessage(null, fmsg);
 //            }
-        }
+            
+            CorreoDao correoDao = new CorreoDao();
+            correoDao.enviarMensajeAgendamiento(Sesion.obtenerSesion());
 
+            FacesMessage fmsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Pedido Registrado Exitosamente", "");
+               FacesContext.getCurrentInstance().addMessage(null, fmsg);
+        }
         //Reiniciamos variables
         pedido = new Pedido_TO();
         subproductos = new ArrayList<>();

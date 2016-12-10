@@ -342,6 +342,7 @@
                                                             <h2 class="txt-title-form">Detalles del Contacto</h2>							
                                                         </div>
 
+                                                        <!-- fragmento 1 -->
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
@@ -401,6 +402,9 @@
                                                             </h:inputText>
                                                             <p:message for="txtEmail"/>  
                                                         </div>
+
+
+
                                                     </div>                                                    
                                                 </div><!-- fin columnas -->
 
@@ -426,68 +430,12 @@
                                                                 </div>
                                                                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                                                     <div class="container-fluid">
-                                                                        <div class="form-group">
-                                                                            <div class="form-grup">
-                                                                                <label class="label-lv-2" for="">Número de Tarjeta</label>
-                                                                                <h:inputText id="txtnumero" required="true" requiredMessage="indique numero de tarjeta" class="input-lg form-control input-lg-lv">
-                                                                                    <f:passThroughAttribute name="placeholder" value="Numero de cuenta"/>
-                                                                                </h:inputText>
-                                                                                <p:message for="txtnumero"/>
-                                                                            </div>
+                                                                        <!-- fragmento 2 -->
 
-                                                                            <div class="form-grup">
-                                                                                <label for="" class="label-lv-2">Franquicia de la tarjeta</label>
-                                                                                <h:selectOneMenu id="SMFranquicia" required="true" requiredMessage="Seleccione Franquicia"  class="input-lg form-control input-lg-lv">
-                                                                                    <f:selectItem itemLabel="Seleccione Franquicia" noSelectionOption="true"/>
-                                                                                    <f:selectItem itemLabel="VISA" itemValue="VISA" />
-                                                                                    <f:selectItem itemLabel="MASTERCARD"  itemValue="MASTERCARD"/>
-                                                                                </h:selectOneMenu>
-                                                                                <p:message for="SMFranquicia"/>
-                                                                            </div>
-
-                                                                            <label class="label-lv-2" >Fecha de Expiración</label>
-                                                                            <div class="row">
-                                                                                <div class="col-sm-12-col-xs-12">
-                                                                                    <div class="col-xs-6">
-                                                                                        <label class="label-lv-2" for="">Año</label>
-                                                                                        <h:inputText id="txtanio"  required="true" requiredMessage="Seleccione Año"  class="input-lg form-control input-lg-lv"/>
-                                                                                        <p:message for="txtanio"/>                                                                                      
-                                                                                    </div>
-
-                                                                                    <div class="col-xs-6">
-                                                                                        <label class="label-lv-2" for="">Mes</label>
-                                                                                        <h:selectOneMenu id="SMMes" required="true" requiredMessage="Seleccione Mes"  class="input-lg form-control input-lg-lv">
-                                                                                            <f:selectItem noSelectionOption="true" itemLabel="Seleccione Mes"/>
-                                                                                            <f:selectItem itemLabel="Enero" itemValue="1"/>
-                                                                                            <f:selectItem itemLabel="Febrero" itemValue="2"/>   
-                                                                                            <f:selectItem itemLabel="Marzo" itemValue="3"/>   
-                                                                                            <f:selectItem itemLabel="Abril" itemValue="4"/>   
-                                                                                            <f:selectItem itemLabel="Mayo" itemValue="5"/>   
-                                                                                            <f:selectItem itemLabel="Junio" itemValue="6"/>   
-                                                                                            <f:selectItem itemLabel="Julio" itemValue="7"/>   
-                                                                                            <f:selectItem itemLabel="Agosto" itemValue="8"/>   
-                                                                                            <f:selectItem itemLabel="Septiembre" itemValue="9"/>   
-                                                                                            <f:selectItem itemLabel="Octubre" itemValue="10"/>   
-                                                                                            <f:selectItem itemLabel="Noviembre" itemValue="11"/>   
-                                                                                            <f:selectItem itemLabel="Diciembre" itemValue="12"/>   
-                                                                                        </h:selectOneMenu>
-                                                                                        <p:message for="SMMes"/>
-                                                                                    </div>                                                                                  
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="form-grup">
-                                                                                <label class="label-lv-2" for="">Número de cuotas</label>
-                                                                                <p:inputMask id="txtcuotas" mask="999" maxlength="3" required="true" requiredMessage="indique numero de tarjeta" class="input-lg form-control input-lg-lv"/>
-                                                                                <p:message for="txtcuotas"/>
-                                                                            </div>
-
-                                                                            <p:separator/>
-                                                                            <div style="width: 50%">
-                                                                                <p:commandButton process="@this" onclick="PrimeFaces.monitorDownload(start, stop);" oncomplete="#{subProductoCT.limpiarListasProductos()}" update=":formularioContenido :formularioModal" action="#{pedidoCT.registrarPedido()}" value="PAGAR" class="btn btn-block btn-success">
-                                                                                    <f:setPropertyActionListener target="#{pedidoCT.pedido.formaPago.idFormaPago}" value="3" />
-                                                                                </p:commandButton>
-                                                                            </div>
+                                                                        <div style="width: 50%">
+                                                                            <p:commandButton process="@this" onclick="PrimeFaces.monitorDownload(start, stop);" oncomplete="#{subProductoCT.limpiarListasProductos()}" update=":formularioContenido :formularioModal" action="#{pedidoCT.registrarPedido()}" value="PAGAR" class="btn btn-block btn-success">
+                                                                                <f:setPropertyActionListener target="#{pedidoCT.pedido.formaPago.idFormaPago}" value="3" />
+                                                                            </p:commandButton>
                                                                         </div>
                                                                     </div>  
                                                                 </div>
